@@ -1,0 +1,54 @@
+
+[user]
+  name = YuIzawa
+  email = yuizalp@gmail.com
+[filter "lfs"]
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = nvim
+[color]
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+  ui = auto
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[alias]
+  g = git
+  a = add
+  ad = "add ."
+  ap = add -p
+  br = branch
+  c = commit
+  gr = grep
+  l = log --graph --decorate --all
+  lo = log --graph --decorate --all --oneline
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  st = status
+  ps = push
+  pl = pull
+  o = origin
+  m = master
+  d = diff
+  dh = diff HEAD
+  dhh = diff HEAD~ HEAD
+  dhhh = diff HEAD~~ HEAD~
+  ch = checkout
+  mg = merge
+  cl = clone
+  stashs = stash save
+  stashp = stash pop
+  stashl = stash list
+[ui]
+  color = auto
+[push]
+  default = simple
