@@ -3,7 +3,7 @@ ZSH_THEME="agnoster"
 
 #plugins
 plugins=(git ruby osx bundler brew emoji-clock sublime)
-#
+
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -22,3 +22,6 @@ alias vi=vim
 alias dc=cd
 
 source $ZSH/oh-my-zsh.sh
+
+# path
+export PYENV_ROOT=/usr/local/var/pyenv
