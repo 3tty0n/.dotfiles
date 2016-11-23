@@ -42,6 +42,8 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
+Plug 'ensime/ensime-vim'
+Plug 'derekwyatt/vim-scala'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -334,6 +336,8 @@ augroup vimrc-make-cmake
   autocmd FileType make setlocal noexpandtab
   autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
+
+autocmd BufWritePost *.scala silent :EnTypeCheck
 
 set autoread
 
