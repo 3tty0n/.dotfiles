@@ -42,7 +42,6 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
-Plug 'ensime/ensime-vim'
 Plug 'derekwyatt/vim-scala'
 
 let g:make = 'gmake'
