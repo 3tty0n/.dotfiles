@@ -1,5 +1,5 @@
 [user]
-  name = YuIzawa
+  name = Yusuke Izawa
   email = yuizalp@gmail.com
 [filter "lfs"]
   clean = git lfs clean %f
