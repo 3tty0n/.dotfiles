@@ -1,0 +1,28 @@
+- hosts: localhost
+  connection: local
+  sudo: no
+  roles:
+    - homebrew
+    - homebrew-cask
+  vars:
+    homebrew_repositories:
+    homebrew_packages:
+      - readline
+      - openssl
+      - { name: openssl, state: linked, install_options: force }
+      - ansible
+      - zsh
+      - vim
+      - git
+      - rbenv
+      - ruby-build
+      - pyenv
+      - scala
+      - sbt
+
+    homebrew_cask_repositories:
+      - google-chrome
+      - google-japanese-ime
+      - intellij-idea
+      - slack
+      - atom
