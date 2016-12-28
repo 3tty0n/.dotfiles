@@ -1,4 +1,5 @@
 tap 'caskroom/cask'
+# brew install
 brew 'ansible'
 brew 'apache-spark'
 brew 'doxygen'
@@ -28,7 +29,10 @@ brew 'typesafe-activator'
 brew 'vim'
 brew 'wget'
 brew 'zsh'
-
+# brew cask
+cask 'atom'
+cask 'alfread'
 cask 'google-chrome'
 cask 'slack'
 cask 'sublime-text'
+cask 'item2'
