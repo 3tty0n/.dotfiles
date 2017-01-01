@@ -45,6 +45,7 @@ Plug 'avelino/vim-bootstrap-updater'
 Plug 'derekwyatt/vim-scala'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'terryma/vim-multiple-cursors'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
