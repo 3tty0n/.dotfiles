@@ -30,6 +30,12 @@ Icon?
 *.blg
 *.out
 *.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# python
+__pycache__/
 
 # sbt specific
 .cache
