@@ -21,6 +21,7 @@ setopt list_types
 alias vi=vim
 alias dc=cd
 alias rm='rm -rf'
+alias lsa='ls -a'
 alias scala='scala -Dscala.color'
 
 source $ZSH/oh-my-zsh.sh
