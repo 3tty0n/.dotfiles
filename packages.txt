@@ -1,0 +1,16 @@
+argh==0.26.2
+cycler==0.10.0
+matplotlib==1.5.3
+numpy==1.11.3
+pandas==0.19.1
+pathtools==0.1.2
+pyparsing==2.1.10
+python-dateutil==2.6.0
+pytz==2016.10
+PyYAML==3.12
+sexpdata==0.0.3
+six==1.10.0
+statsmodels==0.6.1
+virtualenv==15.1.0
+watchdog==0.8.3
+websocket-client==0.37.0
