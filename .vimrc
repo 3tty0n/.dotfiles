@@ -46,6 +46,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'ensime/ensime-vim'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -148,9 +149,9 @@ set ttyfast
 set backspace=indent,eol,start
 
 "" Tabs. May be overriten by autocmd rules
-set tabstop=4
+set tabstop=2
 set softtabstop=0
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
 
 "" Map leader to ,
