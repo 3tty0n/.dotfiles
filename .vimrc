@@ -47,6 +47,9 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ensime/ensime-vim'
+Plug 'maverickg/stan.vim'
+
+nnoremap <localleader>t :EnTypeCheck<CR>
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
