@@ -20,6 +20,8 @@ brew 'vim', args: ['with-lua']
 brew 'wget'
 brew 'zsh'
 cask 'atom'
+cask 'alfread'
+cask 'cmd-eikana'
 cask 'dropbox'
 cask 'evernote'
 cask 'google-chrome'

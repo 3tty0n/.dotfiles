@@ -88,7 +88,9 @@ brew 'homebrew/python/numpy', args: ['with-python3']
 brew 'homebrew/science/opencv3', args: ['HEAD', 'with-python3']
 brew 'homebrew/science/r'
 cask '1password'
+cask 'alfred'
 cask 'atom'
+cask 'cmd-eikana'
 cask 'docker'
 cask 'dropbox'
 cask 'evernote'
