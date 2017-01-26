@@ -1,6 +1,6 @@
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 mv Brewfile _Brewfile
-mv Brewfile-mini Brewfile
+mv miniBrewfile Brewfile
 brew tap Homebrew/bundle
 brew bundle
 ln -s ~/.dotfiles/.vimrc ~/.vimrc
