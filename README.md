@@ -5,7 +5,7 @@
 ```bash
 $ git clone git@github.com:3tty0n/mini-dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ ./install.sh
+$ make
 ```
 
 ## Minimal Install
@@ -13,7 +13,7 @@ $ ./install.sh
 ```bash
 $ git clone git@github.com:3tty0n/mini-dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ ./install-mini.sh
+$ make build.mini
 ```
 
 ## Brewfile

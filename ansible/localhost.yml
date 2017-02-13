@@ -1,0 +1,143 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  sudo: no
+  vars:
+    homebrew_taps:
+      - caskroom/cask
+      - caskroom/versions
+      - homebrew/brewdler
+      - homebrew/bundle
+      - homebrew/core
+      - homebrew/python
+      - homebrew/science
+      - homebrew/versions
+    homebrew_packages:
+      - { name: apache-spark }
+      - { name: autoconf }
+      - { name: cairo }
+      - { name: cmake }
+      - { name: cscope }
+      - { name: czmq }
+      - { name: dirmngr }
+      - { name: doxygen }
+      - { name: eigen }
+      - { name: elixir }
+      - { name: elm }
+      - { name: erlang }
+      - { name: fontconfig }
+      - { name: freetype }
+      - { name: gcc }
+      - { name: gdbm }
+      - { name: gettext }
+      - { name: ghostscript }
+      - { name: git }
+      - { name: glib }
+      - { name: gmp }
+      - { name: gnupg2 }
+      - { name: gpg-agent }
+      - { name: ilmbase }
+      - { name: imagemagick }
+      - { name: isl }
+      - { name: jpeg }
+      - { name: libassuan }
+      - { name: libevent }
+      - { name: libffi }
+      - { name: libgcrypt }
+      - { name: libgpg-error }
+      - { name: libksba }
+      - { name: libmpc }
+      - { name: libpng }
+      - { name: libtiff }
+      - { name: libtool }
+      - { name: libusb }
+      - { name: libusb-compat }
+      - { name: libxml2 }
+      - { name: libyaml }
+      - { name: little-cms2 }
+      - { name: lua }
+      - { name: mpfr }
+      - { name: nkf }
+      - { name: node }
+      - { name: numpy }
+      - { name: opencv3 }
+      - { name: openexr }
+      - { name: openssl }
+      - { name: pandoc }
+      - { name: pcre }
+      - { name: pinentry }
+      - { name: pixman }
+      - { name: pkg-config }
+      - { name: postgresql }
+      - { name: pth }
+      - { name: pyenv }
+      - { name: pyenv-virtualenv }
+      - { name: python }
+      - { name: r }
+      - { name: rbenv }
+      - { name: readline }
+      - { name: reattach-to-user-namespace }
+      - { name: ruby-build }
+      - { name: sbt }
+      - { name: scala }
+      - { name: scalariform }
+      - { name: sqlite }
+      - { name: tmux }
+      - { name: tree }
+      - { name: typesafe-activator }
+      - { name: vim }
+      - { name: wget }
+      - { name: wxmac }
+      - { name: xz }
+      - { name: zeromq }
+      - { name: zsh }
+    homebrew_cask_packages:
+       - { name: 1password }
+       - { name: alfred }
+       - { name: atom }
+       - { name: cmd-eikana }
+       - { name: docker }
+       - { name: dropbox }
+       - { name: evernote }
+       - { name: firefox }
+       - { name: google-drive }
+       - { name: iterm2 }
+       - { name: java }
+       - { name: mactex }
+       - { name: rstudio }
+       - { name: slack }
+       - { name: spotify }
+       - { name: sublime-text }
+  tasks:
+    - name: add homebrew tap repositories
+      homebrew_tap: tap={{ item }} state=present
+      with_items: "{{homebrew_taps}}"
+
+    # update homebrew
+    - name: update homebrew
+      homebrew: update_homebrew=yes
+
+    - name: install brew packages
+      homebrew: >
+        name={{ item.name }}
+        state={{ item.state | default('latest') }}
+        install_options={{
+          item.install_options | default() | join(',')
+          if item.install_options is not string
+          else item.install_options
+        }}
+      with_items: "{{homebrew_packages}}"
+      register: brew_result
+
+    - name: install homebrew-cask
+      homebrew: name=brew-cask state=latest
+
+    - name: install cask packages
+      homebrew_cask: name={{ item.name }} state={{ item.state|default('installed') }}
+      with_items: "{{homebrew_cask_packages}}"
+      register: cask_result
+
+    - name: install oh-my-zsh
+      shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+      args:
+        creates: ~/.oh-my-zsh/
