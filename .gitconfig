@@ -29,9 +29,9 @@
   br = branch
   c = commit
   gr = grep
-  l = log --graph --decorate --all
-  lo = log --graph --decorate --all --oneline
-  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  l = log --graph --decorate --all --branches
+  lo = log --graph --decorate --all --oneline --branches
+  graph = log --graph --branches --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   st = status
   ps = push
   pl = pull
