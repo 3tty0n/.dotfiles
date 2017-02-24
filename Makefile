@@ -4,6 +4,11 @@ build:
 	brew tap Homebrew/bundle
 	brew bundle
 	rm Brewfile
+
+oh-my-zsh:
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+symlink:
 	ln -s ~/.dotfiles/.vimrc ~/.vimrc
 	ln -s ~/.dotfiles/.zshrc ~/.zshrc
 	ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
@@ -13,15 +18,6 @@ build:
 
 build.mini:
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	cp ./brew/Brewfile-mini .
-	mv Brewfile-mini Brewfile
+	cp ./brew/Brewfile-mini ./Brewfile
 	brew tap Homebrew/bundle
 	brew bundle
-	rm Brewfile
-	ln -s ~/.dotfiles/.vimrc ~/.vimrc
-	ln -s ~/.dotfiles/.zshrc ~/.zshrc
-	ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
-	ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
-	ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
-	ln -s ~/.dotfiles/.irbrc ~/.irbrc
-	

@@ -1,8 +1,9 @@
-export ZSH=/Users/izawa/.oh-my-zsh
+USR=whoami
+export ZSH=/$USR/micchon1/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 #plugins
-plugins=(git ruby osx bundler brew emoji-clock sublime)
+plugins=(git theme ruby osx bundler brew emoji-clock sublime)
 
 # internal settings
 setopt auto_menu
