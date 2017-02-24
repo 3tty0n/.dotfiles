@@ -5,7 +5,7 @@
 ```bash
 $ git clone git@github.com:3tty0n/mini-dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ make
+$ ./install.sh
 ```
 
 ## Minimal Install
