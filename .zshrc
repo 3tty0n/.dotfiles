@@ -1,3 +1,5 @@
+#!/bin/bash
+source $HOME/.dotfiles/sshagent.sh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 
