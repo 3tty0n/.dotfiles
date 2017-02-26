@@ -1,9 +1,9 @@
-# mini-dotfiles
+# .dotfiles
 
 ## Install
 
 ```bash
-$ git clone git@github.com:3tty0n/mini-dotfiles.git ~/.dotfiles
+$ git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ ./install.sh
 ```
@@ -11,7 +11,7 @@ $ ./install.sh
 ## Minimal Install
 
 ```bash
-$ git clone git@github.com:3tty0n/mini-dotfiles.git ~/.dotfiles
+$ git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ make build.mini
 ```
