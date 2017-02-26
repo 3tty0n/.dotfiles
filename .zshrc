@@ -1,5 +1,5 @@
-USR=whoami
-export ZSH=/$USR/micchon1/.oh-my-zsh
+USR=`whoami`
+export ZSH=/Users/$USR/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 #plugins
