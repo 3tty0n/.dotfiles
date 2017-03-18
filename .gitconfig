@@ -45,3 +45,5 @@
   color = auto
 [push]
   default = simple
+[rebase]
+  autostash = true
