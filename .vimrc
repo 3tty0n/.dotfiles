@@ -46,10 +46,12 @@ Plug 'derekwyatt/vim-scala'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ensime/ensime-vim'
 Plug 'maverickg/stan.vim'
+Plug 'jceb/vim-orgmode'
 
 nnoremap <localleader>t :EnTypeCheck<CR>
+" vim org-mode
+filetype plugin indent on
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -98,7 +100,7 @@ Plug 'pbrisbin/vim-syntax-shakespeare'
 
 " html
 "" HTML Bundle
-Plug 'amirh/HTML-AutoCloseTag'
+Plug 'alvan/vim-closetag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
@@ -418,6 +420,9 @@ let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_disabled_filetypes=['tex', 'scala']
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
