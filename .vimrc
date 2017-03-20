@@ -48,6 +48,11 @@ Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maverickg/stan.vim'
 Plug 'jceb/vim-orgmode'
+Plug 'lervag/vimtex'
+Plug 'thinca/vim-quickrun'
+Plug 'Shougo/neocomplete.vim'
+
+source ~/.dotfiles/vim/neocomplete.vim
 
 nnoremap <localleader>t :EnTypeCheck<CR>
 " vim org-mode
@@ -216,7 +221,7 @@ else
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
 
-  
+
   if $COLORTERM == 'gnome-terminal'
     set term=gnome-256color
   else
@@ -224,7 +229,7 @@ else
       set term=xterm-256color
     endif
   endif
-  
+
 endif
 
 
@@ -467,6 +472,29 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 
+"" Moving on line
+inoremap <C-e> <Esc>$a
+inoremap <C-a> <Esc>^a
+noremap  <C-e> <Esc>$a
+noremap  <C-a> <Esc>^a
+
+"" LaTeX
+nnoremap <Down> gj
+nnoremap <Up>   gk
+set showbreak=↪
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+"" Commands when you are using Japanese IME(Needs Enter key)
+nnoremap あ a
+nnoremap い i
+nnoremap う u
+nnoremap お o
+nnoremap っd dd
+nnoremap っy yy
+nnoremap っy yy
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
