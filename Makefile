@@ -15,8 +15,8 @@ symlink:
 	ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 	ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
 	ln -s ~/.dotfiles/.irbrc ~/.irbrc
-	mkdir -p ~/.vim/ftplugin
-	ln -s ~/.dotfiles/vim/ftplugin/tex_quickrin.vim ~/.vim/ftplugin/tex_quickrin.vim
+	ln -s ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
+	ln -s ~/.dotfiles/vim/snippets ~/.vim/snippets
 
 build.mini:
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
