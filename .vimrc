@@ -23,6 +23,15 @@ endif
 call plug#begin(expand('~/.vim/plugged'))
 
 "*****************************************************************************
+"" External Settings
+"*****************************************************************************
+
+source ~/.dotfiles/vim/neocomplete.vim
+source ~/.dotfiles/vim/neosnippets.vim
+source ~/.dotfiles/vim/latex_settings.vim
+source ~/.dotfiles/vim/japanese_ime_settings.vim
+
+"*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
 Plug 'scrooloose/nerdtree'
@@ -50,9 +59,6 @@ Plug 'maverickg/stan.vim'
 Plug 'jceb/vim-orgmode'
 Plug 'lervag/vimtex'
 Plug 'thinca/vim-quickrun'
-Plug 'Shougo/neocomplete.vim'
-
-source ~/.dotfiles/vim/neocomplete.vim
 
 nnoremap <localleader>t :EnTypeCheck<CR>
 " vim org-mode
@@ -478,23 +484,6 @@ inoremap <C-a> <Esc>^a
 noremap  <C-e> <Esc>$a
 noremap  <C-a> <Esc>^a
 
-"" LaTeX
-nnoremap <Down> gj
-nnoremap <Up>   gk
-set showbreak=↪
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
-
-"" Commands when you are using Japanese IME(Needs Enter key)
-nnoremap あ a
-nnoremap い i
-nnoremap う u
-nnoremap お o
-nnoremap っd dd
-nnoremap っy yy
-nnoremap っy yy
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
@@ -654,4 +643,3 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
-
