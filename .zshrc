@@ -1,5 +1,4 @@
 #!/bin/bash
-source $HOME/.dotfiles/sshagent.sh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 
@@ -26,7 +25,10 @@ alias rm='rm -rf'
 alias lsa='ls -a'
 alias scala='scala -Dscala.color'
 
+# external settings
 source $ZSH/oh-my-zsh.sh
+source $HOME/.dotfiles/sshagent.sh
+source $HOME/.dotfiles/tmux/tmux.sh
 
 # path
 export PYENV_ROOT="/usr/local/var/pyenv"
