@@ -30,6 +30,7 @@ source ~/.dotfiles/vim/neocomplete.vim
 source ~/.dotfiles/vim/neosnippets.vim
 source ~/.dotfiles/vim/latex_settings.vim
 source ~/.dotfiles/vim/japanese_ime_settings.vim
+source ~/.dotfiles/vim/ensime.vim
 
 "*****************************************************************************
 "" Plug install packages
