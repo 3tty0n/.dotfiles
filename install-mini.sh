@@ -1,5 +1,5 @@
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-cp ./brew/Brewfile .
+cp ./brew/Brewfile-mini ./Brewfile
 brew tap Homebrew/bundle
 brew bundle
 rm Brewfile

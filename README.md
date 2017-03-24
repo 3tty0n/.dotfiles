@@ -13,7 +13,7 @@ cd ~/.dotfiles
 ```bash
 git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-make build.mini
+./install-mini.sh
 ```
 
 ## Brewfile
