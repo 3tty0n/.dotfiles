@@ -28,7 +28,7 @@ alias scala='scala -Dscala.color'
 # external settings
 source $ZSH/oh-my-zsh.sh
 source $HOME/.dotfiles/sshagent.sh
-source $HOME/.dotfiles/tmux/tmux.sh
+# source $HOME/.dotfiles/tmux/tmux.sh
 
 # path
 export PYENV_ROOT="/usr/local/var/pyenv"
