@@ -26,11 +26,12 @@ call plug#begin(expand('~/.vim/plugged'))
 "" External Settings
 "*****************************************************************************
 
-source ~/.dotfiles/vim/neocomplete.vim
-source ~/.dotfiles/vim/neosnippets.vim
-source ~/.dotfiles/vim/latex_settings.vim
-source ~/.dotfiles/vim/japanese_ime_settings.vim
-source ~/.dotfiles/vim/ensime.vim
+source ~/.dotfiles/.vim/neocomplete.vim
+source ~/.dotfiles/.vim/neosnippets.vim
+source ~/.dotfiles/.vim/latex_settings.vim
+source ~/.dotfiles/.vim/japanese_ime_settings.vim
+source ~/.dotfiles/.vim/ensime.vim
+source ~/.dotfiles/.vim/merlin.vim
 
 "*****************************************************************************
 "" Plug install packages
@@ -433,6 +434,7 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_disabled_filetypes=['tex', 'scala']
+let g:syntastic_ocaml_chekcers = ['merlin']
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
