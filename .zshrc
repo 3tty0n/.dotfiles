@@ -24,6 +24,7 @@ alias dc=cd
 alias rm='rm -rf'
 alias lsa='ls -a'
 alias scala='scala -Dscala.color'
+alias e='emacs -nw'
 
 # external settings
 source $ZSH/oh-my-zsh.sh
