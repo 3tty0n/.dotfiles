@@ -14,3 +14,7 @@ ln -s -i ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
 ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippets
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+git clone git@github.com:powerline/fonts.git
+./fonts/install.sh
+rm -rf fonts

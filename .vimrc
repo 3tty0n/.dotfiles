@@ -32,6 +32,7 @@ source ~/.dotfiles/.vim/latex_settings.vim
 source ~/.dotfiles/.vim/japanese_ime_settings.vim
 source ~/.dotfiles/.vim/ensime.vim
 source ~/.dotfiles/.vim/merlin.vim
+source ~/.dotfiles/.vim/opam_settings.vim
 
 "*****************************************************************************
 "" Plug install packages
