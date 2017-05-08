@@ -21,6 +21,7 @@ setopt nolistbeep
 setopt no_tify
 setopt list_types
 
+alias l='ls -la'
 alias vi=vim
 alias dc=cd
 alias rm='rm -rf'
