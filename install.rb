@@ -11,8 +11,8 @@ def install_homebrew
 end
 
 def install_nonascii_fonts
-  `git clone git@github.com:powerline/fonts.git \
-  ./fonts/install.sh \
+  `git clone git@github.com:powerline/fonts.git && \
+  ./fonts/install.sh && \
   rm -rf fonts`
 end
 

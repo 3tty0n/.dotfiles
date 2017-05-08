@@ -3,14 +3,20 @@ brew tap Homebrew/bundle
 brew bundle
 
 function mk_symlink() {
-	ln -s -i ~/.dotfiles/.vimrc ~/.vimrc
-	ln -s -i ~/.dotfiles/.zshrc ~/.zshrc
-	ln -s -i ~/.dotfiles/.tmux.conf ~/.tmux.conf
-	ln -s -i ~/.dotfiles/.gitconfig ~/.gitconfig
-	ln -s -i ~/.dotfiles/.gitignore_global ~/.gitignore_global
-	ln -s- i ~/.dotfiles/.irbrc ~/.irbrc
-	ln -s -i ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
-	ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippets
+  ln -s -i ~/.dotfiles/.vimrc ~/.vimrc
+  ln -s -i ~/.dotfiles/.tmux.conf ~/.tmux.conf
+  ln -s -i ~/.dotfiles/.gitconfig ~/.gitconfig
+  ln -s -i ~/.dotfiles/.gitignore_global ~/.gitignore_global
+  ln -s- i ~/.dotfiles/.irbrc ~/.irbrc
+  ln -s -i ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
+  ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippets
+}
+
+function install_zprezto() {
+  zsh
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  ln -sfi ~/.dotfiles/.zpreztorc ~/.zpreztorc
+  ln -sfi ~/.dotfiles/.zshrc ~/.zshrc
 }
 
 function install_nonascii_fonts() {
@@ -18,3 +24,6 @@ function install_nonascii_fonts() {
   ./fonts/install.sh
   rm -rf fonts
 }
+
+mk_symlink
+install_zprezto
