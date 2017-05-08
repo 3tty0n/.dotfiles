@@ -36,12 +36,7 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'homebrew' \
   'osx' \
-  'rails' \
-  'syntax-highlighting' \
-  'history-substring-search' \
-  'emacs' \
-  'tmux' \
-  'completion'
+  'syntax-highlighting'
 
 #
 # Autosuggestions
