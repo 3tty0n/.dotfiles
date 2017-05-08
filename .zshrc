@@ -1,6 +1,8 @@
 #!/bin/bash
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="agnoster"
+
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
 #plugins
 plugins=(git theme ruby osx bundler brew emoji-clock sublime)
@@ -27,9 +29,7 @@ alias scala='scala -Dscala.color'
 alias e='emacs -nw'
 
 # external settings
-source $ZSH/oh-my-zsh.sh
 source $HOME/.dotfiles/sshagent.sh
-# source $HOME/.dotfiles/tmux/tmux.sh
 
 # path
 export PYENV_ROOT="/usr/local/var/pyenv"
