@@ -29,6 +29,7 @@
   st = status
   ps = push
   pl = pull
+  plr = "pull --rebase"
   o = origin
   m = master
   d = diff
