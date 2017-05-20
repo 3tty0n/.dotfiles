@@ -31,7 +31,7 @@ alias scala='scala -Dscala.color'
 alias e='emacs -nw'
 
 # external settings
-source $HOME/.dotfiles/sshagent.sh
+# source $HOME/.dotfiles/sshagent.sh
 
 # path
 export PYENV_ROOT=$HOME/.pyenv
