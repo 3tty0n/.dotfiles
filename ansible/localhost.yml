@@ -13,6 +13,7 @@
       - homebrew/science
       - homebrew/versions
     homebrew_packages:
+      - { name: ansible }
       - { name: apache-spark }
       - { name: autoconf }
       - { name: cairo }
@@ -21,10 +22,12 @@
       - { name: czmq }
       - { name: dirmngr }
       - { name: doxygen }
+      - { name: emacs }
       - { name: eigen }
       - { name: elixir }
       - { name: elm }
       - { name: erlang }
+      - { name: fish }
       - { name: fontconfig }
       - { name: freetype }
       - { name: gcc }
@@ -91,23 +94,7 @@
       - { name: xz }
       - { name: zeromq }
       - { name: zsh }
-    homebrew_cask_packages:
-       - { name: 1password }
-       - { name: alfred }
-       - { name: atom }
-       - { name: cmd-eikana }
-       - { name: docker }
-       - { name: dropbox }
-       - { name: evernote }
-       - { name: firefox }
-       - { name: google-drive }
-       - { name: iterm2 }
-       - { name: java }
-       - { name: mactex }
-       - { name: rstudio }
-       - { name: slack }
-       - { name: spotify }
-       - { name: sublime-text }
+
   tasks:
     - name: add homebrew tap repositories
       homebrew_tap: tap={{ item }} state=present
@@ -128,16 +115,3 @@
         }}
       with_items: "{{homebrew_packages}}"
       register: brew_result
-
-    - name: install homebrew-cask
-      homebrew: name=brew-cask state=latest
-
-    - name: install cask packages
-      homebrew_cask: name={{ item.name }} state={{ item.state|default('installed') }}
-      with_items: "{{homebrew_cask_packages}}"
-      register: cask_result
-
-    - name: install oh-my-zsh
-      shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-      args:
-        creates: ~/.oh-my-zsh/
