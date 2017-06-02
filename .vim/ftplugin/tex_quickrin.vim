@@ -6,7 +6,7 @@ let g:quickrun_config['tex'] = {
 \ 'outputter/error/success' : 'null',
 \ 'outputter/error/error' : 'quickfix',
 \ 'srcfile' : expand("%"),
-\ 'cmdopt': '-p -shell-escape -xelatex',
+\ 'cmdopt': '-p -shell-escape',
 \ 'hook/sweep/files' : [
 \                      '%S:p:r.aux',
 \                      '%S:p:r.bbl',
@@ -25,7 +25,7 @@ let g:quickrun_config['tex'] = {
 let g:quickrun_config.tmptex = {
 \   'exec': [
 \           'mv %s %a/tmptex.latex',
-\           'latexmk -xelatex -shell-escape -pdfdvi -p -output-directory=%a %a/tmptex.latex',
+\           'latexmk -shell-escape -pdfdvi -p -output-directory=%a %a/tmptex.latex',
 \           ],
 \   'args' : expand("%:p:h:gs?\\\\?/?"),
 \   'outputter' : 'error',
@@ -34,7 +34,7 @@ let g:quickrun_config.tmptex = {
 \   'hook/eval/enable' : 1,
 \   'hook/eval/cd' : "%s:r",
 \
-\   'hook/eval/template' : '\documentclass[ja=standard,jafont=hiragino-pron]{bxjsarticle}'
+\   'hook/eval/template' : '\documentclass[a4paper]{jsarticle}'
 \                         .'\usepackage[dvipdfmx]{graphicx, hyperref}'
 \                         .'\usepackage{float}'
 \                         .'\usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs}'

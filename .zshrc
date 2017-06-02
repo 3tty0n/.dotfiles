@@ -35,7 +35,7 @@ alias e='emacs -nw'
 
 # path
 export PYENV_ROOT=$HOME/.pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
 export RBENV_ROOT=$HOME/.rbenv
 eval "$(pyenv virtualenv-init -)"
