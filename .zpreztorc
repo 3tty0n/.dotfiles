@@ -12,9 +12,9 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'prompt' \
   'git' \
-  'homebrew' \
   'osx' \
-  'syntax-highlighting'
+  'syntax-highlighting' \
+  'emacs'
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'emacs'
