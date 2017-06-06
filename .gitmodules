@@ -1,0 +1,6 @@
+[submodule "colors/iterm-colors"]
+	path = colors/iterm-colors
+	url = git@github.com:bahlo/iterm-colors.git
+[submodule "colors/thayer-bright-iTerm"]
+	path = colors/thayer-bright-iTerm
+	url = git@github.com:t3chnoboy/thayer-bright-iTerm.git
