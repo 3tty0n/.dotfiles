@@ -18,14 +18,12 @@ setopt nolistbeep
 setopt no_tify
 setopt list_types
 
-alias l='ls -la'
 alias vi=vim
 alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
 alias lsa='ls -a'
 alias scala='scala -Dscala.color'
-alias e='emacs -nw'
 
 # external settings
 # source $HOME/.dotfiles/sshagent.sh
@@ -37,6 +35,10 @@ eval "$(pyenv init -)"
 export RBENV_ROOT=$HOME/.rbenv
 eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init -)"
+export PATH="${HOME}/.scalaenv/bin:${PATH}"
+eval "$(scalaenv init -)"
 
 # OPAM configuration
 source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+fpath=(/usr/local/share/zsh-completions $fpath)
