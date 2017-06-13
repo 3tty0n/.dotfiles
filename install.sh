@@ -25,5 +25,9 @@ function install_nonascii_fonts() {
   rm -rf fonts
 }
 
+function mk_usr_bin() {
+  mkdir ~/bin
+}
 mk_symlink
+mk_usr_bin
 install_zprezto
