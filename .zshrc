@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -22,7 +23,6 @@ alias vi=vim
 alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
-alias lsa='ls -a'
 alias scala='scala -Dscala.color'
 
 # external settings
@@ -35,6 +35,8 @@ eval "$(pyenv init -)"
 export RBENV_ROOT=$HOME/.rbenv
 eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init -)"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export PATH="$JAVA_HOME:$PATH"
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
 eval "$(scalaenv init -)"
 
@@ -42,3 +44,7 @@ eval "$(scalaenv init -)"
 source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+function delete_dotfiles () {
+  find $1 \( -name '.DS_Store' -o -name '._*' -o -name '.apdisk' -o -name 'Thumbs.db' -o -name 'Desktop.ini' \) -delete -print;
+}
