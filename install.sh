@@ -9,7 +9,8 @@ function mk_symlink() {
   ln -s -i ~/.dotfiles/.gitignore_global ~/.gitignore_global
   ln -s- i ~/.dotfiles/.irbrc ~/.irbrc
   ln -s -i ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
-  ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippets
+  ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippetsa
+  ls -s -i ~/.dotfiles/.config/fish ~/.config/fish
 }
 
 function install_zprezto() {
