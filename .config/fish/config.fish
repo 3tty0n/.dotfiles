@@ -45,8 +45,12 @@ if test -d ~/.scalaenv
   set -x PATH $HOME/.scalaenv $PATH
 end
 
-set -U fish_user_paths $fish_user_paths $HOME/bin
+if test -d ~/bin
+  set -x PATH $HOME/bin $PATH
+end
 
 function docker-rm-all
   docker rm (docker ps -aq)
 end
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
