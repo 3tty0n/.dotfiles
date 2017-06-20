@@ -1,16 +1,33 @@
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap Homebrew/bundle
-brew bundle
+#!/bin/bash
+
+function install_brew() {
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew tap Homebrew/bundle
+  brew bundle
+}
 
 function mk_symlink() {
-  ln -s -i ~/.dotfiles/.vimrc ~/.vimrc
-  ln -s -i ~/.dotfiles/.tmux.conf ~/.tmux.conf
-  ln -s -i ~/.dotfiles/.gitconfig ~/.gitconfig
-  ln -s -i ~/.dotfiles/.gitignore_global ~/.gitignore_global
-  ln -s- i ~/.dotfiles/.irbrc ~/.irbrc
-  ln -s -i ~/.dotfies/vim/ftplugin ~/.vim/ftplugin
-  ln -s -i ~/.dotfiles/vim/snippets ~/.vim/snippetsa
-  ls -s -i ~/.dotfiles/.config/fish ~/.config/fish
+  declare -a dotfiles=()
+  declare -a dotfiles=(".vimrc", ".tmux.conf", ".gitconfig", ".gitignore_global", ".irbrc", ".latexmkrc")
+
+  declare -a vimdir=()
+  declare -a vimdir=("ftplugin", "snippets")
+
+  declare -a fishdir=()
+  declare -a fishdir=("fish")
+
+  for f in ${dotfiles[@]}; do
+    ln -si ~/.dotfiles/${f} ~/${f}
+  done
+
+  for v in ${vimdir[@]}; do
+    if [ ! -e ~/.vim ]; then
+      mkdir ~/.vim
+    fi
+    ln -si ~/.dotfiles/.vim/${v} ~/.vim/${v}
+  done
+
+  ln -si ~/.dotfiles/config/fish ~/.config/fish
 }
 
 function install_zprezto() {
@@ -29,6 +46,12 @@ function install_nonascii_fonts() {
 function mk_usr_bin() {
   mkdir ~/bin
 }
-mk_symlink
-mk_usr_bin
-install_zprezto
+
+function main() {
+  install_brew
+  mk_symlink
+  mk_usr_bin
+  install_zprezto
+}
+
+main()
