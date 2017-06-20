@@ -8,10 +8,10 @@ function install_brew() {
 
 function mk_symlink() {
   declare -a dotfiles=()
-  declare -a dotfiles=(".vimrc", ".tmux.conf", ".gitconfig", ".gitignore_global", ".irbrc", ".latexmkrc")
+  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc")
 
   declare -a vimdir=()
-  declare -a vimdir=("ftplugin", "snippets")
+  declare -a vimdir=("ftplugin" "snippets")
 
   declare -a fishdir=()
   declare -a fishdir=("fish")
