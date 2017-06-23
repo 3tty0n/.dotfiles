@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -29,16 +28,26 @@ alias scala='scala -Dscala.color'
 # source $HOME/.dotfiles/sshagent.sh
 
 # path
+# pyenv
 export PYENV_ROOT=$HOME/.pyenv
 export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
+
+# rbenv
 export RBENV_ROOT=$HOME/.rbenv
 eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init -)"
+
+# java
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export PATH="$JAVA_HOME:$PATH"
+
+# scalaenv
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
 eval "$(scalaenv init -)"
+
+# manual bin
+export PATH="${HOME}/bin:${PATH}"
 
 # OPAM configuration
 source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
