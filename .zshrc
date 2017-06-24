@@ -59,3 +59,21 @@ function delete_dotfiles () {
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# zplug
+if [[ -e ~/.zplug/init.zsh ]]; then
+  source ~/.zplug/init.zsh
+fi
+
+zplug "zsh-users/zsh-completions"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose

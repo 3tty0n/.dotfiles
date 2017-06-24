@@ -1,14 +1,21 @@
 #!/bin/bash
 
-function install_brew() {
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+function install_brew_packages() {
   brew tap Homebrew/bundle
   brew bundle
 }
 
-function mk_symlink() {
+function install() {
+  if [ ! -e /usr/local/Cellar ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  if [ ! -e ~/bin ]; then
+    mkdir ~/bin
+  fi
+
   declare -a dotfiles=()
-  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc")
+  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc")
 
   declare -a vimdir=()
   declare -a vimdir=("ftplugin" "snippets")
@@ -27,31 +34,10 @@ function mk_symlink() {
     ln -si ~/.dotfiles/.vim/${v} ~/.vim/${v}
   done
 
-  ln -si ~/.dotfiles/config/fish ~/.config/fish
+  if [ ! -e ~/.zplug ]; then
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+  fi
 }
 
-function install_zprezto() {
-  zsh
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-  ln -sfi ~/.dotfiles/.zpreztorc ~/.zpreztorc
-  ln -sfi ~/.dotfiles/.zshrc ~/.zshrc
-}
-
-function install_nonascii_fonts() {
-  git clone git@github.com:powerline/fonts.git
-  ./fonts/install.sh
-  rm -rf fonts
-}
-
-function mk_usr_bin() {
-  mkdir ~/bin
-}
-
-function main() {
-  install_brew
-  mk_symlink
-  mk_usr_bin
-  install_zprezto
-}
-
-main()
+install
+# install_brwe_packages
