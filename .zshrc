@@ -66,6 +66,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
+else
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 fi
 
 zplug "zsh-users/zsh-completions"
