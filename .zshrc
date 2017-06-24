@@ -18,11 +18,14 @@ setopt nolistbeep
 setopt no_tify
 setopt list_types
 
-alias vi=vim
+alias vi='vim'
 alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
 alias scala='scala -Dscala.color'
+
+function vimf() {  vim $(fzf) }
+function ef() { emacs -nw $(fzf) }
 
 # external settings
 # source $HOME/.dotfiles/sshagent.sh
@@ -66,6 +69,11 @@ if [[ -e ~/.zplug/init.zsh ]]; then
 fi
 
 zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-history-substring-search"
+zplug "mollifier/cd-gitroot"
+zplug "b4b4r07/enhancd", use:enhancd.sh
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
