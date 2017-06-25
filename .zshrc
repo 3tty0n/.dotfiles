@@ -58,8 +58,6 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-
 function delete_dotfiles () {
   find $1 \( -name '.DS_Store' -o -name '._*' -o -name '.apdisk' -o -name 'Thumbs.db' -o -name 'Desktop.ini' \) -delete -print;
 }
@@ -92,3 +90,7 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
+
+# ignore warnings from zsh-completions
+autoload -U compinit;
+compinit -u
