@@ -55,6 +55,9 @@ export PATH="${HOME}/bin:${PATH}"
 # OPAM configuration
 source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 function delete_dotfiles () {
