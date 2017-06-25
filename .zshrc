@@ -35,10 +35,10 @@ function ef() { emacs -nw $(fzf) }
 export PYENV_ROOT=$HOME/.pyenv
 export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # rbenv
 export RBENV_ROOT=$HOME/.rbenv
-eval "$(pyenv virtualenv-init -)"
 eval "$(rbenv init -)"
 
 # java
