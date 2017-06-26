@@ -40,4 +40,4 @@ function install() {
 }
 
 install
-# install_brwe_packages
+# install_brew_packages
