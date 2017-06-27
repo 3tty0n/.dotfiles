@@ -13,6 +13,7 @@ zplug "stedolan/jq", \
     rename-to:jq
 zplug "b4b4r07/emoji-cli", \
     on:"stedolan/jq"
+zplug "b4b4r07/zsh-gomi", if:"which fzf"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
