@@ -58,6 +58,18 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# fshow - git commit browser
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
 function delete_dotfiles () {
   find $1 \( -name '.DS_Store' -o -name '._*' -o -name '.apdisk' -o -name 'Thumbs.db' -o -name 'Desktop.ini' \) -delete -print;
 }
@@ -72,3 +84,5 @@ else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   sleep 10
 fi
+
+zstyle ':completion:*' use-cache yes
