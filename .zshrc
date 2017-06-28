@@ -24,11 +24,8 @@ alias dc=cd
 alias rm='rm -ri'
 alias scala='scala -Dscala.color'
 
-function vimf() {  vim $(fzf) }
-function ef() { emacs -nw $(fzf) }
-
-# external settings
-# source $HOME/.dotfiles/sshagent.sh
+function vimf () { vim $(fzf) }
+function ef () { emacs -nw $(fzf) }
 
 # path
 # pyenv
@@ -59,7 +56,7 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # fshow - git commit browser
-fshow() {
+function fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -80,6 +77,9 @@ function dtask () {
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# interactive completion
+source ~/.zsh/incr/incr.zsh
+
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
@@ -88,5 +88,3 @@ else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   sleep 10
 fi
-
-zstyle ':completion:*' use-cache yes
