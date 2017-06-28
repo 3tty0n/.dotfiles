@@ -74,6 +74,10 @@ function delete_dotfiles () {
   find $1 \( -name '.DS_Store' -o -name '._*' -o -name '.apdisk' -o -name 'Thumbs.db' -o -name 'Desktop.ini' \) -delete -print;
 }
 
+function dtask () {
+  date +'%Y%m%d'
+}
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # zplug
