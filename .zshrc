@@ -23,6 +23,7 @@ alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
 alias scala='scala -Dscala.color'
+alias cdu='cd-gitroot'
 
 function vimf () { vim $(fzf) }
 function ef () { emacs -nw $(fzf) }
