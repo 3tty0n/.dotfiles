@@ -1,4 +1,4 @@
-zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-completions", depth:1
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"

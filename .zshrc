@@ -63,7 +63,7 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 # [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
 # npm completion
-[ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
+# [ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
 
 # fshow - git commit browser
 function fshow() {
