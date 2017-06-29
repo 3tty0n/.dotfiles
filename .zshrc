@@ -10,6 +10,9 @@ setopt auto_cd
 setopt auto_list
 setopt auto_param_keys
 setopt auto_param_slash
+setopt auto_param_slash
+setopt list_packed
+setopt rec_exact
 setopt correct
 setopt globdots
 setopt interactive_comments
