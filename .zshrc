@@ -60,7 +60,7 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # incr
-[ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
+# [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
 # npm completion
 [ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
