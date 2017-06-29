@@ -59,6 +59,12 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# incr
+[ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
+
+# npm completion
+[ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
+
 # fshow - git commit browser
 function fshow() {
   git log --graph --color=always \
@@ -80,9 +86,6 @@ function dtask () {
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# interactive completion
-source ~/.zsh/incr/incr.zsh
 
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then

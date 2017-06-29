@@ -20,9 +20,6 @@ function install() {
   declare -a vimdir=()
   declare -a vimdir=("ftplugin" "snippets")
 
-  declare -a fishdir=()
-  declare -a fishdir=("fish")
-
   for f in ${dotfiles[@]}; do
     ln -si ~/.dotfiles/${f} ~/${f}
   done
