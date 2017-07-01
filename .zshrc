@@ -4,6 +4,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# zplug
+if [[ -e ~/.zplug/init.zsh ]]; then
+  source ~/.zplug/init.zsh
+  source ~/.zplugrc.zsh
+else
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+  sleep 10
+fi
+
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -59,6 +68,9 @@ source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# `ls` after `cd` in enhancd
+ENHANCD_HOOK_AFTER_CD=l
+
 # incr
 # [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
@@ -86,12 +98,3 @@ function dtask () {
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# zplug
-if [[ -e ~/.zplug/init.zsh ]]; then
-  source ~/.zplug/init.zsh
-  source ~/.dotfiles/.zplugrc.zsh
-else
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-  sleep 10
-fi
