@@ -76,7 +76,7 @@ ENHANCD_HOOK_AFTER_CD=l
 [ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
 
 # fshow - git commit browser
-function fshow() {
+fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -96,7 +96,7 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-function fadd() {
+fadd() {
   local out q n addfiles
   while out=$(
       git status --short |
