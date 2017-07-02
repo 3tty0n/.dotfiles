@@ -4,8 +4,8 @@
 
 autoload -U compinit
 zle -N self-insert self-insert-incr
-zle -N vi-cmd-mode-incr
-zle -N vi-backward-delete-char-incr
+#zle -N vi-cmd-mode-incr
+#zle -N vi-backward-delete-char-incr
 zle -N backward-delete-char-incr
 zle -N expand-or-complete-prefix-incr
 compinit
