@@ -63,11 +63,19 @@ export PATH="${HOME}/bin:${PATH}"
 # OPAM configuration
 source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#
+# enhancd settings
+#
 
 # `ls` after `cd` in enhancd
 ENHANCD_HOOK_AFTER_CD=l
+
+#
+# custom settings
+#
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # incr
 # [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
@@ -153,6 +161,8 @@ fstash() {
 
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 delete_dotfiles () {
   find $1 \
