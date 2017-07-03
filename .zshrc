@@ -147,6 +147,13 @@ fstash() {
   done
 }
 
+#
+# zsh-history-substring-search settings
+#
+
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
 delete_dotfiles () {
   find $1 \
     \( -name '.DS_Store' \
@@ -160,3 +167,7 @@ delete_dotfiles () {
 dtask () { date +'%Y%m%d' }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
+   zcompile ~/.zshrc
+fi
