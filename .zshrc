@@ -35,8 +35,8 @@ alias dc=cd
 alias rm='rm -ri'
 alias cdu='cd-gitroot'
 
-function vimf () { vim $(fzf) }
-function ef () { emacs -nw $(fzf) }
+vif () { vim $(fzf) }
+ef () { emacs -nw $(fzf) }
 
 # path
 # pyenv
@@ -74,6 +74,10 @@ ENHANCD_HOOK_AFTER_CD=l
 
 # npm completion
 [ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
+
+#
+# fzf settings
+#
 
 # fshow - git commit browser
 fshow() {
@@ -143,12 +147,16 @@ fstash() {
   done
 }
 
-function delete_dotfiles () {
-  find $1 \( -name '.DS_Store' -o -name '._*' -o -name '.apdisk' -o -name 'Thumbs.db' -o -name 'Desktop.ini' \) -delete -print;
+delete_dotfiles () {
+  find $1 \
+    \( -name '.DS_Store' \
+    -o -name '._*' \
+    -o -name '.apdisk' \
+    -o -name 'Thumbs.db' \
+    -o -name 'Desktop.ini' \
+    \) -delete -print;
 }
 
-function dtask () {
-  date +'%Y%m%d'
-}
+dtask () { date +'%Y%m%d' }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
