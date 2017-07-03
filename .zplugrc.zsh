@@ -28,5 +28,5 @@ fi
 zplug load --verbose
 
 # ignore warnings from zsh-completions
-autoload -U compinit;
-compinit -u
+# autoload -U compinit;
+# compinit -u
