@@ -164,6 +164,11 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+
+# docker completion
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
 delete_dotfiles () {
   find $1 \
     \( -name '.DS_Store' \
