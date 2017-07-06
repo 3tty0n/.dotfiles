@@ -57,6 +57,13 @@ export PATH="$JAVA_HOME:$PATH"
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
 eval "$(scalaenv init -)"
 
+# go
+if [ -x "`which go`" ]; then
+  export GOROOT=/usr/local/opt/go/libexec
+  export GOPATH=$HOME/.go
+  export PATH=$PATH:$GOPATH/bin
+fi
+
 # manual bin
 export PATH="${HOME}/bin:${PATH}"
 
