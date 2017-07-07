@@ -1,8 +1,10 @@
 #!/bin/bash
 
 function install_brew_packages() {
+  cp ./brew/Brewfile .
   brew tap Homebrew/bundle
   brew bundle
+  rm Brewfile
 }
 
 function install() {
