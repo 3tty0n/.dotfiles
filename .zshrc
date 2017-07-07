@@ -40,22 +40,28 @@ ef () { emacs -nw $(fzf) }
 
 # path
 # pyenv
-export PYENV_ROOT=$HOME/.pyenv
-export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if [ -e ~/.pyenv ]; then
+  export PYENV_ROOT=$HOME/.pyenv
+  export PATH="$PYENV_ROOT/shims:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
 
 # rbenv
-export RBENV_ROOT=$HOME/.rbenv
-eval "$(rbenv init -)"
+if [ -e ~/.rbenv ]; then
+  export RBENV_ROOT=$HOME/.rbenv
+  eval "$(rbenv init -)"
+fi
 
 # java
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export PATH="$JAVA_HOME:$PATH"
 
 # scalaenv
-export PATH="${HOME}/.scalaenv/bin:${PATH}"
-eval "$(scalaenv init -)"
+if [ -e ~/.scalaenv ]; then
+  export PATH="${HOME}/.scalaenv/bin:${PATH}"
+  eval "$(scalaenv init -)"
+fi
 
 # go
 if [ -x "`which go`" ]; then
@@ -65,10 +71,12 @@ if [ -x "`which go`" ]; then
 fi
 
 # manual bin
-export PATH="${HOME}/bin:${PATH}"
+if [ -e ~/bin ]; then
+  export PATH="${HOME}/bin:${PATH}"
+fi
 
 # OPAM configuration
-source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+[ -e ~/.opam ] && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 #
 # enhancd settings
