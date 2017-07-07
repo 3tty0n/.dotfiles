@@ -23,17 +23,12 @@ endif
 call plug#begin(expand('~/.vim/plugged'))
 
 "*****************************************************************************
-"" External Settings
 "*****************************************************************************
 
-source ~/.dotfiles/.vim/neocomplete.vim
-source ~/.dotfiles/.vim/neosnippets.vim
-source ~/.dotfiles/.vim/latex_settings.vim
-source ~/.dotfiles/.vim/japanese_ime_settings.vim
-source ~/.dotfiles/.vim/ensime.vim
-source ~/.dotfiles/.vim/merlin.vim
-source ~/.dotfiles/.vim/opam_settings.vim
-source ~/.dotfiles/.vim/nerdtree.vim
+"" Include user's local vim config
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 
 "*****************************************************************************
 "" Plug install packages
@@ -600,14 +595,6 @@ vnoremap <leader>rrlv :RRenameLocalVariable<cr>
 vnoremap <leader>rriv :RRenameInstanceVariable<cr>
 vnoremap <leader>rem  :RExtractMethod<cr>
 
-
-"*****************************************************************************
-"*****************************************************************************
-
-"" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
 
 "*****************************************************************************
 "" Convenience variables
