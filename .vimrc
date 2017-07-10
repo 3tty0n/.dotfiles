@@ -26,8 +26,8 @@ call plug#begin(expand('~/.vim/plugged'))
 "*****************************************************************************
 
 "" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+if filereadable(expand("~/.vimrc.local.vim"))
+  source ~/.vimrc.local.vim
 endif
 
 "*****************************************************************************

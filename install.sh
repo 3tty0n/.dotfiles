@@ -17,7 +17,7 @@ function install() {
   fi
 
   declare -a dotfiles=()
-  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc", ".zshrc", ".zplugrc.zsh" ".vimrc.local")
+  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc", ".zshrc", ".zplugrc.zsh" ".vimrc.local.vim")
 
   declare -a vimdir=()
   declare -a vimdir=("ftplugin" "snippets")
