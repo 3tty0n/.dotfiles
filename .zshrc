@@ -201,3 +201,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
    zcompile ~/.zshrc
 fi
+
+if [ ~/.zplugrc.zsh -nt ~/.zplugrc.zsh.zwc ]; then
+  zcompile ~/.zplugrc.zsh
+fi
