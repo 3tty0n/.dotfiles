@@ -6,7 +6,7 @@ fi
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
-  source ~/.zplugrc.zsh
+  source ~/.zsh/.zplugrc.zsh
 else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   sleep 10
