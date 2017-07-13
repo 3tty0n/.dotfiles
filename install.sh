@@ -17,10 +17,7 @@ function install() {
   fi
 
   declare -a dotfiles=()
-  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc", ".zshrc", ".zplugrc.zsh" ".vimrc.local.vim")
-
-  declare -a vimdir=()
-  declare -a vimdir=("ftplugin" "snippets")
+  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc" ".zshrc" ".vimrc.local.vim")
 
   for f in ${dotfiles[@]}; do
     ln -si ~/.dotfiles/${f} ~/${f}
@@ -30,12 +27,11 @@ function install() {
     ln -si ~/.dotfiles/.zsh ~/.zsh
   fi
 
-  for v in ${vimdir[@]}; do
-    if [ ! -e ~/.vim ]; then
-      mkdir ~/.vim
-    fi
-    ln -si ~/.dotfiles/.vim/${v} ~/.vim/${v}
-  done
+  if [ ! -e ~/.vim ]; then
+    mkdir ~/.vim
+  fi
+  ln -si ~/.dotfiles/.vim/ftplugin ~/.vim/ftplugin
+  ln -si ~/.dotfiles/.vim/snippets ~/.vim/snippets
 
   if [ ! -e ~/.zprezto ]; then
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
