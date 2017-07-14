@@ -16,7 +16,6 @@ zplug "changyuheng/zsh-interactive-cd"
 zplug "tsub/4448666a276b088bce3f19005f512c15", from:gist # ghq-fzf.zsh
 zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
 zplug "tsub/81ac9b881cf2475977c9cb619021ef3c", from:gist # ssh-fzf.zsh
-zplug "tsub/90e63082aa227d3bd7eb4b535ade82a0", from:gist # git-branch-fzf.zsh
 zplug "tsub/29bebc4e1e82ad76504b1287b4afba7c", from:gist # tree-fzf.zsh
 
 # Install plugins if there are plugins that have not been installed

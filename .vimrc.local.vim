@@ -156,3 +156,6 @@ endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
 
 Plug 'zerowidth/vim-copy-as-rtf'
+
+" fzf + vim
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'

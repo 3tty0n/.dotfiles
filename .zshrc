@@ -202,6 +202,6 @@ if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
    zcompile ~/.zshrc
 fi
 
-if [ ~/.zplugrc.zsh -nt ~/.zplugrc.zsh.zwc ]; then
-  zcompile ~/.zplugrc.zsh
+if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/.zplugrc.zsh.zwc ]; then
+  zcompile ~/.zsh/.zplugrc.zsh
 fi
