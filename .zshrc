@@ -34,6 +34,7 @@ alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
 alias cdu='cd-gitroot'
+alias md='mkdir'
 
 vif () { vim $(fzf) }
 ef () { emacs -nw $(fzf) }
