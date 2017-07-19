@@ -36,12 +36,14 @@ alias rm='rm -ri'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 
+alias gl=fshow
+
 vif () { vim $(fzf) }
 ef () { emacs -nw $(fzf) }
 
 # path
 # pyenv
-if [ -e ~/.pyenv ]; then
+if [ -x "`which pyenv`" ]; then
   export PYENV_ROOT=$HOME/.pyenv
   export PATH="$PYENV_ROOT/shims:$PATH"
   eval "$(pyenv init -)"
@@ -49,7 +51,7 @@ if [ -e ~/.pyenv ]; then
 fi
 
 # rbenv
-if [ -e ~/.rbenv ]; then
+if [ -x "`which rbenv`" ]; then
   export RBENV_ROOT=$HOME/.rbenv
   eval "$(rbenv init -)"
 fi

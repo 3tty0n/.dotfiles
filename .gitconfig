@@ -48,3 +48,5 @@
   default = simple
 [rebase]
   autostash = true
+[ghq]
+  root = ~/.ghq
