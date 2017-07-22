@@ -18,6 +18,9 @@ zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
 zplug "tsub/81ac9b881cf2475977c9cb619021ef3c", from:gist # ssh-fzf.zsh
 zplug "tsub/29bebc4e1e82ad76504b1287b4afba7c", from:gist # tree-fzf.zsh
 
+# oh-my-zsh
+zplug "plugins/extract", from:oh-my-zsh
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -28,7 +31,3 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
-
-# ignore warnings from zsh-completions
-# autoload -U compinit;
-# compinit -u

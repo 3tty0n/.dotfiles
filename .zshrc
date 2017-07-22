@@ -36,6 +36,7 @@ alias rm='rm -ri'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 
+alias g='git'
 alias gl=fshow
 
 vif () { vim $(fzf) }
@@ -181,7 +182,6 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-
 
 # docker completion
 zstyle ':completion:*:*:docker:*' option-stacking yes
