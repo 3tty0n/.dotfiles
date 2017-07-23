@@ -18,10 +18,11 @@
 [alias]
   g = git
   a = add
-  ad = "add ."
+  ad = add .
   ap = add -p
   br = branch
   c = commit
+  ca = commit --amend
   gr = grep
   l = log --graph --decorate --all --branches
   lo = log --graph --decorate --all --oneline --branches
@@ -29,7 +30,7 @@
   st = status
   ps = push
   pl = pull
-  plr = "pull --rebase"
+  plr = pull --rebase
   o = origin
   m = master
   d = diff
