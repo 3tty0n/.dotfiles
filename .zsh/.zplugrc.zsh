@@ -21,6 +21,10 @@ zplug "3tty0n/fbfa5b88feed5bc5d3b5f5e59d80a2d8", from:gist # fzf-git-branch.zsh
 zplug "3tty0n/b5a035e611357e1805b690c7f0e4b1c2", from:gist # fzf-git-add.zsh
 zplug "3tty0n/1a5ed257ca3cdda411386c2cbd3b1acc", from:gist # fzf-git-stash.zsh
 zplug "3tty0n/0c7287deedd0bedc1bc0dc23b51653aa", from:gist # ghq-fzf.zsh
+zplug "3tty0n/4699f9ada7a8eb9fac7e15bebfb65c8d", from:gist # delete-gomi.zsh
+
+# local settings
+zplug "~/.zsh/completion", from:local
 
 # oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh

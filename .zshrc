@@ -41,6 +41,7 @@ alias gl=fshow
 
 vif () { vim $(fzf) }
 ef () { emacs -nw $(fzf) }
+dtask () { date +'%Y%m%d' }
 
 # path
 # pyenv
@@ -99,10 +100,6 @@ ENHANCD_HOOK_AFTER_CD=l
 # incr
 # [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
-# npm completion
-[ -f ~/.zsh/completion/npm.zsh ] && source ~/.zsh/completion/npm.zsh
-
-
 #
 # zsh-history-substring-search settings
 #
@@ -115,18 +112,6 @@ bindkey '^[[B' history-substring-search-down
 # docker completion
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-delete_dotfiles () {
-  find $1 \
-    \( -name '.DS_Store' \
-    -o -name '._*' \
-    -o -name '.apdisk' \
-    -o -name 'Thumbs.db' \
-    -o -name 'Desktop.ini' \
-    \) -delete -print;
-}
-
-dtask () { date +'%Y%m%d' }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
