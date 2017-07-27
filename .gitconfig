@@ -1,48 +1,48 @@
 [user]
-  name = Yusuke Izawa
+  name	= Yusuke Izawa
   email = yuizalp@gmail.com
 [filter "lfs"]
-  clean = git lfs clean %f
-  smudge = git lfs smudge %f
-  required = true
+  clean			= git lfs clean %f
+  smudge		= git lfs smudge %f
+  required	= true
 [core]
-  excludesfile = ~/.gitignore_global
-  editor = vim
+  excludesfile	= ~/.gitignore_global
+  editor				= vim
 [color]
-  status = auto
-  diff = auto
-  branch = auto
+  status			= auto
+  diff				= auto
+  branch			= auto
   interactive = auto
-  grep = auto
-  ui = auto
+  grep				= auto
+  ui					= auto
 [alias]
-  g = git
-  a = add
-  ad = add .
-  ap = add -p
-  br = branch
-  c = commit
-  ca = commit --amend
-  gr = grep
-  l = log --graph --decorate --all --branches
-  lo = log --graph --decorate --all --oneline --branches
-  graph = log --graph --branches --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  st = status
-  ps = push
-  pl = pull
-  plr = pull --rebase
-  o = origin
-  m = master
-  d = diff
-  dh = diff HEAD
-  dhh = diff HEAD~ HEAD
-  dhhh = diff HEAD~~ HEAD~
-  ch = checkout
-  mg = merge
-  cl = clone
-  stashs = stash save
-  stashp = stash pop
-  stashl = stash list
+  g				= git
+  a				= add
+  ad			= add .
+  ap			= add -p
+  br			= branch
+  c				= commit
+  cma			= commit --amend
+  gr			= grep
+  l				= log --graph --decorate --all --branches
+  lo			= log --graph --decorate --all --oneline --branches
+  graph		= log --graph --branches --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  st			= status
+  ps			= push
+  pl			= pull
+  plr			= pull --rebase
+  o				= origin
+  m				= master
+  d				= diff
+  dh			= diff HEAD
+  dhh			= diff HEAD~ HEAD
+  dhhh		= diff HEAD~~ HEAD~
+  ch			= checkout
+  mg			= merge
+  cl			= clone
+  stashs	= stash save
+  stashp	= stash pop
+  stashl	= stash list
 [ui]
   color = auto
 [push]
