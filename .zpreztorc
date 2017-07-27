@@ -2,6 +2,7 @@
 zstyle ':prezto:*:*' color 'yes'
 
 zstyle ':prezto:load' pmodule \
+  'archive' \
   'environment' \
   'editor' \
   'history' \
@@ -9,7 +10,6 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt' \
-  'git' \
   'syntax-highlighting'
 
 # Set the key mapping style to 'emacs' or 'vi'.
