@@ -19,9 +19,6 @@ fi
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# incr
-# [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
-
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -70,8 +67,10 @@ if [ -x "`which rbenv`" ]; then
 fi
 
 # java
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export PATH="$JAVA_HOME:$PATH"
+if [ -x "`which java`" ]; then
+  export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+  export PATH="$JAVA_HOME:$PATH"
+fi
 
 # scalaenv
 if [ -e ~/.scalaenv ]; then
