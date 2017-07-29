@@ -3,6 +3,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+#
+# custom settings
+#
+
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
@@ -11,6 +15,12 @@ else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   sleep 10
 fi
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# incr
+# [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
 # internal settings
 setopt auto_menu
@@ -30,12 +40,13 @@ setopt no_tify
 setopt list_types
 
 alias vi='vim'
-alias e='emacs -nw'
 alias dc=cd
 alias rm='rm -ri'
 alias cdu='cd-gitroot'
 alias md='mkdir'
-
+alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
+alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
 alias gl=fshow
 
@@ -89,16 +100,6 @@ fi
 
 # `ls` after `cd` in enhancd
 ENHANCD_HOOK_AFTER_CD=l
-
-#
-# custom settings
-#
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# incr
-# [ -f ~/.zsh/incr/incr.zsh ] &&  source ~/.zsh/incr/incr.zsh
 
 #
 # zsh-history-substring-search settings
