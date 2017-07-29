@@ -7,7 +7,7 @@
   required	= true
 [core]
   excludesfile	= ~/.gitignore_global
-  editor				= vim
+  editor				= emacsclient -nw
 [color]
   status			= auto
   diff				= auto
