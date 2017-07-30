@@ -1,17 +1,8 @@
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
-zplug "mollifier/cd-gitroot"
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
-zplug "mrowa44/emojify", as:command
-zplug "stedolan/jq", \
-    from:gh-r, \
-    as:command, \
-    rename-to:jq
-zplug "b4b4r07/emoji-cli", \
-    on:"stedolan/jq"
-zplug "b4b4r07/zsh-gomi", if:"which fzf"
 zplug "changyuheng/zsh-interactive-cd"
 zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
 zplug "tsub/81ac9b881cf2475977c9cb619021ef3c", from:gist # ssh-fzf.zsh
@@ -29,11 +20,11 @@ zplug "~/.zsh/completion", from:local
 # oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh
 
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-      echo; zplug install
-  fi
-fi
+#if ! zplug check --verbose; then
+#  printf "Install? [y/N]: "
+#  if read -q; then
+#      echo; zplug install
+#  fi
+#fi
 
 zplug load --verbose

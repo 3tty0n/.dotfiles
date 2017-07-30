@@ -19,6 +19,9 @@ fi
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# powerline
+[ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -39,6 +42,7 @@ setopt list_types
 alias vi='vim'
 alias dc=cd
 alias rm='rm -ri'
+alias l='ls -1a'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
