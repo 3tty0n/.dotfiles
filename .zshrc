@@ -16,12 +16,6 @@ else
   sleep 10
 fi
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# powerline
-[ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -96,6 +90,13 @@ fi
 
 # OPAM configuration
 [ -e ~/.opam ] && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# powerline
+# [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+[ -f ~/.zsh/powerline.zsh ] && source ~/.zsh/powerline.zsh
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #
 # enhancd settings

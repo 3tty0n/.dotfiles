@@ -4,3 +4,6 @@
 [submodule "colors/thayer-bright-iTerm"]
 	path = colors/thayer-bright-iTerm
 	url = git@github.com:t3chnoboy/thayer-bright-iTerm.git
+[submodule "themes/powerline-shell"]
+	path = themes/powerline-shell
+	url = git@github.com:banga/powerline-shell.git
