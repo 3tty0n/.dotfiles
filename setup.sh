@@ -2,18 +2,7 @@
 
 DOTFILES_ROOT=~/.dotfiles
 
-function install_brew_packages() {
-  if [ ! -e /usr/local/Cellar ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-
-  cp ./brew/Brewfile .
-  brew tap Homebrew/bundle
-  brew bundle
-  rm Brewfile
-}
-
-function install() {
+function setup () {
 
   declare -a dotfiles=()
   declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshrc .zsh .vimrc.local.vim bin)
@@ -36,5 +25,4 @@ function install() {
   fi
 }
 
-install
-# install_brew_packages
+setup
