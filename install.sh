@@ -1,6 +1,12 @@
 #!/bin/bash
 
+DOTFILES_ROOT=$HOME/.dotfiles
+
 function install_brew_packages() {
+  if [ ! -e /usr/local/Cellar ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
   cp ./brew/Brewfile .
   brew tap Homebrew/bundle
   brew bundle
@@ -8,32 +14,22 @@ function install_brew_packages() {
 }
 
 function install() {
-  cd ~/.dotfiles/
-
-  if [ ! -e /usr/local/Cellar ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
 
   if [ ! -e ~/bin ]; then
     mkdir ~/bin
   fi
 
   declare -a dotfiles=()
-  declare -a dotfiles=(".vimrc" ".tmux.conf" ".gitconfig" ".gitignore_global" ".irbrc" ".latexmkrc" ".gemrc" ".zshrc" ".vimrc.local.vim")
+  declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshrc .zsh .vimrc.local.vim)
 
   for f in ${dotfiles[@]}; do
-    ln -si `pwd`/${f} ~/${f}
+    ln -sfn $DOTFILES_ROOT/${f} ~/${f}
   done
 
-  if [ ! -e ~/.zsh ]; then
-    ln -si `pwd`/.zsh ~/.zsh
-  fi
-
-  if [ ! -e ~/.vim ]; then
-    mkdir ~/.vim
-  fi
-  ln -si `pwd`/.vim/ftplugin ~/.vim/ftplugin
-  ln -si `pwd`/.vim/snippets ~/.vim/snippets
+  [ ! -e ~/.vim ] && mkdir ~/.vim
+  for vimfile in .vim/ftplugin .vim/snippets; do
+    ln -sfn $DOTFILES_ROOT/.vim/${vimfile} $HOME/${vimfile}
+  done
 
   if [ ! -e ~/.zprezto ]; then
     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
