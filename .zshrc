@@ -1,7 +1,5 @@
 # zprezto
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+[[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 #
 # custom settings
@@ -10,7 +8,7 @@ fi
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
-  source ~/.zsh/.zplugrc.zsh
+  source ~/.zsh/zplugrc.zsh
 else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   sleep 10
@@ -93,7 +91,6 @@ fi
 
 # powerline
 # [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-[ -f ~/.zsh/powerline.zsh ] && source ~/.zsh/powerline.zsh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -124,6 +121,6 @@ if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
    zcompile ~/.zshrc
 fi
 
-if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/.zplugrc.zsh.zwc ]; then
-  zcompile ~/.zsh/.zplugrc.zsh
+if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/zplugrc.zsh.zwc ]; then
+  zcompile ~/.zsh/zplugrc.zsh
 fi

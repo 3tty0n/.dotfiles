@@ -4,6 +4,8 @@ zplug "b4b4r07/enhancd", use:init.sh
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 zplug "changyuheng/zsh-interactive-cd"
+
+# gist
 zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
 zplug "tsub/81ac9b881cf2475977c9cb619021ef3c", from:gist # ssh-fzf.zsh
 zplug "tsub/29bebc4e1e82ad76504b1287b4afba7c", from:gist # tree-fzf.zsh
@@ -16,9 +18,10 @@ zplug "3tty0n/4699f9ada7a8eb9fac7e15bebfb65c8d", from:gist # delete-gomi.zsh
 
 # local settings
 zplug "~/.zsh/completion", from:local
+zplug "~/.zsh", from:local, use:powerline.zsh
 
 # oh-my-zsh
-zplug "plugins/extract", from:oh-my-zsh
+# zplug "plugins/extract", from:oh-my-zsh
 
 #if ! zplug check --verbose; then
 #  printf "Install? [y/N]: "
