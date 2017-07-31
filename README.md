@@ -3,10 +3,7 @@
 ## Install
 
 ```bash
-git clone --recursive git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./setup.sh
-./brewfile.sh
+curl -L https://raw.githubusercontent.com/3tty0n/.dotfiles/master/install.sh | bash
 ```
 
 ## Brewfile
