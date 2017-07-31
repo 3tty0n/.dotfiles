@@ -1,9 +1,9 @@
-[submodule "colors/iterm-colors"]
-	path = colors/iterm-colors
+[submodule "vendor/iterm-colors"]
+	path = vendor/iterm-colors
 	url = git@github.com:bahlo/iterm-colors.git
-[submodule "colors/thayer-bright-iTerm"]
-	path = colors/thayer-bright-iTerm
+[submodule "vendor/thayer-bright-iTerm"]
+	path = vendor/thayer-bright-iTerm
 	url = git@github.com:t3chnoboy/thayer-bright-iTerm.git
-[submodule "themes/powerline-shell"]
-	path = themes/powerline-shell
+[submodule "vendor/powerline-shell"]
+	path = vendor/powerline-shell
 	url = git@github.com:banga/powerline-shell.git
