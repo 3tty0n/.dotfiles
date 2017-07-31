@@ -1,0 +1,22 @@
+[core]
+  editor = "emacs"
+  selectcmd = "fzf-tmux --multi:fzf --multi:peco"
+  tomlfile = "/Users/izawa/.config/gist/config.toml"
+  user = "izawa"
+
+[gist]
+  token = ""
+  base_url = "https://gist.github.com"
+  dir = "/Users/izawa/.config/gist/files"
+  file_ext = ".patch"
+  use_cache = true
+  cache_ttl = 86400000000000
+  runnable_ext = ["sh", "rb", "py", "pl", "php", "zsh", "bash"]
+
+[flag]
+  open_url = true
+  blog_mode = true
+  starred = false
+
+[screen]
+  columns = ["{{.ShortID}}", "{{.PrivateMark}} {{.Filename}}", "{{.Description}}"]
