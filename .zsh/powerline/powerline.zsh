@@ -1,5 +1,5 @@
 function powerline_precmd() {
-    PS1="$(~/.dotfiles/themes/powerline-shell/powerline-shell.py $? --shell zsh 2> /dev/null)"
+  PS1="$(~/.dotfiles/vendor/powerline-shell/powerline-shell.py $? --shell zsh 2> /dev/null)"
 }
 
 function install_powerline_precmd() {
@@ -12,5 +12,5 @@ function install_powerline_precmd() {
 }
 
 if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
+  install_powerline_precmd
 fi
