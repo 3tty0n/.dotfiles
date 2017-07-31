@@ -8,12 +8,12 @@ function setup () {
   declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshrc .zsh .vimrc.local.vim bin)
 
   for f in ${dotfiles[@]}; do
-    ln -sfn $DOTFILES_ROOT/${f} ~/${f}
+    ln -sfnv $DOTFILES_ROOT/${f} ~/${f}
   done
 
   [ ! -e ~/.vim ] && mkdir ~/.vim
   for vimfile in ftplugin snippets; do
-    ln -sfn $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
+    ln -sfnv $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
   done
 
   if [ ! -e ~/.zprezto ]; then
