@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_ROOT=$HOME/.dotfiles
+DOTFILES_ROOT=~/.dotfiles
 
 function install_brew_packages() {
   if [ ! -e /usr/local/Cellar ]; then
@@ -15,20 +15,16 @@ function install_brew_packages() {
 
 function install() {
 
-  if [ ! -e ~/bin ]; then
-    mkdir ~/bin
-  fi
-
   declare -a dotfiles=()
-  declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshrc .zsh .vimrc.local.vim)
+  declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshrc .zsh .vimrc.local.vim bin)
 
   for f in ${dotfiles[@]}; do
     ln -sfn $DOTFILES_ROOT/${f} ~/${f}
   done
 
   [ ! -e ~/.vim ] && mkdir ~/.vim
-  for vimfile in .vim/ftplugin .vim/snippets; do
-    ln -sfn $DOTFILES_ROOT/.vim/${vimfile} $HOME/${vimfile}
+  for vimfile in ftplugin snippets; do
+    ln -sfn $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
   done
 
   if [ ! -e ~/.zprezto ]; then
