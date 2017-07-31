@@ -18,7 +18,7 @@ zplug "3tty0n/4699f9ada7a8eb9fac7e15bebfb65c8d", from:gist # delete-gomi.zsh
 
 # local settings
 zplug "~/.zsh/completion", from:local
-zplug "~/.zsh", from:local, use:powerline.zsh
+zplug "~/.zsh/powerline", from:local
 
 # oh-my-zsh
 # zplug "plugins/extract", from:oh-my-zsh
