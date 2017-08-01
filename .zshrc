@@ -97,8 +97,11 @@ fi
 # powerline
 # [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-# fzf
+#
+# fzf settings
+#
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 #
 # enhancd settings
@@ -106,6 +109,7 @@ fi
 
 # `ls` after `cd` in enhancd
 ENHANCD_HOOK_AFTER_CD=l
+ENHANCD_FILTER=fzf:fzy:peco
 
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
