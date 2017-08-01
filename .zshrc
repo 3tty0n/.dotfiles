@@ -2,6 +2,11 @@
 [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 #
+# completion settings
+#
+fpath=(~/.zsh/completion ${fpath})
+
+#
 # custom settings
 #
 
@@ -102,23 +107,11 @@ fi
 # `ls` after `cd` in enhancd
 ENHANCD_HOOK_AFTER_CD=l
 
-#
-# zsh-history-substring-search settings
-#
-
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# docker completion
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
+# shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
-   zcompile ~/.zshrc
+  zcompile ~/.zshrc
 fi
 
 if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/zplugrc.zsh.zwc ]; then
