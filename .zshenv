@@ -39,3 +39,6 @@ export PATH=$PATH:$GOPATH/bin
 
 # Add diff-highligh to PATH
 export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+
+# fzf
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'

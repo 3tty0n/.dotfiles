@@ -50,8 +50,11 @@ if test -d ~/.go
 end
 
 if test -d ~/bin
-  set -x fish_user_paths $fish_user_paths $HOME/bin
+  set -x PATH $HOME/bin $PATH
 end
+
+set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
+set -x FZF_DEFAULT_OPTS '--height 40% --reverse --border'
 
 # functions
 function docker-rm-all
