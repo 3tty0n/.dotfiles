@@ -1,15 +1,6 @@
 # zprezto
 [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
-#
-# completion settings
-#
-fpath=(~/.zsh/completion ${fpath})
-
-#
-# custom settings
-#
-
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
   source ~/.zplug/init.zsh
@@ -52,43 +43,20 @@ vif () { vim $(fzf) }
 ef () { emacs -nw $(fzf) }
 dtask () { date +'%Y%m%d' }
 
-# path
 # pyenv
 if [ -x "`which pyenv`" ]; then
-  export PYENV_ROOT=$HOME/.pyenv
-  export PATH="$PYENV_ROOT/shims:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
 
 # rbenv
 if [ -x "`which rbenv`" ]; then
-  export RBENV_ROOT=$HOME/.rbenv
   eval "$(rbenv init -)"
-fi
-
-# java
-if [ -x "`which java`" ]; then
-  export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-  export PATH="$JAVA_HOME:$PATH"
 fi
 
 # scalaenv
 if [ -e ~/.scalaenv ]; then
-  export PATH="${HOME}/.scalaenv/bin:${PATH}"
   eval "$(scalaenv init -)"
-fi
-
-# go
-if [ -x "`which go`" ]; then
-  export GOROOT=/usr/local/opt/go/libexec
-  export GOPATH=$HOME/.go
-  export PATH=$PATH:$GOPATH/bin
-fi
-
-# manual bin
-if [ -e ~/bin ]; then
-  export PATH="${HOME}/bin:${PATH}"
 fi
 
 # OPAM configuration
@@ -97,17 +65,13 @@ fi
 # powerline
 # [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-#
+
 # fzf settings
-#
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
-#
-# enhancd settings
-#
 
-# `ls` after `cd` in enhancd
+# enhancd settings
 ENHANCD_HOOK_AFTER_CD=l
 ENHANCD_FILTER=fzf:fzy:peco
 
