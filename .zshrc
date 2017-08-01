@@ -82,6 +82,10 @@ if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
 
+if [ ~/.zshenv -nt ~/.zshenv.zwc ]; then
+  zcompile ~/.zshenv
+fi
+
 if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/zplugrc.zsh.zwc ]; then
   zcompile ~/.zsh/zplugrc.zsh
 fi
