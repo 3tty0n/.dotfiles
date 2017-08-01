@@ -21,7 +21,7 @@
   ad      = add .
   ap      = add -p
   br      = branch
-  c	      = commit
+  c       = commit
   cma     = commit --amend
   gr      = grep
   l       = log --graph --decorate --all --branches
