@@ -4,13 +4,13 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'archive' \
   'autosuggestions' \
+  'completion' \
   'environment' \
   'editor' \
   'history' \
   'history-substring-search' \
-  'utility' \
-  'completion' \
-  'syntax-highlighting'
+  'syntax-highlighting' \
+  'utility'
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'emacs'

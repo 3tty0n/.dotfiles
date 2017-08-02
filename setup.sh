@@ -19,7 +19,7 @@ ln -sfnv $DOTFILES_ROOT/.config/fish/config.fish ~/.config/fish
 
 if [ ! -e ~/.config/gist ]; then
   mkdir -p ~/.config/gist
-  ln -sfnv $DOTFILES_ROOT/.config/gist/config.toml ~/.config/gist
+  cp -v $DOTFILES_ROOT/.config/gist/config.toml ~/.config/gist
 fi
 
 if [ ! -e ~/.zprezto ]; then
