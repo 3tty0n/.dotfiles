@@ -5,17 +5,24 @@ DOTFILES_ROOT=~/.dotfiles
 declare -a dotfiles=()
 declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim bin)
 
+declare -a vimfiles=()
+declare -a vimfiles=(ftplugin snippets)
+
+declare -a configfiles=()
+declare -a configfiles=(fish omf)
+
 for f in ${dotfiles[@]}; do
   ln -sfnv $DOTFILES_ROOT/${f} ~/${f}
 done
 
 [ ! -e ~/.vim ] && mkdir ~/.vim
-for vimfile in ftplugin snippets; do
+for vimfile in ${vimfiles[@]}; do
   ln -sfnv $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
 done
 
-[ ! -e ~/.config/fish ] && mkdir -p ~/.config/fish
-ln -sfnv $DOTFILES_ROOT/.config/fish/config.fish ~/.config/fish
+for config in ${configfiles[@]}; do
+  ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config
+done
 
 if [ ! -e ~/.config/gist ]; then
   mkdir -p ~/.config/gist

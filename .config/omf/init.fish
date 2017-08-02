@@ -1,10 +1,5 @@
-# load git settings
-. $HOME/.config/fish/git.fish
-
-set -x EDITOR "emacs"
-set -x VISUAL "emacs"
-
 # Aliases
+alias g 'git'
 alias l 'ls -1a'
 alias vi 'vim'
 alias e 'emacsclient -nw -a ""'
@@ -16,23 +11,18 @@ alias dc 'cd'
 alias md 'mkdir '
 alias pdfjoin '/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
 
-if [ (uname) = "Darwin" ]
-  set -x JAVA_HOME  (/usr/libexec/java_home -v 1.8)
-end
-
-# theme
-set fish_theme bobthefish
-
-switch (echo $fish_theme)
-  case bobthefish
-    set -g theme_display_date no
-    set -g theme_color_scheme terminal
-end
+set -x EDITOR "emacs"
+set -x VISUAL "emacs"
 
 # opam settings
 # see http://qiita.com/OKU_K/items/bb17e16474b391f5cc9d
 if test -d ~/.opam
   source ~/.opam/opam-init/init.fish > /dev/null 2> /dev/null
+end
+
+# java
+if [ (uname) = "Darwin" ]
+  set -x JAVA_HOME  (/usr/libexec/java_home -v 1.8)
 end
 
 # scalaenv
@@ -49,27 +39,13 @@ if test -d ~/.go
   set -U GHQ_SELECTOR fzf
 end
 
+# Add bin to PATH
 if test -d ~/bin
   set -x PATH $HOME/bin $PATH
 end
 
 set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
 set -x FZF_DEFAULT_OPTS '--height 40% --reverse --border'
-
-# functions
-function docker-rm-all
-  docker rm (docker ps -aq)
-end
-
-# fzf + emacs
-function ef
-  emacs -nw (fzf)
-end
-
-# fzf + vim
-function vif
-  vim (fzf)
-end
 
 # hide fish_greeging
 function fish_greeting; end
