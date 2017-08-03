@@ -45,3 +45,7 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
+# enhancd settings
+ENHANCD_HOOK_AFTER_CD=l
+ENHANCD_FILTER=fzf:fzy:peco

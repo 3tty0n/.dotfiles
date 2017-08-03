@@ -59,8 +59,15 @@ if [ -e ~/.scalaenv ]; then
   eval "$(scalaenv init -)"
 fi
 
-# OPAM configuration
-[ -e ~/.opam ] && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# hub
+if [ -x "`which hub`" ]; then
+  eval "$(hub alias -s)"
+fi
+
+# OPAM
+if [ -e ~/.opam ]; then
+  source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+fi
 
 # powerline
 # [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
@@ -68,10 +75,6 @@ fi
 
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# enhancd settings
-ENHANCD_HOOK_AFTER_CD=l
-ENHANCD_FILTER=fzf:fzy:peco
 
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

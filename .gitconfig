@@ -42,7 +42,8 @@
   cl      = clone
   stashs  = stash save
   stashp  = stash pop
-  stashl  = stash list
+	stashl  = stash list
+	sb      = submodule
 [ui]
   color = auto
 [push]
