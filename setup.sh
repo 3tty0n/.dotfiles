@@ -3,7 +3,7 @@
 DOTFILES_ROOT=~/.dotfiles
 
 declare -a dotfiles=()
-declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim bin)
+declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim bin .tigrc)
 
 declare -a vimfiles=()
 declare -a vimfiles=(ftplugin snippets)

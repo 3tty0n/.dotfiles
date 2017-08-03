@@ -17,7 +17,7 @@ zplug "3tty0n/0c7287deedd0bedc1bc0dc23b51653aa", from:gist # ghq-fzf.zsh
 zplug "3tty0n/4699f9ada7a8eb9fac7e15bebfb65c8d", from:gist # delete-gomi.zsh
 
 # local settings
-zplug "~/.zsh/completion", from:local
+#zplug "~/.zsh/completion", from:local
 zplug "~/.zsh/powerline", from:local
 
 # oh-my-zsh
