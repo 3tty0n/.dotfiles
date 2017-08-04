@@ -20,9 +20,7 @@ for vimfile in ${vimfiles[@]}; do
   ln -sfnv $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
 done
 
-for config in ${configfiles[@]}; do
-  ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config
-done
+#for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
 
 if [ ! -e ~/.config/gist ]; then
   mkdir -p ~/.config/gist
