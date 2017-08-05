@@ -69,13 +69,6 @@ if [ -e ~/.opam ]; then
   source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
-# powerline
-# [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ] && source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-
-
-# fzf settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
