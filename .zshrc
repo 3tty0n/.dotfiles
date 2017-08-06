@@ -2,10 +2,15 @@
 [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 # local settings
-source ~/.zsh/external/enhancd/init.sh
-source ~/.zsh/external/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
-source ~/.zsh/powerline/powerline.zsh
-source ~/.zsh/functions/fzf-functions.zsh
+ZSH_CONFS=(
+  external/enhancd/init.sh
+  external/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+  powerline/powerline.zsh
+  functions/fzf-functions.zsh
+)
+for conf in ${ZSH_CONFS[@]}; do
+  source ${DOT_ZSH_ROOT}/${conf}
+done
 
 # internal settings
 setopt auto_menu
