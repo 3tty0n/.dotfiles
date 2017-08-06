@@ -54,7 +54,7 @@ if [ -x "`which rbenv`" ]; then
 fi
 
 # scalaenv
-if [ -e ~/.scalaenv ]; then
+if [ -x "`which scalaenv`" ]; then
   eval "$(scalaenv init -)"
 fi
 
@@ -66,6 +66,10 @@ fi
 # OPAM
 if [ -e ~/.opam ]; then
   source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+fi
+
+if [ -x "`which thefuck`" ]; then
+  eval "$(thefuck --alias)"
 fi
 
 # shell integration
