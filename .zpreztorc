@@ -7,6 +7,7 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'environment' \
   'editor' \
+  'fasd' \
   'history' \
   'history-substring-search' \
   'syntax-highlighting' \

@@ -7,3 +7,9 @@
 [submodule "vendor/powerline-shell"]
 	path = vendor/powerline-shell
 	url = git@github.com:banga/powerline-shell.git
+[submodule ".zsh/external/enhancd"]
+	path = .zsh/external/enhancd
+	url = git@github.com:b4b4r07/enhancd.git
+[submodule ".zsh/external/zsh-interactive-cd"]
+	path = .zsh/external/zsh-interactive-cd
+	url = git@github.com:changyuheng/zsh-interactive-cd.git
