@@ -1,10 +1,7 @@
-#zplug "zsh-users/zsh-history-substring-search"
-#zplug "zsh-users/zsh-autosuggestions"
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 zplug "changyuheng/zsh-interactive-cd"
 zplug "clvv/fasd", as:command, use:fasd
+zplug "mollifier/cd-gitroot"
 
 # gist
 zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
@@ -20,15 +17,5 @@ zplug "3tty0n/4699f9ada7a8eb9fac7e15bebfb65c8d", from:gist # delete-gomi.zsh
 # local settings
 zplug "~/.zsh/powerline", from:local
 zplug "~/.zsh/functions", from:local
-
-# oh-my-zsh
-# zplug "plugins/extract", from:oh-my-zsh
-
-#if ! zplug check --verbose; then
-#  printf "Install? [y/N]: "
-#  if read -q; then
-#      echo; zplug install
-#  fi
-#fi
 
 zplug load --verbose
