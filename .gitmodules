@@ -13,3 +13,6 @@
 [submodule ".zsh/external/zsh-interactive-cd"]
 	path = .zsh/external/zsh-interactive-cd
 	url = git@github.com:changyuheng/zsh-interactive-cd.git
+[submodule ".zsh/external/cd-gitroot"]
+	path = .zsh/external/cd-gitroot
+	url = git@github.com:mollifier/cd-gitroot.git
