@@ -1,13 +1,11 @@
 # zprezto
 [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
-# zplug
-if [[ -e ~/.zplug/init.zsh ]]; then
-  source ${ZPLUG_ROOT}/init.zsh
-  source ${DOT_ZSH_ROOT}/zplugrc.zsh
-else
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-fi
+# local settings
+source ~/.zsh/external/enhancd/init.sh
+source ~/.zsh/external/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+source ~/.zsh/powerline/powerline.zsh
+source ~/.zsh/functions/fzf-functions.zsh
 
 # internal settings
 setopt auto_menu
