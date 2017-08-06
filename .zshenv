@@ -2,8 +2,8 @@ typeset -gx -U path
 fpath=(~/.zsh/completion ${fpath})
 
 # autoload
- autoload -Uz colors && colors
- autoload -Uz compinit && compinit -u
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -u
 
 # LANGUAGE must be set by en_US
 export LANGUAGE="en_US.UTF-8"
