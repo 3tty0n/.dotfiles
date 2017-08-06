@@ -9,6 +9,9 @@ ZSH_CONFS=(
   functions/fzf-functions.zsh
 )
 for conf in ${ZSH_CONFS[@]}; do
+  if [[ "${conf##*.*}" = ".zsh"  && "${conf}.zsh" -nt "${conf##*/}.zwc" ]]; then
+    zcompile ${conf}
+  fi
   source ${DOT_ZSH_ROOT}/${conf}
 done
 
@@ -80,8 +83,4 @@ fi
 
 if [ ~/.zshenv -nt ~/.zshenv.zwc ]; then
   zcompile ~/.zshenv
-fi
-
-if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/zplugrc.zsh.zwc ]; then
-  zcompile ~/.zsh/zplugrc.zsh
 fi
