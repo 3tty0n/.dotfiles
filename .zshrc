@@ -3,11 +3,10 @@
 
 # zplug
 if [[ -e ~/.zplug/init.zsh ]]; then
-  source ~/.zplug/init.zsh
-  source ~/.zsh/zplugrc.zsh
+  source ${ZPLUG_ROOT}/init.zsh
+  source ${DOT_ZSH_ROOT}/zplugrc.zsh
 else
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-  sleep 10
 fi
 
 # internal settings

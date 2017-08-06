@@ -19,8 +19,10 @@ set -gx PATH $HOME/.scalaenv/bin $PATH
 status --is-interactive; and source (scalaenv init -|psub)
 
 # go
-set -gx GOROOT /usr/local/opt/go/libexec
-set -gx GPATH $HOME/.go
+set -gx GOROOT (go env GOROOT)
+set -gx GOPATH $HOME/.go
+set -gx PATH $GOPATH/bin $GOROOT/bin $PATH
+set -gx GHQ_SELECTOR fzf
 
 # git-diff
 set -x PATH /usr/local/share/git-core/contrib/diff-highlight $PATH

@@ -49,3 +49,9 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 # enhancd settings
 ENHANCD_HOOK_AFTER_CD=l
 ENHANCD_FILTER=fzf:fzy:peco
+
+# zplug
+export ZPLUG_ROOT=${HOME}/.zplug
+
+# local settings
+export DOT_ZSH_ROOT=${HOME}/.zsh
