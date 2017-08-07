@@ -22,13 +22,14 @@ setopt auto_cd
 setopt auto_list
 setopt auto_param_keys
 setopt auto_param_slash
-setopt auto_param_slash
 setopt list_packed
 setopt rec_exact
 setopt correct
+setopt correct_all
 setopt globdots
 setopt interactive_comments
 setopt no_beep
+setopt no_list_beep
 setopt nolistbeep
 setopt no_tify
 setopt list_types
@@ -45,10 +46,6 @@ alias emacs='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
 alias gl=fshow
-
-vif () { vim $(fzf) }
-ef () { emacs -nw $(fzf) }
-dtask () { date +'%Y%m%d' }
 
 # pyenv
 if [ -x "`which pyenv`" ]; then
