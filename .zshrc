@@ -3,19 +3,6 @@ if [[ -f ~/.zplug/init.zsh ]]; then
   source ${ZPLUG_ROOT}/init.zsh && source ${DOT_ZSH_ROOT}/zplugrc.zsh
 fi
 
-ZSH_CONFS=(
-  powerline/powerline.zsh
-  functions/fzf-functions.zsh
-  functions/history.zsh
-)
-
-for conf in ${ZSH_CONFS[@]}; do
-  if [[ "${conf##*.*}" = ".zsh"  && "${conf}.zsh" -nt "${conf##*/}.zwc" ]]; then
-    zcompile ${conf}
-  fi
-  source ${DOT_ZSH_ROOT}/${conf}
-done
-
 # internal settings
 setopt auto_menu
 setopt auto_cd
