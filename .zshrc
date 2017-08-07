@@ -8,6 +8,7 @@ ZSH_CONFS=(
   powerline/powerline.zsh
   functions/fzf-functions.zsh
 )
+
 for conf in ${ZSH_CONFS[@]}; do
   if [[ "${conf##*.*}" = ".zsh"  && "${conf}.zsh" -nt "${conf##*/}.zwc" ]]; then
     zcompile ${conf}
@@ -36,6 +37,7 @@ alias vi='vim'
 alias dc=cd
 alias rm='rm -ri'
 alias l='ls -1a'
+alias ls='ls -G'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
@@ -75,12 +77,14 @@ if [ -e ~/.opam ]; then
 fi
 
 # shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
-  zcompile ~/.zshrc
+if [[ "${HOME}/.iterm2_shell_integration.zsh" ]]; then
+  source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-if [ ~/.zshenv -nt ~/.zshenv.zwc ]; then
-  zcompile ~/.zshenv
-fi
+ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc)
+
+for dotfile in ${ZSH_DOTFILES[@]}; do
+  if [[ "${dotfile##*.*}" = ".zsh"  && "${dotfile}.zsh" -nt "${dotfile##*/}.zwc" ]]; then
+    zcompile ${dotfile}
+  fi
+done
