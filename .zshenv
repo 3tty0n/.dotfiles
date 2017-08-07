@@ -2,7 +2,7 @@ typeset -gx -U path
 fpath=(~/.zsh/completion ${fpath})
 
 # autoload
-#autoload -Uz colors && colors
+autoload -Uz colors && colors
 #autoload -Uz compinit && compinit -C
 
 # LANGUAGE must be set by en_US
