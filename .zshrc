@@ -1,12 +1,6 @@
-# zprezto
-[[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-
 # zplug
-if [[ -e ~/.zplug/init.zsh ]]; then
-  source ${ZPLUG_ROOT}/init.zsh
-  source ${DOT_ZSH_ROOT}/zplugrc.zsh
-else
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+if [[ -f ~/.zplug/init.zsh ]]; then
+  source ${ZPLUG_ROOT}/init.zsh && source ${DOT_ZSH_ROOT}/zplugrc.zsh
 fi
 
 # internal settings
@@ -30,6 +24,7 @@ alias vi='vim'
 alias dc=cd
 alias rm='rm -ri'
 alias l='ls -1a'
+alias ls='ls -G'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
@@ -44,18 +39,18 @@ dtask () { date +'%Y%m%d' }
 
 # pyenv
 if [ -x "`which pyenv`" ]; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv init - --no-rehash)"
+  eval "$(pyenv virtualenv-init - --no-rehash)"
 fi
 
 # rbenv
 if [ -x "`which rbenv`" ]; then
-  eval "$(rbenv init -)"
+  eval "$(rbenv init - --no-rehash)"
 fi
 
 # scalaenv
 if [ -x "`which scalaenv`" ]; then
-  eval "$(scalaenv init -)"
+  eval "$(scalaenv init - --no-rehash)"
 fi
 
 # hub
@@ -71,14 +66,10 @@ fi
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
-  zcompile ~/.zshrc
-fi
+ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
 
-if [ ~/.zshenv -nt ~/.zshenv.zwc ]; then
-  zcompile ~/.zshenv
-fi
-
-if [ ~/.zsh/zplugrc.zsh -nt ~/.zsh/zplugrc.zsh.zwc ]; then
-  zcompile ~/.zsh/zplugrc.zsh
-fi
+for dotfile in ${ZSH_DOTFILES[@]}; do
+  if [[ "${dotfile##*.*}" = ".zsh"  && "${dotfile}.zsh" -nt "${dotfile##*/}.zwc" ]]; then
+    zcompile ${dotfile}
+  fi
+done
