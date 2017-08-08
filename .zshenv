@@ -3,6 +3,7 @@ fpath=(~/.zsh/completion ${fpath})
 
 # autoload
 autoload -Uz colors && colors
+autoload -Uz cd-gitroot
 #autoload -Uz compinit && compinit -C
 
 # LANGUAGE must be set by en_US
