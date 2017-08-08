@@ -7,7 +7,6 @@ zplug "changyuheng/zsh-interactive-cd"
 zplug "clvv/fasd", as:command, use:fasd
 zplug "mollifier/cd-gitroot"
 zplug "~/.zsh/functions", from:local
-zplug "~/.zsh/powerline", from:local
 
 # gist
 zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
