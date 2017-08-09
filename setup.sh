@@ -30,3 +30,17 @@ fi
 if [ ! -e ~/.zprezto ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
+
+if [ ! -x "`which ghq`" ]; then
+  if [ ! -x "`which go`" ]; then
+    echo "Please install go."
+    exit 1
+  fi
+  go get github.com/motemen/ghq
+fi
+
+for repo in banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm; do
+  if [ ! -d `ghq root`/github.com/$repo ]; then
+    ghq get https://github.com/$repo
+  fi
+done
