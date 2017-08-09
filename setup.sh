@@ -11,6 +11,9 @@ declare -a vimfiles=(ftplugin snippets)
 declare -a configfiles=()
 declare -a configfiles=(fish omf)
 
+declare -a ghqrepos=()
+declare -a ghqrepos=(banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm tarjoilija/zgen)
+
 for f in ${dotfiles[@]}; do
   ln -sfnv $DOTFILES_ROOT/${f} ~/${f}
 done
@@ -27,19 +30,18 @@ if [ ! -e ~/.config/gist ]; then
   cp -v $DOTFILES_ROOT/.config/gist/config.toml ~/.config/gist
 fi
 
-if [ ! -e ~/.zprezto ]; then
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-fi
-
 if [ ! -x "`which ghq`" ]; then
   if [ ! -x "`which go`" ]; then
     echo "Please install go."
     exit 1
   fi
+  echo "Install ghq ..."
   go get github.com/motemen/ghq
+  echo "Installation is finished. Please re-run this script."
+  exit 1
 fi
 
-for repo in banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm; do
+for repo in ${ghqrepos[@]}; do
   if [ ! -d `ghq root`/github.com/$repo ]; then
     ghq get https://github.com/$repo
   fi
