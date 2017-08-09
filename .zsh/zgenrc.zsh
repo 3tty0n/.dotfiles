@@ -5,7 +5,6 @@ else
   source `ghq root`/github.com/tarjoilija/zgen/zgen.zsh
 fi
 
-export ZGEN_RESET_ON_CHANGE=($HOME/.zsh/zgenrc.zsh)
 if ! zgen saved; then
   echo "Creating a zgen save"
 

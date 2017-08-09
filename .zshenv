@@ -61,3 +61,6 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 
 # history
 HISTFILE="${HOME}/.zhistory"
+
+# zgen
+export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc ${HOME}/.zsh/zgenrc.zsh)
