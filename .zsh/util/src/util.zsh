@@ -8,12 +8,10 @@ z() {
     _last_z_args="$@"
     _z "$@"
   fi
-  ls -1aG
 }
 
 zz() {
   chdir "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
-  ls -1aG
 }
 
 alias j=z

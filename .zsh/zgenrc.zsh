@@ -17,9 +17,6 @@ if ! zgen saved; then
   zgen load b4b4r07/enhancd
   zgen load mollifier/cd-gitroot
   zgen load changyuheng/zsh-interactive-cd
-  zgen load ~/.zsh/functions
-  zgen load ~/.zsh/completion
-  zgen load ~/.zsh/powerline
-#  zgen load ~/.zsh/history
+  zgen load ~/.zsh/util
   zgen save
 fi
