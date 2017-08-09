@@ -1,20 +1,5 @@
-# zprezto
-[[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-
-# local settings
-ZSH_CONFS=(
-  external/enhancd/init.sh
-  external/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
-  powerline/powerline.zsh
-  functions/fzf-functions.zsh
-)
-
-for conf in ${ZSH_CONFS[@]}; do
-  if [[ "${conf##*.*}" = ".zsh"  && "${conf}.zsh" -nt "${conf##*/}.zwc" ]]; then
-    zcompile ${conf}
-  fi
-  source ${DOT_ZSH_ROOT}/${conf}
-done
+# zgen
+source ~/.zsh/zgenrc.zsh
 
 # internal settings
 setopt auto_menu
@@ -78,7 +63,7 @@ if [[ "${HOME}/.iterm2_shell_integration.zsh" ]]; then
   source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc)
+ZSH_DOTFILES=(.zshrc .zshenv)
 
 for dotfile in ${ZSH_DOTFILES[@]}; do
   if [[ "${dotfile##*.*}" = ".zsh"  && "${dotfile}.zsh" -nt "${dotfile##*/}.zwc" ]]; then

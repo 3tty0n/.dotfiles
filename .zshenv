@@ -58,3 +58,6 @@ export ZPLUG_ROOT=${HOME}/.zplug
 
 # local settings
 export DOT_ZSH_ROOT=${HOME}/.zsh
+
+# history
+HISTFILE="${HOME}/.zhistory"

@@ -1,10 +1,23 @@
 #!/bin/zsh
+
+unalias z
 z() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  if [[ -z "$*" ]]; then
+    chdir "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _last_z_args="$@"
+    _z "$@"
+  fi
+  ls -1aG
 }
-alias j='z'
+
+zz() {
+  chdir "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
+  ls -1aG
+}
+
+alias j=z
+alias jj=zz
 
 ghq-fzf() {
   local selected_dir=$(ghq list | fzf --reverse --query="$LBUFFER")
@@ -20,7 +33,7 @@ ghq-fzf() {
 zle -N ghq-fzf
 bindkey "^g" ghq-fzf
 
-fshow () {
+__fshow () {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -31,5 +44,12 @@ fshow () {
 FZF-EOF"
 }
 
-zle -N fshow
-bindkey '^[' fshow
+zle -N __fshow
+bindkey '^[' __fshow
+
+__select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+zle -N __select-history
+bindkey '^r' __select-history
