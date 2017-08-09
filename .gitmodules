@@ -1,9 +1,9 @@
-[submodule "vendor/iterm-colors"]
-	path = vendor/iterm-colors
-	url = git@github.com:bahlo/iterm-colors.git
-[submodule "vendor/thayer-bright-iTerm"]
-	path = vendor/thayer-bright-iTerm
-	url = git@github.com:t3chnoboy/thayer-bright-iTerm.git
-[submodule "vendor/powerline-shell"]
-	path = vendor/powerline-shell
-	url = git@github.com:banga/powerline-shell.git
+[submodule ".zsh/external/enhancd"]
+	path = .zsh/external/enhancd
+	url = git@github.com:b4b4r07/enhancd.git
+[submodule ".zsh/external/zsh-interactive-cd"]
+	path = .zsh/external/zsh-interactive-cd
+	url = git@github.com:changyuheng/zsh-interactive-cd.git
+[submodule ".zsh/external/cd-gitroot"]
+	path = .zsh/external/cd-gitroot
+	url = git@github.com:mollifier/cd-gitroot.git
