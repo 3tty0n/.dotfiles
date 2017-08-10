@@ -1,5 +1,5 @@
 function powerline_precmd() {
-  PS1="$(`ghq root`/github.com/banga/powerline-shell/powerline-shell.py $? --shell zsh 2> /dev/null)"
+  PS1="$(~/.ghq/github.com/banga/powerline-shell/powerline-shell.py $? --shell zsh 2> /dev/null)"
 }
 
 function install_powerline_precmd() {
