@@ -7,7 +7,7 @@
 For stability.
 
 ```bash
-curl -L https://raw.githubusercontent.com/3tty0n/.dotfiles/master/install.sh | bash
+./install.sh --master
 ```
 
 ### develop (use zgen)
@@ -15,5 +15,5 @@ curl -L https://raw.githubusercontent.com/3tty0n/.dotfiles/master/install.sh | b
 For speed.
 
 ```bash
-curl -L https://raw.githubusercontent.com/3tty0n/.dotfiles/develop/install.sh | bash
+./install.sh --develop
 ```
