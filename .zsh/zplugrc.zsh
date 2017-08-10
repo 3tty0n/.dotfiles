@@ -8,9 +8,7 @@ zplug "changyuheng/zsh-interactive-cd"
 zplug "mollifier/cd-gitroot"
 zplug "~/.zsh/functions", from:local
 
-zplug "clvv/fasd", \
-      as:command, \
-      use:fasd
+zplug "rupa/z", use:z.sh
 
 zplug "b4b4r07/enhancd", \
       use:init.sh
@@ -23,9 +21,13 @@ zplug "motemen/ghq", \
     from:gh-r, \
     rename-to:ghq
 
+zplug "junegunn/fzf-bin", \
+      from:gh-r, \
+      as:command,\
+      rename-to:fzf
 
-# gist
-zplug "tsub/f4036e067a59b242a161fc3c8a5f01dd", from:gist # history-fzf.zsh
-zplug "3tty0n/0c7287deedd0bedc1bc0dc23b51653aa", from:gist # ghq-fzf.zsh
+zplug "peco/peco", \
+      as:command, \
+      from:gh-r
 
 zplug load

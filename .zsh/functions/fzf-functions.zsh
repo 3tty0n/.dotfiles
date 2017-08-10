@@ -1,10 +1,20 @@
 #!/bin/zsh
+unalias z
 z() {
-    [ $# -gt 0 ] && fasd_cd -d "$*" && return
-    local dir
-    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  if [[ -z "$*" ]]; then
+    chdir "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  else
+    _last_z_args="$@"
+    _z "$@"
+  fi
 }
+
+zz() {
+  chdir "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
+}
+
 alias j='z'
+alias jj='zz'
 
 ghq-fzf() {
   local selected_dir=$(ghq list | fzf --reverse --query="$LBUFFER")
