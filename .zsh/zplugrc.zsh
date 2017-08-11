@@ -6,7 +6,7 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "changyuheng/zsh-interactive-cd"
 zplug "mollifier/cd-gitroot"
-zplug "~/.zsh/functions", from:local
+zplug "~/.zsh/util", from:local
 
 zplug "rupa/z", use:z.sh
 
