@@ -4,7 +4,7 @@ set -eu
 is_master=false
 is_develop=false
 
-BRANCH=""
+BRANCH=master
 
 usage () {
   echo "Usage:" `basename $0` "[OPTIONS]"
@@ -74,12 +74,8 @@ for OPT in "$@"; do
   esac
 done
 
-if [ -z "$BRANCH" ]; then
-  usage
-else
-  printf " Install in $BRANCH branch ...\n"
-  install & spin && printf "\n"
-  printf " All processes are successfully completed \U1F389\n"
-  printf " For more information, see ${(%):-%U}https://github.com/3tty0n/.dotfiles${(%):-%u} \U1F33A\n"
-  printf " Enjoy hacking!\n"
-fi
+printf " Installing in $BRANCH branch ...\n"
+install & spin && printf "\n"
+printf " All processes are successfully completed \U1F389\n"
+printf " For more information, see ${(%):-%U}https://github.com/3tty0n/.dotfiles${(%):-%u} \U1F33A\n"
+printf " Enjoy hacking!\n"
