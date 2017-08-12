@@ -41,6 +41,8 @@ install () {
   ./brewfile.sh &>/dev/null
 }
 
+trap 'echo ' {1,2,3,15}
+
 for OPT in "$@"; do
   case "$OPT" in
     '-h'| '--help' )
@@ -74,8 +76,14 @@ for OPT in "$@"; do
   esac
 done
 
-printf " Installing in $BRANCH branch ...\n"
-install & spin && printf "\n"
-printf " All processes are successfully completed \U1F389\n"
-printf " For more information, see ${(%):-%U}https://github.com/3tty0n/.dotfiles${(%):-%u} \U1F33A\n"
-printf " Enjoy hacking!\n"
+(
+  printf " Installing in $BRANCH branch ...\n"
+  install & spin && printf "\n"
+  printf " All processes are successfully completed \U1F389\n"
+  printf " For more information, see ${(%):-%U}https://github.com/3tty0n/.dotfiles${(%):-%u} \U1F33A\n"
+  printf " Enjoy hacking!\n"
+) || {
+  printf "\033[2K" 2>/dev/null
+  printf "Oops \U2620 ... Try again!\n" 2>/dev/null
+  exit 1
+}
