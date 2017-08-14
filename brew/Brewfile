@@ -5,6 +5,7 @@ brew 'bash-completion'
 brew 'ocaml', args: ['with-x11']
 brew 'emacs'
 brew 'cask'
+brew 'coreutils'
 brew 'darcs'
 brew 'fish'
 brew 'fzf'
