@@ -34,4 +34,9 @@ zplug "peco/peco", \
 zplug "~/.zsh/util", \
       from:local
 
+zplug "bhilburn/powerlevel9k",\
+      use:powerlevel9k.zsh-theme
+
+#zplug "3tty0n/powerline-shell", at:develop, hook-build:"make install"
+
 zplug load
