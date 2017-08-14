@@ -19,5 +19,6 @@ if ! zgen saved; then
   zgen load bhilburn/powerlevel9k powerlevel9k
   zgen load Tarrasch/zsh-bd
   zgen load ~/.zsh/util
+  zgen load bhilburn/powerlevel9k powerlevel9k
   zgen save
 fi
