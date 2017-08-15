@@ -30,11 +30,6 @@ alias md='mkdir'
 alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
-alias gl=fshow
-
-vif () { vim $(fzf) }
-ef () { emacs -nw $(fzf) }
-dtask () { date +'%Y%m%d' }
 
 # pyenv
 if [ -x "`which pyenv`" ]; then
