@@ -63,7 +63,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
 
 for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "${dotfile##*.*}" = ".zsh"  && "${dotfile}.zsh" -nt "${dotfile##*/}.zwc" ]]; then
+  if [[ "${dotfile}" -nt "${dotfile}.zwc" ]]; then
     zcompile ${dotfile}
   fi
 done
