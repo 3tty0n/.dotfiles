@@ -1,9 +1,6 @@
 #!/bin/zsh
 set -eu
 
-is_master=false
-is_develop=false
-
 BRANCH=master
 
 usage () {
@@ -33,12 +30,11 @@ spin (){
 }
 
 install () {
-  if [ ! -d ~/.dotfiles ];then
-    git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles &/dev/null
-  fi
-  git checkout $BRANCH &>/dev/null
-  ./setup.sh &>/dev/null
-  ./brewfile.sh &>/dev/null
+  { if [ ! -d ~/.dotfiles ];then
+      git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
+    fi
+    git checkout $BRANCH && ./setup.sh && ./brewfile.sh
+  }  &>/dev/null
 }
 
 trap 'echo ' {1,2,3,15}

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_ROOT=~/.dotfiles
+DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
 declare -a dotfiles=()
 declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim bin .tigrc)

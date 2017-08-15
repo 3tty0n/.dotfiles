@@ -36,7 +36,7 @@ bindkey "^g" __ghq_fzf
 
 
 __fzf_show () {
-  git log --graph --color=always \
+  { git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
       --bind "ctrl-m:execute:
@@ -44,6 +44,7 @@ __fzf_show () {
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
 FZF-EOF"
+  } || zle reset-prompt
 }
 
 zle -N __fzf_show
