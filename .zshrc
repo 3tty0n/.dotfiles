@@ -27,10 +27,8 @@ alias ls='ls -G'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
-alias emacs='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
-alias gl=fshow
 
 # pyenv
 if [ -x "`which pyenv`" ]; then
@@ -59,14 +57,12 @@ if [ -e ~/.opam ]; then
 fi
 
 # shell integration
-if [[ "${HOME}/.iterm2_shell_integration.zsh" ]]; then
-  source "${HOME}/.iterm2_shell_integration.zsh"
-fi
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-ZSH_DOTFILES=(.zshrc .zshenv)
+ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
 
 for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "${dotfile##*.*}" = ".zsh"  && "${dotfile}.zsh" -nt "${dotfile##*/}.zwc" ]]; then
+  if [[ "${dotfile}" -nt "${dotfile}.zwc" ]]; then
     zcompile ${dotfile}
   fi
 done

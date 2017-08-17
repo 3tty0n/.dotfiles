@@ -1,9 +1,9 @@
 #!/bin/bash
 
-DOTFILES_ROOT=~/.dotfiles
+DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
 declare -a dotfiles=()
-declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim bin .tigrc)
+declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim .tigrc)
 
 declare -a vimfiles=()
 declare -a vimfiles=(ftplugin snippets)
@@ -20,7 +20,7 @@ done
 
 [ ! -e ~/.vim ] && mkdir ~/.vim
 for vimfile in ${vimfiles[@]}; do
-  ln -sfnv $DOTFILES_ROOT/$vimfile ~/.vim/$vimfile
+  ln -sfnv $DOTFILES_ROOT/.vim/$vimfile ~/.vim/$vimfile
 done
 
 #for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
