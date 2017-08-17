@@ -77,7 +77,7 @@ install () {
   { if [ ! -d ~/.dotfiles ];then
       git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
     fi
-    git checkout $BRANCH && ./setup.sh && ./brewfile.sh
+    git checkout $BRANCH && setup && brewfile
   }  &>/dev/null
 }
 
