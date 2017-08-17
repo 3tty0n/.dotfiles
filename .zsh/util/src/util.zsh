@@ -17,7 +17,7 @@ zz() {
 alias j=z
 alias jj=zz
 
-ghq-fzf() {
+__ghq-fzf() {
   local selected_dir=$(ghq list | fzf --reverse --query="$LBUFFER")
 
   if [ -n "$selected_dir" ]; then
@@ -28,26 +28,32 @@ ghq-fzf() {
   zle reset-prompt
 }
 
-zle -N ghq-fzf
-bindkey "^g" ghq-fzf
+zle -N __ghq-fzf
+bindkey "^g" __ghq-fzf
 
 __fshow () {
-  git log --graph --color=always \
+  { git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
       --bind "ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
-FZF-EOF"
+FZF-EOF" } || zle reset-prompt
 }
 
 zle -N __fshow
 bindkey '^[' __fshow
 
 __select-history() {
-  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-  CURSOR=$#BUFFER
+  local selected_cmd
+  selected_cmd=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER")
+  
+  if [ -n "$selected_cmd" ]; then
+    BUFFER=$selected_cmd
+  fi
+  
+  zle reset-prompt
 }
 zle -N __select-history
 bindkey '^r' __select-history
