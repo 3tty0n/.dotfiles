@@ -67,4 +67,5 @@ for dotfile in ${ZSH_DOTFILES[@]}; do
   fi
 done
 
-[ -f ~/.zshrc.local.zsh ] && source ~/.zshrc.local.zsh
+# load local zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
