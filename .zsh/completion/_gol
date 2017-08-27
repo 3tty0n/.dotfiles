@@ -1,0 +1,26 @@
+#compdef gol
+
+function _gol {
+  _arguments -C \
+             '(-h --help)'{-h,--help}'[show help]' \
+             '(-v --version)'{-v,--version}'[print the version]' \
+             '--datapath [/path/to/data/file (default: "~/.config/gol/links.json")]' \
+             '*: :->commands'
+
+  case $state in
+    commands)
+      _values \
+        'commands' \
+        {add,a}'[add the key]' \
+        {rm,r}'[remove key]' \
+        {ls,l}'[display keys]' \
+        {get,g}'[get the key]' \
+        {dump,d}'[run dump]' \
+        {open,o}'[open the key]' \
+        {peco,p}'[open the key in peco]' \
+        {server,s}'[start the gol server]'
+      ;;
+  esac
+}
+
+compdef _gol gol

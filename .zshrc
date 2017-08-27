@@ -66,3 +66,5 @@ for dotfile in ${ZSH_DOTFILES[@]}; do
     zcompile ${dotfile}
   fi
 done
+
+[ -f ~/.zshrc.local.zsh ] && source ~/.zshrc.local.zsh

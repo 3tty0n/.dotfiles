@@ -64,3 +64,25 @@ __fzf_history () {
 
 zle -N __fzf_history
 bindkey '^r' __fzf_history
+
+fzf-sbt-new () {
+  local TEMPLATE="$(curl https://github.com/foundweekends/giter8/wiki/giter8-templates -s | grep "\.g8<" | sed -e "s/</ /g" -e "s/>/ /g" | awk '{print $3}' | fzf | head -n 1)"
+  if [[ -z "$TEMPLATE" ]]; then
+    return
+  fi
+  sbt new $TEMPLATE
+}
+
+__gol_fzf () {
+  local selected_key=$(gol ls | fzf | sed -e "s/[a-zA-Z0-9-]*: //g")
+
+  if [ -n "$selected_key" ]; then
+    BUFFER="open $selected_key"
+    zle accept-line
+  fi
+
+  zle reset-prompt
+}
+
+zle -N __gol_fzf
+bindkey '^]' __gol_fzf
