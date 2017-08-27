@@ -9,7 +9,6 @@ setopt auto_cd
 setopt auto_list
 setopt auto_param_keys
 setopt auto_param_slash
-setopt auto_param_slash
 setopt list_packed
 setopt rec_exact
 setopt correct
@@ -67,3 +66,5 @@ for dotfile in ${ZSH_DOTFILES[@]}; do
     zcompile ${dotfile}
   fi
 done
+
+[ -f ~/.zshrc.local.zsh ] && source ~/.zshrc.local.zsh

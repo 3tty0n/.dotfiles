@@ -1,5 +1,5 @@
 typeset -gx -U path
-fpath=(~/.zsh/completion ${fpath})
+fpath=(${HOME}/.zsh/completion ${fpath})
 
 # autoload
 autoload -Uz colors && colors
@@ -75,7 +75,3 @@ POWERLEVEL9K_STATUS_ERROR_FOREGROUND="red"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time status background_jobs root_indicator context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
-
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX=" ❯ "
