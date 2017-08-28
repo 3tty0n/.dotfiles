@@ -1,26 +1,63 @@
 #compdef gol
 
 function _gol {
+  local context curcontext=$curcontext state line
+  declare -A opt_args
+  local ret=1
+
   _arguments -C \
              '(-h --help)'{-h,--help}'[show help]' \
              '(-v --version)'{-v,--version}'[print the version]' \
              '--datapath [/path/to/data/file (default: "~/.config/gol/links.json")]' \
-             '*: :->commands'
+             '1: :__gol_commands' \
+             '*:: :->args' \
+    && ret=0
 
   case $state in
-    commands)
-      _values \
-        'commands' \
-        {add,a}'[add the key]' \
-        {rm,r}'[remove key]' \
-        {ls,l}'[display keys]' \
-        {get,g}'[get the key]' \
-        {dump,d}'[run dump]' \
-        {open,o}'[open the key]' \
-        {peco,p}'[open the key in peco]' \
-        {server,s}'[start the gol server]'
-      ;;
+    (args)
+      case $words[1] in
+        (open)
+          _arguments -C\
+                     '1: :__gol_keys' \
+            && ret=0
+          ;;
+        (rm)
+          _arguments -C\
+                     '1: :__gol_keys' \
+            && ret=0
+          ;;
+        (help|h)
+          __gol_commands && ret=0
+          ;;
+        (*)
+          ret=0
+          ;;
+      esac
+    ;;
   esac
+
+  return ret
+}
+
+function __gol_keys {
+  local -a _keys
+  _keys=( ${(@f)"$(_call_program keys gol ls)"} )
+  _describe -t keys Keys _keys
+}
+
+function __gol_commands {
+  local -a _c
+  _c=(
+    'add:add the key'
+    'rm:remove the key'
+    'ls:display keys'
+    'get:get the key'
+    'dump:run dump'
+    'open:open the key'
+    'peco:open the key in peco'
+    'server:start the gol server'
+  )
+  _describe -t commands Commands _c
 }
 
 compdef _gol gol

@@ -74,13 +74,11 @@ fzf-sbt-new () {
 }
 
 __gol_fzf () {
-  local selected_key=$(gol ls | fzf | sed -e "s/[a-zA-Z0-9-]*: //g")
+  local selected_key=$(gol ls | sort | fzf | sed -e "s/[a-zA-Z0-9-]*: //g")
 
   if [ -n "$selected_key" ]; then
-    BUFFER="open $selected_key"
-    zle accept-line
+    open $selected_key
   fi
-
   zle reset-prompt
 }
 
