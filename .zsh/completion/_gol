@@ -60,4 +60,5 @@ function __gol_commands {
   _describe -t commands Commands _c
 }
 
+_gol "$@"
 compdef _gol gol
