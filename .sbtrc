@@ -7,3 +7,4 @@ alias r=reload
 alias tc=test:compile
 alias to=testOnly
 alias tq=testQuick
+alias cl=clean
