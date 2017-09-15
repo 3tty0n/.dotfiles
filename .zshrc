@@ -29,6 +29,8 @@ alias md='mkdir'
 alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
+alias t='tig'
+alias ta='tig --all'
 
 # pyenv
 if [ -x "`which pyenv`" ]; then
