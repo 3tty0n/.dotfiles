@@ -21,6 +21,7 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 
 # Add ~/usr/local/bin to PATH
 export PATH=~/.local/bin:$PATH
+export PATH=~/.opam/4.04.0/bin:$PATH
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
