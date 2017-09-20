@@ -3,7 +3,7 @@
 DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
 declare -a dotfiles=()
-declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .vimrc.local.vim .tigrc .sbtrc)
+declare -a dotfiles=(.vimrc .tmux.conf .gitconfig .gitignore_global .irbrc .latexmkrc .gemrc .zshenv .zshrc .zsh .tigrc .sbtrc)
 
 declare -a vimfiles=()
 declare -a vimfiles=(ftplugin snippets)
@@ -14,36 +14,36 @@ declare -a configfiles=(fish omf)
 declare -a ghqrepos=()
 declare -a ghqrepos=(banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
 
-for f in ${dotfiles[@]}; do
-  ln -sfnv $DOTFILES_ROOT/${f} ~/${f}
+for f in "${dotfiles[@]}"; do
+  ln -sfnv "$DOTFILES_ROOT/${f}" ~/"${f}"
 done
 
 [ ! -e ~/.vim ] && mkdir ~/.vim
-for vimfile in ${vimfiles[@]}; do
-  ln -sfnv $DOTFILES_ROOT/.vim/$vimfile ~/.vim/$vimfile
+for vimfile in "${vimfiles[@]}"; do
+  ln -sfnv "$DOTFILES_ROOT/.vim/$vimfile" "$HOME/.vim/$vimfile"
 done
 
 #for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
 
 if [ ! -e ~/.config/gist ]; then
   mkdir -p ~/.config/gist
-  cp -v $DOTFILES_ROOT/.config/gist/config.toml ~/.config/gist
+  cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
 fi
 
 if [ ! -e ~/.zplug ]; then
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 fi
 
-for repo in ${ghqrepos[@]}; do
-  if [ ! -d `ghq root`/github.com/$repo ]; then
-    ghq get https://github.com/$repo
+for repo in "${ghqrepos[@]}"; do
+  if [ ! -d "$(ghq root)/github.com/$repo" ]; then
+    ghq get "https://github.com/$repo"
   fi
 done
 
-if [ ! -x "`which brew`" ]; then
+if [ ! -x "$(which brew)" ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-cd brew
+cd brew || exit
 brew tap Homebrew/bundle
 brew bundle
