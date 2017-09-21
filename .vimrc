@@ -34,7 +34,10 @@ Plug 'cohama/the-ocamlspot.vim'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim'
+
+if expand("$USERNAME") == "izawa"
+  Plug 'ensime/ensime-vim'
+endif
 
 " python
 Plug 'davidhalter/jedi-vim'
