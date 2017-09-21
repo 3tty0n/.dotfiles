@@ -61,11 +61,14 @@ fi
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# fzf
+test -f "$HOME/.fzf.zsh" && source "$HOME/.fzf.zsh"
+
 ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
 
 for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "${dotfile}" -nt "${dotfile}.zwc" ]]; then
-    zcompile ${dotfile}
+  if [[ "{$HOME}/${dotfile}" -nt "${HOME}/${dotfile}.zwc" ]]; then
+    zcompile "${HOME}/${dotfile}"
   fi
 done
 
