@@ -32,27 +32,6 @@ alias g='git'
 alias t='tig'
 alias ta='tig --all'
 
-# pyenv
-if [ -x "`which pyenv`" ]; then
-  eval "$(pyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init - --no-rehash)"
-fi
-
-# rbenv
-if [ -x "`which rbenv`" ]; then
-  eval "$(rbenv init - --no-rehash)"
-fi
-
-# scalaenv
-if [ -x "`which scalaenv`" ]; then
-  eval "$(scalaenv init - --no-rehash)"
-fi
-
-# hub
-if [ -x "`which hub`" ]; then
-  eval "$(hub alias -s)"
-fi
-
 # OPAM
 if [ -e ~/.opam ]; then
   source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -74,3 +53,5 @@ done
 
 # load local zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
