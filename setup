@@ -14,36 +14,56 @@ declare -a configfiles=(fish omf)
 declare -a ghqrepos=()
 declare -a ghqrepos=(banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
 
-for f in "${dotfiles[@]}"; do
-  ln -sfnv "$DOTFILES_ROOT/${f}" ~/"${f}"
-done
+mk_symlink() {
+  for f in "${dotfiles[@]}"; do
+    ln -sfnv "$DOTFILES_ROOT/${f}" ~/"${f}"
+  done
 
-[ ! -e ~/.vim ] && mkdir ~/.vim
-for vimfile in "${vimfiles[@]}"; do
-  ln -sfnv "$DOTFILES_ROOT/.vim/$vimfile" "$HOME/.vim/$vimfile"
-done
+  [ ! -e ~/.vim ] && mkdir ~/.vim
+  for vimfile in "${vimfiles[@]}"; do
+    ln -sfnv "$DOTFILES_ROOT/.vim/$vimfile" "$HOME/.vim/$vimfile"
+  done
 
-#for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
+  #for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
 
-if [ ! -e ~/.config/gist ]; then
-  mkdir -p ~/.config/gist
-  cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
-fi
-
-if [ ! -e ~/.zplug ]; then
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-fi
-
-for repo in "${ghqrepos[@]}"; do
-  if [ ! -d "$(ghq root)/github.com/$repo" ]; then
-    ghq get "https://github.com/$repo"
+  if [ ! -e ~/.config/gist ]; then
+    mkdir -p ~/.config/gist
+    cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
   fi
+
+  if [ ! -e ~/.zplug ]; then
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+  fi
+
+  for repo in "${ghqrepos[@]}"; do
+    if [ ! -d "$(ghq root)/github.com/$repo" ]; then
+      ghq get "https://github.com/$repo"
+    fi
+  done
+
+  if [ ! -x "$(which brew)" ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
+brew_bundle () {
+  cd brew || exit
+  brew tap Homebrew/bundle
+  brew bundle
+}
+
+for OPT in "$@"
+do
+  case $OPT in
+    '-s' )
+      mk_symlink
+      ;;
+    '-b' )
+      brew_bundle
+      ;;
+    '*' )
+      mk_symlink && brew_bundle
+      ;;
+  esac
+  shift
 done
-
-if [ ! -x "$(which brew)" ]; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-cd brew || exit
-brew tap Homebrew/bundle
-brew bundle
