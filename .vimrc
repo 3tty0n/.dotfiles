@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 
 " git
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " color theme
 Plug 'josuegaleas/jay'
