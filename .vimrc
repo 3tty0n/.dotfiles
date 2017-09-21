@@ -27,6 +27,13 @@ Plug 'tpope/vim-fugitive'
 " color theme
 Plug 'josuegaleas/jay'
 
+" Unite.vim
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+
+" vim filer
+Plug 'Shougo/vimfiler.vim'
+
 "=== language ===
 
 " ocaml
@@ -429,4 +436,19 @@ nmap <Leader><Tab> <C-w>w
 " {{{ # scala
 autocmd BufWritePost *.scala silent :EnTypeCheck
 nnoremap <localleader>t :EnTypeCheck<CR>
+" }}}
+
+" {{{ # unite settings
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 200
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+" }}}
+
+" {{{ # vim filer
+let g:vimfiler_as_default_explorer = 1
 " }}}
