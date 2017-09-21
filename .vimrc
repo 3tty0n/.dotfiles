@@ -9,7 +9,6 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " neocomplete and neosnippet
 Plug 'Shougo/neocomplcache'
-Plug 'Shougo/neocomplcache'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neocomplete'
@@ -23,6 +22,9 @@ Plug 'junegunn/fzf.vim'
 
 " git
 Plug 'airblade/vim-gitgutter'
+
+" color theme
+Plug 'josuegaleas/jay'
 
 "=== language ===
 
@@ -133,7 +135,7 @@ set wildmode=list:longest,full
 set cmdheight=1                 " コマンドライン行を1行に
 " カーソルを左右させるキーのうち、ここで指定したものでは、
 " カーソルが行頭／末にあるときに前／次行に移動できるようになる。
-set whichwrap=b,s,h,l,<,>,[,]   
+set whichwrap=b,s,h,l,<,>,[,]
 " インサートモードですべて消す
 set backspace=indent,eol,start
 set shortmess=filtoOA           " shorten messages
@@ -163,6 +165,13 @@ augroup END
 " tmux を使っている時で、インサートモードの時に形状を変更する
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" }}}
+
+" {{{ # color theme
+syntax enable
+set background=dark
+colorscheme jay
+let g:lightline = {'colorscheme': 'jay'}
 " }}}
 
 " {{{ # window settings
@@ -366,25 +375,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-" }}}
-
-" {{{ # keybindings for neocomplete and neosnippet
-" neocomplcache keybind
-inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<TAB>"
-inoremap <expr><C-Tab> pumvisible() ? "\<Up>" : "\<C-Tab>"
-
-"neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-"NERDTree
-nmap <silent> <C-e>      :NERDTreeToggle<CR>
-vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-omap <silent> <C-e>      :NERDTreeToggle<CR>
-imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
 " }}}
 
 " {{{ # fzf settings
