@@ -70,6 +70,12 @@ set termencoding=utf-8      " ..
 set fileencodings=utf-8     " ..
 " Automatic end-of-file format detection
 set fileformats=unix,mac,dos
+
+" ファイルを開いたとき、最後にカーソルがあった場所に移動する
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
 " }}}
 
 " {{{ # text editting
