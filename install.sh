@@ -1,7 +1,6 @@
 #!/bin/zsh
 set -eu
 autoload -Uz colors; colors
-typeset TMPFILE="/tmp/.spin-$$$RANDOM"
 BRANCH=master
 
 usage () {

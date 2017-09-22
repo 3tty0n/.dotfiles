@@ -14,6 +14,18 @@ declare -a configfiles=(fish omf)
 declare -a ghqrepos=()
 declare -a ghqrepos=(banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
 
+
+usage () {
+  echo "Usage:" `basename $0` "[OPTIONS]"
+  echo " This script is the set up tool for 3tty0n's environment."
+  echo
+  echo "Options:"
+  echo "  -h          show help"
+  echo "  -b          install brew formulas"
+  echo "  -s          make symbolik links"
+  exit 0
+}
+
 mk_symlink() {
   for f in "${dotfiles[@]}"; do
     ln -sfnv "$DOTFILES_ROOT/${f}" ~/"${f}"
@@ -55,6 +67,9 @@ brew_bundle () {
 for OPT in "$@"
 do
   case $OPT in
+    '-h' )
+      usage
+      ;;
     '-s' )
       mk_symlink
       ;;
