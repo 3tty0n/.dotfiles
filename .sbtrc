@@ -8,3 +8,4 @@ alias tc=test:compile
 alias to=testOnly
 alias tq=testQuick
 alias cl=clean
+alias q=exit
