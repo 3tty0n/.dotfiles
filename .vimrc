@@ -38,14 +38,9 @@ Plug 'Shougo/vimfiler.vim'
 
 " ocaml
 Plug 'def-lkb/ocp-indent-vim'
-Plug 'cohama/the-ocamlspot.vim'
 
 " scala
 Plug 'derekwyatt/vim-scala'
-
-if expand("$USERNAME") == "izawa"
-  Plug 'ensime/ensime-vim'
-endif
 
 " python
 Plug 'davidhalter/jedi-vim'
@@ -103,7 +98,7 @@ set ambiwidth=double        " 全角文字をASCIIの2倍の幅で表示する
 
 set textwidth=0             " 改行が入らないようにする
 if v:version >= 703
-  set colorcolumn=80        " 80字の部分でラインが表示されるように
+  set colorcolumn=120       " 120字の部分でラインが表示されるように
 endif
 set foldmethod=marker       " マーカーで折りたたみを行えるように
 
@@ -440,8 +435,6 @@ nmap <Leader><Tab> <C-w>w
 " }}}
 
 " {{{ # scala
-autocmd BufWritePost *.scala silent :EnTypeCheck
-nnoremap <localleader>t :EnTypeCheck<CR>
 " }}}
 
 " {{{ # unite settings
