@@ -98,7 +98,7 @@ set ambiwidth=double        " 全角文字をASCIIの2倍の幅で表示する
 
 set textwidth=0             " 改行が入らないようにする
 if v:version >= 703
-  set colorcolumn=120       " 120字の部分でラインが表示されるように
+  set colorcolumn=80        " 80字の部分でラインが表示されるように
 endif
 set foldmethod=marker       " マーカーで折りたたみを行えるように
 
