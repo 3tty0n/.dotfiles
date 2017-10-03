@@ -45,6 +45,10 @@ Plug 'derekwyatt/vim-scala'
 " python
 Plug 'davidhalter/jedi-vim'
 
+" markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
 " Initialize plugin system
 call plug#end()
 " }}}
@@ -262,7 +266,7 @@ hi SyntasticWarningSign ctermfg=220
 
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
-let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes' : ['scala', 'ocaml']}
+let g:syntastic_mode_map = {'mode': 'active'}
 
 " syntastic ocaml
 let g:syntastic_ocaml_checkers = ['merlin']
