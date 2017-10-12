@@ -58,6 +58,9 @@ export ZPLUG_ROOT=${HOME}/.zplug
 # local settings
 export DOT_ZSH_ROOT=${HOME}/.zsh
 
+# OCaml
+export OCAMLRUNPARAM=b
+
 # powerlevel9k setting
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
