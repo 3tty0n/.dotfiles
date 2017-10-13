@@ -22,8 +22,6 @@ setopt list_types
 alias vi='vim'
 alias dc=cd
 alias rm='rm -ri'
-alias l='ls -1a'
-alias ls='ls -G'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
@@ -31,6 +29,20 @@ alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
 alias t='tig'
 alias ta='tig --all'
+alias l='ls -1a'
+
+case "${OSTYPE}" in
+  darwin* )
+    alias ls="ls -G"
+    alias ll="ls -lG"
+    alias la="ls -laG"
+  ;;
+  linux* )
+    alias ls='ls --color'
+    alias ll='ls -l --color'
+    alias la='ls -la --color'
+  ;;
+esac
 
 # OPAM
 if [ -e ~/.opam ]; then
