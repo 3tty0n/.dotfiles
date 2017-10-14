@@ -6,6 +6,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'thinca/vim-quickrun'
+Plug 'tomtom/tcomment_vim'
+Plug 'Shougo/vimproc', { 'do' : 'make' }
+Plug 'vim-scripts/vim-auto-save'
 
 " neocomplete and neosnippet
 Plug 'Shougo/neocomplcache'
@@ -274,6 +278,18 @@ let g:syntastic_mode_map = {'mode': 'active'}
 " syntastic ocaml
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_ocaml_use_ocamlc = 1
+
+let g:syntastic_error_symbol = "✗"
+" }}}
+
+" quickrun {{{
+let g:quickrun_config = {}
+
+" vim proc でコマンドを実行する
+let g:quickrun_config['_'] = {
+      \ 'runner': 'vimproc',
+      \ 'runner/vimproc/updatetime' : 100
+      \ }
 " }}}
 
 " {{{ # neocomplete with cache
@@ -452,4 +468,10 @@ nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 " {{{ # vim filer
 let g:vimfiler_as_default_explorer = 1
+" }}}
+
+" vim autosave {{{
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
+let g:auto_save_silent = 1  " do not display the auto-save notification
 " }}}
