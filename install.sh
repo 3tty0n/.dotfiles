@@ -1,7 +1,6 @@
 #!/bin/zsh
 set -eu
 autoload -Uz colors; colors
-typeset TMPFILE="/tmp/.spin-$$$RANDOM"
 BRANCH=master
 
 usage () {
@@ -16,7 +15,7 @@ usage () {
   exit 1
 }
 
-spin (){
+spinner() {
   pid=$! # Process Id of the previous running command
 
   spin='-\|/'
@@ -30,54 +29,11 @@ spin (){
   done
 }
 
-move() {
-  col="$1"
-  line="$2"
-  printf "\r\033[${line};${col}f"
-}
-
-eraceCurrentLine() {
-  printf "\033[2K\r"
-}
-
-get_line() {
-  echo -ne "\r\033[6n"
-  read -s -d\[ garbage
-  read -s -d R foo
-  REPLY=$(echo "$foo" | sed 's/;.*$//')
-}
-
-sp() {
-  local    spinner
-  local -a spinners
-  spinners=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
-
-  #line
-  #line=$REPLY
-  line=$1
-
-  sleep ${3:-1} & id=$!
-
-  while [[ $jobstates =~ $id ]]
-  do
-    for spinner in "${spinners[@]}"
-    do
-      sleep 0.05
-      printf "\r\033[$line;1f $fg[white]$spinner$reset_color  Installing...  $2" 2>/dev/null
-      [[ $jobstates =~ $id ]] || break
-    done
-  done
-
-  move 1 $line
-  eraceCurrentLine
-  printf " $fg_bold[blue]\U2714$reset_color  $fg[green]Installed!$reset_color     $2\n"
-}
-
 install () {
   { if [ ! -d ~/.dotfiles ];then
       git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
     fi
-    git checkout $BRANCH && setup && brewfile
+    git checkout $BRANCH && ./setup
   }  &>/dev/null
 }
 
@@ -117,16 +73,8 @@ for OPT in "$@"; do
 done
 
 (
-  printf "\n\n"
-  # hide cursor
-  tput civis
-
-  get_line
-  line=$REPLY
-  install & { sp $(( line+=0 )) "${BRANCH}"}
-
+  install & spinner
   # show cursor
-  tput cnorm
   printf "\n\n"
   printf " All processes are successfully completed \U1F389\n"
   printf " For more information, see ${(%):-%U}https://github.com/3tty0n/.dotfiles${(%):-%u} \U1F33A\n"

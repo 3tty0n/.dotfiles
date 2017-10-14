@@ -1,0 +1,7 @@
+function _hexo_completion() {
+  compls=$(hexo --console-list)
+  completions=(${=compls})
+  compadd -- $completions
+}
+
+compdef _hexo_completion hexo

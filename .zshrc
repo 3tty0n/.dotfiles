@@ -22,34 +22,27 @@ setopt list_types
 alias vi='vim'
 alias dc=cd
 alias rm='rm -ri'
-alias l='ls -1a'
-alias ls='ls -G'
 alias cdu='cd-gitroot'
 alias md='mkdir'
 alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 alias g='git'
+alias t='tig'
+alias ta='tig --all'
+alias l='ls -1a'
 
-# pyenv
-if [ -x "`which pyenv`" ]; then
-  eval "$(pyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init - --no-rehash)"
-fi
-
-# rbenv
-if [ -x "`which rbenv`" ]; then
-  eval "$(rbenv init - --no-rehash)"
-fi
-
-# scalaenv
-if [ -x "`which scalaenv`" ]; then
-  eval "$(scalaenv init - --no-rehash)"
-fi
-
-# hub
-if [ -x "`which hub`" ]; then
-  eval "$(hub alias -s)"
-fi
+case "${OSTYPE}" in
+  darwin* )
+    alias ls="ls -G"
+    alias ll="ls -lG"
+    alias la="ls -laG"
+  ;;
+  linux* )
+    alias ls='ls --color'
+    alias ll='ls -l --color'
+    alias la='ls -la --color'
+  ;;
+esac
 
 # OPAM
 if [ -e ~/.opam ]; then
@@ -59,12 +52,18 @@ fi
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# fzf
+test -f "$HOME/.fzf.zsh" && source "$HOME/.fzf.zsh"
+
 ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
 
 for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "${dotfile}" -nt "${dotfile}.zwc" ]]; then
-    zcompile ${dotfile}
+  if [[ "{$HOME}/${dotfile}" -nt "${HOME}/${dotfile}.zwc" ]]; then
+    zcompile "${HOME}/${dotfile}"
   fi
 done
 
-[ -f ~/.zshrc.local.zsh ] && source ~/.zshrc.local.zsh
+# load local zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

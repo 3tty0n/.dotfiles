@@ -1,6 +1,10 @@
 #compdef gol
 
 function _gol {
+  local context curcontext=$curcontext state line
+  declare -A opt_args
+  local ret=1
+
   _arguments -C \
              '(-h --help)'{-h,--help}'[show help]' \
              '(-v --version)'{-v,--version}'[print the version]' \
@@ -23,4 +27,26 @@ function _gol {
   esac
 }
 
+function __gol_keys {
+  local -a _keys
+  _keys=( ${(@f)"$(_call_program keys gol ls)"} )
+  _describe -t keys Keys _keys
+}
+
+function __gol_commands {
+  local -a _c
+  _c=(
+    'add:add the key'
+    'rm:remove the key'
+    'ls:display keys'
+    'get:get the key'
+    'dump:run dump'
+    'open:open the key'
+    'peco:open the key in peco'
+    'server:start the gol server'
+  )
+  _describe -t commands Commands _c
+}
+
+_gol "$@"
 compdef _gol gol
