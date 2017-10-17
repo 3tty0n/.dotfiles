@@ -60,7 +60,7 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 # enhancd settings
-ENHANCD_HOOK_AFTER_CD='ls -a'
+ENHANCD_HOOK_AFTER_CD='ls -1a'
 ENHANCD_FILTER=fzf:fzy:peco
 
 # zplug
