@@ -31,6 +31,13 @@ alias t='tig'
 alias ta='tig --all'
 alias l='ls -1a'
 
+# less
+alias less='less -m -N -g -i -J --line-numbers --underline-special'
+alias more='less'
+
+# use 'hightlihgt' in place of 'cat'
+alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+
 case "${OSTYPE}" in
   darwin* )
     alias ls="ls -G"
