@@ -52,6 +52,8 @@ values."
      latex
      vimscript
      docker
+     csv
+     asm
      ;; checker
      syntax-checking
      spell-checking
