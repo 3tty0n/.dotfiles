@@ -65,12 +65,13 @@ __fzf_history () {
 zle -N __fzf_history
 bindkey '^r' __fzf_history
 
-fzf-sbt-new () {
+fsn () {
   local TEMPLATE="$(curl https://github.com/foundweekends/giter8/wiki/giter8-templates -s | grep "\.g8<" | sed -e "s/</ /g" -e "s/>/ /g" | awk '{print $3}' | fzf | head -n 1)"
   if [[ -z "$TEMPLATE" ]]; then
     return
   fi
   sbt new $TEMPLATE
+  rm -rf target || exit 1
 }
 
 __gol_fzf () {

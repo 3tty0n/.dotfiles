@@ -293,7 +293,7 @@ let g:syntastic_ocaml_use_ocamlc = 1
 let g:syntastic_error_symbol = "✗"
 " }}}
 
-" quickrun {{{
+" # quickrun {{{
 let g:quickrun_config = {}
 
 " vim proc でコマンドを実行する
@@ -481,7 +481,7 @@ nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 let g:vimfiler_as_default_explorer = 1
 " }}}
 
-" vim autosave {{{
+" # vim autosave {{{
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
 let g:auto_save_silent = 1  " do not display the auto-save notification

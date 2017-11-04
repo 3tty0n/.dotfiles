@@ -11,6 +11,9 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "changyuheng/zsh-interactive-cd"
 zplug "mollifier/cd-gitroot"
 
+zplug "rhysd/zsh-bundle-exec", \
+      use:zsh-bundle-exec.zsh
+
 zplug "Tarrasch/zsh-bd", \
       use:bd.zsh
 
