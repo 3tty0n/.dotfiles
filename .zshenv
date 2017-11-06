@@ -65,6 +65,8 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 # OCaml
 export OCAMLRUNPARAM=b
 
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
 # powerlevel9k setting
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
