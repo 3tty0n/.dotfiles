@@ -13,11 +13,12 @@ export LC_ALL="${LANGUAGE}"
 export LC_CTYPE="${LANGUAGE}"
 
 # less
-export LESS='-R'
-export LESSOPEN="| $(which highlight) %s --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+export LESS='-RNS'
+export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
 # grep
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS='--color=always'
+export GREP_COLOR='1;35;40'
 
 # ls command colors
 export LSCOLORS=exfxcxdxbxegedabagacad
