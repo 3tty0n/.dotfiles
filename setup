@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
@@ -23,6 +23,8 @@ usage () {
   echo "  -h          show help"
   echo "  -b          install brew formulas"
   echo "  -s          make symbolik links"
+  echo "  -z          setup zsh plugins managed by zplug"
+  echo "  -g          get github repo that is needed in my environment"
   exit 0
 }
 
@@ -43,22 +45,31 @@ mk_symlink() {
     cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
   fi
 
+}
+
+setup_zplug () {
   if [ ! -e ~/.zplug ]; then
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   fi
+}
 
+setup_ghq () {
+  if [ ! -x "$(which go)" ]; then
+    echo "\`go' is not installed."
+    echo "Please install go via \'brew install go'"
+    exit 1
+  fi
   for repo in "${ghqrepos[@]}"; do
     if [ ! -d "$(ghq root)/github.com/$repo" ]; then
       ghq get "https://github.com/$repo"
     fi
   done
-
-  if [ ! -x "$(which brew)" ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
 }
 
 brew_bundle () {
+  if [ ! -x "$(which brew)" ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
   cd brew || exit
   brew tap Homebrew/bundle
   brew bundle
@@ -76,8 +87,17 @@ do
     '-b' )
       brew_bundle
       ;;
+    '-z' )
+      setup_zplug
+      ;;
+    '-g' )
+      setup_ghq
+      ;;
     '*' )
-      mk_symlink && brew_bundle
+      mk_symlink
+      brew_bundle
+      setup_zplug
+      setup_ghq
       ;;
   esac
   shift
