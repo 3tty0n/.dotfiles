@@ -52,10 +52,12 @@ case "${OSTYPE}" in
   ;;
 esac
 
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export PATH="$JAVA_HOME:$PATH"
+
 # OPAM
-if [ -e ~/.opam ]; then
-  source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-fi
+test -e "${HOME}/.opam" && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -63,13 +65,11 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # fzf
 test -f "$HOME/.fzf.zsh" && source "$HOME/.fzf.zsh"
 
-ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
+test -f "$HOME/.zshenv" && source "$HOME/.zshenv"
 
-for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "{$HOME}/${dotfile}" -nt "${HOME}/${dotfile}.zwc" ]]; then
-    zcompile "${HOME}/${dotfile}"
-  fi
-done
+if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
+  zcompile ~/.zshrc
+fi
 
 # load local zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

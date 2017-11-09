@@ -38,10 +38,6 @@ export RBENV_ROOT=$HOME/.rbenv
 # scalaenv
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
 
-# java
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export PATH="$JAVA_HOME:$PATH"
-
 # go
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/.go
@@ -78,13 +74,6 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 
-POWERLEVEL9K_BATTERY_STAGES=(
-   $'▏    ▏' $'▎    ▏' $'▍    ▏' $'▌    ▏' $'▋    ▏' $'▊    ▏' $'▉    ▏' $'█    ▏'
-   $'█▏   ▏' $'█▎   ▏' $'█▍   ▏' $'█▌   ▏' $'█▋   ▏' $'█▊   ▏' $'█▉   ▏' $'██   ▏'
-   $'██   ▏' $'██▎  ▏' $'██▍  ▏' $'██▌  ▏' $'██▋  ▏' $'██▊  ▏' $'██▉  ▏' $'███  ▏'
-   $'███  ▏' $'███▎ ▏' $'███▍ ▏' $'███▌ ▏' $'███▋ ▏' $'███▊ ▏' $'███▉ ▏' $'████ ▏'
-   $'████ ▏' $'████▎▏' $'████▍▏' $'████▌▏' $'████▋▏' $'████▊▏' $'████▉▏' $'█████▏' )
-
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history time)
