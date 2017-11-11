@@ -4,7 +4,6 @@ fpath=(${HOME}/.zsh/completion ${fpath})
 # autoload
 autoload -Uz colors && colors
 autoload -Uz cd-gitroot
-#autoload -Uz compinit && compinit -C
 
 # LANGUAGE must be set by en_US
 export LANGUAGE="en_US.UTF-8"
@@ -26,7 +25,6 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 
 # Add ~/usr/local/bin to PATH
 export PATH=~/.local/bin:$PATH
-export PATH=~/.opam/4.04.0/bin:$PATH
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
@@ -54,7 +52,7 @@ ENHANCD_HOOK_AFTER_CD='ls -1a'
 ENHANCD_FILTER=fzf:fzy:peco
 
 # zplug
-export ZPLUG_ROOT=${HOME}/.zplug
+export ZPLUG_HOME=${HOME}/.zplug
 
 # local settings
 export DOT_ZSH_ROOT=${HOME}/.zsh
@@ -63,6 +61,7 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 export OCAMLRUNPARAM=b
 
 export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="$ZPLUG_HOME/bin:$PATH"
 
 # powerlevel9k setting
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1

@@ -7,12 +7,12 @@ zplug "zsh-users/zsh-syntax-highlighting", \
       defer:2
 
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "changyuheng/zsh-interactive-cd"
-zplug "mollifier/cd-gitroot"
 
-zplug "rhysd/zsh-bundle-exec", \
-      use:zsh-bundle-exec.zsh
+zplug "zsh-users/zsh-autosuggestions"
+
+zplug "changyuheng/zsh-interactive-cd"
+
+zplug "mollifier/cd-gitroot"
 
 zplug "Tarrasch/zsh-bd", \
       use:bd.zsh
@@ -43,6 +43,12 @@ zplug "~/.zsh/util", \
 zplug "bhilburn/powerlevel9k",\
       use:powerlevel9k.zsh-theme
 
-#zplug "3tty0n/powerline-shell", at:develop, hook-build:"make install"
+zplug "paulp/sbt-extras", \
+      as:command, \
+      use:sbt
+
+if ! zplug check; then
+  zplug install
+fi
 
 zplug load

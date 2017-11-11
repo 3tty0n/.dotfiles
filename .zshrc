@@ -1,6 +1,7 @@
 # zplug
 if [[ -f ~/.zplug/init.zsh ]]; then
-  source ${ZPLUG_ROOT}/init.zsh && source ${DOT_ZSH_ROOT}/zplugrc.zsh
+  source ${ZPLUG_HOME}/init.zsh
+  source ${DOT_ZSH_ROOT}/zplugrc.zsh
 fi
 
 # internal settings
@@ -61,11 +62,6 @@ test -e "${HOME}/.opam" && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev
 
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# fzf
-test -f "$HOME/.fzf.zsh" && source "$HOME/.fzf.zsh"
-
-test -f "$HOME/.zshenv" && source "$HOME/.zshenv"
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
