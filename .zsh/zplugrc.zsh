@@ -40,6 +40,9 @@ zplug "peco/peco", \
 zplug "~/.zsh/util", \
       from:local
 
+zplug "~/.zsh/zsh-peco-history", \
+      from:local
+
 zplug "bhilburn/powerlevel9k",\
       use:powerlevel9k.zsh-theme
 

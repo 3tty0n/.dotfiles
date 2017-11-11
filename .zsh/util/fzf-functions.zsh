@@ -51,20 +51,6 @@ zle -N __fzf_show
 bindkey '^[' __fzf_show
 
 
-__fzf_history () {
-  local selected_cmd
-  selected_cmd=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER")
-  
-  if [ -n "$selected_cmd" ]; then
-    BUFFER=$selected_cmd
-  fi
-  
-  zle reset-prompt
-}
-
-zle -N __fzf_history
-bindkey '^r' __fzf_history
-
 fsn () {
   local TEMPLATE="$(curl https://github.com/foundweekends/giter8/wiki/giter8-templates -s | grep "\.g8<" | sed -e "s/</ /g" -e "s/>/ /g" | awk '{print $3}' | fzf | head -n 1)"
   if [[ -z "$TEMPLATE" ]]; then
