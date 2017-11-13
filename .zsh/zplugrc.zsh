@@ -33,6 +33,10 @@ zplug "junegunn/fzf-bin", \
       from:gh-r, \
       rename-to:fzf
 
+zplug "junegunn/fzf", \
+      as:command, \
+      use:bin/fzf-tmux
+
 zplug "peco/peco", \
       as:command, \
       from:gh-r

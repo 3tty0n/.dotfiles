@@ -7,7 +7,7 @@ usage () {
   echo "Usage:" `basename $0` "[OPTIONS]"
   echo " This script is the installer for 3tty0n's environment."
   echo
-  echo "Options:"
+
   echo "  -h, --help"
   echo "  -m, --master"
   echo "  -d, --develop"
