@@ -1,25 +1,5 @@
 #!/bin/zsh
 
-unalias z
-z() {
-  if [[ -z "$*" ]]; then
-    chdir "$(_z -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
-  else
-    _last_z_args="$@"
-    _z "$@"
-  fi
-}
-
-
-zz() {
-  chdir "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
-}
-
-
-alias j='z'
-alias jj='zz'
-
-
 __ghq_fzf() {
   local selected_dir=$(ghq list | fzf --reverse --query="$LBUFFER")
 
