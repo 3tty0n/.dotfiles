@@ -39,6 +39,9 @@ Plug 'Shougo/neomru.vim'
 " vim filer
 Plug 'Shougo/vimfiler.vim'
 
+" vim copy as rtf
+Plug 'zerowidth/vim-copy-as-rtf'
+
 "=== language ===
 
 " ocaml

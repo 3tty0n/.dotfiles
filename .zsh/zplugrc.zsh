@@ -51,8 +51,8 @@ zplug "paulp/sbt-extras", \
       as:command, \
       use:sbt
 
-if ! zplug check; then
-  zplug install
-fi
+#if ! zplug check; then
+#  zplug install
+#fi
 
 zplug load
