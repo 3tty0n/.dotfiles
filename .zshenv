@@ -12,7 +12,7 @@ export LC_ALL="${LANGUAGE}"
 export LC_CTYPE="${LANGUAGE}"
 
 # less
-export LESS='-RNS'
+export LESS='-migRS'
 export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
 # grep

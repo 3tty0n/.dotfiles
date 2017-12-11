@@ -1,5 +1,6 @@
 update:
-	@git add . && git commit -m "update [$(date)]"
+	$(eval DATE := $(shell date))
+	@git add . && git commit -m "update [$(DATE)]"
 	@git push -u origin master
 
 
