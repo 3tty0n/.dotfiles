@@ -9,7 +9,6 @@ __peco-select-history () {
              eval $tac | \
              peco --query "$LBUFFER")
   CURSOR=$#BUFFER
-  zle clear-screen
 }
 zle -N __peco-select-history
 bindkey '^r' __peco-select-history
