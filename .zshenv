@@ -37,9 +37,9 @@ export RBENV_ROOT=$HOME/.rbenv
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
 
 # go
-export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
+export GOROOT=/usr/local/Cellar/go/1.9.1/libexec
 
 # Add diff-highligh to PATH
 export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight

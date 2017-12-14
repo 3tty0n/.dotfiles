@@ -53,6 +53,10 @@ Plug 'derekwyatt/vim-scala'
 " python
 Plug 'davidhalter/jedi-vim'
 
+" go
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
 " markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
