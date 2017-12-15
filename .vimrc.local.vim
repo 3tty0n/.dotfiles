@@ -21,3 +21,11 @@ augroup ocaml_format
     autocmd BufWrite,FileWritePre,FileAppendPre *.mli\= call s:ocaml_format()
 augroup END
 " }}}
+
+" {{{ scala
+Plug 'derekwyatt/vim-scala'
+" }}}
+
+" {{{ latex
+Plug 'lervag/vimtex'
+" }}}
