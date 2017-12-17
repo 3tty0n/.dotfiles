@@ -35,6 +35,9 @@ zplug "~/.zsh/util", \
 zplug "~/.zsh/zsh-peco-history", \
       from:local
 
+zplug "~/.zsh/ghq-fzf", \
+      from:local
+
 zplug "bhilburn/powerlevel9k",\
       use:powerlevel9k.zsh-theme
 
