@@ -20,6 +20,9 @@ Plug 'Shougo/neocomplete'
 " autoclose
 Plug 'Townk/vim-autoclose'
 
+" search
+Plug 'wsdjeg/FlyGrep.vim'
+
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -489,7 +492,11 @@ let g:vimfiler_as_default_explorer = 1
 " }}}
 
 " # vim autosave {{{
-let g:auto_save = 1
+let g:auto_save = 0
 let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
 let g:auto_save_silent = 1  " do not display the auto-save notification
+" }}}
+
+" {{{ flygrep
+nnoremap <Space>sgG :FlyGrep<cr>
 " }}}
