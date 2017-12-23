@@ -45,8 +45,13 @@ zplug "paulp/sbt-extras", \
       as:command, \
       use:sbt
 
-#if ! zplug check; then
-#  zplug install
-#fi
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+      echo; zplug install
+  else
+      echo
+  fi
+fi
 
 zplug load
