@@ -20,14 +20,15 @@ zplug "Tarrasch/zsh-bd", \
 zplug "b4b4r07/enhancd", \
       use:init.sh
 
-zplug "motemen/ghq", \
-      as:command, \
-      from:gh-r, \
-      rename-to:ghq
-
 zplug "junegunn/fzf", \
       as:command, \
       use:bin/fzf-tmux
+
+zplug "paulp/sbt-extras", \
+      as:command, \
+      use:sbt
+
+zplug "k4rthik/git-cal", as:command
 
 zplug "~/.zsh/util", \
       from:local
@@ -35,15 +36,14 @@ zplug "~/.zsh/util", \
 zplug "~/.zsh/zsh-peco-history", \
       from:local
 
+zplug "~/.zsh/git-add-fzf", \
+      from:local
+
 zplug "~/.zsh/ghq-fzf", \
       from:local
 
 zplug "bhilburn/powerlevel9k",\
       use:powerlevel9k.zsh-theme
-
-zplug "paulp/sbt-extras", \
-      as:command, \
-      use:sbt
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
