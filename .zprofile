@@ -15,6 +15,6 @@ if [ -x "`which scalaenv`" ]; then
 fi
 
 # hub
-if [ -x "`which hub`" ]; then
-  eval "$(hub alias -s)"
-fi
+#if [ -x "`which hub`" ]; then
+#  eval "$(hub alias -s)"
+#fi
