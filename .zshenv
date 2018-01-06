@@ -60,6 +60,10 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 # OCaml
 export OCAMLRUNPARAM=b
 
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export PATH="$JAVA_HOME:$PATH"
+
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="$ZPLUG_HOME/bin:$PATH"
 

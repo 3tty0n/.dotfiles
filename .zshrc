@@ -54,10 +54,6 @@ case "${OSTYPE}" in
   ;;
 esac
 
-# java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-export PATH="$JAVA_HOME:$PATH"
-
 # OPAM
 test -e "${HOME}/.opam" && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
