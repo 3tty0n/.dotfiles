@@ -30,12 +30,6 @@ zplug "unixorn/rake-completion.zshplugin"
 
 zplug "~/.zsh/util", from:local
 
-zplug "~/.zsh/zsh-peco-history", from:local
-
-zplug "~/.zsh/git-add-fzf", from:local
-
-zplug "~/.zsh/ghq-fzf", from:local
-
 zplug "modules/git", from:prezto
 
 zplug "modules/prompt", from:prezto
