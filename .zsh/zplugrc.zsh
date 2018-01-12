@@ -40,7 +40,9 @@ zplug "modules/git", from:prezto
 
 zplug "modules/prompt", from:prezto
 
-zstyle ':prezto:module:prompt' theme 'pure'
+if zplug check "modules/prompt"; then
+  zstyle ':prezto:module:prompt' theme 'powerlevel9k'
+fi
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "

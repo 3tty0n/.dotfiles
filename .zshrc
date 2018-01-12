@@ -34,6 +34,10 @@ alias l='ls -1a'
 alias be='bundle exec'
 alias ob='ocamlbuild -use-ocamlfind'
 
+case "${OSTYPE}" in
+  darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
+esac
+
 # less
 alias less='less -m -N -g -i -J --line-numbers --underline-special'
 alias more='less'
