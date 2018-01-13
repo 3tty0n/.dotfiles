@@ -18,7 +18,19 @@ zplug "b4b4r07/enhancd", use:init.sh
 
 zplug "junegunn/fzf", \
       as:command, \
-      use:bin/fzf-tmux
+      use:fzf, \
+      hook-build:'go get -d && go build', \
+      frozen:1
+
+zplug "junegunn/fzf", \
+      as:command, \
+      use:bin/fzf-tmux, \
+      frozen:1
+
+zplug "motemen/ghq", \
+      as:command, \
+      use:ghq, \
+      hook-build:'make build'
 
 zplug "paulp/sbt-extras", \
       as:command, \
