@@ -30,7 +30,8 @@ zplug "junegunn/fzf", \
 zplug "motemen/ghq", \
       as:command, \
       use:ghq, \
-      hook-build:'make build'
+      hook-build:'make build', \
+      frozen:1
 
 zplug "paulp/sbt-extras", \
       as:command, \

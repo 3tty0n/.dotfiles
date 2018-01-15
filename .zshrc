@@ -66,3 +66,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # load local zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# fzf
+test -f ~/.fzf.zsh && source ~/.fzf.zsh
