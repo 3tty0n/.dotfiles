@@ -59,13 +59,15 @@ case "${OSTYPE}" in
 esac
 
 # OPAM
-test -e "${HOME}/.opam" && source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -e "${HOME}/.opam" && \
+    source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+    source "${HOME}/.iterm2_shell_integration.zsh"
 
 # load local zshrc
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+test -f ~/.zshrc.local && source ~/.zshrc.local
 
 # fzf
 test -f ~/.fzf.zsh && source ~/.fzf.zsh

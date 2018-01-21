@@ -46,8 +46,8 @@ usage () {
 }
 
 mk_symlink() {
-  for f in "${dotfiles[@]}"; do
-    ln -sfnv "$DOTFILES_ROOT/${f}" ~/"${f}"
+  for f in $(`ls -A ${DOT_DIRECTORY} | grep -E "^\.+.*"`); do
+    ln -sfnv "$DOTFILES_ROOT/$f" "~/$f"
   done
 
   [ ! -e ~/.vim ] && mkdir ~/.vim

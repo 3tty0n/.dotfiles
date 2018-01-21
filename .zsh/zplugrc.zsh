@@ -19,8 +19,7 @@ zplug "b4b4r07/enhancd", use:init.sh
 zplug "junegunn/fzf", \
       as:command, \
       use:fzf, \
-      hook-build:'go get -d && go build', \
-      frozen:1
+      hook-build:'go get -d && go build'
 
 zplug "junegunn/fzf", \
       as:command, \
