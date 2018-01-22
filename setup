@@ -46,7 +46,7 @@ usage () {
 }
 
 mk_symlink() {
-  for f in $(`ls -A ${DOT_DIRECTORY} | grep -E "^\.+.*"`); do
+  for f in $(ls -A ${DOT_DIRECTORY} | grep -E "^\.+.*"); do
     ln -sfnv "$DOTFILES_ROOT/$f" "~/$f"
   done
 
