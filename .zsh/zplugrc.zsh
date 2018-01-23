@@ -38,7 +38,7 @@ zplug "paulp/sbt-extras", \
 
 zplug "k4rthik/git-cal", as:command
 
-zplug "unixorn/rake-completion.zshplugin"
+zplug "KevinBongart/rake-fast"
 
 zplug "~/.zsh/util", from:local
 
