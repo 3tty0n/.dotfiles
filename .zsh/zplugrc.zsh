@@ -16,6 +16,8 @@ zplug "Tarrasch/zsh-bd", use:bd.zsh
 
 zplug "b4b4r07/enhancd", use:init.sh
 
+# zplug "rupa/z", use:z.sh
+
 zplug "junegunn/fzf", \
       as:command, \
       use:fzf, \

@@ -33,7 +33,7 @@ alias ta='tig --all'
 alias l='ls -1a'
 alias be='bundle exec'
 alias ob='ocamlbuild -use-ocamlfind'
-
+alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 case "${OSTYPE}" in
   darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
 esac
