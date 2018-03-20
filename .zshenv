@@ -18,22 +18,23 @@ export LESS='-migRS'
 export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
 # grep
-export GREP_OPTIONS='--color=always'
-export GREP_COLOR='1;35;40'
+# export GREP_OPTIONS='--color=always'
+# export GREP_COLOR='1;35;40'
 
 # ls command colors
 export LSCOLORS=exfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # Add ~/usr/local/bin to PATH
-export PATH=~/.local/bin:$PATH
+# export PATH=~/.local/bin:$PATH
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
-export PATH="$PYENV_ROOT/shims:$PATH"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 # rbenv
 export RBENV_ROOT=$HOME/.rbenv
+export PATH="$RBENV_ROOT/bin:$PATH"
 
 # scalaenv
 export PATH="${HOME}/.scalaenv/bin:${PATH}"
@@ -62,7 +63,7 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 export OCAMLRUNPARAM=b
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$(/usr/libexec/java_home -v 9)
 export PATH="$JAVA_HOME:$PATH"
 
 export PATH="/usr/local/opt/openssl/bin:$PATH"

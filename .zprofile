@@ -1,7 +1,6 @@
 # pyenv
 if [ -x "`which pyenv`" ]; then
   eval "$(pyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init - --no-rehash)"
 fi
 
 # rbenv
