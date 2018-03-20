@@ -32,8 +32,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " color theme
-" Plug 'josuegaleas/jay'
-Plug 'jacoborus/tender.vim'
+Plug 'josuegaleas/jay'
+" Plug 'jacoborus/tender.vim'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'
@@ -59,6 +59,9 @@ Plug 'davidhalter/jedi-vim'
 " go
 Plug 'fatih/vim-go'
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+" racket
+Plug 'wlangstroth/vim-racket'
 
 " markdown
 Plug 'godlygeek/tabular'
@@ -208,10 +211,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-" colorscheme jay
-" let g:lightline = { 'colorsheme': 'jay' }
-colorscheme tender
-let g:lightline = { 'colorscheme': 'tender' }
+colorscheme jay
+let g:lightline = { 'colorsheme': 'jay' }
+" colorscheme tender
+" let g:lightline = { 'colorscheme': 'tender' }
 " }}}
 
 " {{{ # window settings
@@ -277,7 +280,11 @@ augroup END
 " }}}
 
 " {{{ # python
-let g:jedi#use_tabs_not_buffers = 1
+" let g:jedi#use_tabs_not_buffers = 1
+" }}}
+
+" {{{ # racket
+let g:syntastic_enable_racket_racket_checker = 1
 " }}}
 
 " {{{ # syntastic
@@ -497,6 +504,6 @@ let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
 let g:auto_save_silent = 1  " do not display the auto-save notification
 " }}}
 
-" {{{ flygrep
+" {{{ # flygrep
 nnoremap <Space>sgG :FlyGrep<cr>
 " }}}
