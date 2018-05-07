@@ -34,8 +34,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " color theme
-Plug 'josuegaleas/jay'
-" Plug 'jacoborus/tender.vim'
+" Plug 'josuegaleas/jay'
+Plug 'jacoborus/tender.vim'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'
@@ -213,10 +213,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme jay
-let g:lightline = { 'colorsheme': 'jay' }
-" colorscheme tender
-" let g:lightline = { 'colorscheme': 'tender' }
+" colorscheme jay
+" let g:lightline = { 'colorsheme': 'jay' }
+colorscheme tender
+let g:lightline = { 'colorscheme': 'tender' }
 " }}}
 
 " {{{ # window settings
