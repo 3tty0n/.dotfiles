@@ -45,13 +45,13 @@ zplug "~/.zsh/util", from:local
 
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-      echo; zplug install
-  else
-      echo
-  fi
-fi
+# if ! zplug check --verbose; then
+#   printf "Install? [y/N]: "
+#   if read -q; then
+#     echo; zplug install
+#   else
+#     echo
+#   fi
+# fi
 
 zplug load

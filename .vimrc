@@ -3,13 +3,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'thinca/vim-quickrun'
 Plug 'tomtom/tcomment_vim'
 Plug 'Shougo/vimproc', { 'do' : 'make' }
 Plug 'vim-scripts/vim-auto-save'
+
+" auto close
+Plug 'cohama/lexima.vim'
 
 " neocomplete and neosnippet
 Plug 'Shougo/neocomplcache'
@@ -17,8 +18,9 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neocomplete'
 
-" autoclose
-Plug 'Townk/vim-autoclose'
+" syntex check
+Plug 'w0rp/ale'
+" Plug 'scrooloose/syntastic'
 
 " search
 Plug 'wsdjeg/FlyGrep.vim'
@@ -106,7 +108,7 @@ set smartindent             " {}などを入力時に同じ行にインデント
 set wrap                    " テキストを改行して表示
 
 " タブ関連
-set tabstop=8               " Tabが対応する空白の数 
+set tabstop=2              " Tabが対応する空白の数 
 set expandtab               " Tabをスペースに変換
 set nosmarttab              " fuck tabs
 set softtabstop=2           " Tab入力時の表示幅

@@ -14,7 +14,7 @@ export LC_CTYPE="${LANGUAGE}"
 export TERM="xterm-256color"
 
 # less
-export LESS='-migRS'
+export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
 # grep
@@ -61,6 +61,8 @@ export DOT_ZSH_ROOT=${HOME}/.zsh
 
 # OCaml
 export OCAMLRUNPARAM=b
+export OCAMLPARAM="_,bin-annot=1"
+export OPAMKEEPBUILDDIR=1
 
 # java
 export JAVA_HOME=$(/usr/libexec/java_home -v 9)
@@ -77,7 +79,7 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 # prompt
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="λ "
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▷ "
 
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
