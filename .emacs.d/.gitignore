@@ -1,0 +1,10 @@
+.cask/
+elpa/
+eshell/
+undohist/
+.python-environments/
+site-lisp/PG
+
+*.dat
+abbrev_defs
+*.elc

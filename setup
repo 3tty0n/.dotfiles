@@ -19,6 +19,7 @@ declare -a dotfiles=(
     .tigrc
     .sbtrc
     .spacemacs
+    .emacs.d
 )
 
 declare -a vimfiles=()
