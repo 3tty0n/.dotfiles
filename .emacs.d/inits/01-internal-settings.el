@@ -65,10 +65,10 @@
       (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
         (process-send-string proc text)
         (process-send-eof proc))))
-  ))
 
-(setq interprogram-cut-function 'paste-to-macos)
-(setq interprogram-paste-function 'copy-from-macos)
+  (setq interprogram-cut-function 'paste-to-macos)
+  (setq interprogram-paste-function 'copy-from-macos)
+  ))
 
 ;; hidden scrool bar
 (scroll-bar-mode -1)

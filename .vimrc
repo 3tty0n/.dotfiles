@@ -3,7 +3,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+Plug 'scrooloose/nerdtree'
+autocmd VimEnter * NERDTree
+
 Plug 'thinca/vim-quickrun'
 Plug 'tomtom/tcomment_vim'
 Plug 'Shougo/vimproc', { 'do' : 'make' }
