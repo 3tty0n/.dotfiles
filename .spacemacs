@@ -59,6 +59,7 @@ values."
      coq
      scheme
      racket
+     c
      ;; checker
      syntax-checking
      spell-checking

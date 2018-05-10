@@ -71,6 +71,8 @@ export PATH="$JAVA_HOME:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="$ZPLUG_HOME/bin:$PATH"
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # powerlevel9k setting
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
