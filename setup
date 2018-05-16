@@ -47,8 +47,13 @@ usage () {
 }
 
 mk_symlink() {
-  for f in ${dotfiles[@]}; do
-    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+  printf "makeing symbolik links...\n"
+  { for f in ${dotfiles[@]}; do
+    if [ "$f" = ".vimrc" ]; then
+      ln -sfnv "$DOTFILES_ROOT/.vimrc.bootstrap" "$HOME/.vimrc"
+    else
+      ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+    fi
   done
 
   [ ! -e ~/.vim ] && mkdir ~/.vim
@@ -61,7 +66,8 @@ mk_symlink() {
   if [ ! -e ~/.config/gist ]; then
     mkdir -p ~/.config/gist
     cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
-  fi
+  fi }>/dev/null
+
 
 }
 
@@ -72,12 +78,13 @@ setup_zplug () {
 }
 
 setup_githubrepo () {
+  printf "cloling github repos...\n"
   if [ ! -x "$(which go)" ]; then
     echo "\`go' is not installed."
     echo "Please install go via \'brew install go'"
     exit 1
   fi
-  for repo in "${ghqrepos[@]}"; do
+  { for repo in "${ghqrepos[@]}"; do
     if [ ! -d "$(ghq root)/github.com/$repo" ]; then
       ghq get "https://github.com/$repo"
     fi
@@ -86,7 +93,7 @@ setup_githubrepo () {
     if [ ! -d $HOME/.$repo ]; then
       git clone git@github.com:$repo/$repo.git $HOME/.$repo
     fi
-  done
+  done }>/dev/null
 }
 
 brew_bundle () {
@@ -94,8 +101,10 @@ brew_bundle () {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
   cd brew || exit
-  brew tap Homebrew/bundle
-  brew bundle
+  printf "tapping brew bundle...\n"
+  (brew tap Homebrew/bundle)>/dev/null
+  printf "installing brew packages...\n"
+  (brew bundle)>/dev/null
 }
 
 for OPT in "$@"
