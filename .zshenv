@@ -68,10 +68,17 @@ export OPAMKEEPBUILDDIR=1
 export JAVA_HOME=$(/usr/libexec/java_home -v 9)
 export PATH="$JAVA_HOME:$PATH"
 
+# openssl
 export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+# zplug
 export PATH="$ZPLUG_HOME/bin:$PATH"
 
+# local
 export PATH="$HOME/.local/bin:$PATH"
+
+# emacs cask
+export PATH="$HOME/.cask/bin:$PATH"
 
 # powerlevel9k setting
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1

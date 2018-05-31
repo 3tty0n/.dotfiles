@@ -5,7 +5,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 
 Plug 'scrooloose/nerdtree'
-autocmd VimEnter * NERDTree
 
 Plug 'thinca/vim-quickrun'
 Plug 'tomtom/tcomment_vim'

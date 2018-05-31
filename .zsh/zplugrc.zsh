@@ -18,6 +18,8 @@ zplug "b4b4r07/enhancd", use:init.sh
 
 # zplug "rupa/z", use:z.sh
 
+zplug "supercrabtree/k"
+
 zplug "junegunn/fzf", \
       as:command, \
       use:fzf, \
@@ -43,7 +45,16 @@ zplug "KevinBongart/rake-fast"
 
 zplug "~/.zsh/util", from:local
 
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+# zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+
+zplug mafredri/zsh-async, \
+      from:github
+
+zplug sindresorhus/pure, \
+      use:pure.zsh, \
+      from:github, \
+      as:theme, \
+      on:"mafredri/zsh-async"
 
 # if ! zplug check --verbose; then
 #   printf "Install? [y/N]: "
