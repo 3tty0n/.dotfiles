@@ -29,7 +29,7 @@ declare -a configfiles=()
 declare -a configfiles=(fish omf)
 
 declare -a ghqrepos=()
-declare -a ghqrepos=(banga/powerline-shell bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
+declare -a ghqrepos=(bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
 
 
 usage () {
@@ -96,6 +96,15 @@ setup_githubrepo () {
   done }>/dev/null
 }
 
+function setup_opam {
+    echo "setup OCaml environment..."
+    echo ""
+    opam init
+    opam switch 4.06.1
+    opam install -y core ounit
+    eval `opam config env`
+}
+
 brew_bundle () {
   if [ ! -x "$(which brew)" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -130,6 +139,7 @@ do
       brew_bundle
       setup_zplug
       setup_githubrepo
+      setup_opam
       ;;
     -*)
         echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
