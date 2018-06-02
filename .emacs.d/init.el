@@ -34,8 +34,9 @@
 (show-paren-mode t) ; 対応するカッコを強調表示
 (require 'smartparens-config)
 
-(global-nlinum-mode 1) ; line numberを設定する
-(setq nlinum-format "%5d ") ; 横に5文字分確保する
+(global-nlinum-mode 1)
+;; (global-nlinum-mode 1) ; line numberを設定する
+;; (setq nlinum-format "%5d ") ; 横に5文字分確保する
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
 (tool-bar-mode -1) ; ツールバーを非表示
@@ -122,8 +123,15 @@
 ;;;;;;;;;;;;;;; git settings ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; git-gutter
-(global-git-gutter-mode +1)
+;; git-gutter+
+(global-git-gutter+-mode)
+(setq git-gutter+-modified-sign "  ") ;; two space
+(setq git-gutter+-added-sign "++")    ;; multiple character is OK
+(setq git-gutter+-deleted-sign "--")
+
+(set-face-background 'git-gutter+-modified "purple") ;; background color
+(set-face-foreground 'git-gutter+-added "green")
+(set-face-foreground 'git-gutter+-deleted "red")
 
 ;; Magit
 (setq-default magit-auto-revert-mode nil)
