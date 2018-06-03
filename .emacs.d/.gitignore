@@ -1,6 +1,7 @@
 ac-comphist.dat
 shellenv.el
 *.data
+opam-user-setup.el
 
 .cask/
 auto-save-list/
