@@ -51,6 +51,9 @@ case "${OSTYPE}" in
     alias ls="ls -G"
     alias ll="ls -lG"
     alias la="ls -laG"
+    # java
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export PATH="$JAVA_HOME:$PATH"
   ;;
   linux* )
     alias ls='ls --color'
