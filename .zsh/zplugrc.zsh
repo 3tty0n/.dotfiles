@@ -45,24 +45,22 @@ zplug "KevinBongart/rake-fast"
 
 zplug "~/.zsh/util", from:local
 
-# zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+# zplug "bhilburn/powerlevel9k", \
+#       use:powerlevel9k.zsh-theme, \
+#       as:theme
 
-zplug mafredri/zsh-async, \
-      from:github
-
-zplug sindresorhus/pure, \
-      use:pure.zsh, \
+zplug denysdovhan/spaceship-prompt, \
+      use:spaceship.zsh, \
       from:github, \
-      as:theme, \
-      on:"mafredri/zsh-async"
+      as:theme
 
-# if ! zplug check --verbose; then
-#   printf "Install? [y/N]: "
-#   if read -q; then
-#     echo; zplug install
-#   else
-#     echo
-#   fi
-# fi
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  else
+    echo
+  fi
+fi
 
 zplug load

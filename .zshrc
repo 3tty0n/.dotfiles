@@ -37,6 +37,7 @@ alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 case "${OSTYPE}" in
   darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
 esac
+alias en='emacs -nw'
 
 # less
 alias less='less -m -N -g -i -J --line-numbers --underline-special'
