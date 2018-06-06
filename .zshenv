@@ -47,7 +47,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
 # fzf
-export FZF_DEFAULT_OPTS="--height 40% --reverse --border --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108"
+export FZF_DEFAULT_OPTS="--height 40% --reverse --border" #--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108"
 
 # enhancd settings
 ENHANCD_HOOK_AFTER_CD='ls -1a'

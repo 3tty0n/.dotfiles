@@ -41,8 +41,6 @@ zplug "paulp/sbt-extras", \
 
 zplug "k4rthik/git-cal", as:command
 
-zplug "KevinBongart/rake-fast"
-
 zplug "~/.zsh/util", from:local
 
 # zplug "bhilburn/powerlevel9k", \
