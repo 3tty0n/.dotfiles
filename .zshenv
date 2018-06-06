@@ -13,6 +13,8 @@ export LC_CTYPE="${LANGUAGE}"
 
 export TERM="xterm-256color"
 
+export EDITOR='emacs -nw'
+
 # less
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
@@ -46,13 +48,6 @@ export PATH=$PATH:$GOPATH/bin
 # Add diff-highligh to PATH
 export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
-# fzf
-export FZF_DEFAULT_OPTS="--height 40% --reverse --border" #--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108"
-
-# enhancd settings
-ENHANCD_HOOK_AFTER_CD='ls -1a'
-ENHANCD_FILTER=fzf:fzy:peco
-
 # zplug
 export ZPLUG_HOME=${HOME}/.zplug
 
@@ -75,17 +70,3 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # emacs cask
 export PATH="$HOME/.cask/bin:$PATH"
-
-# powerlevel9k setting
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-
-# prompt
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▷ "
-
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history time)

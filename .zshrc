@@ -1,8 +1,10 @@
-# zplug
-if [[ -f ~/.zplug/init.zsh ]]; then
-  source ${ZPLUG_HOME}/init.zsh
-  source ${DOT_ZSH_ROOT}/zplugrc.zsh
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug.git ~/.zplug
+    source ~/.zplug/init.zsh && zplug update
 fi
+
+source ~/.zplug/init.zsh
+source ~/.zsh/zplug.zsh
 
 # internal settings
 setopt auto_menu
@@ -38,6 +40,7 @@ case "${OSTYPE}" in
   darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
 esac
 alias en='emacs -nw'
+alias k='kubectl'
 
 # less
 alias less='less -m -N -g -i -J --line-numbers --underline-special'
@@ -75,3 +78,9 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 
 # fzf
 test -f ~/.fzf.zsh && source ~/.fzf.zsh
+
+if zplug check "jonmosco/kube-ps1"; then
+    source <(kubectl completion zsh)
+    PROMPT='$(kube_ps1) '$PROMPT
+    KUBE_PS1_BINARY=oc
+fi
