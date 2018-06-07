@@ -36,6 +36,7 @@
 (depends-on "company")
 (depends-on "company-quickhelp")
 (depends-on "company-c-headers")
+(depends-on "company-flx")
 
 ;; ya-family
 (depends-on "yasnippet")

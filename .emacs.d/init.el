@@ -125,6 +125,9 @@
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 (define-key company-active-map (kbd "C-h") nil)
 
+(with-eval-after-load 'company
+  (company-flx-mode +1)) ;; fuzzy match
+
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
