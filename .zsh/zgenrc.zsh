@@ -16,9 +16,8 @@ if ! zgen saved; then
   zgen load b4b4r07/enhancd
   zgen load mollifier/cd-gitroot
   zgen load changyuheng/zsh-interactive-cd
-  zgen load bhilburn/powerlevel9k powerlevel9k
   zgen load Tarrasch/zsh-bd
   zgen load ~/.zsh/util
-  zgen load bhilburn/powerlevel9k powerlevel9k
+  zgen load denysdovhan/spaceship-prompt
   zgen save
 fi
