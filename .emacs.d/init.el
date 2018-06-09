@@ -90,6 +90,15 @@
 (global-set-key "\C-qk" 'windmove-up)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;; terminal ;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; multiterm
+(load-file "~/.emacs.d/site-lisp/multi-term.el")
+(require 'multi-term)
+(setq multi-term-program "/usr/local/bin/zsh")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; color theme ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
