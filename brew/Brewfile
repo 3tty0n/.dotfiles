@@ -1,12 +1,16 @@
 tap 'homebrew/core'
 tap 'homebrew/versions'
+tap "sanemat/font"
+cask "java"
+cask "xquartz"
 brew 'bash'
 brew 'bash-completion'
 brew 'ocaml', args: ['with-x11']
-brew 'emacs'
+brew 'emacs', args: ['with-cocoa']
 brew 'cask'
 brew 'coreutils'
 brew 'darcs'
+brew 'fd'
 brew 'fish'
 brew 'fzf'
 brew 'git'
@@ -16,12 +20,9 @@ brew 'imagemagick@6'
 brew 'lua'
 brew 'mercurial'
 brew 'nkf'
+brew 'ocaml'
 brew 'opam'
 brew 'pandoc'
-brew 'peco'
-brew 'pyenv'
-brew 'pyenv-virtualenv'
-brew 'rbenv'
 brew 'reattach-to-user-namespace'
 brew 'rlwrap'
 brew 'sbt'
@@ -32,3 +33,19 @@ brew 'tree'
 brew 'vim', args: ['with-lua']
 brew 'wget'
 brew 'zsh'
+cask "1password"
+cask "alfred"
+cask "amethyst"
+cask "atom"
+cask "dropbox"
+cask "emacs"
+cask "google-chrome"
+cask "google-japanese-ime"
+cask "iterm2"
+cask "karabiner-elements"
+cask "mactex"
+cask "macvim"
+cask "racket"
+cask "skim"
+cask "skype"
+cask "slack"

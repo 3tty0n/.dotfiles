@@ -1,0 +1,67 @@
+(source gnu)
+(source melpa)
+
+;; cask
+(depends-on "cask")
+(depends-on "cask-mode")
+(depends-on "pallet")
+
+(depends-on "nlinum")
+(depends-on "rainbow-delimiters")
+
+(depends-on "helm")
+(depends-on "helm-swoop")
+(depends-on "helm-ls-git")
+
+(depends-on "smartparens")
+
+
+;; internal
+(depends-on "exec-path-from-shell")
+
+;; git
+(depends-on "magit")
+(depends-on "git-gutter+")
+
+;; theme
+(depends-on "cyberpunk-theme")
+(depends-on "spacemacs-theme")
+(depends-on "powerline")
+
+;; flycheck
+(depends-on "flycheck")
+(depends-on "flycheck-cask")
+
+;; company
+(depends-on "company")
+(depends-on "company-quickhelp")
+(depends-on "company-c-headers")
+(depends-on "company-flx")
+
+;; ya-family
+(depends-on "yasnippet")
+(depends-on "yascroll")
+(depends-on "yatex")
+
+;; scala
+(depends-on "ensime")
+(depends-on "scala-mode")
+(depends-on "sbt-mode")
+
+;; c
+(depends-on "irony")
+
+;; racket
+(depends-on "racket-mode")
+
+;; markdown
+(depends-on "markdown-mode")
+
+;; yaml
+(depends-on "yaml-mode")
+
+;; kunernetes
+(depends-on "kubernetes")
+
+;; docker
+(depends-on "docker")

@@ -1,0 +1,11 @@
+*.data
+*.elc
+
+ac-comphist.dat
+shellenv.el
+opam-user-setup.el
+
+.cask/
+auto-save-list/
+elpa/
+eshell/

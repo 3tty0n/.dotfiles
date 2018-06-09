@@ -2,14 +2,17 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-easy-align'
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'itchyny/lightline.vim'
+
+Plug 'scrooloose/nerdtree'
+
 Plug 'thinca/vim-quickrun'
 Plug 'tomtom/tcomment_vim'
 Plug 'Shougo/vimproc', { 'do' : 'make' }
 Plug 'vim-scripts/vim-auto-save'
+
+" auto close
+Plug 'cohama/lexima.vim'
 
 " neocomplete and neosnippet
 Plug 'Shougo/neocomplcache'
@@ -17,8 +20,12 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neocomplete'
 
-" autoclose
-Plug 'Townk/vim-autoclose'
+" syntex check
+Plug 'w0rp/ale'
+" Plug 'scrooloose/syntastic'
+
+" search
+Plug 'wsdjeg/FlyGrep.vim'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -29,7 +36,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " color theme
-Plug 'josuegaleas/jay'
+" Plug 'josuegaleas/jay'
+Plug 'jacoborus/tender.vim'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'
@@ -37,6 +45,9 @@ Plug 'Shougo/neomru.vim'
 
 " vim filer
 Plug 'Shougo/vimfiler.vim'
+
+" vim copy as rtf
+Plug 'zerowidth/vim-copy-as-rtf'
 
 "=== language ===
 
@@ -48,6 +59,13 @@ Plug 'derekwyatt/vim-scala'
 
 " python
 Plug 'davidhalter/jedi-vim'
+
+" go
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+
+" racket
+Plug 'wlangstroth/vim-racket'
 
 " markdown
 Plug 'godlygeek/tabular'
@@ -92,7 +110,7 @@ set smartindent             " {}などを入力時に同じ行にインデント
 set wrap                    " テキストを改行して表示
 
 " タブ関連
-set tabstop=8               " Tabが対応する空白の数 
+set tabstop=2              " Tabが対応する空白の数 
 set expandtab               " Tabをスペースに変換
 set nosmarttab              " fuck tabs
 set softtabstop=2           " Tab入力時の表示幅
@@ -192,9 +210,15 @@ let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 " {{{ # color theme
 syntax enable
-set background=dark
-colorscheme jay
-let g:lightline = {'colorscheme': 'jay'}
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" colorscheme jay
+" let g:lightline = { 'colorsheme': 'jay' }
+colorscheme tender
+let g:lightline = { 'colorscheme': 'tender' }
 " }}}
 
 " {{{ # window settings
@@ -259,6 +283,14 @@ augroup ocaml_format
 augroup END
 " }}}
 
+" {{{ # python
+" let g:jedi#use_tabs_not_buffers = 1
+" }}}
+
+" {{{ # racket
+let g:syntastic_enable_racket_racket_checker = 1
+" }}}
+
 " {{{ # syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -282,7 +314,7 @@ let g:syntastic_ocaml_use_ocamlc = 1
 let g:syntastic_error_symbol = "✗"
 " }}}
 
-" quickrun {{{
+" # quickrun {{{
 let g:quickrun_config = {}
 
 " vim proc でコマンドを実行する
@@ -470,8 +502,12 @@ nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 let g:vimfiler_as_default_explorer = 1
 " }}}
 
-" vim autosave {{{
-let g:auto_save = 1
+" # vim autosave {{{
+let g:auto_save = 0
 let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
 let g:auto_save_silent = 1  " do not display the auto-save notification
+" }}}
+
+" {{{ # flygrep
+nnoremap <Space>sgG :FlyGrep<cr>
 " }}}

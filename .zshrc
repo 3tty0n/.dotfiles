@@ -30,12 +30,30 @@ alias g='git'
 alias t='tig'
 alias ta='tig --all'
 alias l='ls -1a'
+alias be='bundle exec'
+alias ob='ocamlbuild -use-ocamlfind'
+alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
+case "${OSTYPE}" in
+  darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
+esac
+alias en='emacs -nw'
+alias k='kubectl'
+
+# less
+alias less='less -m -N -g -i -J --line-numbers --underline-special'
+alias more='less'
+
+# use 'hightlihgt' in place of 'cat'
+alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
 
 case "${OSTYPE}" in
   darwin* )
     alias ls="ls -G"
     alias ll="ls -lG"
     alias la="ls -laG"
+    # java
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export PATH="$JAVA_HOME:$PATH"
   ;;
   linux* )
     alias ls='ls --color'
@@ -45,25 +63,21 @@ case "${OSTYPE}" in
 esac
 
 # OPAM
-if [ -e ~/.opam ]; then
-  source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-fi
+test -e "${HOME}/.opam" && \
+    source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# fzf
-test -f "$HOME/.fzf.zsh" && source "$HOME/.fzf.zsh"
-
-ZSH_DOTFILES=(.zshrc .zshenv .zpreztorc .zsh/zplugrc.zsh)
-
-for dotfile in ${ZSH_DOTFILES[@]}; do
-  if [[ "{$HOME}/${dotfile}" -nt "${HOME}/${dotfile}.zwc" ]]; then
-    zcompile "${HOME}/${dotfile}"
-  fi
-done
+test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+    source "${HOME}/.iterm2_shell_integration.zsh"
 
 # load local zshrc
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+test -f ~/.zshrc.local && source ~/.zshrc.local
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf
+test -f ~/.fzf.zsh && source ~/.fzf.zsh
+
+if zplug check "jonmosco/kube-ps1"; then
+    source <(kubectl completion zsh)
+    PROMPT='$(kube_ps1) '$PROMPT
+    KUBE_PS1_BINARY=oc
+fi

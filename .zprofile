@@ -1,7 +1,6 @@
 # pyenv
 if [ -x "`which pyenv`" ]; then
   eval "$(pyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init - --no-rehash)"
 fi
 
 # rbenv
@@ -15,6 +14,6 @@ if [ -x "`which scalaenv`" ]; then
 fi
 
 # hub
-if [ -x "`which hub`" ]; then
-  eval "$(hub alias -s)"
-fi
+#if [ -x "`which hub`" ]; then
+#  eval "$(hub alias -s)"
+#fi
