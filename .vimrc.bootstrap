@@ -839,3 +839,4 @@ endfor
 " ## added by OPAM user-setup for vim / ocp-indent ## be78e6b24e000324221e47e035d88b24 ## you can edit, but keep this line
 if count(s:opam_available_tools,"ocp-indent") == 0
   source "/Users/izawa/.opam/4.06.1/share/vim/syntax/ocp-indent.vim"
+endif

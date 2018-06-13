@@ -40,7 +40,7 @@ case "${OSTYPE}" in
   darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
 esac
 alias en='emacs -nw'
-alias k='kubectl'
+alias kb='kubectl'
 
 # less
 alias less='less -m -N -g -i -J --line-numbers --underline-special'

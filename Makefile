@@ -1,4 +1,4 @@
-.default: update
+.default: sync
 
 .all: update sync
 
@@ -9,3 +9,4 @@ update:
 sync: update
 	@git pull --rebase
 	@git push origin master
+	@cd .emacs.d && cask || exit 1
