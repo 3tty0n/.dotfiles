@@ -38,6 +38,7 @@ Plug 'tpope/vim-fugitive'
 " color theme
 " Plug 'josuegaleas/jay'
 Plug 'jacoborus/tender.vim'
+Plug 'ujihisa/unite-colorscheme'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'

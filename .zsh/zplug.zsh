@@ -45,6 +45,11 @@ zplug "motemen/ghq",\
       rename-to:ghq, \
       frozen:1
 
+zplug "peco/peco", \
+      as:command, \
+      from:gh-r, \
+      frozen:1
+
 zplug "paulp/sbt-extras", \
       as:command, \
       use:sbt

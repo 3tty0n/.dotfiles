@@ -169,6 +169,9 @@
 ;; yasnippet
 (yas-global-mode 1)
 
+;; elscreen
+(elscreen-start)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;; git settings ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -210,7 +213,10 @@
   (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
 
 (setq opam-bin
-  (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
+      (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
+
+(add-to-list 'auto-mode-alist '("\\.mll\\'" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("\\.mly\\'" . tuareg-mode))
 
 ;; yatex
 (unless (package-installed-p 'yatex)
