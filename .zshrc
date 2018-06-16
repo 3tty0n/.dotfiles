@@ -77,7 +77,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && \
 test -f ~/.zshrc.local && source ~/.zshrc.local
 
 # fzf
-test -f ~/.fzf.zsh && source ~/.fzf.zsh
+# test -f ~/.fzf.zsh && source ~/.fzf.zsh
 
 if zplug check "jonmosco/kube-ps1"; then
     source <(kubectl completion zsh)
