@@ -48,6 +48,7 @@ zplug "motemen/ghq",\
 zplug "peco/peco", \
       as:command, \
       from:gh-r, \
+      use:"*amd64*", \
       frozen:1
 
 zplug "paulp/sbt-extras", \

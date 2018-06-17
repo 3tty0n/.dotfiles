@@ -6,6 +6,9 @@ fi
 source ~/.zplug/init.zsh
 source ~/.zsh/zplug.zsh
 
+# terminal settings
+[[ $TERM = "eterm-color" ]] && TERM=xterm-color
+
 # internal settings
 setopt auto_menu
 setopt auto_cd
