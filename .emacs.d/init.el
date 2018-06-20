@@ -37,7 +37,6 @@
 (require 'smartparens-config)
 
 (global-linum-mode)
-;; (global-nlinum-mode 1)
 ;; (global-nlinum-mode 1) ; line numberを設定する
 ;; (setq nlinum-format "%5d ") ; 横に5文字分確保する
 
