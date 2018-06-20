@@ -282,7 +282,7 @@
   (interactive)
   (ensime-tooltip-handler (point)))
 
-(define-key ensime-mode-map "\C-c\C-v." 'my-ensime-show-tooltips-nox)
+;;(define-key ensime-mode-map "\C-c\C-v." 'my-ensime-show-tooltips-nox)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
