@@ -24,6 +24,8 @@
 ;;;;;;;;;; internal settings ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq compilation-scroll-output t)
+
 ;; no backup
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -34,7 +36,8 @@
 (show-paren-mode t) ; 対応するカッコを強調表示
 (require 'smartparens-config)
 
-(global-nlinum-mode 1)
+(global-linum-mode)
+;; (global-nlinum-mode 1)
 ;; (global-nlinum-mode 1) ; line numberを設定する
 ;; (setq nlinum-format "%5d ") ; 横に5文字分確保する
 
@@ -103,6 +106,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (load-theme 'cyberpunk t)
+;; (load-theme 'molokai t)
 (load-theme 'spacemacs-dark t)
 (powerline-default-theme)
 
@@ -201,9 +205,9 @@
 
 ;; git-gutter+
 (global-git-gutter+-mode)
-(setq git-gutter+-modified-sign "  ") ;; two space
-(setq git-gutter+-added-sign "++")    ;; multiple character is OK
-(setq git-gutter+-deleted-sign "--")
+(setq git-gutter+-modified-sign " ") ;; two space
+(setq git-gutter+-added-sign "+")    ;; multiple character is OK
+(setq git-gutter+-deleted-sign "-")
 
 (set-face-background 'git-gutter+-modified "purple") ;; background color
 (set-face-foreground 'git-gutter+-added "green")
@@ -271,6 +275,15 @@
 
 ;; markdown
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
+
+;; scala
+;; ensime
+(setq ensime-startup-notification nil)
+(defun my-ensime-show-tooltips-nox ()
+  (interactive)
+  (ensime-tooltip-handler (point)))
+
+(define-key ensime-mode-map "\C-c\C-v." 'my-ensime-show-tooltips-nox)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

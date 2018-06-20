@@ -63,6 +63,10 @@ zplug "jonmosco/kube-ps1", \
 
 zplug "~/.zsh/util", from:local
 
+###################
+##### theme #######
+###################
+
 # zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, as:theme
 
 if zplug check "bhilburn/powerlevel9k"; then

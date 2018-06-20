@@ -36,9 +36,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " color theme
+Plug 'tomasr/molokai'
+
 " Plug 'josuegaleas/jay'
-Plug 'jacoborus/tender.vim'
-Plug 'ujihisa/unite-colorscheme'
+" Plug 'jacoborus/tender.vim'
+" Plug 'ujihisa/unite-colorscheme'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'
@@ -57,6 +59,8 @@ Plug 'def-lkb/ocp-indent-vim'
 
 " scala
 Plug 'derekwyatt/vim-scala'
+Plug 'ensime/ensime-vim'
+Plug '$HOME/src/github.com/google/ijaas/vim'
 
 " python
 Plug 'davidhalter/jedi-vim'
@@ -74,6 +78,12 @@ Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
+" }}}
+
+" {{{ # colortheme
+syntax on
+colorscheme molokai
+highlight Normal ctermbg=none
 " }}}
 
 " {{{ # general settings
@@ -102,7 +112,6 @@ augroup END
 " vim airline
 set timeout timeoutlen=50
 " }}}
-
 " {{{ # text editting
 " =============================================================================
 
@@ -207,19 +216,6 @@ augroup END
 " tmux を使っている時で、インサートモードの時に形状を変更する
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-" }}}
-
-" {{{ # color theme
-syntax enable
-
-if (has("termguicolors"))
- set termguicolors
-endif
-
-" colorscheme jay
-" let g:lightline = { 'colorsheme': 'jay' }
-colorscheme tender
-let g:lightline = { 'colorscheme': 'tender' }
 " }}}
 
 " {{{ # window settings
