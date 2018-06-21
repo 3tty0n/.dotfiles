@@ -32,6 +32,8 @@
 
 ;; internal
 (depends-on "exec-path-from-shell")
+(depends-on "neotree")
+(depends-on "all-the-icons")
 
 ;; git
 (depends-on "magit")
