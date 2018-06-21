@@ -30,7 +30,7 @@ zplug "junegunn/fzf-bin", \
       rename-to:"fzf", \
       frozen:1
 
-if zplug check "junegunn/fzf"; then
+if zplug check "junegunn/fzf-bin"; then
    export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 fi
 

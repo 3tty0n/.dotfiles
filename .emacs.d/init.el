@@ -91,6 +91,11 @@
 (global-set-key "\C-qj" 'windmove-down)
 (global-set-key "\C-qk" 'windmove-up)
 
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;; terminal ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -162,12 +167,39 @@
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; helm
-(helm-mode 1)
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+;; (helm-mode 1)
+;; (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+;; (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
-(global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
-(global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
+;; (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
+;; (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
+;; (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-ls-git
+
+;; ivy
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+
+(setq ivy-re-builders-alist
+      '((ivy-switch-buffer . ivy--regex-plus)
+        (t . ivy--regex-fuzzy)))
+
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 ;; yasnippet
 (yas-global-mode 1)

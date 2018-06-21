@@ -1,6 +1,7 @@
 *.data
 *.elc
 
+recentf
 ac-comphist.dat
 shellenv.el
 opam-user-setup.el
