@@ -81,14 +81,14 @@ if zplug check "bhilburn/powerlevel9k"; then
     POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="λ "
 
     POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir vcs aws kubecontext)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status dir vcs aws)
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 fi
 
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
 
-# zplug "mafredri/zsh-async"
-# zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
+zplug "mafredri/zsh-async"
+zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
