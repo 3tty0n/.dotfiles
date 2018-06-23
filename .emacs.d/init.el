@@ -172,7 +172,7 @@
 
      (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
      (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
-     (global-set-key (kbd "C-x C-l") 'helm-ls-git) ; helm-ls-git
+     (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
      (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
      ))
 
