@@ -14,18 +14,9 @@
 (depends-on "helm-swoop")
 (depends-on "helm-ls-git")
 (depends-on "helm-git-grep")
-
-;; ivy and counsel
-(depends-on "ivy")
-(depends-on "counsel")
-(depends-on "counsel")
-(depends-on "swiper")
-
-;; fzf
-(depends-on "fzf")
+(depends-on "helm-smex" :git "git@github.com:ptrv/helm-smex.git")
 
 (depends-on "elscreen")
-(depends-on "wgrep")
 (depends-on "smartparens")
 (depends-on "multiple-cursors")
 (depends-on "undo-tree")

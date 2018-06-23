@@ -1,24 +1,18 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;; eshell settings ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq eshell-command-aliases-list
-      (append
-       (list
-	(list "l" "ls -1a")
-	(list "g" "git")
-	)))
+      (append (list
+	       (list "l" "ls -1a")
+	       (list "g" "git"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;; internal settings ;;;;;;;;;;;;;
@@ -37,8 +31,6 @@
 (require 'smartparens-config)
 
 (global-linum-mode)
-;; (global-nlinum-mode 1) ; line numberを設定する
-;; (setq nlinum-format "%5d ") ; 横に5文字分確保する
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
 (tool-bar-mode -1) ; ツールバーを非表示
@@ -94,7 +86,6 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
-
 ;; neotree
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
@@ -110,9 +101,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; color theme ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (load-theme 'cyberpunk t)
-;; (load-theme 'molokai t)
 (load-theme 'spacemacs-dark t)
 (powerline-default-theme)
 
@@ -121,37 +109,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; auto-complete
-;; (require 'auto-complete-config)
-;; (ac-set-trigger-key "TAB")
-;; (global-auto-complete-mode t)
-;; (setq ac-auto-start 2)          ; n文字以上の単語の時に補完を開始
-;; (setq ac-delay 0.05)            ; n秒後に補完開始
-;; (setq ac-use-fuzzy t)           ; 曖昧マッチ有効
-;; (setq ac-use-comphist t)        ; 補完推測機能有効
-;; (setq ac-auto-show-menu 0.05)   ; n秒後に補完メニューを表示
-;; (setq ac-quick-help-delay 0.5)  ; n秒後にクイックヘルプを表示
-;; (setq ac-use-menu-map t)
+;; (global-auto-complete-mode)
+
+(eval-after-load 'auto-complete
+  '(progn
+     (require 'fuzzy)
+     (ac-config-default)
+     (ac-set-trigger-key "TAB")
+     (setq ac-auto-start 2)          ; n文字以上の単語の時に補完を開始
+     (setq ac-delay 0)            ; n秒後に補完開始
+     (setq ac-use-fuzzy t)           ; 曖昧マッチ有効
+     (setq ac-use-comphist t)        ; 補完推測機能有効
+     (setq ac-auto-show-menu 0.05)   ; n秒後に補完メニューを表示
+     (setq ac-quick-help-delay 0.5)  ; n秒後にクイックヘルプを表示
+     (setq ac-use-menu-map t)))
 
 (global-company-mode) ; 全バッファで有効にする
-(setq company-idle-delay 0) ; デフォルトは0.5
-(setq company-minimum-prefix-length 2) ; デフォルトは4
-(setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
-(company-quickhelp-mode)
 
-(define-key company-active-map (kbd "M-n") nil)
-(define-key company-active-map (kbd "M-p") nil)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "C-h") nil)
+(eval-after-load 'company
+  '(progn
+     (setq company-idle-delay 0) ; デフォルトは0.5
+     (setq company-minimum-prefix-length 2) ; デフォルトは4
+     (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
 
-(with-eval-after-load 'company
-  (company-flx-mode +1)) ;; fuzzy match
+     (define-key company-active-map (kbd "M-n") nil)
+     (define-key company-active-map (kbd "M-p") nil)
+     (define-key company-active-map (kbd "C-n") 'company-select-next)
+     (define-key company-active-map (kbd "C-p") 'company-select-previous)
+     (define-key company-active-map (kbd "C-h") nil)
+
+     (global-set-key (kbd "C-M-i") 'company-complete)
+     (company-quickhelp-mode +1)))
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; neotree
-(global-set-key [C-x o] 'neotree-toggle)
+;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
 
 ;; rainbow delimiters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -169,39 +163,18 @@
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
 ;; helm
-;; (helm-mode 1)
-;; (define-key global-map (kbd "C-x C-f") 'helm-find-files)
-;; (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(helm-mode 1)
+(eval-after-load 'helm-mode
+  '(progn
+     (helm-autoresize-mode 1)
+     (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+     (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
-;; (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
-;; (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
-;; (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-ls-git
-
-;; ivy
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
-
-(setq ivy-re-builders-alist
-      '((ivy-switch-buffer . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
-
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+     (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
+     (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
+     (global-set-key (kbd "C-x C-l") 'helm-ls-git) ; helm-ls-git
+     (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
+     ))
 
 ;; yasnippet
 (yas-global-mode 1)
@@ -253,12 +226,15 @@
 (global-set-key (kbd "C-c m") 'magit-status)
 
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(magit-diff-added ((t (:background "black" :foreground "green"))))
  '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
  '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
  '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
- '(magit-hash ((t (:foreground "red"))))
-)
+ '(magit-hash ((t (:foreground "red")))))
 
 ;;;;; infra
 
@@ -269,14 +245,47 @@
 ;;;;; language
 
 ;; ocaml
+;;(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+
 (setq opam-share
-  (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+      (substring
+       (shell-command-to-string "opam config var share 2> /dev/null")
+       0 -1))
 
 (setq opam-bin
-      (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
+      (substring
+       (shell-command-to-string "opam config var bin 2> /dev/null")
+       0 -1))
 
-(add-to-list 'auto-mode-alist '("\\.mll\\'" . tuareg-mode))
-(add-to-list 'auto-mode-alist '("\\.mly\\'" . tuareg-mode))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+(autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
+(autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
+(autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
+
+;; merlin
+(autoload 'merlin-mode "merlin" nil t nil)
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+(setq merlin-command (concat opam-bin "/ocamlmerlin"))
+
+(require 'merlin)
+(eval-after-load 'merlin
+  '(progn
+     (setq merlin-error-on-single-line t)
+     (set-face-background 'merlin-type-face "skyblue") ))
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend))
+(add-hook 'merlin-mode-hook 'company-mode)
+
+;; ocp-indent
+(load-file (concat opam-share "/emacs/site-lisp/ocp-indent.el"))
+
+;; utop
+(autoload 'utop "utop" "Toplevel for Ocaml" t)
+(setq utop-command "opam config exec -- utop -emacs")
+(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+(add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
 ;; yatex
 (unless (package-installed-p 'yatex)
@@ -292,8 +301,8 @@
 (add-hook 'yatex-mode-hook
       '(lambda ()
          (setq YaTeX-use-AMS-LaTeX t) ; align で数式モードになる
-         (setq YaTeX-use-hilit19 nil
-           YateX-use-font-lock t)
+	 (setq YaTeX-use-hilit19 nil
+-           YateX-use-font-lock t)
          (setq tex-command "em-latexmk.sh") ; typeset command
          (setq dvi2-command "evince") ; preview command
          (setq tex-pdfview-command "xdg-open"))) ; preview command
@@ -302,34 +311,12 @@
 (add-to-list 'company-backends 'company-c-headers)
 
 ;; racket
-(add-hook 'racket-mode-hook
-          (lambda ()
-            (define-key racket-mode-map (kbd "C-c r") 'racket-run)))
+(eval-after-load 'racket-mode
+  '(progn
+     (define-key racket-mode-map (kbd "C-c r") 'racket-run)
+     ))
 
 ;; markdown
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
-
-;; scala
-;; ensime
-(setq ensime-startup-notification nil)
-(defun my-ensime-show-tooltips-nox ()
-  (interactive)
-  (ensime-tooltip-handler (point)))
-
-;;(define-key ensime-mode-map "\C-c\C-v." 'my-ensime-show-tooltips-nox)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
-(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
