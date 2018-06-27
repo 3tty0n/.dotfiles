@@ -1,6 +1,7 @@
 *.data
 *.elc
 
+places
 recentf
 ac-comphist.dat
 shellenv.el

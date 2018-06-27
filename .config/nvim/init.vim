@@ -15,10 +15,19 @@ Plug 'vim-scripts/vim-auto-save'
 Plug 'cohama/lexima.vim'
 
 " neocomplete and neosnippet
-Plug 'Shougo/neocomplcache'
+" Plug 'Shougo/neocomplcache'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neocomplete'
+" Plug 'Shougo/neocomplete'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 " syntex check
 Plug 'w0rp/ale'
@@ -54,9 +63,12 @@ Plug 'zerowidth/vim-copy-as-rtf'
 Plug 'def-lkb/ocp-indent-vim'
 
 " scala
+if has('nvim')
+  Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'ensime/ensime-vim'
+endif
 Plug 'derekwyatt/vim-scala'
-" Plug 'ensime/ensime-vim',
-Plug '$HOME/src/github.com/google/ijaas/vim'
 
 " python
 Plug 'davidhalter/jedi-vim'
@@ -76,18 +88,12 @@ Plug 'plasticboy/vim-markdown'
 call plug#end()
 " }}}
 
-" {{{ # colortheme
-syntax on
-colorscheme molokai
-highlight Normal ctermbg=none
-" }}}
-
 " {{{ # general settings
 " =============================================================================
 syntax on
 set nocompatible            " use Vim in more useful way"
 set clipboard+=unnamed      " share clipboard with other systems
-set clipboard+=autoselect
+" set clipboard+=autoselect
 let mapleader=","           " Lead with <Space>
 nnoremap <space>v :<C-u>edit $VIM_ROOT/vimrc<CR>   " vimファイルを開く
 nnoremap <space>s :<C-u>source $VIM_ROOT/vimrc<CR>:source $VIM_ROOT/gvimrc<CR>     " vimファイルを反映する
@@ -108,6 +114,7 @@ augroup END
 " vim airline
 set timeout timeoutlen=50
 " }}}
+
 " {{{ # text editting
 " =============================================================================
 
@@ -214,6 +221,57 @@ let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 " }}}
 
+" {{{ # keybindings
+imap <C-p> <Up>
+imap <C-n> <Down>
+imap <C-b> <Left>
+imap <C-f> <Right>
+imap <C-a> <C-o>:call <SID>home()<CR>
+imap <C-e> <End>
+imap <C-d> <Del>
+imap <C-h> <BS>
+imap <C-k> <C-r>=<SID>kill()<CR>
+
+function! s:home()
+  let start_column = col('.')
+  normal! ^
+  if col('.') == start_column
+  ¦ normal! 1
+  endif
+  return ''
+endfunction
+
+function! s:kill()
+  let [text_before, text_after] = s:split_line()
+  if len(text_after) == 0
+  ¦ normal! J
+  else
+  ¦ call setline(line('.'), text_before)
+  endif
+  return ''
+endfunction
+
+function! s:split_line()
+  let line_text = getline(line('.'))
+  let text_after  = line_text[col('.')-1 :]
+  let text_before = (col('.') > 1) ? line_text[: col('.')-2] : ''
+  return [text_before, text_after]
+endfunction
+" }}}
+
+" {{{ # color theme
+syntax enable
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+colorscheme molokai
+let g:lightline = { 'colorsheme': 'molokai' }
+" colorscheme tender
+" let g:lightline = { 'colorscheme': 'tender' }
+" }}}
+
 " {{{ # window settings
 " =============================================================================
 " 横分割時は下へ､ 縦分割時は右へ新しいウィンドウが開くようにする
@@ -262,22 +320,14 @@ set noswapfile
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute 'set rtp+=' . g:opamshare . '/merlin/vim'
 
+imap <silent> <C-t> <C-t> :MerlinTypeOf
+
 " ocp-indent
 execute 'set rtp^=' . g:opamshare . '/ocp-indent/vim'
-function! s:ocaml_format()
-    let now_line = line('.')
-    exec ':%! ocp-indent'
-    exec ':' . now_line
-endfunction
-
-augroup ocaml_format
-    autocmd!
-    autocmd BufWrite,FileWritePre,FileAppendPre *.mli\= call s:ocaml_format()
-augroup END
 " }}}
 
 " {{{ # python
-" let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#use_tabs_not_buffers = 1
 " }}}
 
 " {{{ # racket
@@ -505,39 +555,4 @@ let g:auto_save_silent = 1  " do not display the auto-save notification
 
 " {{{ # flygrep
 nnoremap <Space>sgG :FlyGrep<cr>
-" }}}
-
-" {{{ # opam-user-settings
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
 " }}}

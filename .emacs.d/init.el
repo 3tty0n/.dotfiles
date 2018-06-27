@@ -1,3 +1,11 @@
+(require 'package)
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
@@ -23,6 +31,9 @@
 ;; no backup
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+
+(save-place-mode 1)
+(setq save-place-file (locate-user-emacs-file "places" ".emacs-places"))
 
 (defalias 'yes-or-no-p 'y-or-n-p) ; yes-no → y-n
 
@@ -89,9 +100,24 @@
 ;; neotree
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;; terminal ;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ddskk
+
+(global-set-key (kbd "C-x C-j") 'skk-mode)
+(setq skk-server-prog "~/.rbenv/shims/google-ime-skk") ; google-ime-skkの場所
+(setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる 
+(setq skk-server-host "localhost") ; サーバー機能を利用
+(setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
+(setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
+
+(setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
+(setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を2列に
+
+(setq skk-dcomp-activate t) ; 動的補完
+(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+(setq skk-dcomp-multiple-rows 10) ; 動的補完の候補表示件数
+
+(setq skk-egg-like-newline t)
+(setq skk-comp-circulate t)
 
 ;; multiterm
 (load-file "~/.emacs.d/site-lisp/multi-term.el")
@@ -109,20 +135,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; auto-complete
-;; (global-auto-complete-mode)
+;; (global-auto-complete-mode t)
 
 (eval-after-load 'auto-complete
   '(progn
      (require 'fuzzy)
      (ac-config-default)
-     (ac-set-trigger-key "TAB")
      (setq ac-auto-start 2)          ; n文字以上の単語の時に補完を開始
      (setq ac-delay 0)            ; n秒後に補完開始
      (setq ac-use-fuzzy t)           ; 曖昧マッチ有効
      (setq ac-use-comphist t)        ; 補完推測機能有効
      (setq ac-auto-show-menu 0.05)   ; n秒後に補完メニューを表示
      (setq ac-quick-help-delay 0.5)  ; n秒後にクイックヘルプを表示
-     (setq ac-use-menu-map t)))
+     (setq ac-use-menu-map t)
+     (ac-set-trigger-key "TAB")))
 
 (global-company-mode) ; 全バッファで有効にする
 
@@ -273,10 +299,22 @@
 (eval-after-load 'merlin
   '(progn
      (setq merlin-error-on-single-line t)
-     (set-face-background 'merlin-type-face "skyblue") ))
+     (set-face-background 'merlin-type-face "skyblue")
+     (setq merlin-error-after-save nil)
+     (flycheck-ocaml-setup)
+     ))
+
+(with-eval-after-load 'auto-complete
+  '(progn
+     (setq merlin-ac-setup 'easy)))
+
 (with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend))
-(add-hook 'merlin-mode-hook 'company-mode)
+  '(progn
+     (add-to-list 'company-backends 'merlin-company-backend)
+     (add-hook 'merlin-mode-hook 'company-mode)
+     ))
+
+(add-hook 'tuareg-mode-hook #'merlin-mode)
 
 ;; ocp-indent
 (load-file (concat opam-share "/emacs/site-lisp/ocp-indent.el"))
@@ -308,7 +346,8 @@
          (setq tex-pdfview-command "xdg-open"))) ; preview command
 
 ;; c
-(add-to-list 'company-backends 'company-c-headers)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-c-headers))
 
 ;; racket
 (eval-after-load 'racket-mode
@@ -316,7 +355,21 @@
      (define-key racket-mode-map (kbd "C-c r") 'racket-run)
      ))
 
+;; scala
+(setq ensime-startup-notification nil)
+
+;; gnuplot
+(add-to-list 'auto-mode-alist '("\\.plot" . gnuplot-mode))
+
 ;; markdown
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme spaceline smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

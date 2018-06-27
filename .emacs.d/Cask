@@ -1,76 +1,50 @@
 (source gnu)
 (source melpa)
 
-;; cask
+(depends-on "all-the-icons")
 (depends-on "cask")
 (depends-on "cask-mode")
-(depends-on "pallet")
-
-(depends-on "nlinum")
-(depends-on "rainbow-delimiters")
-
-;; helm
-(depends-on "helm")
-(depends-on "helm-swoop")
-(depends-on "helm-ls-git")
-(depends-on "helm-git-grep")
-(depends-on "helm-smex" :git "git@github.com:ptrv/helm-smex.git")
-
-(depends-on "elscreen")
-(depends-on "smartparens")
-(depends-on "multiple-cursors")
-(depends-on "undo-tree")
-
-;; internal
-(depends-on "exec-path-from-shell")
-(depends-on "neotree")
-(depends-on "all-the-icons")
-
-;; git
-(depends-on "magit")
-(depends-on "git-gutter+")
-
-;; theme
-(depends-on "molokai-theme")
-(depends-on "cyberpunk-theme")
-(depends-on "spacemacs-theme")
-(depends-on "powerline")
-
-;; flycheck
-(depends-on "flycheck")
-(depends-on "flycheck-cask")
-
-;; completion
-;; company
 (depends-on "company")
-(depends-on "company-quickhelp")
 (depends-on "company-c-headers")
 (depends-on "company-flx")
-
-;; ya-family
-(depends-on "yasnippet")
-(depends-on "yascroll")
-(depends-on "yatex")
-
-;; scala
-(depends-on "ensime")
-(depends-on "scala-mode")
-(depends-on "sbt-mode")
-
-;; c
-(depends-on "irony")
-
-;; racket
-(depends-on "racket-mode")
-
-;; markdown
-(depends-on "markdown-mode")
-
-;; yaml
-(depends-on "yaml-mode")
-
-;; kunernetes
-(depends-on "kubernetes")
-
-;; docker
+(depends-on "company-quickhelp")
+(depends-on "cyberpunk-theme")
+(depends-on "ddskk")
 (depends-on "docker")
+(depends-on "docker-api")
+(depends-on "dockerfile-mode")
+(depends-on "elscreen")
+(depends-on "ensime")
+(depends-on "exec-path-from-shell")
+(depends-on "flycheck")
+(depends-on "flycheck-cask")
+(depends-on "flycheck-ocaml")
+(depends-on "git-gutter+")
+(depends-on "gnuplot")
+(depends-on "helm")
+(depends-on "helm-git-grep")
+(depends-on "helm-ls-git")
+(depends-on "helm-smex" :git "git@github.com:ptrv/helm-smex.git")
+(depends-on "helm-swoop")
+(depends-on "irony")
+(depends-on "kubernetes")
+(depends-on "magit")
+(depends-on "markdown-mode")
+(depends-on "molokai-theme")
+(depends-on "multiple-cursors")
+(depends-on "neotree")
+(depends-on "nlinum")
+(depends-on "pallet")
+(depends-on "powerline")
+(depends-on "racket-mode")
+(depends-on "rainbow-delimiters")
+(depends-on "restart-emacs")
+(depends-on "sbt-mode")
+(depends-on "scala-mode")
+(depends-on "smartparens")
+(depends-on "spacemacs-theme")
+(depends-on "undo-tree")
+(depends-on "yaml-mode")
+(depends-on "yascroll")
+(depends-on "yasnippet")
+(depends-on "yatex")
