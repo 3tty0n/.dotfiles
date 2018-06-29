@@ -101,28 +101,31 @@
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; ddskk
-
 (global-set-key (kbd "C-x C-j") 'skk-mode)
-(setq skk-server-prog "~/.rbenv/shims/google-ime-skk") ; google-ime-skkの場所
-(setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる 
-(setq skk-server-host "localhost") ; サーバー機能を利用
-(setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
-(setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
 
-(setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
-(setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を2列に
+(eval-after-load 'skk-mode
+  '(progn
+     (setq skk-server-prog "~/.rbenv/shims/google-ime-skk") ; google-ime-skkの場所
+     (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる 
+     (setq skk-server-host "localhost") ; サーバー機能を利用
+     (setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
+     (setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
 
-(setq skk-dcomp-activate t) ; 動的補完
-(setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
-(setq skk-dcomp-multiple-rows 10) ; 動的補完の候補表示件数
+     (setq skk-show-candidates-always-pop-to-buffer t) ; 変換候補の表示位置
+     (setq skk-henkan-show-candidates-rows 2) ; 候補表示件数を2列に
 
-(setq skk-egg-like-newline t)
-(setq skk-comp-circulate t)
+     (setq skk-dcomp-activate t) ; 動的補完
+     (setq skk-dcomp-multiple-activate t) ; 動的補完の複数候補表示
+     (setq skk-dcomp-multiple-rows 10) ; 動的補完の候補表示件数
+
+     (setq skk-egg-like-newline t)
+     (setq skk-comp-circulate t)
+     ))
 
 ;; multiterm
-(load-file "~/.emacs.d/site-lisp/multi-term.el")
-(require 'multi-term)
-(setq multi-term-program "/usr/local/bin/zsh")
+;; (load-file "~/.emacs.d/site-lisp/multi-term.el")
+;; (require 'multi-term)
+;; (setq multi-term-program "/usr/local/bin/zsh")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; color theme ;;;;;;;;;;;;;;;
@@ -155,7 +158,7 @@
 (eval-after-load 'company
   '(progn
      (setq company-idle-delay 0) ; デフォルトは0.5
-     (setq company-minimum-prefix-length 2) ; デフォルトは4
+     (setq company-minimum-prefix-length 1) ; デフォルトは4
      (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
 
      (define-key company-active-map (kbd "M-n") nil)
