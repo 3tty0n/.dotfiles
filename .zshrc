@@ -5,7 +5,7 @@ fi
 
 source ~/.zplug/init.zsh
 source ~/.zsh/zplug.zsh
-source ~/.dotfiles/scripts/tmux.sh
+# source ~/.dotfiles/scripts/tmux.sh
 
 # terminal settings
 [[ $TERM = "eterm-color" ]] && TERM=xterm-color

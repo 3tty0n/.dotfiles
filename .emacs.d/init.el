@@ -28,6 +28,9 @@
 
 (setq compilation-scroll-output t)
 
+;; save するごとに white space を消す
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; no backup
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -106,7 +109,7 @@
 (eval-after-load 'skk-mode
   '(progn
      (setq skk-server-prog "~/.rbenv/shims/google-ime-skk") ; google-ime-skkの場所
-     (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる 
+     (setq skk-server-inhibit-startup-server nil) ; 辞書サーバが起動していなかったときに Emacs からプロセスを立ち上げる
      (setq skk-server-host "localhost") ; サーバー機能を利用
      (setq skk-server-portnum 55100)     ; ポートはgoogle-ime-skk
      (setq skk-share-private-jisyo t)   ; 複数 skk 辞書を共有
@@ -158,7 +161,7 @@
 (eval-after-load 'company
   '(progn
      (setq company-idle-delay 0) ; デフォルトは0.5
-     (setq company-minimum-prefix-length 1) ; デフォルトは4
+     (setq company-minimum-prefix-length 2) ; デフォルトは4
      (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
 
      (define-key company-active-map (kbd "M-n") nil)
@@ -203,6 +206,10 @@
      (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
      (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
      (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
+
+     (require 'helm-smex)
+     (global-set-key [remap execute-extended-command] #'helm-smex)
+     (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
      ))
 
 ;; yasnippet
@@ -238,15 +245,11 @@
 ;;;;;;;;;;;;;;; git settings ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; git-gutter+
-(global-git-gutter+-mode)
-(setq git-gutter+-modified-sign " ") ;; two space
-(setq git-gutter+-added-sign "+")    ;; multiple character is OK
-(setq git-gutter+-deleted-sign "-")
-
-(set-face-background 'git-gutter+-modified "purple") ;; background color
-(set-face-foreground 'git-gutter+-added "green")
-(set-face-foreground 'git-gutter+-deleted "red")
+;; git-gutter
+;; (global-git-gutter-mode t)
+;; (git-gutter:linum-setup)
+;; (custom-set-variables
+;;  '(git-gutter:update-interval 5))
 
 ;; Magit
 (setq-default magit-auto-revert-mode nil)
@@ -375,4 +378,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme spaceline smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme spaceline smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

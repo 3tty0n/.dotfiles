@@ -1,142 +1,102 @@
+(source "marmalade" "http://marmalade-repo.org/packages/")
+(source "melpa" "http://melpa.milkbox.net/packages/")
 (source gnu)
-(source org)
-(source melpa)
 (source marmalade)
+(source melpa)
+(source org)
 
 (depends-on "anzu")
+(depends-on "atom-one-dark-theme")
+(depends-on "auto-save-buffers-enhanced")
 (depends-on "bats-mode")
 (depends-on "bind-key")
+(depends-on "cask")
+(depends-on "cask-mode")
 (depends-on "color-theme-modern")
+(depends-on "company")
+(depends-on "company-coq")
+(depends-on "company-go")
+(depends-on "company-jedi")
+(depends-on "company-quickhelp")
+(depends-on "darcula-theme")
+(depends-on "dockerfile-mode")
+(depends-on "dracula-theme")
+(depends-on "elm-mode")
+(depends-on "ensime")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")
-(depends-on "google-c-style")
-(depends-on "haml-mode")
-(depends-on "htmlize")
-(depends-on "hydra")
-(depends-on "highlight-symbol")
-(depends-on "init-loader")
-(depends-on "iedit")
-(depends-on "js2-mode")
-(depends-on "json-mode")
-(depends-on "migemo")
-(depends-on "org")
-(depends-on "org-plus-contrib")
-(depends-on "open-junk-file")
-(depends-on "package-utils")
-(depends-on "paredit")
-(depends-on "popup-complete")
-(depends-on "popwin")
-(depends-on "projectile")
-(depends-on "smartparens")
-(depends-on "smooth-scrolling")
-(depends-on "undohist")
-(depends-on "use-package")
-(depends-on "yaml-mode")
-(depends-on "yasnippet")
-(depends-on "yatex")
-(depends-on "rainbow-delimiters")
-(depends-on "quickrun")
-
-;; cask
-(depends-on "cask")
-(depends-on "cask-mode")
-(depends-on "pallet")
-
-;; internal
-(depends-on "auto-save-buffers-enhanced")
-(depends-on "neotree")
-(depends-on "mwim")
-(depends-on "tabbar")
-
-;; autocomplete
-;; (depends-on "auto-complete")
-
-;; company
-(depends-on "company")
-(depends-on "company-quickhelp")
-(depends-on "company-coq")
-
-;; theme
-(depends-on "atom-one-dark-theme")
-(depends-on "molokai-theme")
-(depends-on "dracula-theme")
-(depends-on "powerline")
-(depends-on "solarized-theme")
-(depends-on "madhat2r-theme")
-(depends-on "spacemacs-theme")
-(depends-on "darcula-theme")
-
-;; flycheck
+(depends-on "fish-mode")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "flycheck-elm")
-(depends-on "flycheck-pos-tip")
 (depends-on "flycheck-ocaml")
-
-;; helm
-(depends-on "helm")
-(depends-on "helm-gitignore")
-(depends-on "helm-ls-git")
-(depends-on "helm-themes")
-(depends-on "helm-cmd-t")
-(depends-on "helm-swoop")
-(depends-on "helm-migemo")
-
-;; git
+(depends-on "flycheck-pos-tip")
 (depends-on "git-gutter")
 (depends-on "git-gutter-fringe+")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
-(depends-on "magit")
-
-;; ocaml
-(depends-on "merlin")
-(depends-on "tuareg")
-(depends-on "utop")
-
-;; golang
 (depends-on "go-mode")
-(depends-on "company-go")
-
-;; ruby
+(depends-on "google-c-style")
+(depends-on "haml-mode")
+(depends-on "haskell-mode")
+(depends-on "helm")
+(depends-on "helm-cmd-t")
+(depends-on "helm-gitignore")
+(depends-on "helm-ls-git")
+(depends-on "helm-migemo")
+(depends-on "helm-swoop")
+(depends-on "helm-themes")
+(depends-on "highlight-symbol")
+(depends-on "htmlize")
+(depends-on "hydra")
+(depends-on "iedit")
+(depends-on "init-loader")
+(depends-on "jedi-core")
+(depends-on "js2-mode")
+(depends-on "json-mode")
+(depends-on "madhat2r-theme")
+(depends-on "magit")
+(depends-on "markdown-mode")
+(depends-on "markdown-mode+")
+(depends-on "merlin")
+(depends-on "migemo")
+(depends-on "molokai-theme")
+(depends-on "mwim")
+(depends-on "neotree")
+(depends-on "open-junk-file")
+(depends-on "org")
+(depends-on "org-plus-contrib")
+(depends-on "package-utils")
+(depends-on "pallet")
+(depends-on "paredit")
+(depends-on "php-mode")
+(depends-on "popup-complete")
+(depends-on "popwin")
+(depends-on "powerline")
+(depends-on "projectile")
+(depends-on "quickrun")
+(depends-on "racket-mode")
+(depends-on "rainbow-delimiters")
 (depends-on "robe")
 (depends-on "ruby-block")
 (depends-on "ruby-electric")
 (depends-on "ruby-end")
 (depends-on "ruby-mode")
-
-;; python
-(depends-on "jedi-core")
-(depends-on "company-jedi")
-
-;; scala
 (depends-on "sbt-mode")
 (depends-on "scala-mode")
 (depends-on "scrooge")
-(depends-on "ensime")
-
-;; php
-(depends-on "php-mode")
-
-;; elm
-(depends-on "elm-mode")
-
-;; haskell
-(depends-on "haskell-mode")
-
-;; markdown
-(depends-on "markdown-mode")
-(depends-on "markdown-mode+")
-
-;; fish
-(depends-on "fish-mode")
-
-;; docker
-(depends-on "dockerfile-mode")
-
-;; html, css
+(depends-on "scss-mode")
+(depends-on "smartparens")
+(depends-on "smooth-scrolling")
+(depends-on "solarized-theme")
+(depends-on "spacemacs-theme")
+(depends-on "tabbar")
+(depends-on "tuareg")
+(depends-on "undohist")
+(depends-on "use-package")
+(depends-on "utop")
 (depends-on "web-mode")
-
-;; racket
-(depends-on "racket-mode")
+(depends-on "yaml-mode")
+(depends-on "yasnippet")
+(depends-on "yatex")

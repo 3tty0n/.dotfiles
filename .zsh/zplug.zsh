@@ -34,15 +34,16 @@ if zplug check "junegunn/fzf-bin"; then
    export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 fi
 
-zplug "junegunn/fzf", \
-      as:command, \
-      use:bin/fzf-tmux, \
-      frozen:1
-
 zplug "motemen/ghq",\
       as:command, \
       from:gh-r, \
       rename-to:ghq, \
+      frozen:1
+
+zplug "peco/peco",\
+      as:command, \
+      from:gh-r, \
+      rename-to:peco, \
       frozen:1
 
 zplug "peco/peco", \
