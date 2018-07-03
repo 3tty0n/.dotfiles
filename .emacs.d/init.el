@@ -217,7 +217,7 @@
 (yas-global-mode 1)
 
 ;; elscreen
-(setq elscreen-prefix-key (kbd "C-e")) ;;; プレフィクスキーはC-e
+(setq elscreen-prefix-key (kbd "C-z")) ;;; プレフィクスキーはC-z
 (elscreen-start)
 (setq elscreen-tab-display-kill-screen nil) ;;; タブの先頭に[X]を表示しない
 (setq elscreen-tab-display-control nil) ;;; header-lineの先頭に[<->]を表示しない
