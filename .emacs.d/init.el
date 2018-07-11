@@ -172,7 +172,7 @@
      (define-key company-active-map (kbd "C-h") nil)
 
      (global-set-key (kbd "C-M-i") 'company-complete)
-     (company-quickhelp-mode +1)))
+     ))
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
