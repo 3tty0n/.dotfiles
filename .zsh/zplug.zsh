@@ -86,10 +86,10 @@ if zplug check "bhilburn/powerlevel9k"; then
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 fi
 
-# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
 
-zplug "mafredri/zsh-async"
-zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
+# zplug "mafredri/zsh-async"
+# zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
