@@ -176,8 +176,8 @@
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode))
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
 ;; neotree
 ;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
@@ -369,6 +369,8 @@
 
 ;; scala
 (setq ensime-startup-notification nil)
+
+(setq ensime-completion-style 'auto-complete)
 
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.plot" . gnuplot-mode))
