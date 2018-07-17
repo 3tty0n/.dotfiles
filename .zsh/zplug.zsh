@@ -8,19 +8,15 @@ zplug "zsh-users/zsh-history-substring-search"
 
 zplug "zsh-users/zsh-autosuggestions"
 
-zplug "changyuheng/zsh-interactive-cd"
-
 zplug "mollifier/cd-gitroot"
 
 zplug "Tarrasch/zsh-bd", use:bd.zsh
 
-zplug "b4b4r07/enhancd", use:init.sh
+# zplug "b4b4r07/enhancd", use:init.sh
 
-if zplug check "b4b4r07/enhancd"; then
-    # enhancd settings
-    ENHANCD_HOOK_AFTER_CD='ls -1a'
-    ENHANCD_FILTER=fzf:fzy:peco
-fi
+zplug "rupa/z", use:z.sh
+
+zplug "andrewferrier/fzf-z"
 
 zplug "supercrabtree/k"
 
@@ -28,29 +24,29 @@ zplug "junegunn/fzf-bin", \
       as:command, \
       from:gh-r, \
       rename-to:"fzf", \
-      frozen:1
+      use:"*darwin*amd64*"
+
+zplug "junegunn/fzf",\
+      as:command, \
+      use:"bin/fzf-tmux"
 
 if zplug check "junegunn/fzf-bin"; then
-   export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
+  export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 fi
 
 zplug "motemen/ghq",\
       as:command, \
       from:gh-r, \
-      rename-to:ghq, \
-      frozen:1
-
-zplug "peco/peco",\
-      as:command, \
-      from:gh-r, \
-      rename-to:peco, \
-      frozen:1
+      rename-to:ghq
 
 zplug "peco/peco", \
       as:command, \
       from:gh-r, \
-      use:"*amd64*", \
-      frozen:1
+      use:"*amd64*"
+
+zplug "direnv/direnv", \
+      as:command, \
+      hook-build:'make && make install DESTDIR=~/.local'
 
 zplug "paulp/sbt-extras", \
       as:command, \

@@ -1,4 +1,5 @@
 require 'irb/completion'
+require 'irbtools'
 require 'pp'
 require 'rubygems'
 require 'wirble'

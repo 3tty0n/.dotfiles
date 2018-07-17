@@ -28,6 +28,8 @@ setopt no_beep
 setopt nolistbeep
 setopt no_tify
 setopt list_types
+setopt share_history
+setopt list_packed
 
 alias dc=cd
 alias cdu='cd-gitroot'
@@ -83,7 +85,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && \
 test -f ~/.zshrc.local && source ~/.zshrc.local
 
 # fzf
-# test -f ~/.fzf.zsh && source ~/.fzf.zsh
+test -f ~/.fzf.zsh && source ~/.fzf.zsh
 
 source <(kubectl completion zsh)
 

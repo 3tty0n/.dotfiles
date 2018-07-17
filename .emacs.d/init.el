@@ -2,7 +2,6 @@
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -142,7 +141,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; auto-complete
-;; (global-auto-complete-mode t)
+(global-auto-complete-mode t)
 
 (eval-after-load 'auto-complete
   '(progn
@@ -157,7 +156,7 @@
      (setq ac-use-menu-map t)
      (ac-set-trigger-key "TAB")))
 
-(global-company-mode) ; 全バッファで有効にする
+;; (global-company-mode) ; 全バッファで有効にする
 
 (eval-after-load 'company
   '(progn
@@ -295,6 +294,9 @@
 
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("jbuild" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("dune" . tuareg-mode))
+
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
 (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
 (autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)

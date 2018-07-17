@@ -24,6 +24,28 @@ Plug 'Shougo/neocomplete'
 Plug 'w0rp/ale'
 " Plug 'scrooloose/syntastic'
 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'copy/deoplete-ocaml'
+
+" enable deoplete
+let g:deoplete#enable_at_startup = 1
+
+" this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
+let g:deoplete#complete_method = "complete"
+
+" other completion sources suggested to disable
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
+
+" no delay before completion
+let g:deoplete#auto_complete_delay = 0
+
 " search
 Plug 'wsdjeg/FlyGrep.vim'
 
@@ -87,7 +109,7 @@ highlight Normal ctermbg=none
 syntax on
 set nocompatible            " use Vim in more useful way"
 set clipboard+=unnamed      " share clipboard with other systems
-set clipboard+=autoselect
+" set clipboard+=autoselect
 let mapleader=","           " Lead with <Space>
 nnoremap <space>v :<C-u>edit $VIM_ROOT/vimrc<CR>   " vimファイルを開く
 nnoremap <space>s :<C-u>source $VIM_ROOT/vimrc<CR>:source $VIM_ROOT/gvimrc<CR>     " vimファイルを反映する
