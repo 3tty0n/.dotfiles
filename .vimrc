@@ -29,19 +29,6 @@ endif
 " auto completion for ocaml
 Plug 'copy/deoplete-ocaml'
 
-" enable deoplete
-let g:deoplete#enable_at_startup = 1
-
-" this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
-let g:deoplete#complete_method = "complete"
-
-" other completion sources suggested to disable
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
-
-" no delay before completion
-let g:deoplete#auto_complete_delay = 0
-
 " search
 Plug 'wsdjeg/FlyGrep.vim'
 
@@ -278,12 +265,33 @@ set nobackup
 set noswapfile
 " }}}
 
-" {{{# syntax checking
+" {{{# syntax checking and auto complete
 
 " ale
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction "}}}
+
+" this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
+let g:deoplete#complete_method = "complete"
+
+" other completion sources suggested to disable
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
+
+" no delay before completion
+let g:deoplete#auto_complete_delay = 0
 " }}}
 
 " {{{ # ocaml
