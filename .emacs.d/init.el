@@ -148,12 +148,13 @@
      (require 'fuzzy)
      (ac-config-default)
      (setq ac-auto-start 2)          ; n文字以上の単語の時に補完を開始
-     (setq ac-delay 0)            ; n秒後に補完開始
+     (setq ac-delay 0)               ; n秒後に補完開始
      (setq ac-use-fuzzy t)           ; 曖昧マッチ有効
      (setq ac-use-comphist t)        ; 補完推測機能有効
      (setq ac-auto-show-menu 0.05)   ; n秒後に補完メニューを表示
      (setq ac-quick-help-delay 0.5)  ; n秒後にクイックヘルプを表示
      (setq ac-use-menu-map t)
+     (setq ac-ignore-case t)
      (ac-set-trigger-key "TAB")))
 
 ;; (global-company-mode) ; 全バッファで有効にする
@@ -318,7 +319,8 @@
 
 (with-eval-after-load 'auto-complete
   '(progn
-     (setq merlin-ac-setup 'easy)))
+     (setq merlin-ac-setup 'easy)
+     ))
 
 (with-eval-after-load 'company
   '(progn

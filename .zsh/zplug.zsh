@@ -44,10 +44,6 @@ zplug "peco/peco", \
       from:gh-r, \
       use:"*amd64*"
 
-zplug "direnv/direnv", \
-      as:command, \
-      hook-build:'make && make install DESTDIR=~/.local'
-
 zplug "paulp/sbt-extras", \
       as:command, \
       use:sbt

@@ -15,8 +15,8 @@ set -gx PYENV_ROOT $HOME/.pyenv
 set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
 
 # scalaenv
-set -gx PATH $HOME/.scalaenv/bin $PATH
-status --is-interactive; and source (scalaenv init -|psub)
+# set -gx PATH $HOME/.scalaenv/bin $PATH
+# status --is-interactive; and source (scalaenv init -|psub)
 
 # go
 set -gx GOROOT (go env GOROOT)
