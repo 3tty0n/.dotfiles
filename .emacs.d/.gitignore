@@ -1,10 +1,11 @@
 *.data
+*.dat
 *.elc
 
 places
 recentf
-ac-comphist.dat
 smex-items
+viper
 shellenv.el
 opam-user-setup.el
 
@@ -12,3 +13,4 @@ opam-user-setup.el
 auto-save-list/
 elpa/
 eshell/
+el-get/

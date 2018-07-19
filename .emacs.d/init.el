@@ -12,18 +12,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;; eshell settings ;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; eshell
 (setq eshell-command-aliases-list
       (append (list
 	       (list "l" "ls -1a")
 	       (list "g" "git"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;; internal settings ;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; internal
 
 (setq compilation-scroll-output t)
 
@@ -220,11 +216,11 @@
 (yas-global-mode 1)
 
 ;; elscreen
-(setq elscreen-prefix-key (kbd "C-z")) ;;; プレフィクスキーはC-z
+(setq elscreen-prefix-key (kbd "C-z"))
 (elscreen-start)
-(setq elscreen-tab-display-kill-screen nil) ;;; タブの先頭に[X]を表示しない
-(setq elscreen-tab-display-control nil) ;;; header-lineの先頭に[<->]を表示しない
-(setq elscreen-buffer-to-nickname-alist ;;; バッファ名・モード名からタブに表示させる内容を決定する(デフォルト設定)
+(setq elscreen-tab-display-kill-screen nil)
+(setq elscreen-tab-display-control nil)
+(setq elscreen-buffer-to-nickname-alist
       '(("^dired-mode$" .
          (lambda ()
            (format "Dired(%s)" dired-directory)))
@@ -245,9 +241,7 @@
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;; git settings ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; git
 
 ;; git-gutter
 ;; (global-git-gutter-mode t)
@@ -295,8 +289,6 @@
 
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
-(add-to-list 'auto-mode-alist '("jbuild" . tuareg-mode))
-(add-to-list 'auto-mode-alist '("dune" . tuareg-mode))
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
 (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
