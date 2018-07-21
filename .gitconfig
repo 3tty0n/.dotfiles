@@ -7,7 +7,7 @@
   require   = true
 [core]
   excludesfile  = ~/.gitignore_global
-  editor        = vim
+  editor        = nvim
 [color]
   status      = auto
   diff        = auto
@@ -60,3 +60,5 @@
   # diff  = diff-highlight | less
 [pull]
 	ff = only
+[pgp]
+	program = gpg2

@@ -12,13 +12,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
-
-;; eshell
-(setq eshell-command-aliases-list
-      (append (list
-	       (list "l" "ls -1a")
-	       (list "g" "git"))))
-
 ;; internal
 
 (setq compilation-scroll-output t)
@@ -125,20 +118,15 @@
 ;; (require 'multi-term)
 ;; (setq multi-term-program "/usr/local/bin/zsh")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;; color theme ;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; color theme
 (load-theme 'spacemacs-dark t)
 (powerline-default-theme)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;; ide settings ;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ide settings
 
 ;; auto-complete
-(global-auto-complete-mode t)
-
+;; (global-auto-complete-mode t)
 (eval-after-load 'auto-complete
   '(progn
      (require 'fuzzy)
@@ -153,8 +141,7 @@
      (setq ac-ignore-case t)
      (ac-set-trigger-key "TAB")))
 
-;; (global-company-mode) ; 全バッファで有効にする
-
+(global-company-mode);
 (eval-after-load 'company
   '(progn
      (setq company-idle-delay 0) ; デフォルトは0.5
@@ -198,6 +185,7 @@
 (helm-mode 1)
 (eval-after-load 'helm-mode
   '(progn
+     (require 'helm)
      (helm-autoresize-mode 1)
      (define-key global-map (kbd "C-x C-f") 'helm-find-files)
      (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
@@ -206,6 +194,9 @@
      (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
      (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
      (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
+
+     (setq helm-mode-fuzzy-match t)
+     (setq helm-completion-in-region-fuzzy-match t)
 
      (require 'helm-smex)
      (global-set-key [remap execute-extended-command] #'helm-smex)
@@ -362,9 +353,31 @@
      ))
 
 ;; scala
-(setq ensime-startup-notification nil)
+(eval-after-load 'ensime
+  '(progn
+     (setq ensime-startup-notification nil)
 
-(setq ensime-completion-style 'auto-complete)
+     (defun scala/enable-eldoc ()
+       "Show error message or type name at point by Eldoc."
+       (setq-local eldoc-documentation-function
+		   #'(lambda ()
+                       (when (ensime-connected-p)
+			 (let ((err (ensime-print-errors-at-point))) err))))
+       (eldoc-mode +1))
+
+     (defun scala/completing-dot-company ()
+       (cond (company-backend
+              (company-complete-selection)
+              (scala/completing-dot))
+             (t
+              (insert ".")
+              (company-complete))))
+
+     (defun scala/completing-dot-ac ()
+       (insert ".")
+       (ac-trigger-key-command t))
+     ))
+
 
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.plot" . gnuplot-mode))
@@ -380,4 +393,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
