@@ -436,6 +436,8 @@ nmap <Leader><Tab> <C-w>w
 autocmd BufWritePost *.scala silent :EnTypeCheck
 nnoremap <localleader>t :EnType<CR>
 " }}}
+
+" {{{  # ocaml
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
