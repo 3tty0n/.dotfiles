@@ -3,7 +3,6 @@
 (source melpa-stable)
 (source org)
 
-(depends-on "alect-themes")
 (depends-on "all-the-icons")
 (depends-on "auto-complete")
 (depends-on "cask")
@@ -49,6 +48,7 @@
 (depends-on "racket-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "restart-emacs")
+(depends-on "rspec-mode")
 (depends-on "sbt-mode")
 (depends-on "scala-mode")
 (depends-on "smartparens")
