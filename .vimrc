@@ -221,9 +221,6 @@ augroup Redraw
     autocmd FocusGained * redraw!
 augroup END
 
-" tmux を使っている時で、インサートモードの時に形状を変更する
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 " }}}
 
 " {{{ # window settings
