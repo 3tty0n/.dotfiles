@@ -20,15 +20,47 @@ zplug "andrewferrier/fzf-z"
 
 zplug "supercrabtree/k"
 
-zplug "junegunn/fzf-bin", \
-      as:command, \
-      from:gh-r, \
-      rename-to:"fzf", \
-      use:"*darwin*amd64*"
+case "${OSTYPE}" in
+    darwin* )
+        zplug "junegunn/fzf-bin", \
+              as:command, \
+              from:gh-r, \
+              rename-to:"fzf", \
+              use:"*darwin*amd64*"
 
-zplug "junegunn/fzf",\
-      as:command, \
-      use:"bin/fzf-tmux"
+        zplug "peco/peco", \
+              as:command, \
+              from:gh-r, \
+              use:"*amd64*"
+	;;
+    linux* )
+	if [ $(unama -m) = 'i686' ]; then
+	    zplug "junegunn/fzf-bin", \
+		  as:command, \
+		  from:gh-r, \
+		  rename-to:"fzf", \
+		  use:"*linux*386*"
+
+	    zplug "peco/peco", \
+		  as:command, \
+		  from:gh-r, \
+		  use:"*linux*386"
+	else
+	    zplug "junegunn/fzf-bin", \
+		  as:command, \
+		  from:gh-r, \
+		  rename-to:"fzf", \
+		  use:"*linux*amd64*"
+
+	    zplug "peco/peco", \
+		  as:command, \
+		  from:gh-r, \
+		  use:"*linux*amd64"
+	fi
+	;;
+esac
+
+zplug "junegunn/fzf", as:command, use:"bin/fzf-tmux"
 
 if zplug check "junegunn/fzf-bin"; then
   export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
@@ -39,10 +71,6 @@ zplug "motemen/ghq",\
       from:gh-r, \
       rename-to:ghq
 
-zplug "peco/peco", \
-      as:command, \
-      from:gh-r, \
-      use:"*amd64*"
 
 zplug "paulp/sbt-extras", \
       as:command, \
