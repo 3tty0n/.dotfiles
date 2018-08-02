@@ -34,7 +34,7 @@ case "${OSTYPE}" in
               use:"*amd64*"
 	;;
     linux* )
-	if [ $(unama -m) = 'i686' ]; then
+	if [ $(uname -m) = 'i686' ]; then
 	    zplug "junegunn/fzf-bin", \
 		  as:command, \
 		  from:gh-r, \
