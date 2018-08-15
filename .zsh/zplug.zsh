@@ -44,7 +44,7 @@ case "${OSTYPE}" in
 	    zplug "peco/peco", \
 		  as:command, \
 		  from:gh-r, \
-		  use:"*linux*386"
+		  use:"*linux*386*"
 	else
 	    zplug "junegunn/fzf-bin", \
 		  as:command, \
@@ -55,7 +55,7 @@ case "${OSTYPE}" in
 	    zplug "peco/peco", \
 		  as:command, \
 		  from:gh-r, \
-		  use:"*linux*amd64"
+		  use:"*linux*amd64*"
 	fi
 	;;
 esac
