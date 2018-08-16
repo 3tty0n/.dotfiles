@@ -100,8 +100,8 @@ function setup_opam {
     echo "setup OCaml environment..."
     echo ""
     opam init
-    opam switch 4.06.1
-    opam install -y core ounit
+    opam switch 4.07.0
+    opam install -y core ounit merlin tuareg ocp-indent utop
     eval `opam config env`
 }
 
@@ -136,9 +136,7 @@ do
       ;;
     '-a' )
       mk_symlink
-      brew_bundle
       setup_zplug
-      setup_githubrepo
       setup_opam
       ;;
     -*)
@@ -154,9 +152,3 @@ do
   esac
   shift
 done
-
-#if [ -z $param ]; then
-#    echo "$PROGNAME: too few arguments" 1>&2
-#    echo "Try '$PROGNAME -h' for more information." 1>&2
-#    exit 1
-#fi
