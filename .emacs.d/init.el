@@ -13,7 +13,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; internal
-
+(setq initial-scratch-message "")
 (setq compilation-scroll-output t)
 
 ;; save するごとに white space を消す
