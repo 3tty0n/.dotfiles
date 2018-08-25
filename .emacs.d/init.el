@@ -280,6 +280,7 @@
 
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
 (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
@@ -377,7 +378,6 @@
        (insert ".")
        (ac-trigger-key-command t))
      ))
-
 
 ;; gnuplot
 (add-to-list 'auto-mode-alist '("\\.plot" . gnuplot-mode))
