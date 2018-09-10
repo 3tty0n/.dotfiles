@@ -35,6 +35,7 @@
 (depends-on "helm-ls-git")
 (depends-on "helm-smex")
 (depends-on "helm-swoop")
+(depends-on "hlinum")
 (depends-on "irony")
 (depends-on "kubernetes")
 (depends-on "magit")
