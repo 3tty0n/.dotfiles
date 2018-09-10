@@ -35,7 +35,7 @@
 (global-linum-mode)
 (hlinum-activate)
 (custom-set-faces
- '(linum-highlight-face ((t (:foreground "gray"
+ '(linum-highlight-face ((t (:foreground "yellow"
                              :background "black")))))
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
@@ -207,8 +207,8 @@
      (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
      (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
      (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
-     (global-set-key (kbd "C-x r") 'helm-git-grep) ; helm-git-grep
-     (global-set-key (kbd "C-x n") 'helm-ghq)
+     (global-set-key (kbd "C-x C-p") 'helm-git-grep) ; helm-git-grep
+     (global-set-key (kbd "C-x C-n") 'helm-ghq)
 
      (setq helm-mode-fuzzy-match t)
      (setq helm-completion-in-region-fuzzy-match t)
