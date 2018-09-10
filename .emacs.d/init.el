@@ -47,6 +47,14 @@
   (if (bolp) (back-to-indentation) (beginning-of-line)))
 (define-key global-map "\C-a" 'back-to-indentation-or-beginning)
 
+;; for window system
+(if window-system
+    (progn
+      ;; スクリーンの最大化
+      (set-frame-parameter nil 'fullscreen 'maximized)
+      (set-frame-parameter nil 'alpha 90)
+      ))
+
 ;; window
 (defun window-resizer ()
   "Control window size and position."
@@ -121,6 +129,7 @@
 
 ;; color theme
 (load-theme 'spacemacs-dark t)
+;; (load-theme 'alect-dark t)
 (powerline-default-theme)
 
 ;; ide settings
@@ -163,7 +172,7 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-;; neotree
+;;  neotree
 ;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
 
 ;; rainbow delimiters
@@ -194,6 +203,8 @@
      (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
      (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
      (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
+     (global-set-key (kbd "C-x r") 'helm-git-grep) ; helm-git-grep
+     (global-set-key (kbd "C-x n") 'helm-ghq)
 
      (setq helm-mode-fuzzy-match t)
      (setq helm-completion-in-region-fuzzy-match t)
@@ -393,4 +404,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
