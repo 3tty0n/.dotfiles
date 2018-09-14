@@ -403,28 +403,33 @@
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
 
 ;; org-mode
-(with-eval-after-load 'org-mode
-  (setq org-startup-with-inline-images t)
-  ;; 見出しの余分な*を消す
-  (setq org-hide-leading-stars t)
-  ;; LOGBOOK drawerに時間を格納する
-  (setq org-clock-into-drawer t)
-  ;; .orgファイルは自動的にorg-mode
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  ;; org-directory内のファイルすべてからagendaを作成する
-  (setq my-org-agenda-dir "~/org/")
-  (setq org-agenda-files (list my-org-agenda-dir))
-  ;; TODO状態
-  (setq org-todo-keywords
-	'((sequence "TODO(t)" "WAIT(w)" "NOTE(n)"  "|" "DONE(d)" "SOMEDAY(s)" "CANCEL(c)")))
-  ;; DONEの時刻を記録
-  (setq org-log-done 'time)
-  ;; keybindings
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-cc" 'org-capture)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cb" 'org-iswitchb)
-  )
+(eval-after-load 'org-mode
+  '(progn
+     (setq org-startup-with-inline-images t)
+     (setq org-hide-leading-stars t) ;; 見出しの余分な*を消す
+     (setq org-clock-into-drawer t) ;; LOGBOOK drawerに時間を格納する
+     (setq my-org-agenda-dir "~/org/") ;; org-directory内のファイルすべてからagendaを作成する
+     (setq org-agenda-files (list my-org-agenda-dir))
+     (setq org-todo-keywords
+	   '((sequence "TODO(t)" "WAIT(w)" "NOTE(n)"  "|" "DONE(d)" "SOMEDAY(s)" "CANCEL(c)"))) ;; TODO状態
+     (setq org-log-done 'time) ;; DONEの時刻を記録
+     ;; keybindings
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-cc" 'org-capture)
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cb" 'org-iswitchb)
+     ))
+
+(defun org-open-scrum-todays-file ()
+  "Open .org file for scrum in ~/org/scrum directory."
+  (interactive)
+  (setq org-todays-scrum-file
+	(concat
+	 (concat
+	  "~/org/scrum/"
+	  (format-time-string "%Y-%m-%d"))
+	 ".org"))
+  (find-file org-todays-scrum-file))
 
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
