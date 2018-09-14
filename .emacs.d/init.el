@@ -375,6 +375,7 @@
 (eval-after-load 'ensime
   '(progn
      (setq ensime-startup-notification nil)
+     (setq ensime-search-interface 'helm)
 
      (defun scala/enable-eldoc ()
        "Show error message or type name at point by Eldoc."
