@@ -18,8 +18,7 @@ if [ -x "`which direnv`" ]; then
   eval "$(direnv hook zsh)"
 fi
 
-
 # hub
-#if [ -x "`which hub`" ]; then
-#  eval "$(hub alias -s)"
-#fi
+if [ -x "`which hub`" ]; then
+  eval "$(hub alias -s)"
+fi

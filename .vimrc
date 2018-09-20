@@ -64,7 +64,10 @@ Plug 'zerowidth/vim-copy-as-rtf'
 Plug 'def-lkb/ocp-indent-vim'
 
 " scala
-Plug 'derekwyatt/vim-scala'
+if has('nvim')
+  Plug 'derekwyatt/vim-scala'
+endif
+Plug 'ensime/ensime-vim'
 
 " python
 Plug 'davidhalter/jedi-vim'
