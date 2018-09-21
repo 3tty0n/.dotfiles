@@ -1,5 +1,16 @@
 #!/bin/bash
 
+deps=(
+    merlin
+    tuareg
+    ocp-indent
+    utop
+    dune
+    core
+    menhir
+    stringext
+    ppx_deriving)
+
 echo "Installing emacs lisps..."
 
 if [ ! -d $HOME/.cask ]; then
@@ -23,16 +34,7 @@ if [ ! -d $HOME/.opam ]; then
     esac
 fi
 
-opam install -y \
-    merlin \
-    tuareg \
-    ocp-indent \
-    utop \
-    core \
-    oUnit \
-    user-setup
-
-opam-user-setup install
+opam install -y ${deps[@]}
 
 echo "Done"
 
