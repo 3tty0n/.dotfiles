@@ -65,9 +65,9 @@ Plug 'def-lkb/ocp-indent-vim'
 
 " scala
 if has('nvim')
-  Plug 'derekwyatt/vim-scala'
+  Plug 'ensime/ensime-vim'
 endif
-Plug 'ensime/ensime-vim'
+Plug 'derekwyatt/vim-scala'
 
 " python
 Plug 'davidhalter/jedi-vim'
