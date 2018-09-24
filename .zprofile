@@ -22,3 +22,7 @@ fi
 if [ -x "`which hub`" ]; then
   eval "$(hub alias -s)"
 fi
+
+if [ -x "`which opam`" ]; then
+  eval $(opam config env)
+fi

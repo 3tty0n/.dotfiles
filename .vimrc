@@ -45,8 +45,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 
 " color theme
-" Plug 'tomasr/molokai'
-Plug 'w0ng/vim-hybrid'
+Plug 'tomasr/molokai'
+" Plug 'w0ng/vim-hybrid'
 
 " Unite.vim
 Plug 'Shougo/unite.vim'
@@ -92,7 +92,7 @@ syntax on
 set background=dark
 " let g:hybrid_custom_term_colors = 1
 " let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-colorscheme hybrid
+colorscheme molokai " hybrid
 highlight Normal ctermbg=none
 " }}}
 
