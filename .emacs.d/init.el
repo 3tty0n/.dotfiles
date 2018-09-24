@@ -35,8 +35,16 @@
 (global-linum-mode)
 (hlinum-activate)
 (custom-set-faces
- '(linum-highlight-face ((t (:foreground "yellow"
-                             :background "black")))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(linum-highlight-face ((t (:foreground "yellow" :background "black"))))
+ '(magit-diff-added ((t (:background "black" :foreground "green"))))
+ '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
+ '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
+ '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
+ '(magit-hash ((t (:foreground "red")))))
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
 (tool-bar-mode -1) ; ツールバーを非表示
@@ -57,8 +65,7 @@
 ;; for window system
 (if window-system
     (progn
-      ;; スクリーンの最大化
-      (set-frame-parameter nil 'fullscreen 'maximized)
+      ;; (set-frame-parameter nil 'fullscreen 'maximized) ;; スクリーンの最大化
       (set-frame-parameter nil 'alpha 95)
       ))
 
@@ -264,16 +271,7 @@
 (eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
 (global-set-key (kbd "C-c m") 'magit-status)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(magit-diff-added ((t (:background "black" :foreground "green"))))
- '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
- '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
- '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
- '(magit-hash ((t (:foreground "red")))))
+
 
 ;;;;; infra
 
@@ -306,8 +304,8 @@
 
 ;; merlin
 (autoload 'merlin-mode "merlin" nil t nil)
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
-(add-hook 'caml-mode-hook 'merlin-mode t)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'caml-mode-hook 'merlin-mode)
 (setq merlin-command (concat opam-bin "/ocamlmerlin"))
 
 (require 'merlin)
@@ -437,4 +435,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

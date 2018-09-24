@@ -35,3 +35,10 @@ opam install -y \
 opam-user-setup install
 
 echo "Done"
+
+echo "Setting up for multi-term..."
+
+curl https://opensource.apple.com/source/emacs/emacs-70/emacs/etc/e/eterm-color.ti\?txt > eterm-color.ti 2>/dev/null
+tic -o ~/.terminfo eterm-color.ti 2>/dev/null
+
+echo "Done."
