@@ -346,12 +346,30 @@
 
 
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-(setq auto-mode-alist
-	   (append '(("\\.tex$" . latex-mode)
-		     ("\\.ltx$" . latex-mode)
-		     ("\\.sty$" . latex-mode)) auto-mode-alist))
-(add-hook 'yatex-mode 'turn-on-flyspell)
-(add-hook 'latex-mode 'turn-on-flyspell)
+(add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
+
+(defun turn-on-outline-minor-mode ()
+  (outline-minor-mode 1))
+
+
+(add-hook 'LaTeX-mode-hook
+	  (lambda ()
+	    (TeX-PDF-mode)
+	    (turn-on-reftex)
+	    (turn-on-flyspell)
+	    (turn-on-outline-minor-mode)
+	    (LaTeX-math-mode)
+	    (outline-minor-mode)
+	    (auctex-latexmk-setup)
+	    ))
+
+(eval-after-load 'LaTeX-mode
+  '(progn
+     (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+     (defun flymake-get-tex-args (file-name)
+       (list "pdflatex"
+	     (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+     ))
 
 ;; yatex
 (eval-after-load 'yatex-mode
@@ -364,11 +382,19 @@
 	       '(lambda ()
 		  (setq YaTeX-use-AMS-LaTeX t) ; align で数式モードになる
 		  (setq YaTeX-use-hilit19 nil
-			-           YateX-use-font-lock t)
+			YateX-use-font-lock t)
 		  (setq tex-command "em-latexmk.sh") ; typeset command
 		  (setq dvi2-command "evince") ; preview command
 		  (setq tex-pdfview-command "xdg-open"))) ; preview command
      ))
+
+(add-hook 'yatex-mode-hook
+          #'(lambda ()
+              (reftex-mode 1)
+              (define-key reftex-mode-map
+                (concat YaTeX-prefix ">") 'YaTeX-comment-region)
+              (define-key reftex-mode-map
+                (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
 ;; c
 (with-eval-after-load 'company
@@ -454,4 +480,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
