@@ -294,9 +294,14 @@
        (shell-command-to-string "opam config var bin 2> /dev/null")
        0 -1))
 
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp/"))
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
 (add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
+(add-hook 'tuareg-mode-hook
+	  #'(lambda()
+	      (setq mode-name "🐫")
+	      (auto-fill-mode 1)
+	      ))
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
 (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
