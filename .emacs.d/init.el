@@ -31,12 +31,32 @@
   (autoload 'epe-theme-lambda  "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
         eshell-prompt-function 'epe-theme-lambda))
+
 (add-hook 'eshell-mode-hook
           #'(lambda ()
               (define-key eshell-mode-map
                 (kbd "C-x p")
                 'helm-esh-pcomplete)
 	      ))
+
+;;
+;; shell
+;;
+(set-language-environment  'utf-8)
+(prefer-coding-system 'utf-8)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(shell-pop-default-directory "~/src")
+ '(shell-pop-shell-type '("eshell" "*eshell*" (lambda () (eshell))))
+ ;; '(shell-pop-shell-type '("shell" "eshell*" (lambda () (shell))))
+ '(shell-pop-term-shell "/usr/local/bin/zsh")
+ '(shell-pop-universal-key "C-t")
+ '(shell-pop-window-size 30)
+ '(shell-pop-full-span t)
+ '(shell-pop-window-position "bottom"))
 
 (save-place-mode 1)
 (setq save-place-file (locate-user-emacs-file "places" ".emacs-places"))

@@ -70,6 +70,7 @@
 (depends-on "sbt-mode")
 (depends-on "scala-mode")
 (depends-on "smartparens")
+(depends-on "shell-pop")
 (depends-on "spacemacs-theme")
 (depends-on "tuareg")
 (depends-on "undo-tree")
