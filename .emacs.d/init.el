@@ -1,8 +1,10 @@
 (require 'package)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")
+	("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
 (require 'cask "~/.cask/cask.el")
@@ -35,6 +37,7 @@
 (add-hook 'eshell-mode-hook
           (lambda ()
             (eshell-cmpl-initialize)
+	    (define-key eshell-mode-map (kbd "M-z") 'eshell-z)
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
             (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
 
@@ -43,21 +46,20 @@
 ;;
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons)))
- '(shell-pop-full-span t)
- '(shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell)))))
- '(shell-pop-term-shell "/usr/local/bin/zsh")
- '(shell-pop-universal-key "C-t")
- '(shell-pop-window-position "bottom")
- '(shell-pop-window-size 20))
 
+;;
+;; shell-pop
+;;
+(defvar shell-pop-full-span t)
+(defvar shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell)))))
+(defvar shell-pop-term-shell "/usr/local/bin/zsh")
+(defvar shell-pop-window-position "bottom")
+(defvar shell-pop-window-size 30)
+(global-set-key (kbd "C-t") 'shell-pop)
+
+;;
+;; saveplace
+;;
 (save-place-mode 1)
 (setq save-place-file (locate-user-emacs-file "places" ".emacs-places"))
 
@@ -104,7 +106,9 @@
       (set-frame-parameter nil 'alpha 95)
       ))
 
-;; window
+;;
+;; window size
+;;
 (defun window-resizer ()
   "Control window size and position."
   (interactive)
@@ -142,6 +146,21 @@
 (global-set-key "\C-qj" 'windmove-down)
 (global-set-key "\C-qk" 'windmove-up)
 
+;; toggle truncate lines
+(global-set-key (kbd "C-c t") 'toggle-truncate-lines)
+
+;;
+;; golden ratio mode
+;;
+(with-eval-after-load 'golden-ratio-mode
+  (setq golden-ratio-exclude-modes
+	'(calendar-mode eshell-mode))
+  (setq golden-ratio-exclude-buffer-regexp
+	'("\\*anything" "\\*helm")))
+
+;;
+;; undo tree
+;;
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
@@ -508,3 +527,12 @@
 
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
