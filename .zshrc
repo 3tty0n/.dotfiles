@@ -8,8 +8,13 @@ source ~/.zsh/zplug.zsh
 # source ~/.dotfiles/scripts/tmux.sh
 
 # terminal settings
-[[ $TERM = "eterm-color" ]] && TERM=xterm-color
-[[ $EMACS = t ]] && TERM=Eterm-color
+# for emacs
+if [[ $TERM = "eterm-color" ]]; then
+  export TERM=xterm
+  export TERMINFO=$HOME/.terminfo
+fi
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # internal settings
 setopt auto_menu
