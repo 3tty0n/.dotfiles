@@ -203,36 +203,28 @@
 ;; ide settings
 
 ;; auto-complete
-;; (global-auto-complete-mode t)
-(eval-after-load 'auto-complete
-  '(progn
-     (require 'fuzzy)
-     (ac-config-default)
-     (setq ac-auto-start 2)          ; n文字以上の単語の時に補完を開始
-     (setq ac-delay 0)               ; n秒後に補完開始
-     (setq ac-use-fuzzy t)           ; 曖昧マッチ有効
-     (setq ac-use-comphist t)        ; 補完推測機能有効
-     (setq ac-auto-show-menu 0.05)   ; n秒後に補完メニューを表示
-     (setq ac-quick-help-delay 0.5)  ; n秒後にクイックヘルプを表示
-     (setq ac-use-menu-map t)
-     (setq ac-ignore-case t)
-     (ac-set-trigger-key "TAB")))
+(global-auto-complete-mode t)
+(with-eval-after-load 'auto-complete
+  (require 'fuzzy)
+  (ac-config-default)
+  (setq ac-dwim t)
+  (setq ac-use-menu-map t)
+  (setq ac-use-fuzzy t)
+  (setq ac-ignore-case t))
 
-(global-company-mode);
-(eval-after-load 'company
-  '(progn
-     (setq company-idle-delay 0) ; デフォルトは0.5
-     (setq company-minimum-prefix-length 2) ; デフォルトは4
-     (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+;; (global-company-mode);
+(with-eval-after-load 'company
+  (setq company-idle-delay 0) ; デフォルトは0.5
+  (setq company-minimum-prefix-length 2) ; デフォルトは4
+  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
 
-     (define-key company-active-map (kbd "M-n") nil)
-     (define-key company-active-map (kbd "M-p") nil)
-     (define-key company-active-map (kbd "C-n") 'company-select-next)
-     (define-key company-active-map (kbd "C-p") 'company-select-previous)
-     (define-key company-active-map (kbd "C-h") nil)
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-h") nil)
 
-     (global-set-key (kbd "C-M-i") 'company-complete)
-     ))
+  (global-set-key (kbd "C-M-i") 'company-complete))
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -368,24 +360,18 @@
 (setq merlin-command (concat opam-bin "/ocamlmerlin"))
 
 (require 'merlin)
-(eval-after-load 'merlin
-  '(progn
-     (setq merlin-error-on-single-line t)
-     (set-face-background 'merlin-type-face "skyblue")
-     (setq merlin-error-after-save nil)
-     (flycheck-ocaml-setup)
-     ))
+(with-eval-after-load 'merlin
+  (setq merlin-error-on-single-line t)
+  (set-face-background 'merlin-type-face "skyblue")
+  (setq merlin-error-after-save nil)
+  (flycheck-ocaml-setup))
 
 (with-eval-after-load 'auto-complete
-  '(progn
-     (setq merlin-ac-setup 'easy)
-     ))
+  (setq merlin-ac-setup t))
 
 (with-eval-after-load 'company
-  '(progn
-     (add-to-list 'company-backends 'merlin-company-backend)
-     (add-hook 'merlin-mode-hook 'company-mode)
-     ))
+  (add-to-list 'company-backends 'merlin-company-backend)
+  (add-hook 'merlin-mode-hook 'company-mode))
 
 (add-hook 'tuareg-mode-hook #'merlin-mode)
 
@@ -421,11 +407,10 @@
   '(progn
      (setq auctex-latexmk-inherit-TeX-PDF-mode t)
      (defun flymake-get-tex-args (file-name)
-       (list "pdflatex"
-	     (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+       (list "xelatex"
+	     (list "-shell-escape" "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
      ))
 
-;; yatex
 (eval-after-load 'yatex-mode
   '(progn
      (unless (package-installed-p 'yatex)
