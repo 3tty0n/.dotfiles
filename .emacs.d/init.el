@@ -47,6 +47,30 @@
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 
+(setq comint-output-filter-functions
+      (remove 'ansi-color-process-output comint-output-filter-functions))
+
+(add-hook 'shell-mode-hook
+          (lambda ()
+	    (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)
+	    ))
+
+(setq compilation-environment '("TERM=xterm-256color"))
+
+(add-hook 'compilation-start-hook
+          (lambda (proc)
+            ;; We need to differentiate between compilation-mode buffers
+            ;; and running as part of comint (which at this point we assume
+            ;; has been configured separately for xterm-color)
+            (when (eq (process-filter proc) 'compilation-filter)
+              ;; This is a process associated with a compilation-mode buffer.
+              ;; We may call `xterm-color-filter' before its own filter function.
+              (set-process-filter
+               proc
+               (lambda (proc string)
+                 (funcall 'compilation-filter proc
+                          (xterm-color-filter string)))))))
+
 ;;
 ;; shell-pop
 ;;
@@ -520,4 +544,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (xterm-color package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

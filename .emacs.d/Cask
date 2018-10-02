@@ -78,6 +78,7 @@
 (depends-on "spacemacs-theme")
 (depends-on "tuareg")
 (depends-on "undo-tree")
+(depends-on "xterm-color")
 (depends-on "yaml-mode")
 (depends-on "yascroll")
 (depends-on "yasnippet")
