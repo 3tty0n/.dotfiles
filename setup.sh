@@ -20,6 +20,7 @@ declare -a dotfiles=(
     .sbtrc
     .spacemacs
     .emacs.d
+    .utoprc
 )
 
 declare -a vimfiles=()
