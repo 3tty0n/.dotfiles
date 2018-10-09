@@ -20,7 +20,7 @@ zplug "andrewferrier/fzf-z"
 
 zplug "supercrabtree/k"
 
-zplug "tj/git-extras", as:command, hook-build:'make install'
+zplug "tj/git-extras", as:command, use:'bin/git-*'
 
 case "${OSTYPE}" in
     darwin* )
