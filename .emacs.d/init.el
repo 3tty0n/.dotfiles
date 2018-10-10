@@ -213,9 +213,13 @@
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)
 
 (with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+  (if (display-graphic-p)
+      (setq flycheck-pos-tip-display-errors-tty-function #'flycheck-popup-tip-show-popup)
+      (flycheck-pos-tip-mode)
+    (flycheck-popup-tip-mode)))
 
 ;;  neotree
 ;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
@@ -525,4 +529,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (flycheck-popup-tip spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
