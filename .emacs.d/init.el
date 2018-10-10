@@ -179,16 +179,11 @@
      (setq skk-comp-circulate t)
      ))
 
-;; multiterm
-;; (load-file "~/.emacs.d/site-lisp/multi-term.el")
-;; (require 'multi-term)
-;; (setq multi-term-program "/usr/local/bin/zsh")
-
-
 ;; color theme
 (load-theme 'spacemacs-dark t)
-;; (load-theme 'alect-dark t)
-(powerline-default-theme)
+;; (powerline-default-theme)
+(require 'spaceline-config)
+(spaceline-emacs-theme)
 
 ;; ide settings
 
@@ -242,27 +237,27 @@
 
 ;; helm
 (helm-mode 1)
-(eval-after-load 'helm-mode
-  '(progn
-     (require 'helm)
-     (helm-autoresize-mode 1)
-     (define-key global-map (kbd "C-x C-f") 'helm-find-files)
-     (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(with-eval-after-load 'helm-mode
+  (require 'helm)
+  (helm-autoresize-mode 1)
+  (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+  (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
-     (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
-     (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
-     (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
-     (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
-     (global-set-key (kbd "C-x C-p") 'helm-git-grep) ; helm-git-grep
-     (global-set-key (kbd "C-x C-n") 'helm-ghq)
+  (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
+  (global-set-key (kbd "C-s") 'helm-swoop) ; helm-swoop
+  (global-set-key (kbd "C-x C-l") 'helm-ls-git-ls) ; helm-ls-git
+  (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
+  (global-set-key (kbd "C-x C-p") 'helm-git-grep) ; helm-git-grep
+  (global-set-key (kbd "C-x C-n") 'helm-ghq)
 
-     (setq helm-mode-fuzzy-match t)
-     (setq helm-completion-in-region-fuzzy-match t)
+  (setq helm-mode-fuzzy-match t)
+  (setq helm-completion-in-region-fuzzy-match t)
 
-     (require 'helm-smex)
-     (global-set-key [remap execute-extended-command] #'helm-smex)
-     (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
-     ))
+  (require 'helm-smex)
+  (global-set-key [remap execute-extended-command] #'helm-smex)
+  (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
+
+  (spaceline-helm-mode))
 
 ;; yasnippet
 (yas-global-mode 1)
@@ -386,6 +381,9 @@
 (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
 
+;;
+;; LaTeX
+;;
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
 
@@ -527,4 +525,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
