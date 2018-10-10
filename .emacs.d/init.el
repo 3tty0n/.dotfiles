@@ -392,7 +392,6 @@
 (defun turn-on-outline-minor-mode ()
   (outline-minor-mode 1))
 
-
 (add-hook 'LaTeX-mode-hook
 	  (lambda ()
 	    (TeX-PDF-mode)
@@ -402,6 +401,7 @@
 	    (LaTeX-math-mode)
 	    (outline-minor-mode)
 	    (auctex-latexmk-setup)
+	    (auto-fill-mode)
 	    ))
 
 (eval-after-load 'LaTeX-mode
@@ -437,8 +437,14 @@
                 (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
 ;; c
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(with-eval-after-load 'irony-mode
+  (require 'ac-irony))
+
 (with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-c-headers))
+  (add-to-list 'company-backends 'company-irony))
 
 ;; racket
 (eval-after-load 'racket-mode
@@ -521,4 +527,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (git-gutter-fringe diff-hl package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

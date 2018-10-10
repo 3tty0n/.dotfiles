@@ -9,7 +9,7 @@ source ~/.zsh/zplug.zsh
 
 # terminal settings
 [[ $TERM = "eterm-color" ]] && TERM=xterm-color
-[[ $EMACS = t ]] && TERM=Eterm-color
+# [[ $EMACS = t ]] && TERM=Eterm-color
 
 # internal settings
 setopt auto_menu
