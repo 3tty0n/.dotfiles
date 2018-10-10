@@ -35,7 +35,6 @@
 (depends-on "flycheck-ocaml")
 (depends-on "flycheck-pos-tip")
 (depends-on "fringe-helper")
-(depends-on "git-gutter")
 (depends-on "git-gutter-fringe")
 (depends-on "gnuplot")
 (depends-on "golden-ratio")

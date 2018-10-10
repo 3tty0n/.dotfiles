@@ -94,18 +94,8 @@
 (require 'smartparens-config)
 
 (global-linum-mode)
+(global-hl-line-mode)
 (hlinum-activate)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(linum-highlight-face ((t (:foreground "yellow" :background "black"))))
- '(magit-diff-added ((t (:background "black" :foreground "green"))))
- '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
- '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
- '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
- '(magit-hash ((t (:foreground "red")))))
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
 (tool-bar-mode -1) ; ツールバーを非表示
@@ -327,20 +317,31 @@
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
 
+;;
 ;; git
-
-;; git-gutter
-;; (global-git-gutter-mode t)
-;; (git-gutter:linum-setup)
-;; (custom-set-variables
-;;  '(git-gutter:update-interval 5))
+;;
+(require 'git-gutter-fringe)
+(with-eval-after-load 'git-gutter-fringe
+  (global-git-gutter-mode)
+  (global-set-key (kbd "C-c g g") 'git-gutter:toggle)
+  (setq git-gutter-fr:side 'right-fringe))
 
 ;; Magit
 (setq-default magit-auto-revert-mode nil)
 (setq vc-handled-backends '())
 (eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
 (global-set-key (kbd "C-c m") 'magit-status)
-
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(linum-highlight-face ((t (:foreground "yellow" :background "black"))))
+ '(magit-diff-added ((t (:background "black" :foreground "green"))))
+ '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
+ '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
+ '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
+ '(magit-hash ((t (:foreground "red")))))
 
 
 ;;;;; infra
@@ -544,4 +545,4 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (xterm-color package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))
+    (git-gutter-fringe diff-hl package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons))))

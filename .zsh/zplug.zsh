@@ -20,6 +20,8 @@ zplug "andrewferrier/fzf-z"
 
 zplug "supercrabtree/k"
 
+zplug "tj/git-extras", as:command, use:'bin/git-*'
+
 case "${OSTYPE}" in
     darwin* )
         zplug "junegunn/fzf-bin", \
@@ -72,9 +74,7 @@ zplug "motemen/ghq",\
       rename-to:ghq
 
 
-zplug "paulp/sbt-extras", \
-      as:command, \
-      use:sbt
+zplug "paulp/sbt-extras", as:command, use:sbt
 
 zplug "k4rthik/git-cal", as:command
 
