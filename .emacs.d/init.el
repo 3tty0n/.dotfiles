@@ -18,6 +18,10 @@
 (setq initial-scratch-message "")
 (setq compilation-scroll-output t)
 
+;; path
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;; save するごとに white space を消す
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
