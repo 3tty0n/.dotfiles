@@ -186,8 +186,12 @@
 ;; color theme
 (load-theme 'spacemacs-dark t)
 ;; (powerline-default-theme)
+
 (require 'spaceline-config)
 (spaceline-emacs-theme)
+(if window-system
+    (spaceline-all-the-icons-theme))
+
 
 ;; ide settings
 
@@ -264,7 +268,6 @@
   (require 'helm-smex)
   (global-set-key [remap execute-extended-command] #'helm-smex)
   (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
-
   (spaceline-helm-mode))
 
 ;; yasnippet
@@ -410,13 +413,13 @@
 	    (auto-fill-mode)
 	    ))
 
-(eval-after-load 'LaTeX-mode
-  '(progn
-     (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-     (defun flymake-get-tex-args (file-name)
-       (list "xelatex"
-	     (list "-shell-escape" "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
-     ))
+(with-eval-after-load 'LaTeX-mode
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+  (defun flymake-get-tex-args (file-name)
+    (list "pdflatex"
+	  (list "-shell-escape" "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+
+  )
 
 (eval-after-load 'yatex-mode
   '(progn
