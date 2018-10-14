@@ -3,7 +3,7 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
-	("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
@@ -189,9 +189,6 @@
 
 (require 'spaceline-config)
 (spaceline-emacs-theme)
-(if window-system
-    (spaceline-all-the-icons-theme))
-
 
 ;; ide settings
 
