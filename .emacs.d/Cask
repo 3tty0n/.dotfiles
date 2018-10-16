@@ -4,6 +4,7 @@
 (source org)
 
 (depends-on "all-the-icons")
+(depends-on "all-the-icons-dired")
 (depends-on "auctex")
 (depends-on "auctex-latexmk")
 (depends-on "auto-complete")
