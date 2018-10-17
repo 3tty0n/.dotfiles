@@ -494,22 +494,38 @@
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
 
 ;; org-mode
-(eval-after-load 'org-mode
-  '(progn
-     (setq org-startup-with-inline-images t)
-     (setq org-hide-leading-stars t) ;; 見出しの余分な*を消す
-     (setq org-clock-into-drawer t) ;; LOGBOOK drawerに時間を格納する
-     (setq my-org-agenda-dir "~/org/") ;; org-directory内のファイルすべてからagendaを作成する
-     (setq org-agenda-files (list my-org-agenda-dir))
-     (setq org-todo-keywords
-	   '((sequence "TODO(t)" "WAIT(w)" "NOTE(n)"  "|" "DONE(d)" "SOMEDAY(s)" "CANCEL(c)"))) ;; TODO状態
-     (setq org-log-done 'time) ;; DONEの時刻を記録
-     ;; keybindings
-     (global-set-key "\C-cl" 'org-store-link)
-     (global-set-key "\C-cc" 'org-capture)
-     (global-set-key "\C-ca" 'org-agenda)
-     (global-set-key "\C-cb" 'org-iswitchb)
-     ))
+(with-eval-after-load 'org-mode
+  (setq org-startup-with-inline-images t)
+  (setq org-hide-leading-stars t) ;; 見出しの余分な*を消す
+  (setq org-clock-into-drawer t) ;; LOGBOOK drawerに時間を格納する
+  (setq my-org-agenda-dir "~/org/") ;; org-directory内のファイルすべてからagendaを作成する
+  (setq org-agenda-files (list my-org-agenda-dir))
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "WAIT(w)" "NOTE(n)"  "|" "DONE(d)" "SOMEDAY(s)" "CANCEL(c)"))) ;; TODO状態
+  (setq org-log-done 'time) ;; DONEの時刻を記録
+  (setq org-startup-with-inline-images t)
+  ;; keybindings
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cb" 'org-iswitchb))
+
+(autoload 'org-present "org-present" nil t)
+(with-eval-after-load 'org-present
+  (add-hook 'org-present-mode-hook
+            '(lambda ()
+               (org-present-big)
+               (org-display-inline-images)
+               (org-present-hide-cursor)
+               (org-present-read-only)))
+  (add-hook 'org-present-mode-quit-hook
+            '(lambda ()
+               (org-present-small)
+               (org-remove-inline-images)
+               (org-present-show-cursor)
+               (org-present-read-write)))
+  (setq org-present-text-scale 5)
+  (define-key org-present-mode-keymap (kbd "C-c C-;") 'org-present-big))
 
 (defun org-open-scrum-todays-file ()
   "Open .org file for scrum in ~/org/scrum directory."
