@@ -62,6 +62,7 @@
 (depends-on "neotree")
 (depends-on "nlinum")
 (depends-on "open-junk-file")
+(depends-on "org-present")
 (depends-on "package-utils")
 (depends-on "pallet")
 (depends-on "pcomplete-extension")
