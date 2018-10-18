@@ -9,10 +9,13 @@ viper
 shellenv.el
 opam-user-setup.el
 
-.cask/
 auto-save-list/
 elpa/
 eshell/
 el-get/
 persp*/
 irony/
+url/
+
+.cask/
+.python-environments/

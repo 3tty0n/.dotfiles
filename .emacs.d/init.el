@@ -444,7 +444,9 @@
               (define-key reftex-mode-map
                 (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
+;;
 ;; c
+;;
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
@@ -454,13 +456,17 @@
 (with-eval-after-load 'company
   (add-to-list 'company-backends 'company-irony))
 
+;;
 ;; racket
+;;
 (eval-after-load 'racket-mode
   '(progn
      (define-key racket-mode-map (kbd "C-c r") 'racket-run)
      ))
 
+;;
 ;; scala
+;;
 (eval-after-load 'ensime
   '(progn
      (setq ensime-startup-notification nil)
@@ -487,13 +493,27 @@
        (ac-trigger-key-command t))
      ))
 
+;;
+;; python
+;;
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+(with-eval-after-load 'auto-complete
+  (jedi:ac-setup))
+
+;;
 ;; gnuplot
+;;
 (add-to-list 'auto-mode-alist '("\\.plot" . gnuplot-mode))
 
+;;
 ;; markdown
+;;
 (setq markdown-command "multimarkdown") ; require multimarkdown command `brew install multimarkdown'
 
+;;
 ;; org-mode
+;;
 (with-eval-after-load 'org-mode
   (setq org-startup-with-inline-images t)
   (setq org-hide-leading-stars t) ;; 見出しの余分な*を消す
@@ -539,6 +559,10 @@
   (find-file org-todays-scrum-file))
 
 (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+
+(require 'emacs-grammarly)
+(global-set-key (kbd "C-c C-g") 'grammarly-save-region-and-run)
 
 
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
