@@ -400,25 +400,51 @@
 (defun turn-on-outline-minor-mode ()
   (outline-minor-mode 1))
 
-(add-hook 'LaTeX-mode-hook
-	  (lambda ()
-	    (TeX-PDF-mode)
-	    (turn-on-reftex)
-	    (turn-on-flyspell)
-	    (turn-on-outline-minor-mode)
-	    (LaTeX-math-mode)
-	    (outline-minor-mode)
-	    (auctex-latexmk-setup)
-	    (auto-fill-mode)
-	    ))
+(add-hook
+ 'LaTeX-mode-hook
+ (lambda ()
+   (TeX-PDF-mode)
+   (turn-on-reftex)
+   (turn-on-flyspell)
+   (turn-on-outline-minor-mode)
+   (LaTeX-math-mode)
+   (outline-minor-mode)
+   (auctex-latexmk-setup)
+   (auto-fill-mode)
+   (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
+   (server-start)
+
+   (add-to-list 'TeX-command-list
+		'("latexmk" "latexmk %s" TeX-run-TeX nil t
+                  :help "Run latexmk on file"))
+   ;; Open PDF via Skim.app
+   (add-to-list 'TeX-command-list
+		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
+   ;; Open PDF via Skim.app in the background.
+   (add-to-list 'TeX-command-list
+		'("SkimBG" "open -g -a Skim.app '%s.pdf'"))
+   ))
+
 
 (with-eval-after-load 'LaTeX-mode
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-  (defun flymake-get-tex-args (file-name)
-    (list "pdflatex"
-	  (list "-shell-escape" "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+  (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:/Applications/Skim.app/Contents/SharedSupport:$PATH" t)
+  (setq exec-path (append '("/usr/local/bin" "/Library/TeX/texbin" "/Applications/Skim.app/Contents/SharedSupport") exec-path))
+  (setq TeX-view-program-selection '((output-pdf "displayline")))
 
-  )
+  (setq TeX-command-default "latexmk")
+
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+
+  (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+  (setq TeX-view-program-list
+	'(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+  (setq TeX-view-program-list
+     '(("Skim" "displayline -b -g %n %o %b")))
+  (setq TeX-view-program-selection '((output-pdf "Skim"))))
 
 (eval-after-load 'yatex-mode
   '(progn
@@ -559,6 +585,9 @@
   (find-file org-todays-scrum-file))
 
 (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+(require 'emacs-grammarly)
+(global-set-key (kbd "C-c C-g") 'grammarly-save-region-and-run)
 
 
 (require 'emacs-grammarly)
