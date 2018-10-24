@@ -95,9 +95,11 @@
 
 ;; for window system
 (if window-system
-    (progn
+    '(progn
       ;; (set-frame-parameter nil 'fullscreen 'maximized) ;; スクリーンの最大化
-      (set-frame-parameter nil 'alpha 90)
+       (set-frame-parameter nil 'alpha 90)
+       (set-face-attribute 'default nil :height 100)
+       (set-default-font "Ricty 18")
       ))
 
 ;;
@@ -226,7 +228,9 @@
   (if (display-graphic-p)
       (setq flycheck-pos-tip-display-errors-tty-function #'flycheck-popup-tip-show-popup)
       (flycheck-pos-tip-mode)
-    (flycheck-popup-tip-mode)))
+      (flycheck-popup-tip-mode)))
+(setq flycheck-pos-tip-display-errors-tty-function #'flycheck-popup-tip-show-popup)
+(flycheck-pos-tip-mode)
 
 ;;  neotree
 ;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
@@ -414,9 +418,6 @@
    (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
    (server-start)
 
-   (add-to-list 'TeX-command-list
-		'("latexmk" "latexmk %s" TeX-run-TeX nil t
-                  :help "Run latexmk on file"))
    ;; Open PDF via Skim.app
    (add-to-list 'TeX-command-list
 		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
@@ -524,7 +525,7 @@
 ;;
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
-(with-eval-after-load 'auto-complete
+(with-eval-after-load 'python-mode
   (jedi:ac-setup))
 
 ;;
