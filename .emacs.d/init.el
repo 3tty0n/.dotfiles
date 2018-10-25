@@ -417,7 +417,6 @@
    (auto-fill-mode)
    (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
    (server-start)
-
    ;; Open PDF via Skim.app
    (add-to-list 'TeX-command-list
 		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
@@ -432,8 +431,6 @@
   (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:/Applications/Skim.app/Contents/SharedSupport:$PATH" t)
   (setq exec-path (append '("/usr/local/bin" "/Library/TeX/texbin" "/Applications/Skim.app/Contents/SharedSupport") exec-path))
   (setq TeX-view-program-selection '((output-pdf "displayline")))
-
-  (setq TeX-command-default "latexmk")
 
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
