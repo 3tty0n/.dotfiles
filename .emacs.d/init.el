@@ -93,14 +93,17 @@
 ;; set C-h to backspace
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
+;;
 ;; for window system
+;;
 (if window-system
-    '(progn
-      ;; (set-frame-parameter nil 'fullscreen 'maximized) ;; スクリーンの最大化
-       (set-frame-parameter nil 'alpha 90)
-       (set-face-attribute 'default nil :height 100)
-       (set-default-font "Ricty 18")
+    (progn
+      ;; (set-frame-parameter nil 'fullscreen 'maximized)
+      (set-frame-parameter nil 'alpha 90)
       ))
+
+;; font size
+(set-frame-font "ricty-13.5")
 
 ;;
 ;; window size
