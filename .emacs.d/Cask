@@ -58,6 +58,7 @@
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "merlin-eldoc")
+(depends-on "mew")
 (depends-on "molokai-theme")
 (depends-on "multi-term")
 (depends-on "multiple-cursors")
