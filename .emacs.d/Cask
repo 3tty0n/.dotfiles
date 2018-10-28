@@ -51,6 +51,7 @@
 (depends-on "helm-smex")
 (depends-on "helm-swoop")
 (depends-on "hlinum")
+(depends-on "htmlize")
 (depends-on "irony")
 (depends-on "jedi")
 (depends-on "kubernetes")
