@@ -4,6 +4,7 @@
 
 update:
 	$(eval DATE := $(shell date))
+	$(MAKE) -C .emacs.d update
 	@git add . && git commit -m "update [$(DATE)]"
 
 sync:
