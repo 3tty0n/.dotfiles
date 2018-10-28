@@ -84,12 +84,3 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 
 # fzf
 test -f ~/.fzf.zsh && source ~/.fzf.zsh
-
-if [ -x "$(which kubectl)" ]; then
-    source <(kubectl completion zsh)
-fi
-
-if zplug check "jonmosco/kube-ps1"; then
-    PROMPT='$(kube_ps1) '$PROMPT
-    KUBE_PS1_BINARY=oc
-fi

@@ -117,6 +117,15 @@ zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
 # zplug "mafredri/zsh-async"
 # zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
 
+if [ -x "$(which kubectl)" ]; then
+    source <(kubectl completion zsh)
+fi
+
+if zplug check "jonmosco/kube-ps1"; then
+    PROMPT='$(kube_ps1) '$PROMPT
+    KUBE_PS1_BINARY=oc
+fi
+
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
   if read -q; then
