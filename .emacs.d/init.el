@@ -425,9 +425,9 @@
 		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
    ;; Open PDF via Skim.app in the background.
    (add-to-list 'TeX-command-list
-		'("SkimBG" "open -g -a Skim.app '%s.pdf'"))
+		'("SkimBG" "open -g -a Skim.app '%s.pdf'" TeX-run-command t nil))
    (add-to-list 'TeX-command-list
-		'("LatexMKClean" "latexmk -c %s.pdf"))
+		'("LatexMK Clean" "latexmk -c %s" TeX-run-command t nil))
    ))
 
 
