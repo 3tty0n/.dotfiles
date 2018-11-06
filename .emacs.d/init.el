@@ -103,7 +103,7 @@
       ))
 
 ;; font size
-(set-frame-font "ricty-15")
+(set-frame-font "ricty-14")
 
 ;;
 ;; window size
@@ -200,7 +200,7 @@
 ;; ide settings
 
 ;; auto-complete
-(global-auto-complete-mode t)
+;;(global-auto-complete-mode t)
 (with-eval-after-load 'auto-complete
   (require 'fuzzy)
   (ac-config-default)
@@ -209,7 +209,7 @@
   (setq ac-use-fuzzy t)
   (setq ac-ignore-case t))
 
-;; (global-company-mode);
+(global-company-mode);
 (with-eval-after-load 'company
   (setq company-idle-delay 0) ; デフォルトは0.5
   (setq company-minimum-prefix-length 2) ; デフォルトは4
