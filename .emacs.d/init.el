@@ -589,6 +589,7 @@
 
 (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
 
+(load-file "~/.emacs.d/site-lisp/emacs-grammarly.el")
 (require 'emacs-grammarly)
 (global-set-key (kbd "C-c C-g") 'grammarly-save-region-and-run)
 
