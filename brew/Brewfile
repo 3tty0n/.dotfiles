@@ -1,21 +1,23 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
 tap 'homebrew/core'
 tap 'homebrew/versions'
 tap "sanemat/font"
-cask "java"
+cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "xquartz"
 brew 'bash'
 brew 'bash-completion'
 brew 'ocaml', args: ['with-x11']
-brew 'emacs', args: ['with-cocoa']
+brew 'emacs', args: ['with-cocoa', 'with-gnutls']
 brew 'cask'
 brew 'coreutils'
 brew 'darcs'
 brew 'fd'
-brew 'fish'
 brew 'fzf'
 brew 'git'
 brew 'go'
 brew 'hub'
+brew "ispell"
 brew 'imagemagick@6'
 brew 'lua'
 brew 'mercurial'
@@ -25,8 +27,10 @@ brew 'opam'
 brew 'pandoc'
 brew 'reattach-to-user-namespace'
 brew 'rlwrap'
+brew 'ricty', args: ['with-powerline']
 brew 'sbt'
 brew 'scala'
+brew "stunnel"
 brew 'tig'
 brew 'tmux'
 brew 'tree'
@@ -36,16 +40,11 @@ brew 'zsh'
 cask "1password"
 cask "alfred"
 cask "amethyst"
-cask "atom"
 cask "dropbox"
 cask "emacs"
 cask "google-chrome"
-cask "google-japanese-ime"
 cask "iterm2"
 cask "karabiner-elements"
 cask "mactex"
-cask "macvim"
-cask "racket"
 cask "skim"
-cask "skype"
 cask "slack"
