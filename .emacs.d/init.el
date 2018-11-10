@@ -225,18 +225,13 @@
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)
+;; (add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)
 
 (with-eval-after-load 'flycheck
-  (if (display-graphic-p)
-      (setq flycheck-pos-tip-display-errors-tty-function #'flycheck-popup-tip-show-popup)
-      (flycheck-pos-tip-mode)
-      (flycheck-popup-tip-mode)))
-(setq flycheck-pos-tip-display-errors-tty-function #'flycheck-popup-tip-show-popup)
-(flycheck-pos-tip-mode)
+  (flycheck-pos-tip-mode))
 
 ;;  neotree
-;; (global-set-key (kbd "C-x C-o") 'neotree-toggle)
+(global-set-key (kbd "C-c C-t") 'neotree-toggle)
 
 ;; rainbow delimiters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -341,7 +336,6 @@
 ;;;;; language
 
 ;; ocaml
-;;(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 
 (setq opam-share
       (substring
@@ -359,7 +353,6 @@
 (add-hook 'tuareg-mode-hook
 	  #'(lambda()
 	      (setq mode-name "🐫")
-	      (auto-fill-mode 1)
 	      ))
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
@@ -417,7 +410,6 @@
    (LaTeX-math-mode)
    (outline-minor-mode)
    (auctex-latexmk-setup)
-   (auto-fill-mode)
    (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
    (server-start)
    ;; Open PDF via Skim.app
@@ -488,47 +480,44 @@
 ;;
 ;; racket
 ;;
-(eval-after-load 'racket-mode
-  '(progn
-     (define-key racket-mode-map (kbd "C-c r") 'racket-run)
-     ))
+(with-eval-after-load 'racket-mode
+  (define-key racket-mode-map (kbd "C-c r") 'racket-run)
+  )
 
 ;;
 ;; scala
 ;;
-(eval-after-load 'ensime
-  '(progn
-     (setq ensime-startup-notification nil)
-     (setq ensime-search-interface 'helm)
+(with-eval-after-load 'ensime
+  (setq ensime-startup-notification nil)
+  (setq ensime-search-interface 'helm)
 
-     (defun scala/enable-eldoc ()
-       "Show error message or type name at point by Eldoc."
-       (setq-local eldoc-documentation-function
-		   #'(lambda ()
-                       (when (ensime-connected-p)
-			 (let ((err (ensime-print-errors-at-point))) err))))
-       (eldoc-mode +1))
+  (defun scala/enable-eldoc ()
+    "Show error message or type name at point by Eldoc."
+    (setq-local eldoc-documentation-function
+		#'(lambda ()
+                    (when (ensime-connected-p)
+		      (let ((err (ensime-print-errors-at-point))) err))))
+    (eldoc-mode +1))
 
-     (defun scala/completing-dot-company ()
-       (cond (company-backend
-              (company-complete-selection)
-              (scala/completing-dot))
-             (t
-              (insert ".")
-              (company-complete))))
+  (defun scala/completing-dot-company ()
+    (cond (company-backend
+           (company-complete-selection)
+           (scala/completing-dot))
+          (t
+           (insert ".")
+           (company-complete))))
 
-     (defun scala/completing-dot-ac ()
-       (insert ".")
-       (ac-trigger-key-command t))
-     ))
+  (defun scala/completing-dot-ac ()
+    (insert ".")
+    (ac-trigger-key-command t)))
 
 ;;
 ;; python
 ;;
-(add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
-(with-eval-after-load 'python-mode
-  (jedi:ac-setup))
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+;;(add-to-list 'company-backends 'company-jedi)
 
 ;;
 ;; gnuplot
