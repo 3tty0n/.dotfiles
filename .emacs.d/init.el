@@ -14,7 +14,9 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
+;;
 ;; internal
+;;
 (setq initial-scratch-message "")
 (setq compilation-scroll-output t)
 
@@ -201,19 +203,22 @@
 
 ;; auto-complete
 ;;(global-auto-complete-mode t)
+(setq-default ac-sources '(ac-source-words-in-all-buffer))
 (with-eval-after-load 'auto-complete
   (require 'fuzzy)
   (ac-config-default)
   (setq ac-dwim t)
   (setq ac-use-menu-map t)
   (setq ac-use-fuzzy t)
-  (setq ac-ignore-case t))
+  (setq ac-ignore-case 'smart)
+  )
 
-(global-company-mode);
+(global-company-mode)
 (with-eval-after-load 'company
   (setq company-idle-delay 0) ; デフォルトは0.5
   (setq company-minimum-prefix-length 2) ; デフォルトは4
   (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (company-quickhelp-mode)
 
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
@@ -221,14 +226,12 @@
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-h") nil)
 
-  (global-set-key (kbd "C-M-i") 'company-complete))
+  (global-set-key (kbd "C-M-i") 'company-complete)
+  (define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
-;; (add-hook 'flycheck-mode-hook 'flycheck-popup-tip-mode)
-
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+(add-hook 'flycheck-mode-hook 'flycheck-pos-tip-mode)
 
 ;;  neotree
 (global-set-key (kbd "C-c C-t") 'neotree-toggle)
@@ -347,7 +350,6 @@
        (shell-command-to-string "opam config var bin 2> /dev/null")
        0 -1))
 
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp/"))
 (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
 (add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
 (add-hook 'tuareg-mode-hook
@@ -362,6 +364,7 @@
 ;; merlin
 (autoload 'merlin-mode "merlin" nil t nil)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'merlin-eldoc-setup)
 (add-hook 'caml-mode-hook 'merlin-mode)
 (setq merlin-command (concat opam-bin "/ocamlmerlin"))
 
@@ -379,17 +382,14 @@
   (add-to-list 'company-backends 'merlin-company-backend)
   (add-hook 'merlin-mode-hook 'company-mode))
 
-(add-hook 'tuareg-mode-hook #'merlin-mode)
-
 ;; ocp-indent
-(load-file (concat opam-share "/emacs/site-lisp/ocp-indent.el"))
+(add-hook 'tuareg-mode-hook 'ocp-setup-indent)
 
 ;; utop
 (autoload 'utop "utop" "Toplevel for Ocaml" t)
 (setq utop-command "opam config exec -- utop -emacs")
 (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
 (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-
 
 ;;
 ;; LaTeX
