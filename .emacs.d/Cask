@@ -30,6 +30,7 @@
 (depends-on "esh-autosuggest")
 (depends-on "eshell-prompt-extras")
 (depends-on "eshell-z")
+(depends-on "eterm-256color")
 (depends-on "exec-path-from-shell")
 (depends-on "fish-completion")
 (depends-on "flycheck")
