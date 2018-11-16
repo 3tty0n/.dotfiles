@@ -128,7 +128,7 @@
       ))
 
 ;; font size
-(set-frame-font "ricty-14")
+(set-frame-font "ricty-15")
 
 ;;
 ;; window size
@@ -325,6 +325,14 @@
         ("-telnet" . "telnet")
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
+
+;;
+;; zoom window
+;;
+(with-eval-after-load 'zoom-window
+  (setq zoom-window-use-elscreen t)
+  (zoom-window-setup)
+  (global-set-key (kbd "C-x C-z") 'zoom-window-zoom))
 
 ;;
 ;; git
