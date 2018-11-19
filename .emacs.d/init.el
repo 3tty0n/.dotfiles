@@ -188,7 +188,9 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
+;;
 ;; neotree
+;;
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; ddskk
@@ -238,9 +240,10 @@
 
 (global-company-mode)
 (with-eval-after-load 'company
-  (setq company-idle-delay 0) ; デフォルトは0.5
-  (setq company-minimum-prefix-length 2) ; デフォルトは4
-  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (company-flx-mode)
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t)
   (company-quickhelp-mode)
 
   (define-key company-active-map (kbd "M-n") nil)
@@ -274,7 +277,9 @@
     (cl-callf color-saturate-name (face-foreground face) 30))))
 (add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
 
+;;
 ;; helm
+;;
 (helm-mode 1)
 (with-eval-after-load 'helm-mode
   (require 'helm)
@@ -296,6 +301,18 @@
   (global-set-key [remap execute-extended-command] #'helm-smex)
   (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
   (spaceline-helm-mode))
+
+;;
+;; projectile
+;;
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+;;
+;; find-file-in-project
+;;
+(global-set-key (kbd "C-c C-f") 'find-file-in-project)
 
 ;; yasnippet
 (yas-global-mode 1)
@@ -628,7 +645,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (htmlize mew all-the-icons-dired flycheck-popup-tip spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons)))
+    (find-file-in-project htmlize mew all-the-icons-dired flycheck-popup-tip spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons)))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "prg.is.titech.ac.jp")
  '(smtpmail-smtp-service 25))

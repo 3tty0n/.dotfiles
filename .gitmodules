@@ -1,0 +1,6 @@
+[submodule "iTerm2-Color-Schemes"]
+	path = iTerm2-Color-Schemes
+	url = git@github.com:mbadolato/iTerm2-Color-Schemes.git
+[submodule ".emacs.d/icons-in-terminal"]
+	path = .emacs.d/icons-in-terminal
+	url = git@github.com:sebastiencs/icons-in-terminal.git
