@@ -54,29 +54,6 @@
 (prefer-coding-system 'utf-8)
 
 ;;
-;; term
-;;
-(add-hook 'term-mode-hook
-	  #'(lambda ()
-	     (eterm-256color-mode)
-	     (define-key term-raw-map (kbd "C-h") 'term-send-backspace)
-	     (define-key term-raw-map (kbd "C-y") 'term-paste)
-	     (define-key term-raw-map (kbd "M-d") 'term-send-forward-kill-word)
-	     (define-key term-raw-map (kbd "M-<backspace>") 'term-send-backward-kill-word)
-	     (define-key term-raw-map (kbd "M-w") 'term-send-backward-kill-word)
-	     (define-key term-raw-map (kbd "M-DEL") 'term-send-backward-kill-word)
-	     (define-key term-raw-map (kbd "TAB") 'term-send-tab)
-
-	     (define-key term-raw-map (kbd "C-c p") 'multi-term-prev)
-	     (define-key term-raw-map (kbd "C-c n") 'multi-term-next)
-
-	     (define-key term-raw-map (kbd "C-SPC") nil)
-	     (define-key term-raw-map (kbd "C-@") nil) ; for putty
-	     (define-key term-raw-map (kbd "C-v") nil)
-	     ))
-
-
-;;
 ;; shell-pop
 ;;
 (defvar shell-pop-full-span t)
