@@ -13,7 +13,7 @@ brew 'cask'
 brew 'coreutils'
 brew 'darcs'
 brew 'fd'
-brew 'fzf'
+brew 'fzy'
 brew 'git'
 brew 'go'
 brew 'hub'
@@ -38,6 +38,7 @@ brew 'vim', args: ['with-lua']
 brew 'wget'
 brew 'zsh'
 cask "1password"
+cask "aquaskk"
 cask "alfred"
 cask "amethyst"
 cask "dropbox"
