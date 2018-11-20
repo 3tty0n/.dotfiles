@@ -50,11 +50,7 @@ usage () {
 mk_symlink() {
   printf "makeing symbolik links...\n"
   { for f in ${dotfiles[@]}; do
-    if [ "$f" = ".vimrc" ]; then
-      ln -sfnv "$DOTFILES_ROOT/.vimrc.bootstrap" "$HOME/.vimrc"
-    else
-      ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
-    fi
+    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
   done
 
   [ ! -e ~/.vim ] && mkdir ~/.vim
@@ -97,15 +93,6 @@ setup_githubrepo () {
   done }>/dev/null
 }
 
-function setup_opam {
-    echo "setup OCaml environment..."
-    echo ""
-    opam init
-    opam switch 4.07.0
-    opam install -y core ounit merlin tuareg ocp-indent utop
-    eval `opam config env`
-}
-
 brew_bundle () {
   if [ ! -x "$(which brew)" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -138,7 +125,6 @@ do
     '-a' )
       mk_symlink
       setup_zplug
-      setup_opam
       ;;
     -*)
         echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2

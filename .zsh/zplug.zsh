@@ -30,6 +30,7 @@ zplug "motemen/ghq",\
       from:gh-r, \
       rename-to:ghq
 
+zplug "jhawthorn/fzy", as:command, use:'fzy', hook-build:'make'
 
 zplug "paulp/sbt-extras", as:command, use:sbt
 
