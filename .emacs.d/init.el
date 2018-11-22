@@ -89,10 +89,10 @@
 (scroll-bar-mode -1) ; スクロールバーを非表示
 (global-yascroll-bar-mode 1) ; yascrollを表示
 
-;; 行頭への移動と非空白文字への移動をトグル的に切り替える
 (defun back-to-indentation-or-beginning ()
   (interactive)
-  (if (bolp) (back-to-indentation) (beginning-of-line)))
+  (if (= (point) (progn (back-to-indentation) (point)))
+      (beginning-of-line)))
 (define-key global-map "\C-a" 'back-to-indentation-or-beginning)
 
 ;; set C-h to backspace
@@ -322,7 +322,6 @@
         ("-telnet" . "telnet")
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
-
 ;;
 ;; zoom window
 ;;
