@@ -32,6 +32,9 @@
 (setq auto-save-default nil)
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
+;; revert buffer
+(global-auto-revert-mode 1)
+
 ;;
 ;; eshell
 ;;
