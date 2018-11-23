@@ -70,3 +70,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # emacs cask
 export PATH="$HOME/.cask/bin:$PATH"
+
+# graal
+export PATH="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home/bin:$PATH"
+export JAVA_HOME="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home"

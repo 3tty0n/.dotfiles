@@ -72,8 +72,8 @@ case "${OSTYPE}" in
 esac
 
 # OPAM
-test -e "${HOME}/.opam" && \
-    source ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+test -r "${HOME}"/.opam/opam-init/init.zsh && \
+  . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && \

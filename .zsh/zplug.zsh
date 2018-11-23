@@ -36,10 +36,6 @@ zplug "paulp/sbt-extras", as:command, use:sbt
 
 zplug "k4rthik/git-cal", as:command
 
-zplug "jonmosco/kube-ps1", \
-      use:kube-ps1.sh, \
-      as:theme
-
 zplug "~/.zsh/util", from:local
 
 ###################
