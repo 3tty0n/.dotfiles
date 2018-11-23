@@ -8,5 +8,5 @@ clean:
 	find . -name '*.elc' -delete
 
 update:
-	git add . && git commit -m "[emacs] update"
+	git add . && git commit -m "[emacs] update" 2>/dev/null
 
