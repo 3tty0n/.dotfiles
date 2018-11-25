@@ -1,6 +1,6 @@
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
-zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-completions", use:'src/_*', lazy:true
 
 zplug "zdharma/fast-syntax-highlighting", defer:2
 
@@ -25,16 +25,15 @@ zplug "supercrabtree/k"
 
 zplug "tj/git-extras", as:command, use:'bin/git-*'
 
-zplug "motemen/ghq",\
-      as:command, \
-      from:gh-r, \
-      rename-to:ghq
+zplug "motemen/ghq", as:command, from:gh-r, rename-to:ghq
 
-zplug "jhawthorn/fzy", as:command, use:'fzy', hook-build:'make'
+zplug "jhawthorn/fzy", as:command, use:'./fzy', hook-build:'make'
 
 zplug "paulp/sbt-extras", as:command, use:sbt
 
 zplug "k4rthik/git-cal", as:command
+
+# zplug "jonmosco/kube-ps1", use:kube-ps1.sh, as:theme
 
 zplug "~/.zsh/util", from:local
 

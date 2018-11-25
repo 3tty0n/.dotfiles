@@ -81,3 +81,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && \
 
 # load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
+
+() {
+  local src
+  for src in $@; do
+    ([[ ! -e $src.zwc ]] || [ ${src:A} -nt $src ]) && zcompile $src
+  done
+} ~/.zshrc ~/.zprofile ~/.zshenv
