@@ -57,6 +57,11 @@
 (prefer-coding-system 'utf-8)
 
 ;;
+;; term
+;;
+(add-hook 'term-mode-hook #'eterm-256color-mode)
+
+;;
 ;; shell-pop
 ;;
 (defvar shell-pop-full-span t)
