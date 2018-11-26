@@ -7,9 +7,12 @@ source ~/.zplug/init.zsh
 source ~/.zsh/zplug.zsh
 # source ~/.dotfiles/scripts/tmux.sh
 
-# terminal settings
-[[ $TERM = "eterm-color" ]] && TERM=xterm-color
-# [[ $EMACS = t ]] && TERM=Eterm-color
+# terminal settings for emacs
+if [ ! -e ~/.iterm2_shell_integration.zsh ]; then
+  curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+fi
+source ~/.iterm2_shell_integration.zsh
+
 
 # internal settings
 setopt auto_menu
