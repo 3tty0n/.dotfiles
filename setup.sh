@@ -75,22 +75,11 @@ setup_zplug () {
 }
 
 setup_githubrepo () {
-  printf "cloling github repos...\n"
-  if [ ! -x "$(which go)" ]; then
-    echo "\`go' is not installed."
-    echo "Please install go via \'brew install go'"
-    exit 1
-  fi
-  { for repo in "${ghqrepos[@]}"; do
-    if [ ! -d "$(ghq root)/github.com/$repo" ]; then
-      ghq get "https://github.com/$repo"
-    fi
-  done
   for repo in rbenv pyenv; do
     if [ ! -d $HOME/.$repo ]; then
-      git clone git@github.com:$repo/$repo.git $HOME/.$repo
+      git clone git@github.com:$repo/$repo.git $HOME/.$repo>/dev/null
     fi
-  done }>/dev/null
+  done
 }
 
 brew_bundle () {
@@ -119,12 +108,10 @@ do
     '-z' )
       setup_zplug
       ;;
-    '-g' )
-      setup_githubrepo
-      ;;
     '-a' )
       mk_symlink
       setup_zplug
+      brew_bundle
       ;;
     -*)
         echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
