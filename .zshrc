@@ -8,10 +8,11 @@ source ~/.zsh/zplug.zsh
 # source ~/.dotfiles/scripts/tmux.sh
 
 # terminal settings for emacs
-if [ ! -e ~/.iterm2_shell_integration.zsh ]; then
-  curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+if [ "$EMACS" ]; then
+  export TERM=xterm-256color
+  unsetopt zle
 fi
-source ~/.iterm2_shell_integration.zsh
+
 
 
 # internal settings
@@ -79,15 +80,11 @@ test -r "${HOME}"/.opam/opam-init/init.zsh && \
   . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+#
+if [[ $EMACS = t ]]; then
+ test -e "${HOME}/.iterm2_shell_integration.zsh" && \
     source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 # load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
-
-() {
-  local src
-  for src in $@; do
-    ([[ ! -e $src.zwc ]] || [ ${src:A} -nt $src ]) && zcompile $src
-  done
-} ~/.zshrc ~/.zprofile ~/.zshenv

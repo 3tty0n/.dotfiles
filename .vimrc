@@ -20,17 +20,10 @@ Plug 'w0rp/ale'
 " auto completion
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'copy/deoplete-ocaml' " auto completion for ocaml
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-elseif has('lua')
-  Plug 'Shougo/neocomplete.vim'
+  let g:deoplete#enable_at_startup = 1
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/neocomplete.vim'
 endif
-
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -267,11 +260,8 @@ set noswapfile
 " {{{# syntax checking and auto complete
 
 " ale
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '=='
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
@@ -399,13 +389,6 @@ nnoremap <localleader>t :EnType<CR>
 " {{{  # ocaml
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
-
-let g:syntastic_ocaml_checkers = ['merlin']
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ocaml = '[^. *\t]\.\w*\|\h\w*|#'
 " }}}
 
 " {{{ # unite settings
