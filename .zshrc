@@ -80,10 +80,13 @@ test -r "${HOME}"/.opam/opam-init/init.zsh && \
   . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
-#
-if [[ $EMACS = t ]]; then
- test -e "${HOME}/.iterm2_shell_integration.zsh" && \
-    source "${HOME}/.iterm2_shell_integration.zsh"
+[[ $EMACS = t ]] || \
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+  source "${HOME}/.iterm2_shell_integration.zsh"
+
+# rust
+if [[ "`which rustc`" ]]; then
+  source ~/.cargo/env
 fi
 
 # load local zshrc

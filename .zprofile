@@ -26,3 +26,5 @@ fi
 if [ -x "`which opam`" ]; then
   eval $(opam config env)
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
