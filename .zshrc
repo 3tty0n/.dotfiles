@@ -13,8 +13,6 @@ if [ "$EMACS" ]; then
   unsetopt zle
 fi
 
-
-
 # internal settings
 setopt auto_menu
 setopt auto_cd
@@ -53,8 +51,12 @@ alias en='emacs -nw'
 alias kb='kubectl'
 
 # less
-alias less='less -m -N -g -i -J --line-numbers --underline-special'
-alias more='less'
+if [[ "`which src-highlight-lesspipe.sh`" ]]; then
+  export LESS='-RMi'
+  export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
+else
+  export LESS='-R'
+fi
 
 # use 'hightlihgt' in place of 'cat'
 alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
@@ -80,9 +82,10 @@ test -r "${HOME}"/.opam/opam-init/init.zsh && \
   . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # shell integration
-[[ $EMACS = t ]] || \
+if [[ $EMACS = t ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && \
   source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 # rust
 if [[ "`which rustc`" ]]; then

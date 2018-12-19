@@ -29,9 +29,11 @@ zplug "motemen/ghq", as:command, from:gh-r, rename-to:ghq
 
 zplug "jhawthorn/fzy", as:command, use:'./fzy', hook-build:'make'
 
-zplug "paulp/sbt-extras", as:command, use:sbt
+zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf
 
 zplug "k4rthik/git-cal", as:command
+
+zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
 # zplug "jonmosco/kube-ps1", use:kube-ps1.sh, as:theme
 
