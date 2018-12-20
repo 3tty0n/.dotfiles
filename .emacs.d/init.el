@@ -35,6 +35,10 @@
 ;; revert buffer
 (global-auto-revert-mode 1)
 
+;; smooth-scroll
+(with-eval-after-load 'smooth-scroll
+  (smooth-scroll-mode t))
+
 ;;
 ;; eshell
 ;;
@@ -84,6 +88,9 @@
 (require 'smartparens-config)
 
 (global-linum-mode)
+(setq linum-delay t)
+(defadvice linum-schedule (around my-linum-schedule () activate)
+  (run-with-idle-timer 0.2 nil #'linum-update-current))
 (global-hl-line-mode)
 (hlinum-activate)
 
@@ -472,6 +479,9 @@
   (setq TeX-view-program-list
      '(("Skim" "displayline -b -g %n %o %b")))
   (setq TeX-view-program-selection '((output-pdf "Skim"))))
+
+(with-eval-after-load 'latex-preview-pane-mode
+  (setq shell-escape-mode t))
 
 (eval-after-load 'yatex-mode
   '(progn

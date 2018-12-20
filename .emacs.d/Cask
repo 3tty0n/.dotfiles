@@ -89,6 +89,7 @@
 (depends-on "scala-mode")
 (depends-on "shell-pop")
 (depends-on "smartparens")
+(depends-on "smooth-scroll")
 (depends-on "spaceline-all-the-icons")
 (depends-on "spacemacs-theme")
 (depends-on "tuareg")
