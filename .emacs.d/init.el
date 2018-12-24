@@ -49,6 +49,7 @@
 
 (add-hook 'eshell-mode-hook
           (lambda ()
+	    (setq linum-mode -1)
             (eshell-cmpl-initialize)
 	    (define-key eshell-mode-map (kbd "M-z") 'eshell-z)
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
@@ -59,11 +60,18 @@
 ;;
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
+(add-hook 'shell-mode-hook
+	  (lambda ()
+	    (setq linum-mode -1)))
 
 ;;
 ;; term
 ;;
-(add-hook 'term-mode-hook #'eterm-256color-mode)
+(add-hook 'term-mode-hook
+	  (lambda ()
+	    (eterm-256color-mode)
+	    (setq linum-mode -1)
+	    ))
 
 ;;
 ;; shell-pop
@@ -209,8 +217,8 @@
 
 ;; color theme
 (load-theme 'spacemacs-dark t)
-;; (powerline-default-theme)
 
+;; (powerline-default-theme)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
 
@@ -564,8 +572,10 @@
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
 (add-hook 'python-mode-hook 'jedi:setup)
-;;(add-to-list 'company-backends 'company-jedi)
 (add-hook 'python-mode-hook 'jedi:ac-setup)
+
+(with-eval-after-load 'python-mode
+  (setq company-mode -1))
 
 ;;
 ;; gnuplot
@@ -643,6 +653,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "d1cc05d755d5a21a31bced25bed40f85d8677e69c73ca365628ce8024827c9e3" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" default)))
  '(package-selected-packages
    (quote
     (flycheck-rust find-file-in-project htmlize mew all-the-icons-dired flycheck-popup-tip spaceline-all-the-icons flycheck-irony company-irony package-utils golden-ratio pcomplete-extension eshell-z fish-completion eshell-prompt-extras company-reftex auctex-latexmk latex-preview-pane yasnippet-snippets company-auctex auctex helm-fuzzy-find quickrun hlinum helm-ghq open-junk-file rspec-mode alect-themes elscreen-multi-term multi-term git-gutter-fringe ddskk docker-api dockerfile-mode yatex yascroll yaml-mode wgrep undo-tree spacemacs-theme smartparens restart-emacs rainbow-delimiters racket-mode pallet nlinum neotree multiple-cursors molokai-theme markdown-mode kubernetes irony helm-swoop helm-smex helm-ls-git helm-git-grep gnuplot git-gutter+ fzf flycheck-ocaml flycheck-cask exec-path-from-shell ensime elscreen el-get docker cyberpunk-theme counsel company-quickhelp company-flx company-c-headers cask-mode auto-complete all-the-icons)))

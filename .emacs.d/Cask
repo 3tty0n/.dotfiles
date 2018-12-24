@@ -3,6 +3,7 @@
 (source melpa-stable)
 (source org)
 
+
 (depends-on "all-the-icons")
 (depends-on "all-the-icons-dired")
 (depends-on "auctex")
