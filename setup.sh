@@ -21,6 +21,7 @@ declare -a dotfiles=(
     .spacemacs
     .emacs.d
     .utoprc
+    .SpaceVim.d
 )
 
 declare -a vimfiles=()
@@ -58,13 +59,10 @@ mk_symlink() {
     ln -sfnv "$DOTFILES_ROOT/.vim/$vimfile" "$HOME/.vim/$vimfile"
   done
 
-  #for config in ${configfiles[@]}; do; ln -sfnv $DOTFILES_ROOT/.config/$config ~/.config; done
-
   if [ ! -e ~/.config/gist ]; then
     mkdir -p ~/.config/gist
     cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
   fi }>/dev/null
-
 
 }
 
@@ -72,14 +70,6 @@ setup_zplug () {
   if [ ! -e ~/.zplug ]; then
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   fi
-}
-
-setup_githubrepo () {
-  for repo in rbenv pyenv; do
-    if [ ! -d $HOME/.$repo ]; then
-      git clone git@github.com:$repo/$repo.git $HOME/.$repo>/dev/null
-    fi
-  done
 }
 
 brew_bundle () {
