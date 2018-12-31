@@ -77,3 +77,11 @@ export PATH="$HOME/.cask/bin:$PATH"
 # graal
 export PATH="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home/bin:$PATH"
 export JAVA_HOME="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home"
+
+# less
+if [[ "`which src-highlight-lesspipe.sh`" ]]; then
+  export LESS='-RMi'
+  export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
+else
+  export LESS='-R'
+fi

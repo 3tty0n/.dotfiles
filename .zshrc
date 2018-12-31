@@ -50,14 +50,6 @@ esac
 alias en='emacs -nw'
 alias kb='kubectl'
 
-# less
-if [[ "`which src-highlight-lesspipe.sh`" ]]; then
-  export LESS='-RMi'
-  export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
-else
-  export LESS='-R'
-fi
-
 # use 'hightlihgt' in place of 'cat'
 alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
 
