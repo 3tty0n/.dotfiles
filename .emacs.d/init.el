@@ -49,7 +49,7 @@
 
 (add-hook 'eshell-mode-hook
           (lambda ()
-	    (setq linum-mode -1)
+	    (setq global-display-line-numbers-mode -1)
             (eshell-cmpl-initialize)
 	    (define-key eshell-mode-map (kbd "M-z") 'eshell-z)
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
@@ -62,7 +62,7 @@
 (prefer-coding-system 'utf-8)
 (add-hook 'shell-mode-hook
 	  (lambda ()
-	    (setq linum-mode -1)))
+	    (setq global-display-line-numbers-mode -1)))
 
 ;;
 ;; term
@@ -70,7 +70,7 @@
 (add-hook 'term-mode-hook
 	  (lambda ()
 	    (eterm-256color-mode)
-	    (setq linum-mode -1)
+	    (setq global-display-line-numbers-mode -1)
 	    ))
 
 ;;
@@ -95,19 +95,26 @@
 (show-paren-mode t) ; 対応するカッコを強調表示
 (require 'smartparens-config)
 
-(global-linum-mode)
-(setq linum-delay t)
-(defadvice linum-schedule (around my-linum-schedule () activate)
-  (run-with-idle-timer 0.2 nil #'linum-update-current))
-(global-hl-line-mode)
-(hlinum-activate)
+(if (version<= "26.0.50" emacs-version)
+    (progn
+      (global-display-line-numbers-mode)
+      (defun display-line-numbers-color-on-after-init (frame)
+        "Hook function executed after FRAME is generated."
+        (unless (display-graphic-p frame)
+          (set-face-background
+           'line-number
+           (plist-get base16-solarized-dark-colors :base01))))
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (display-line-numbers-color-on-after-init frame)))
+      ))
 
 (setq inhibit-startup-message t) ; 起動メッセージを非表示
 (tool-bar-mode -1) ; ツールバーを非表示
 (menu-bar-mode -1) ; メニューバーを非表示
 
 (scroll-bar-mode -1) ; スクロールバーを非表示
-(global-yascroll-bar-mode 1) ; yascrollを表示
+;; (global-yascroll-bar-mode 1) ; yascrollを表示
 
 (defun back-to-indentation-or-beginning ()
   (interactive)
