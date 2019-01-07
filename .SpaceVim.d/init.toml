@@ -28,6 +28,9 @@
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
     relativenumber = false
+    enable_neomake = false
+    enable_ale = true
+    lint_on_the_fly = true
 
 # Enable autocomplete layer
 [[layers]]
@@ -37,8 +40,6 @@ auto-completion-tab-key-behavior = "cycle"
 
 [[layers]]
 name = 'checkers'
-lint_on_the_fly = true
-
 
 [[layers]]
 name = 'shell'
@@ -47,3 +48,6 @@ default_height = 30
 
 [[layers]]
 name = 'lang#ocaml'
+
+[[layers]]
+name = 'edit'

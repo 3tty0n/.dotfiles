@@ -18,9 +18,9 @@ zplug "zsh-users/zsh-autosuggestions"
 
 zplug "mollifier/cd-gitroot"
 
-zplug "Tarrasch/zsh-bd", use:bd.zsh
+# zplug "Tarrasch/zsh-bd", use:bd.zsh
 
-zplug "b4b4r07/enhancd", use:init.sh
+# zplug "b4b4r07/enhancd", use:init.sh
 
 zplug "rupa/z", use:z.sh
 

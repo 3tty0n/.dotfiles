@@ -10,7 +10,7 @@ source ~/.zsh/zplug.zsh
 # terminal settings for emacs
 if [ "$EMACS" ]; then
   export TERM=xterm-256color
-  unsetopt zle
+  # unsetopt zle
 fi
 
 # internal settings
@@ -58,9 +58,6 @@ case "${OSTYPE}" in
     alias ls="ls -G"
     alias ll="ls -lG"
     alias la="ls -laG"
-    # java
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-    export PATH="$JAVA_HOME:$PATH"
   ;;
   linux* )
     alias ls='ls --color'
@@ -80,7 +77,7 @@ if [[ $EMACS = t ]]; then
 fi
 
 # rust
-if [[ "`which rustc`" ]]; then
+if [[ -f "`which rustc`" ]]; then
   source ~/.cargo/env
 fi
 

@@ -85,3 +85,11 @@ if [[ "`which src-highlight-lesspipe.sh`" ]]; then
 else
   export LESS='-R'
 fi
+
+# java
+case "${OSTYPE}" in
+  darwin* )
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    export PATH="$JAVA_HOME:$PATH"
+    ;;
+esac
