@@ -28,7 +28,7 @@ declare -a vimfiles=()
 declare -a vimfiles=(ftplugin snippets)
 
 declare -a configfiles=()
-declare -a configfiles=(fish omf)
+declare -a configfiles=(fish powerline)
 
 declare -a ghqrepos=()
 declare -a ghqrepos=(bahlo/iterm-colors t3chnoboy/thayer-bright-iTerm)
@@ -48,21 +48,17 @@ usage () {
   exit 0
 }
 
-mk_symlink() {
+create_symlink () {
   printf "makeing symbolik links...\n"
-  { for f in ${dotfiles[@]}; do
-    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
-  done
+  {
+    for f in ${dotfiles[@]}; do
+      ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+    done
 
-  [ ! -e ~/.vim ] && mkdir ~/.vim
-  for vimfile in "${vimfiles[@]}"; do
-    ln -sfnv "$DOTFILES_ROOT/.vim/$vimfile" "$HOME/.vim/$vimfile"
-  done
-
-  if [ ! -e ~/.config/gist ]; then
-    mkdir -p ~/.config/gist
-    cp -v "$DOTFILES_ROOT/.config/gist/config.toml" ~/.config/gist
-  fi }>/dev/null
+    for c in ${configfiles[@]}; do
+      ln -sfnv "$DOTFILES_ROOT/.config/$c" "$HOME/.config/$c"
+    done
+  }>/dev/null
 
 }
 
@@ -90,7 +86,7 @@ do
       usage
       ;;
     '-s' )
-      mk_symlink
+      create_symlink
       ;;
     '-b' )
       brew_bundle
@@ -99,7 +95,7 @@ do
       setup_zplug
       ;;
     '-a' )
-      mk_symlink
+      create_symlink
       setup_zplug
       brew_bundle
       ;;
