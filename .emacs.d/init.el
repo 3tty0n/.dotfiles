@@ -39,9 +39,7 @@
 (with-eval-after-load 'smooth-scroll
   (smooth-scroll-mode t))
 
-;;
 ;; eshell
-;;
 (with-eval-after-load "esh-opt"
   (autoload 'epe-theme-lambda  "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
@@ -55,27 +53,21 @@
             (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
             (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)))
 
-;;
 ;; shell
-;;
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
 (add-hook 'shell-mode-hook
 	  (lambda ()
 	    (setq global-display-line-numbers-mode -1)))
 
-;;
 ;; term
-;;
 (add-hook 'term-mode-hook
 	  (lambda ()
 	    (eterm-256color-mode)
 	    (setq global-display-line-numbers-mode -1)
 	    ))
 
-;;
 ;; shell-pop
-;;
 (defvar shell-pop-full-span t)
 (defvar shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell)))))
 (defvar shell-pop-term-shell "/usr/local/bin/zsh")
@@ -83,9 +75,7 @@
 (defvar shell-pop-window-size 30)
 (global-set-key (kbd "C-t") 'shell-pop)
 
-;;
 ;; saveplace
-;;
 (save-place-mode 1)
 (setq save-place-file (locate-user-emacs-file "places" ".emacs-places"))
 
@@ -189,15 +179,11 @@
   (setq golden-ratio-exclude-buffer-regexp
 	'("\\*anything" "\\*helm")))
 
-;;
 ;; undo tree
-;;
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
-;;
 ;; neotree
-;;
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; ddskk
@@ -309,16 +295,12 @@
   (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
   (spaceline-helm-mode))
 
-;;
 ;; projectile
-;;
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-;;
 ;; find-file-in-project
-;;
 (global-set-key (kbd "C-c C-f") 'find-file-in-project)
 
 ;; yasnippet
@@ -349,17 +331,17 @@
         ("-telnet" . "telnet")
         ("dict" . "OnlineDict")
         ("*WL:Message*" . "Wanderlust")))
-;;
+
 ;; zoom window
-;;
 (with-eval-after-load 'zoom-window
   (setq zoom-window-use-elscreen t)
   (zoom-window-setup)
   (global-set-key (kbd "C-x C-z") 'zoom-window-zoom))
 
-;;
+
 ;; git
 ;;
+
 (require 'git-gutter-fringe)
 (with-eval-after-load 'git-gutter-fringe
   (global-git-gutter-mode)
@@ -383,6 +365,11 @@
  '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
  '(magit-hash ((t (:foreground "red")))))
 
+;;
+;; Mail
+;;
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-draft "wl" "Write draft with Wanderlust." t)
 
 ;;;;; infra
 
@@ -393,11 +380,6 @@
 ;;;;; language
 
 ;; ocaml
-
-(setq opam-share
-      (substring
-       (shell-command-to-string "opam config var share 2> /dev/null")
-       0 -1))
 
 (setq opam-bin
       (substring

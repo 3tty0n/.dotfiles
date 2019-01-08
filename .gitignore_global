@@ -34,6 +34,7 @@ Icon?
 *.fls
 *.synctex.gz
 *.xdv
+*.sta
 
 # python
 __pycache__/

@@ -10,7 +10,6 @@ source ~/.zsh/zplug.zsh
 # terminal settings for emacs
 if [ "$EMACS" ]; then
   export TERM=xterm-256color
-  # unsetopt zle
 fi
 
 # internal settings
