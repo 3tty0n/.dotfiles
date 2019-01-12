@@ -278,6 +278,7 @@
   (require 'helm)
   (helm-autoresize-mode 1)
   (define-key global-map (kbd "C-x C-f") 'helm-find-files)
+  (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
   (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
   (global-set-key (kbd "M-x") 'helm-M-x) ; helm-M-x
@@ -286,13 +287,12 @@
   (global-set-key (kbd "C-x C-d") 'helm-browse-project) ; helm-brose-project
   (global-set-key (kbd "C-x C-p") 'helm-git-grep) ; helm-git-grep
   (global-set-key (kbd "C-x C-n") 'helm-ghq)
+  (global-set-key (kbd "C-x b")   'helm-buffers-list)
+
 
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t)
 
-  (require 'helm-smex)
-  (global-set-key [remap execute-extended-command] #'helm-smex)
-  (global-set-key (kbd "M-X") #'helm-smex-major-mode-commands)
   (spaceline-helm-mode))
 
 ;; projectile
@@ -445,37 +445,45 @@
    (turn-on-outline-minor-mode)
    (LaTeX-math-mode)
    (outline-minor-mode)
-   (auctex-latexmk-setup)
+   ;; (auctex-latexmk-setup)
    (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
    (server-start)
+
    ;; Open PDF via Skim.app
    (add-to-list 'TeX-command-list
 		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
    ;; Open PDF via Skim.app in the background.
    (add-to-list 'TeX-command-list
 		'("SkimBG" "open -g -a Skim.app '%s.pdf'" TeX-run-command t nil))
+
    (add-to-list 'TeX-command-list
-		'("LatexMK Clean" "latexmk -c %s" TeX-run-command t nil))
-   ))
+		'("LatexMk Clean" "latexmk -c %s" TeX-run-command t nil))
+
+   (add-to-list 'TeX-command-list
+		'("LatexMk" "latexmk" TeX-run-command t nil))
+
+   (add-to-list 'TeX-command-list
+		'("LatexMk Open" "latexmk -pv" TeX-run-command t nil))
+
+   (setq TeX-command-default "LatexMk")
+  ))
 
 
 (with-eval-after-load 'LaTeX-mode
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
   (setenv "PATH" "/usr/local/bin:/Library/TeX/texbin/:/Applications/Skim.app/Contents/SharedSupport:$PATH" t)
   (setq exec-path (append '("/usr/local/bin" "/Library/TeX/texbin" "/Applications/Skim.app/Contents/SharedSupport") exec-path))
-  (setq TeX-view-program-selection '((output-pdf "displayline")))
 
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil)
 
-  (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
   (setq TeX-view-program-list
 	'(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 
-  (setq TeX-view-program-list
-     '(("Skim" "displayline -b -g %n %o %b")))
-  (setq TeX-view-program-selection '((output-pdf "Skim"))))
+  (setq TeX-view-program-list '(("Skim" "displayline -b -g %n %o %b")))
+  (setq TeX-view-program-selection '((output-pdf "Skim")))
+  )
 
 (with-eval-after-load 'latex-preview-pane-mode
   (setq shell-escape-mode t))
