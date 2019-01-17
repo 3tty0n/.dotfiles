@@ -430,11 +430,7 @@
 ;;
 ;; LaTeX
 ;;
-(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
-
-(defun turn-on-outline-minor-mode ()
-  (outline-minor-mode 1))
 
 (add-hook
  'LaTeX-mode-hook
@@ -442,10 +438,10 @@
    (TeX-PDF-mode)
    (turn-on-reftex)
    (turn-on-flyspell)
-   (turn-on-outline-minor-mode)
+   (outline-minor-mode)
    (LaTeX-math-mode)
    (outline-minor-mode)
-   ;; (auctex-latexmk-setup)
+   (auctex-latexmk-setup)
    (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
    (server-start)
 
@@ -459,13 +455,12 @@
    (add-to-list 'TeX-command-list
 		'("LatexMk Clean" "latexmk -c %s" TeX-run-command t nil))
 
-   (add-to-list 'TeX-command-list
-		'("LatexMk" "latexmk" TeX-run-command t nil))
+   ;; (add-to-list 'TeX-command-list
+   ;; 		'("LatexMk" "latexmk" TeX-run-command t nil))
 
    (add-to-list 'TeX-command-list
-		'("LatexMk Open" "latexmk -pv" TeX-run-command t nil))
+		'("LatexMk Preview" "latexmk -pv" TeX-run-command t nil))
 
-   (setq TeX-command-default "LatexMk")
   ))
 
 
@@ -476,14 +471,17 @@
 
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
-  (setq-default TeX-master nil)
+  (setq reftex-plug-into-AUCTeX t)
 
   (setq TeX-view-program-list
 	'(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+
   (setq TeX-view-program-list '(("Skim" "displayline -b -g %n %o %b")))
-  (setq TeX-view-program-selection '((output-pdf "Skim")))
-  )
+  (setq TeX-view-program-selection '((output-pdf "Skim"))))
 
 (with-eval-after-load 'latex-preview-pane-mode
   (setq shell-escape-mode t))
