@@ -17,6 +17,10 @@ persp*/
 irony/
 url/
 
+# lsp-java
+workspace/
+jdt-server/
+
 .cask/
 .python-environments/
 projectile-bookmarks.eld

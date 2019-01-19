@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 deps=(
     merlin
@@ -42,7 +42,17 @@ setup_ocaml () {
   opam install -y ${deps[@]}
 }
 
-while getopts acoe OPT; do
+setup_lsp_java () {
+    if test ! -d "./jdt-server/"; then
+        mkdir jdt-server
+        pushd jdt-server || exit
+        wget https://download.eclipse.org/jdtls/milestones/0.31.0/jdt-language-server-0.31.0-201901170528.tar.gz
+        tar xfv jdt-language-server-0.31.0-201901170528.tar.gz
+        popd
+    fi
+}
+
+while getopts acoej OPT; do
     case $OPT in
 	a)
 	    setup_cask
@@ -58,6 +68,9 @@ while getopts acoe OPT; do
 	e)
 	    setup_eterm_color
 	    ;;
+        j)
+            setup_lsp_java
+            ;;
 	*)
 	    setup_cask
 	    ;;

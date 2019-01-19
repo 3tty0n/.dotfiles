@@ -32,6 +32,9 @@
 (setq auto-save-default nil)
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
+;; tab -> space
+(setq-default indent-tabs-mode nil)
+
 ;; revert buffer
 (global-auto-revert-mode 1)
 
@@ -246,7 +249,13 @@
   (define-key company-active-map (kbd "C-h") nil)
 
   (global-set-key (kbd "C-M-i") 'company-complete)
-  (define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
+  (define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)
+
+  ;; lsp
+  (push 'company-lsp company-backends))
+
+;; lsp
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 ;; syntax check
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -381,51 +390,54 @@
 
 ;; ocaml
 
-(setq opam-bin
-      (substring
-       (shell-command-to-string "opam config var bin 2> /dev/null")
-       0 -1))
+;; (setq opam-bin
+;;       (substring
+;;        (shell-command-to-string "opam config var bin 2> /dev/null")
+;;        0 -1))
 
-(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
-(add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
-(add-hook 'tuareg-mode-hook
-	  #'(lambda()
-	      (setq mode-name "🐫")
-	      ))
+;; (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+;; (add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
+;; (add-hook 'tuareg-mode-hook
+;; 	  #'(lambda()
+;; 	      (setq mode-name "🐫")
+;; 	      ))
+
+;; (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
+;; (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
+;; (autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
+
+;; ;; merlin
+;; (autoload 'merlin-mode "merlin" nil t nil)
+;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+;; (add-hook 'tuareg-mode-hook 'merlin-eldoc-setup)
+;; (add-hook 'caml-mode-hook 'merlin-mode)
+;; (setq merlin-command (concat opam-bin "/ocamlmerlin"))
+
+;; (require 'merlin)
+;; (with-eval-after-load 'merlin
+;;   (setq merlin-error-on-single-line t)
+;;   (set-face-background 'merlin-type-face "skyblue")
+;;   (setq merlin-error-after-save nil)
+;;   (flycheck-ocaml-setup))
+
+;; (with-eval-after-load 'auto-complete
+;;   (setq merlin-ac-setup t))
+
+;; (with-eval-after-load 'company
+;;   (add-to-list 'company-backends 'merlin-company-backend)
+;;   (add-hook 'merlin-mode-hook 'company-mode))
+
+;; ;; ocp-indent
+;; (add-hook 'tuareg-mode-hook 'ocp-setup-indent)
+
+;; ;; utop
+;; (autoload 'utop "utop" "Toplevel for Ocaml" t)
+;; (setq utop-command "opam config exec -- utop -emacs")
+;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
-(autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
-(autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
-
-;; merlin
-(autoload 'merlin-mode "merlin" nil t nil)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'merlin-eldoc-setup)
-(add-hook 'caml-mode-hook 'merlin-mode)
-(setq merlin-command (concat opam-bin "/ocamlmerlin"))
-
-(require 'merlin)
-(with-eval-after-load 'merlin
-  (setq merlin-error-on-single-line t)
-  (set-face-background 'merlin-type-face "skyblue")
-  (setq merlin-error-after-save nil)
-  (flycheck-ocaml-setup))
-
-(with-eval-after-load 'auto-complete
-  (setq merlin-ac-setup t))
-
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend)
-  (add-hook 'merlin-mode-hook 'company-mode))
-
-;; ocp-indent
-(add-hook 'tuareg-mode-hook 'ocp-setup-indent)
-
-;; utop
-(autoload 'utop "utop" "Toplevel for Ocaml" t)
-(setq utop-command "opam config exec -- utop -emacs")
-(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+(add-hook 'tuareg-mode-hook #'lsp)
 
 ;;
 ;; LaTeX
@@ -533,6 +545,13 @@
 ;; rust
 ;;
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+;;
+;; java
+;;
+(require 'lsp-java)
+(add-hook 'java-mode-hook #'lsp)
+(setq lsp-java-server-install-dir "~/.emacs.d/jdt-server")
 
 ;;
 ;; scala
