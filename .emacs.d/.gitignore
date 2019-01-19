@@ -17,6 +17,9 @@ persp*/
 irony/
 url/
 
+# lsp
+.lsp-session*
+
 # lsp-java
 workspace/
 jdt-server/
