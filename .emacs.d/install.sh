@@ -12,6 +12,17 @@ deps=(
     ppx_deriving
 )
 
+usage () {
+    echo "Usage: `basename $0` [-h] [-a] [-c] [-o] [-e] [-j]"
+    echo "    -h: print this message"
+    echo "    -a: execute following instructions"
+    echo "    -c: setup cask"
+    echo "    -o: setup ocaml"
+    echo "    -e: setup eterm-color"
+    echo "    -j: setup jdt-server"
+    exit 1
+}
+
 setup_cask () {
   if [ ! -d $HOME/.cask ]; then
     curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
@@ -52,28 +63,32 @@ setup_lsp_java () {
     fi
 }
 
-while getopts acoej OPT; do
+while getopts acoejh OPT; do
     case $OPT in
-	a)
-	    setup_cask
-	    setup_eterm_color
-	    setup_ocaml
-	    ;;
-	c)
-	    setup_cask
-	    ;;
-	o)
-	    setup_ocaml
-	    ;;
-	e)
-	    setup_eterm_color
-	    ;;
+        a)
+            setup_cask
+            setup_eterm_color
+            setup_ocaml
+            setup_lsp_java
+            ;;
+        c)
+            setup_cask
+            ;;
+        o)
+            setup_ocaml
+            ;;
+        e)
+            setup_eterm_color
+            ;;
         j)
             setup_lsp_java
             ;;
-	*)
-	    setup_cask
-	    ;;
+        h)
+            usage
+            ;;
+        *)
+            usage
+            ;;
     esac
 done
 
