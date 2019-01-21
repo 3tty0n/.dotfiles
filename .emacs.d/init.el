@@ -389,55 +389,51 @@
 ;;;;; language
 
 ;; ocaml
+(setq opam-bin
+      (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
 
-;; (setq opam-bin
-;;       (substring
-;;        (shell-command-to-string "opam config var bin 2> /dev/null")
-;;        0 -1))
-
-;; (add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
-;; (add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
-;; (add-hook 'tuareg-mode-hook
-;; 	  #'(lambda()
-;; 	      (setq mode-name "🐫")
-;; 	      ))
-
-;; (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
-;; (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
-;; (autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
-
-;; ;; merlin
-;; (autoload 'merlin-mode "merlin" nil t nil)
-;; (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; (add-hook 'tuareg-mode-hook 'merlin-eldoc-setup)
-;; (add-hook 'caml-mode-hook 'merlin-mode)
-;; (setq merlin-command (concat opam-bin "/ocamlmerlin"))
-
-;; (require 'merlin)
-;; (with-eval-after-load 'merlin
-;;   (setq merlin-error-on-single-line t)
-;;   (set-face-background 'merlin-type-face "skyblue")
-;;   (setq merlin-error-after-save nil)
-;;   (flycheck-ocaml-setup))
-
-;; (with-eval-after-load 'auto-complete
-;;   (setq merlin-ac-setup t))
-
-;; (with-eval-after-load 'company
-;;   (add-to-list 'company-backends 'merlin-company-backend)
-;;   (add-hook 'merlin-mode-hook 'company-mode))
-
-;; ;; ocp-indent
-;; (add-hook 'tuareg-mode-hook 'ocp-setup-indent)
-
-;; ;; utop
-;; (autoload 'utop "utop" "Toplevel for Ocaml" t)
-;; (setq utop-command "opam config exec -- utop -emacs")
-;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
+(add-to-list 'auto-mode-alist '("dune" . tuareg-dune-mode))
+(add-hook 'tuareg-mode-hook
+	  #'(lambda()
+	      (setq mode-name "🐫")))
 
 (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
-(add-hook 'tuareg-mode-hook #'lsp)
+(autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
+(autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
+
+;; merlin
+(autoload 'merlin-mode "merlin" nil t nil)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'merlin-eldoc-setup)
+(add-hook 'caml-mode-hook 'merlin-mode)
+(setq merlin-command (concat opam-bin "/ocamlmerlin"))
+
+(require 'merlin)
+(with-eval-after-load 'merlin
+  (setq merlin-error-on-single-line t)
+  (set-face-background 'merlin-type-face "skyblue")
+  (setq merlin-error-after-save nil)
+  (flycheck-ocaml-setup))
+
+(with-eval-after-load 'auto-complete
+  (setq merlin-ac-setup t))
+
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend)
+  (add-hook 'merlin-mode-hook 'company-mode))
+
+;; ocp-indent
+(add-hook 'tuareg-mode-hook 'ocp-setup-indent)
+
+;; utop
+(autoload 'utop "utop" "Toplevel for Ocaml" t)
+(setq utop-command "opam config exec -- utop -emacs")
+(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+
+(autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
+;; (add-hook 'tuareg-mode-hook #'lsp)
 
 ;;
 ;; LaTeX

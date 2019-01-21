@@ -76,8 +76,8 @@ if [[ $EMACS = t ]]; then
 fi
 
 # rust
-if [[ -f "`which rustc`" ]]; then
-  source ~/.cargo/env
+if [[ "`which rustc`" ]]; then
+  # source ~/.cargo/env
 fi
 
 # load local zshrc
