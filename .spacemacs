@@ -58,6 +58,7 @@ values."
      racket
      graphviz
      yaml
+     (java :variables java-backend 'slp')
      (c-c++ :variables c-c++-enable-clang-support t)
      ;; checker
      syntax-checking
