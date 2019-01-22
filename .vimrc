@@ -1,421 +1,158 @@
-" {{{ # vim plug
-call plug#begin('~/.vim/plugged')
+" {{{ # dein
 
-Plug 'junegunn/vim-easy-align'
-Plug 'itchyny/lightline.vim'
-
-Plug 'scrooloose/nerdtree'
-
-Plug 'thinca/vim-quickrun'
-Plug 'tomtom/tcomment_vim'
-Plug 'Shougo/vimproc', { 'do' : 'make' }
-Plug 'vim-scripts/vim-auto-save'
-
-" auto close
-Plug 'cohama/lexima.vim'
-
-" syntex check
-Plug 'w0rp/ale'
-
-" auto completion
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  " Plug 'Shougo/neocomplete.vim'
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+if &compatible
+  set nocompatible
 endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+
+  call dein#add('jiangmiao/auto-pairs')
+
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/vimfiler')
+
+  call dein#add('w0rp/ale')
+
+  call dein#add('sjl/badwolf')
+  call dein#add('vim-airline/vim-airline')
+
+  call dein#add('lervag/vimtex')
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+" }}}
+
+" {{{ # Editor
+set fenc=utf-8
+set noswapfile
+set autoread
+set hidden
+set showcmd
+
+" visual
+set number
+set laststatus=2
+set wildmode=list:longest
+set visualbell " visualize bell
+
+" Tab configuration
+set list listchars=tab:\▸\-
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set smartindent
+
+" search configuration
+set ignorecase
+set smartcase
+set incsearch
+set wrapscan
+set hlsearch
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+" brackets
+set showmatch
+
+" cursor
+set whichwrap=b,s,h,l,<,>,[,],~ 
+set number 
+set cursorline
+
+" backspace
+set backspace=indent,eol,start
+
+" command mode
+set wildmenu " コマンドモードの補完
+set history=5000 " 保存するコマンド履歴の数
+
+" folding comments
+au FileType vim setlocal foldmethod=marker
+" }}}
+
+" {{{ # color
+syntax on
+colorscheme badwolf
+highlight Normal ctermbg=none
+let g:badwolf_darkgutter = 1
+" }}}
+
+" {{{ # VimFiler
+let g:vimfiler_as_default_explorer = 1
+noremap <C-X><C-T> :VimFiler -split -simple -winwidth=30 -toggle -no-quit<ENTER>
+autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
+" Automatically open vimfiler on start
+" autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
+" If no files are specified, open vimfiler
+autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
+" }}}
+
+" {{{ # Syntax checking
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+let g:ale_completion_enabled = 1
+" }}}
+
+" {{{ # Auto completion
 let g:deoplete#enable_at_startup = 1
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
-" search
-Plug 'wsdjeg/FlyGrep.vim'
-
-" git
-Plug 'tpope/vim-fugitive'
-
-" color theme
-Plug 'tomasr/molokai'
-" Plug 'w0ng/vim-hybrid'
-
-" Unite.vim
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
-
-" vim filer
-Plug 'Shougo/vimfiler.vim'
-
-" vim copy as rtf
-Plug 'zerowidth/vim-copy-as-rtf'
-
-"=== language ===
-
-" ocaml
-Plug 'def-lkb/ocp-indent-vim'
-
-" scala
-if has('nvim')
-  Plug 'ensime/ensime-vim'
-endif
-Plug 'derekwyatt/vim-scala'
-
-" python
-Plug 'davidhalter/jedi-vim'
-
-" go
-Plug 'fatih/vim-go'
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-
-" racket
-Plug 'wlangstroth/vim-racket'
-
-" markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-
-" Initialize plugin system
-call plug#end()
+inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 " }}}
 
-" {{{ # colortheme
-syntax on
-set background=dark
-" let g:hybrid_custom_term_colors = 1
-" let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-colorscheme molokai " hybrid
-highlight Normal ctermbg=none
-" }}}
-
-" {{{ # general settings
-" =============================================================================
-syntax on
-set nocompatible            " use Vim in more useful way"
-set clipboard+=unnamed      " share clipboard with other systems
-" set clipboard+=autoselect
-let mapleader=","           " Lead with <Space>
-nnoremap <space>v :<C-u>edit $VIM_ROOT/vimrc<CR>   " vimファイルを開く
-nnoremap <space>s :<C-u>source $VIM_ROOT/vimrc<CR>:source $VIM_ROOT/gvimrc<CR>     " vimファイルを反映する
-nnoremap <space>b :<C-u>edit $VIM_ROOT/vim/bundle_list.vim<CR> " bundle list ファイルを開く
-"" Character encoding
-set encoding=utf-8          " Use utf-8
-set termencoding=utf-8      " ..
-set fileencodings=utf-8     " ..
-" Automatic end-of-file format detection
-set fileformats=unix,mac,dos
-
-" ファイルを開いたとき、最後にカーソルがあった場所に移動する
-augroup vimrcEx
-  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
-  \ exe "normal g`\"" | endif
-augroup END
-
-" vim airline
-set timeout timeoutlen=50
-" }}}
-
-" {{{ # text editting
-" =============================================================================
-
-set autoindent              " 改行時に自動インデント
-set smartindent             " {}などを入力時に同じ行にインデント
-set wrap                    " テキストを改行して表示
-
-" タブ関連
-set tabstop=2              " Tabが対応する空白の数 
-set expandtab               " Tabをスペースに変換
-set nosmarttab              " fuck tabs
-set softtabstop=2           " Tab入力時の表示幅
-set shiftwidth=2
-set shiftround              " インデントをshiftwidthの倍数に丸める
-
-set infercase               " 補完時に大文字小文字を区別しない
-set formatoptions+=n        " テキスト整形時に番号付きリストをサポート
-set wrapmargin=0
-set virtualedit=block       " allow virtual edit in visual block ..
-set listchars=tab:▸\ ,eol:¬,extends:»,precedes:«,nbsp:%
-set nolist
-set ambiwidth=double        " 全角文字をASCIIの2倍の幅で表示する
-
-set textwidth=0             " 改行が入らないようにする
-if v:version >= 703
-  set colorcolumn=80        " 80字の部分でラインが表示されるように
-endif
-set foldmethod=marker       " マーカーで折りたたみを行えるように
-
-" }}}
-
-" {{{ # UI
-" =============================================================================
-
-set ruler                   " カーソル位置を表示する
-" 移動中はカーソルラインを表示しないように
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-  autocmd WinEnter * call s:auto_cursorline('WinEnter')
-  autocmd WinLeave * call s:auto_cursorline('WinLeave')
-
-  let s:cursorline_lock = 0
-  function! s:auto_cursorline(event)
-    if a:event ==# 'WinEnter'
-      setlocal cursorline
-      let s:cursorline_lock = 2
-    elseif a:event ==# 'WinLeave'
-      setlocal nocursorline
-    elseif a:event ==# 'CursorMoved'
-      if s:cursorline_lock
-        if 1 < s:cursorline_lock
-          let s:cursorline_lock = 1
-        else
-          setlocal nocursorline
-          let s:cursorline_lock = 0
-        endif
-      endif
-    elseif a:event ==# 'CursorHold'
-      setlocal cursorline
-      let s:cursorline_lock = 1
-    endif
-  endfunction
-augroup END
-
-set showcmd                     " コマンドの一部を画面下に表示
-set number                      " 行番号の表示
-set nolazyredraw                " don't redraw while executing macros
-set wildmenu                    " turn on wild menu
-set wildmode=list:longest,full
-set cmdheight=1                 " コマンドライン行を1行に
-" カーソルを左右させるキーのうち、ここで指定したものでは、
-" カーソルが行頭／末にあるときに前／次行に移動できるようになる。
-set whichwrap=b,s,h,l,<,>,[,]
-" インサートモードですべて消す
-set backspace=indent,eol,start
-set shortmess=filtoOA           " shorten messages
-set report=0                    " tell us about changes
-set nostartofline               " don't jump to the start of line when scrolling
-set showmatch                   " brackets/braces that is
-set matchtime=3                 " duration to show matching brace (1/10 sec)
-set laststatus=2                " The last window always have status line
-set scrolloff=5             " Keep at least 5 lines above and below the cursor
-set visualbell t_vb=        " No beep sound
-" Treat octal and hexadecimal number as decimal number
-" octal  Numbers that start with a zero will be considered to be octal
-"        Example: Using CTRL-A on "007" results in "010"
-" hex    Numbers starting with "0x" or "0X" will be considered to be hexadecimal
-"        Example: Using CTRL-X on "0x100" results in "0x0ff"
-set nrformats-=octal,hex,alpha
-if has("mouse") " Enable the use of the mouse in all modes
-  set mouse=a
-endif
-
-" フォーカスが移った場合に常にredraw
-augroup Redraw
-    autocmd!
-    autocmd FocusGained * redraw!
-augroup END
-
-" }}}
-
-" {{{ # window settings
-" =============================================================================
-" 横分割時は下へ､ 縦分割時は右へ新しいウィンドウが開くようにする
-set splitbelow
-set splitright
-" }}}
-
-" {{{ # hightlight settings
-" =============================================================================
-syntax on
-
-" 行末のスペースと全角文字をハイライト
-if has('syntax')
-  function! s:match_illegal_space()
-    if !(exists("w:trailing_space"))
-      highlight ZenkakuSpace ctermbg=green guibg=SeaGreen
-      highlight WhiteSpaceEOL term=underline ctermbg=red gui=undercurl guisp=red
-      let w:trailing_space = matchadd("WhiteSpaceEOL", '\s\+$')
-      let w:zenkaku_space = matchadd("ZenkakuSpace", '　')
-    endif
-  endfunction
-  function! s:clear_highlight_if()
-    if &filetype ==# 'help' || &filetype ==# 'vimshell' ||
-          \ &filetype ==# 'unite' || &filetype ==# 'vimfiler' ||
-          \ &filetype ==# 'startify' || &filetype ==# ''
-      call clearmatches()
-    endif
-  endfunction
-  augroup HighlightInvisibleChars
-    autocmd!
-    autocmd VimEnter,BufEnter * call s:match_illegal_space()
-    autocmd FileType help,vimshell,unite,vimfiler,startify call clearmatches()
-    autocmd VimEnter,BufEnter * call s:clear_highlight_if()
-  augroup END
-endif
-" }}}
-
-" {{{ # backup and swap file
-set nobackup
-set noswapfile
-" }}}
-
-" {{{# syntax checking and auto complete
-
-" ale
-let g:ale_sign_error = '!!'
-let g:ale_sign_warning = '=='
-
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction "}}}
-
-" this is the default, make sure it is not set to "omnifunc" somewhere else in your vimrc
-let g:deoplete#complete_method = "complete"
-
-" other completion sources suggested to disable
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
-
-" no delay before completion
-let g:deoplete#auto_complete_delay = 0
-
-" neocomplete
-"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
+" {{{ # Snippet
 " Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
-" {{{ # python
-" let g:jedi#use_tabs_not_buffers = 1
-" }}}
+" {{{ # Latex
+let g:vimtex_compiler_latexmk = {
+      \ 'background': 1,
+      \ 'build_dir': '',
+      \ 'continuous': 1,
+      \ 'options': [
+      \    '-pdfdvi', 
+      \    '-verbose',
+      \    '-file-line-error',
+      \    '-synctex=1',
+      \    '-interaction=nonstopmode',
+      \],
+      \}
 
-" {{{ # racket
-let g:syntastic_enable_racket_racket_checker = 1
-" }}}
-
-" # quickrun {{{
-let g:quickrun_config = {}
-
-" vim proc でコマンドを実行する
-let g:quickrun_config['_'] = {
-      \ 'runner': 'vimproc',
-      \ 'runner/vimproc/updatetime' : 100
-      \ }
-" }}}
-
-" {{{ # nerdtree settings
-" 不可視ファイルを表示する
-let NERDTreeShowHidden = 1
-
-" ツリーと編集領域を移動する
-nmap <Leader><Tab> <C-w>w
-" }}}
-
-" {{{ # scala
-autocmd BufWritePost *.scala silent :EnTypeCheck
-nnoremap <localleader>t :EnType<CR>
-" }}}
-
-" {{{  # ocaml
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-" }}}
-
-" {{{ # unite settings
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-" }}}
-
-" {{{ # vim filer
-let g:vimfiler_as_default_explorer = 1
-" }}}
-
-" # vim autosave {{{
-let g:auto_save = 0
-let g:auto_save_in_insert_mode = 0 " insert mode のとき自動保存しない
-let g:auto_save_silent = 1  " do not display the auto-save notification
-" }}}
-
-" {{{ # flygrep
-nnoremap <Space>sgG :FlyGrep<cr>
+let g:vimtex_view_general_viewer
+      \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
 " }}}
