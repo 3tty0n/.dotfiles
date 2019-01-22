@@ -19,7 +19,6 @@ declare -a dotfiles=(
     .tigrc
     .sbtrc
     .spacemacs
-    .emacs.d
     .utoprc
     .SpaceVim.d
 )
