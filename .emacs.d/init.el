@@ -440,37 +440,34 @@
 ;;
 (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
 
-(add-hook
- 'LaTeX-mode-hook
- (lambda ()
-   (TeX-PDF-mode)
-   (turn-on-reftex)
-   (turn-on-flyspell)
-   (outline-minor-mode)
-   (LaTeX-math-mode)
-   (outline-minor-mode)
-   (auctex-latexmk-setup)
-   (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
-   (server-start)
+(add-hook 'LaTeX-mode-hook (lambda () (server-start)))
 
-   ;; Open PDF via Skim.app
-   (add-to-list 'TeX-command-list
-		'("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
-   ;; Open PDF via Skim.app in the background.
-   (add-to-list 'TeX-command-list
-		'("SkimBG" "open -g -a Skim.app '%s.pdf'" TeX-run-command t nil))
+(with-eval-after-load 'LaTeX-mode
+  (TeX-PDF-mode)
+  (turn-on-reftex)
+  (turn-on-flyspell)
+  (outline-minor-mode)
+  (LaTeX-math-mode)
+  (outline-minor-mode)
+  (auctex-latexmk-setup)
+  (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)
 
-   (add-to-list 'TeX-command-list
-		'("LatexMk Clean" "latexmk -c %s" TeX-run-command t nil))
+  ;; Open PDF via Skim.app
+  (add-to-list 'TeX-command-list
+	       '("Skim" "open -a Skim.app '%s.pdf'" TeX-run-command t nil))
+  ;; Open PDF via Skim.app in the background.
+  (add-to-list 'TeX-command-list
+	       '("SkimBG" "open -g -a Skim.app '%s.pdf'" TeX-run-command t nil))
 
-   ;; (add-to-list 'TeX-command-list
-   ;; 		'("LatexMk" "latexmk" TeX-run-command t nil))
+  (add-to-list 'TeX-command-list
+	       '("LatexMk Clean" "latexmk -c %s" TeX-run-command t nil))
 
-   (add-to-list 'TeX-command-list
-		'("LatexMk Preview" "latexmk -pv" TeX-run-command t nil))
+  ;; (add-to-list 'TeX-command-list
+  ;; 		'("LatexMk" "latexmk" TeX-run-command t nil))
 
-  ))
-
+  (add-to-list 'TeX-command-list
+	       '("LatexMk Preview" "latexmk -pv" TeX-run-command t nil))
+  )
 
 (with-eval-after-load 'LaTeX-mode
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
@@ -546,13 +543,14 @@
 ;; java
 ;;
 (require 'lsp-java)
-(add-hook 'java-mode-hook #'lsp)
+;; (add-hook 'java-mode-hook #'lsp)
 (setq lsp-java-server-install-dir "~/.emacs.d/jdt-server")
 
 ;;
 ;; scala
 ;;
 (with-eval-after-load 'ensime
+  (require 'flycheck-ensime)
   (setq ensime-startup-notification nil)
   (setq ensime-search-interface 'helm)
 
