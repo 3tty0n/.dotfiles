@@ -67,6 +67,12 @@ setup_zplug () {
   fi
 }
 
+setup_dein () {
+  if [ ! -e ~/.cache/dein ]; then
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
+  fi
+}
+
 brew_bundle () {
   if [ ! -x "$(which brew)" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -92,6 +98,9 @@ do
       ;;
     '-z' )
       setup_zplug
+      ;;
+    '-d' )
+      setup_dein
       ;;
     '-a' )
       create_symlink
