@@ -31,6 +31,9 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('lervag/vimtex')
 
+  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  call dein#add(g:opamshare . "/merlin/vim", {'lazy': 1, 'on_ft': 'ocaml', 'on_event': 'InsertEnter'})
+
   call dein#end()
   call dein#save_state()
 endif
@@ -53,9 +56,9 @@ set visualbell " visualize bell
 
 " Tab configuration
 set list listchars=tab:\▸\-
-set expandtab
-set tabstop=2
-set shiftwidth=2
+" set expandtab
+set tabstop=4
+set shiftwidth=4
 set smartindent
 
 " search configuration

@@ -46,10 +46,11 @@ zplug "~/.zsh/util", from:local
 ##### theme #######
 ###################
 
-# zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, as:theme
+zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, as:theme
 
 if zplug check "bhilburn/powerlevel9k"; then
     # powerlevel9k setting
+    POWERLEVEL9K_MODE='nerdfont-complete'
     POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
     POWERLEVEL9K_SHORTEN_DELIMITER=""
     POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
@@ -60,11 +61,11 @@ if zplug check "bhilburn/powerlevel9k"; then
     POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="λ "
 
     POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir vcs)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon status battery dir vcs)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv)
 fi
 
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
 
 # zplug "mafredri/zsh-async"
 # zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme

@@ -80,5 +80,19 @@ if [[ "`which rustc`" ]]; then
   # source ~/.cargo/env
 fi
 
+# tmux-powerline
+function mute_powerline_left {
+	bash ~/.tmux/tmux-powerline/mute_powerline.sh left
+}
+
+function mute_powerline_right {
+	bash ~/.tmux/tmux-powerline/mute_powerline.sh right
+}
+
+zle -N mute_powerline_left
+zle -N mute_powerline_right
+bindkey '^[' mute_powerline_left
+bindkey '^]' mute_powerline_right
+
 # load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
