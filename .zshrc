@@ -75,11 +75,6 @@ if [[ $EMACS = t ]]; then
   source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-# rust
-if [[ "`which rustc`" ]]; then
-  # source ~/.cargo/env
-fi
-
 # tmux-powerline
 function mute_powerline_left {
 	bash ~/.tmux/tmux-powerline/mute_powerline.sh left
