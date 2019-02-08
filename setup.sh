@@ -38,85 +38,138 @@ usage () {
   echo " This script is the set up tool for 3tty0n's environment."
   echo
   echo "Options:"
-  echo "  -h          show help"
-  echo "  -b          install brew formulas"
-  echo "  -s          make symbolik links"
-  echo "  -z          setup zsh plugins managed by zplug"
-  echo "  -g          get github repo that is needed in my environment"
-  echo "  -a          execute all instructions"
+  echo "  -h  --help         show help"
+  echo "  -b  --brew         install brew formulas"
+  echo "  -d  --dotfiles     make symbolik links"
+  echo "  -z  --zsh          setup zsh plugins managed by zplug"
+  echo "  -v  --vim          setup the environment for vim"
+  echo "  -e  --emacs        setup the environment for emacs"
+  echo "  -a  --all          execute all instructions"
   exit 0
 }
 
 create_symlink () {
-  printf "makeing symbolik links...\n"
-  {
-    for f in ${dotfiles[@]}; do
-      ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
-    done
+    printf "makeing symbolik links...\n"
+    {
+        for f in ${dotfiles[@]}; do
+            ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+        done
 
-    for c in ${configfiles[@]}; do
-      ln -sfnv "$DOTFILES_ROOT/.config/$c" "$HOME/.config/$c"
-    done
-  }>/dev/null
-
+        for c in ${configfiles[@]}; do
+            ln -sfnv "$DOTFILES_ROOT/.config/$c" "$HOME/.config/$c"
+        done
+    } >/dev/null
 }
 
-setup_zplug () {
-  if [ ! -e ~/.zplug ]; then
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-  fi
+setup_zsh () {
+    if [ ! -e ~/.zplug ]; then
+        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+    fi
 }
 
-setup_dein () {
-  if [ ! -e ~/.cache/dein ]; then
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
-  fi
+setup_tmux () {
+    ln -sf ~/.dotfiles/.tmux-powerlinerc ~/
+    if [ ! -e ~/.tmux/tmux-powerline ]; then
+        git clone https://github.com/erikw/tmux-powerline.git ~/.tmux/tmux-powerline
+    fi
+}
+
+setup_vim () {
+    if [ ! -e ~/.cache/dein ]; then
+        curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
+    fi
+}
+
+setup_emacs () {
+    if [ ! -x "$(which cask)" ]; then
+        curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+    fi
+    if [ ! -e ~/.emacs.d ]; then
+        git clone https://github.com/3tty0n/.emacs.d.git ~/.emacs.d
+    fi
+    pushd ~/.emacs.d
+    cask upgrade
+    cask
+    popd
 }
 
 brew_bundle () {
-  if [ ! -x "$(which brew)" ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-  cd brew || exit
-  printf "tapping brew bundle...\n"
-  (brew tap Homebrew/bundle)>/dev/null
-  printf "installing brew packages...\n"
-  (brew bundle)>/dev/null
+    if [ ! -x "$(which brew)" ]; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+    pushd brew
+    printf "tapping brew bundle...\n"
+    (brew tap Homebrew/bundle)>/dev/null
+    printf "installing brew packages...\n"
+    (brew bundle)>/dev/null
+    popd
+}
+
+TMUX_FLG=false
+EMACS_FLG=false
+VIM_FLG=false
+BREW_FLG=false
+ZSH_FLG=false
+DOTFILES_FLG=false
+
+make_all_flgs_true () {
+    TMUX_FLG=true
+    EMACS_FLG=true
+    VIM_FLG=true
+    BREW_FLG=true
+    ZSH_FLG=true
+    DOTFILES_FLG=true
 }
 
 for OPT in "$@"
 do
-  case $OPT in
-    '-h' )
-      usage
-      ;;
-    '-s' )
-      create_symlink
-      ;;
-    '-b' )
-      brew_bundle
-      ;;
-    '-z' )
-      setup_zplug
-      ;;
-    '-d' )
-      setup_dein
-      ;;
-    '-a' )
-      create_symlink
-      setup_zplug
-      brew_bundle
-      ;;
-    -*)
-        echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
-        exit 1
-        ;;
-    *)
-        if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
-            #param=( ${param[@]} "$1" )
-            param+=( "$1" )
+    case $OPT in
+        '-h' | '--help' )
+            usage
+            exit 1
+            ;;
+        '-s' | '--dotfiles' )
+            DOTFILES_FLG=true
             shift 1
-        fi
-  esac
-  shift
+            ;;
+        '-b' | '--brew' )
+            BREW_FLG=true
+            shift 1
+            ;;
+        '-z' | '--zsh' )
+            ZSH_FLG=true
+            shift 1
+            ;;
+        '-v' | '--vim' )
+            VIM_FLG=true
+            ;;
+        '-e' | '--emacs' )
+            EMACS_FLG=true
+            ;;
+        '-t' | '--tmux' )
+            TMUX_FLG=true
+            ;;
+        '-a' | '--all' )
+            make_all_flgs_true
+            shift 1
+            ;;
+        -*)
+            echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
+            exit 1
+            ;;
+        *)
+            if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+                #param=( ${param[@]} "$1" )
+                param+=( "$1" )
+                shift 1
+            fi
+            ;;
+    esac
 done
+
+$TMUX_FLG && setup_tmux
+$EMACS_FLG && setup_emacs
+$VIM_FLG && setup_vim
+$BREW_FLG && setup_brew
+$ZSH_FLG && setup_zplug
+$DOTFILES_FLG && create_symlink
