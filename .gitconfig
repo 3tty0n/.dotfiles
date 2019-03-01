@@ -2,9 +2,11 @@
   name	= Yusuke Izawa
   email = yuizalp@gmail.com
 [filter "lfs"]
-  clean     = git lfs clean %f
-  smudge    = git lfs smudge %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   require   = true
+  process = git-lfs filter-process
+  required = true
 [core]
   excludesfile  = ~/.gitignore_global
   editor        = vim
