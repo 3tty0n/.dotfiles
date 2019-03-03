@@ -46,7 +46,7 @@ zplug "~/.zsh/util", from:local
 ##### theme #######
 ###################
 
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, as:theme
+# zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme, as:theme
 
 if zplug check "bhilburn/powerlevel9k"; then
     # powerlevel9k setting
@@ -65,7 +65,7 @@ if zplug check "bhilburn/powerlevel9k"; then
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv)
 fi
 
-# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, as:theme
 
 # zplug "mafredri/zsh-async"
 # zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme

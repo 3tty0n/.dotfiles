@@ -10,11 +10,7 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+  call dein#add('neomake/neomake')
 
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
@@ -30,9 +26,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-airline/vim-airline')
 
   call dein#add('lervag/vimtex')
-
-  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-  call dein#add(g:opamshare . "/merlin/vim", {'lazy': 1, 'on_ft': 'ocaml', 'on_event': 'InsertEnter'})
 
   call dein#end()
   call dein#save_state()
@@ -56,9 +49,9 @@ set visualbell " visualize bell
 
 " Tab configuration
 set list listchars=tab:\▸\-
-" set expandtab
-set tabstop=4
-set shiftwidth=4
+set expandtab
+set tabstop=2
+set shiftwidth=2
 set smartindent
 
 " search configuration
@@ -73,8 +66,8 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set showmatch
 
 " cursor
-set whichwrap=b,s,h,l,<,>,[,],~ 
-set number 
+set whichwrap=b,s,h,l,<,>,[,],~
+set number
 set cursorline
 
 " backspace
@@ -97,6 +90,8 @@ let g:badwolf_darkgutter = 1
 
 " {{{ # VimFiler
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_ignore_pattern = '^\%(.git\|.DS_Store\)$'
+
 noremap <C-X><C-T> :VimFiler -split -simple -winwidth=30 -toggle -no-quit<ENTER>
 autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 " Automatically open vimfiler on start
@@ -112,11 +107,9 @@ let g:ale_completion_enabled = 1
 " }}}
 
 " {{{ # Auto completion
-let g:deoplete#enable_at_startup = 1
-
-inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-        \ neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+" call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+let g:neomake_open_list = 2
 " }}}
 
 " {{{ # Snippet
@@ -147,7 +140,7 @@ let g:vimtex_compiler_latexmk = {
       \ 'build_dir': '',
       \ 'continuous': 1,
       \ 'options': [
-      \    '-pdfdvi', 
+      \    '-pdfdvi',
       \    '-verbose',
       \    '-file-line-error',
       \    '-synctex=1',
@@ -158,4 +151,10 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_view_general_viewer
       \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
+" }}}
+
+" {{{ # OCaml
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+execute "helptags " . substitute(system('opam config var share'),'\n$','','''') .  "/merlin/vim/doc"
 " }}}

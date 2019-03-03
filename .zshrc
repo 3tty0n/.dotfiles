@@ -71,17 +71,17 @@ test -r "${HOME}"/.opam/opam-init/init.zsh && \
 
 # shell integration
 if [[ $EMACS = t ]]; then
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && \
-  source "${HOME}/.iterm2_shell_integration.zsh"
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+        source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
 # tmux-powerline
 function mute_powerline_left {
-	bash ~/.tmux/tmux-powerline/mute_powerline.sh left
+    bash ~/.tmux/tmux-powerline/mute_powerline.sh left
 }
 
 function mute_powerline_right {
-	bash ~/.tmux/tmux-powerline/mute_powerline.sh right
+    bash ~/.tmux/tmux-powerline/mute_powerline.sh right
 }
 
 zle -N mute_powerline_left
