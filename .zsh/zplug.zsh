@@ -38,7 +38,7 @@ zplug "k4rthik/git-cal", as:command
 
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
-# zplug "jonmosco/kube-ps1", use:kube-ps1.sh, as:theme
+zplug "hlissner/zsh-autopair", defer:2
 
 zplug "~/.zsh/util", from:local
 

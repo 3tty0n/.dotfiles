@@ -27,6 +27,9 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('lervag/vimtex')
 
+  " toml
+  call dein#add('cespare/vim-toml')
+
   call dein#end()
   call dein#save_state()
 endif
