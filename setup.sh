@@ -43,7 +43,7 @@ usage () {
   echo "  -d  --dotfiles     make symbolik links"
   echo "  -z  --zsh          setup zsh plugins managed by zplug"
   echo "  -v  --vim          setup the environment for vim"
-  echo "  -e  --emacs        setup the environment for emacs"
+  echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
   echo "  -a  --all          execute all instructions"
   exit 0
 }
@@ -81,16 +81,9 @@ setup_vim () {
 }
 
 setup_emacs () {
-    if [ ! -x "$(which cask)" ]; then
-        curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-    fi
     if [ ! -e ~/.emacs.d ]; then
         git clone https://github.com/3tty0n/.emacs.d.git ~/.emacs.d
     fi
-    pushd ~/.emacs.d
-    cask upgrade
-    cask
-    popd
 }
 
 brew_bundle () {
