@@ -25,7 +25,14 @@ if dein#load_state('~/.cache/dein')
   call dein#add('sjl/badwolf')
   call dein#add('vim-airline/vim-airline')
 
-  call dein#add('lervag/vimtex')
+  " lsp
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('prabirshrestha/asyncomplete.vim')
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+  call dein#add('yami-beta/asyncomplete-omni.vim')
+
+  " latex
 
   " toml
   call dein#add('cespare/vim-toml')
@@ -110,9 +117,24 @@ let g:ale_completion_enabled = 1
 " }}}
 
 " {{{ # Auto completion
-" call neomake#configure#automake('rw', 1000)
-" Full config: when writing or reading a buffer, and on changes in insert and
-let g:neomake_open_list = 2
+ 
+" asyncomplete
+let g:asyncomplete_remove_duplicates = 1
+
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+
+set completeopt+=preview
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" omni completion
+call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+\ 'name': 'omni',
+\ 'whitelist': ['*'],
+\ 'blacklist': ['c', 'cpp', 'html'],
+\ 'completor': function('asyncomplete#sources#omni#completor')
+\  }))
 " }}}
 
 " {{{ # Snippet
@@ -157,7 +179,12 @@ let g:vimtex_view_general_options = '-r @line @pdf @tex'
 " }}}
 
 " {{{ # OCaml
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-execute "helptags " . substitute(system('opam config var share'),'\n$','','''') .  "/merlin/vim/doc"
+" lsp
+if executable('ocaml-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'ocaml-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocaml-language-server --stdio']},
+        \ 'whitelist': ['reason', 'ocaml'],
+        \ })
+endif
 " }}}
