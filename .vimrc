@@ -25,6 +25,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('sjl/badwolf')
   call dein#add('vim-airline/vim-airline')
 
+  " skk
+  call dein#add('tyru/eskk.vim')
+
   " lsp
   call dein#add('prabirshrestha/async.vim')
   call dein#add('prabirshrestha/vim-lsp')
@@ -187,4 +190,13 @@ if executable('ocaml-language-server')
         \ 'whitelist': ['reason', 'ocaml'],
         \ })
 endif
+" }}}
+
+" {{{ # vim.skk
+let g:eskk#large_dictionary = {
+\	'path': "~/.SKK-JISYO.L",
+\	'sorted': 1,
+\	'encoding': 'euc-jp',
+\}
+
 " }}}
