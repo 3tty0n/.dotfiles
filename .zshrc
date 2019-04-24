@@ -116,8 +116,8 @@ test -r "${HOME}"/.opam/opam-init/init.zsh && \
 
 # {{{ Shell integration
 if [[ $EMACS = t ]]; then
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && \
-        source "${HOME}/.iterm2_shell_integration.zsh"
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && \
+    source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 # }}}
 
@@ -149,5 +149,15 @@ type fzy >/dev/null 2>&1 && j() {
 # }}}
 
 # {{{ Load local zshrc
+# emacs
+function estart() {
+  if ! emacsclient -e 0 > /dev/null 2>&1; then
+    cd > /dev/null 2>&1
+    emacs --daemon
+    cd - > /dev/null 2>&1
+  fi
+}
+
+# load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
 # }}}
