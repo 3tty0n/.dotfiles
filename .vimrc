@@ -10,7 +10,6 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('neomake/neomake')
 
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
@@ -111,6 +110,7 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 " autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
 " If no files are specified, open vimfiler
 autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
+
 " }}}
 
 " {{{ # Syntax checking
