@@ -1,3 +1,4 @@
+# {{{ Zplugin setup
 if [ ! -d $HOME/.zplugin ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
@@ -8,45 +9,43 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin's installer chunk
 
-### Zsh plugins start
+# }}}
 
+# {{{ Zplugin plugin configurations
 zplugin load zdharma/history-search-multi-word
 
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
 
-zplugin ice from"gh-r" as"program"; zplugin load motemen/ghq
+zplugin light zsh-users/zsh-autosuggestions
 
-zplugin ice wait'!0'; zplugin light zsh-users/zsh-autosuggestions
-
-zplugin ice wait'!0'; zplugin light zdharma/fast-syntax-highlighting
+zplugin light zdharma/fast-syntax-highlighting
 
 zplugin load zsh-users/zsh-history-substring-search
 
-zplugin ice wait'!0'; zplugin load zsh-users/zsh-completions
+zplugin load zsh-users/zsh-completions
 
-zplugin ice wait'!0'; zplugin load hlissner/zsh-autopair
+zplugin load hlissner/zsh-autopair
 
 zplugin ice src"z.sh"; zplugin light rupa/z
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
-zplugin ice src"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
+zplugin ice pick"spaceship.zsh" wait'!0'; zplugin light denysdovhan/spaceship-prompt
 
 zplugin creinstall -q $HOME/.zsh/completion
 
 zplugin ice src"util.zsh"; zplugin light $HOME/.zsh/util
+# }}}
 
-
-### Zsh plugins end
-
-# terminal settings for emacs
+# {{{ Terminal settings for emacs
 if [ "$EMACS" ]; then
   export TERM=xterm-256color
 fi
+# }}}
 
-# internal settings
+# {{{ Options
 setopt auto_menu
 setopt auto_cd
 setopt auto_list
@@ -63,7 +62,9 @@ setopt no_tify
 setopt list_types
 setopt share_history
 setopt list_packed
+# }}}
 
+#  {{{ Aliases
 alias dc=cd
 alias cdu='cd-gitroot'
 alias md='mkdir'
@@ -98,22 +99,26 @@ case "${OSTYPE}" in
     alias la='ls -la --color'
   ;;
 esac
+# }}}
 
-# OPAM
+# {{{  OPAM
 test -r "${HOME}"/.opam/opam-init/init.zsh && \
   . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# }}}
 
-# shell integration
+# {{{ Shell integration
 if [[ $EMACS = t ]]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && \
         source "${HOME}/.iterm2_shell_integration.zsh"
 fi
+# }}}s
 
-# history-substring-search
+# {{{ history-substring-search
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+# }}}
 
-# tmux-powerline
+# {{{ tmux-powerline
 function mute_powerline_left {
   bash ~/.tmux/tmux-powerline/mute_powerline.sh left
 }
@@ -126,11 +131,15 @@ zle -N mute_powerline_left
 zle -N mute_powerline_right
 bindkey '^[' mute_powerline_left
 bindkey '^]' mute_powerline_right
+# }}}
 
+# {{{ Z + Fuzzy finder
 type fzy >/dev/null 2>&1 && j() {
   local recentd
   z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
 }
+# }}}
 
-# load local zshrc
+# {{{ Load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
+# }}}
