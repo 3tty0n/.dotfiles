@@ -56,8 +56,3 @@ __ghq() {
 
 zle -N __ghq
 bindkey "^g" __ghq
-
-type fzy >/dev/null 2>&1 && j() {
-  local recentd
-  z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
-}

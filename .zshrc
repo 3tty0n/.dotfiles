@@ -12,8 +12,7 @@ autoload -Uz _zplugin
 
 zplugin load zdharma/history-search-multi-word
 
-zplugin ice compile"*.lzui" from"notabug"
-zplugin load zdharma/zui
+zplugin ice compile"*.lzui" from"notabug"; zplugin load zdharma/zui
 
 # Binary release in archive, from Github-releases page; after automatic unpacking it provides program "fzf"
 
@@ -27,11 +26,20 @@ zplugin light zsh-users/zsh-autosuggestions
 
 zplugin light zdharma/fast-syntax-highlighting
 
+zplugin load zsh-users/zsh-history-substring-search
+
+zplugin light zsh-users/zsh-completions
+
+zplugin ice src"z.sh"; zplugin light rupa/z
+
+zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
+
 zplugin ice src"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
 
 zplugin creinstall $HOME/.zsh/completion
 
-zplugin ice src"ghq.zsh"; zplugin load $HOME/.zsh/util
+zplugin ice src"util.zsh"; zplugin light $HOME/.zsh/util
+
 
 ### Zsh plugins end
 
@@ -103,6 +111,10 @@ if [[ $EMACS = t ]]; then
         source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
+# history-substring-search
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
 # tmux-powerline
 function mute_powerline_left {
   bash ~/.tmux/tmux-powerline/mute_powerline.sh left
@@ -116,6 +128,11 @@ zle -N mute_powerline_left
 zle -N mute_powerline_right
 bindkey '^[' mute_powerline_left
 bindkey '^]' mute_powerline_right
+
+type fzy >/dev/null 2>&1 && j() {
+  local recentd
+  z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
+}
 
 # load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
