@@ -1,39 +1,11 @@
-if [ ! -d $HOME/.zplugin ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug.git ~/.zplug
+    source ~/.zplug/init.zsh && zplug update
 fi
 
-### Added by Zplugin's installer
-source '/Users/izawa/.zplugin/bin/zplugin.zsh'
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin's installer chunk
-
-### Zsh plugins start
-
-zplugin load zdharma/history-search-multi-word
-
-zplugin ice compile"*.lzui" from"notabug"
-zplugin load zdharma/zui
-
-# Binary release in archive, from Github-releases page; after automatic unpacking it provides program "fzf"
-
-zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
-
-zplugin ice atclone"make" as"program" pick"$ZPFX/fzy"; zplugin load jhawthorn/fzy
-
-zplugin ice from"gh-r" as"program"; zplugin load motemen/ghq
-
-zplugin light zsh-users/zsh-autosuggestions
-
-zplugin light zdharma/fast-syntax-highlighting
-
-zplugin ice src"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
-
-zplugin creinstall $HOME/.zsh/completion
-
-zplugin ice src"ghq.zsh"; zplugin load $HOME/.zsh/util
-
-### Zsh plugins end
+source ~/.zplug/init.zsh
+source ~/.zsh/zplug.zsh
+# source ~/.dotfiles/scripts/tmux.sh
 
 # terminal settings for emacs
 if [ "$EMACS" ]; then
@@ -105,11 +77,11 @@ fi
 
 # tmux-powerline
 function mute_powerline_left {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh left
+    bash ~/.tmux/tmux-powerline/mute_powerline.sh left
 }
 
 function mute_powerline_right {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh right
+    bash ~/.tmux/tmux-powerline/mute_powerline.sh right
 }
 
 zle -N mute_powerline_left
