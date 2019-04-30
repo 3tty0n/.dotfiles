@@ -12,23 +12,21 @@ autoload -Uz _zplugin
 
 zplugin load zdharma/history-search-multi-word
 
-zplugin ice compile"*.lzui" from"notabug"; zplugin load zdharma/zui
-
-# Binary release in archive, from Github-releases page; after automatic unpacking it provides program "fzf"
-
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
 
-zplugin ice atclone"make" as"program" pick"$ZPFX/fzy"; zplugin load jhawthorn/fzy
+zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
 
 zplugin ice from"gh-r" as"program"; zplugin load motemen/ghq
 
-zplugin light zsh-users/zsh-autosuggestions
+zplugin ice wait'!0'; zplugin light zsh-users/zsh-autosuggestions
 
-zplugin light zdharma/fast-syntax-highlighting
+zplugin ice wait'!0'; zplugin light zdharma/fast-syntax-highlighting
 
 zplugin load zsh-users/zsh-history-substring-search
 
-zplugin light zsh-users/zsh-completions
+zplugin ice wait'!0'; zplugin load zsh-users/zsh-completions
+
+zplugin ice wait'!0'; zplugin load hlissner/zsh-autopair
 
 zplugin ice src"z.sh"; zplugin light rupa/z
 
@@ -36,7 +34,7 @@ zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light 
 
 zplugin ice src"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
 
-zplugin creinstall $HOME/.zsh/completion
+zplugin creinstall -q $HOME/.zsh/completion
 
 zplugin ice src"util.zsh"; zplugin light $HOME/.zsh/util
 
