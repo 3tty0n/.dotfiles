@@ -16,6 +16,12 @@ zplugin load zdharma/history-search-multi-word
 
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
 
+zplugin ice lucid from"gh-r" wait"0" as"program" bpick"*darwin_amd*" mv"*darwin*/ghq -> ${ZPFX}/bin/ghq"
+zplugin light motemen/ghq
+
+zplugin ice lucid from"gh-r" wait"0" as"program" bpick"*darwin*" mv"*darwin*/bin/hub -> ${ZPFX}/bin/hub"
+zplugin light github/hub
+
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
 
 zplugin light zsh-users/zsh-autosuggestions
@@ -111,7 +117,7 @@ if [[ $EMACS = t ]]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && \
         source "${HOME}/.iterm2_shell_integration.zsh"
 fi
-# }}}s
+# }}}
 
 # {{{ history-substring-search
 bindkey -M emacs '^P' history-substring-search-up
