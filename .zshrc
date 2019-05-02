@@ -16,10 +16,10 @@ zplugin load zdharma/history-search-multi-word
 
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
 
-zplugin ice lucid from"gh-r" wait"0" as"program" bpick"*darwin_amd*" mv"*darwin*/ghq -> ${ZPFX}/bin/ghq"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin_amd*" mv"*darwin*/ghq -> ${ZPFX}/bin/ghq"
 zplugin light motemen/ghq
 
-zplugin ice lucid from"gh-r" wait"0" as"program" bpick"*darwin*" mv"*darwin*/bin/hub -> ${ZPFX}/bin/hub"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin*" mv"*darwin*/bin/hub -> ${ZPFX}/bin/hub"
 zplugin light github/hub
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
@@ -38,7 +38,8 @@ zplugin ice src"z.sh"; zplugin light rupa/z
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
-zplugin ice pick"spaceship.zsh" wait'!0'; zplugin light denysdovhan/spaceship-prompt
+zplugin ice pick"spaceship.zsh"
+zplugin light denysdovhan/spaceship-prompt
 
 zplugin creinstall -q $HOME/.zsh/completion
 
@@ -72,7 +73,6 @@ setopt list_packed
 
 #  {{{ Aliases
 alias dc=cd
-alias cdu='cd-gitroot'
 alias md='mkdir'
 alias rm='rm -ri'
 alias l='ls -1a'
