@@ -36,6 +36,8 @@ zplugin load hlissner/zsh-autopair
 
 zplugin ice src"z.sh"; zplugin light rupa/z
 
+zplugin ice wait"!1"; zplugin light changyuheng/fz
+
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
 zplugin ice pick"spaceship.zsh"
