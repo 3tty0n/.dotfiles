@@ -35,6 +35,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('yami-beta/asyncomplete-omni.vim')
 
   " latex
+  call dein#add('lervag/vimtex')
 
   " toml
   call dein#add('cespare/vim-toml')
