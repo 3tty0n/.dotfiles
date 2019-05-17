@@ -1,6 +1,6 @@
 # Default configuration file for tmux-powerline.
 # Modeline {
-#	 vi: foldmarker={,} foldmethod=marker foldlevel=0 tabstop=4 filetype=sh
+	 vi: foldmarker={,} foldmethod=marker foldlevel=0 tabstop=2 filetype=sh
 # }
 
 # General {
@@ -130,7 +130,7 @@
 
 # pwd.sh {
 	# Maximum length of output.
-	export TMUX_POWERLINE_SEG_PWD_MAX_LEN="40"
+	export TMUX_POWERLINE_SEG_PWD_MAX_LEN="20"
 # }
 
 # time.sh {

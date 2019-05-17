@@ -1,4 +1,4 @@
-# {{{ Zplugin setup
+# {{{ Zplugin: setup
 if [ ! -d $HOME/.zplugin ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
@@ -11,7 +11,7 @@ autoload -Uz _zplugin
 
 # }}}
 
-# {{{ Zplugin plugin configurations
+# {{{ Zplugin: plugin configurations
 zplugin load zdharma/history-search-multi-word
 
 zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
