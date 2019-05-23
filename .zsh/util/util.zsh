@@ -56,3 +56,7 @@ __ghq() {
 
 zle -N __ghq
 bindkey "^g" __ghq
+
+function cdu() {
+  cd $(git rev-parse --show-toplevel)
+}

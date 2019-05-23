@@ -142,9 +142,9 @@ bindkey '^]' mute_powerline_right
 # }}}
 
 # {{{ Z + Fuzzy finder
-type fzy >/dev/null 2>&1 && j() {
+type fzf >/dev/null 2>&1 && j() {
   local recentd
-  z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
+  z -l | tail -r | awk '{ print $2 }' | fzf | read recentd && cd $recentd
 }
 # }}}
 
