@@ -28,11 +28,11 @@ zplugin light zsh-users/zsh-autosuggestions
 
 zplugin light zdharma/fast-syntax-highlighting
 
-zplugin load zsh-users/zsh-history-substring-search
+zplugin light zsh-users/zsh-history-substring-search
 
-zplugin load zsh-users/zsh-completions
+zplugin light zsh-users/zsh-completions
 
-zplugin load hlissner/zsh-autopair
+zplugin light hlissner/zsh-autopair
 
 zplugin ice src"z.sh"; zplugin light rupa/z
 
@@ -121,43 +121,6 @@ if [[ $EMACS = t ]]; then
 fi
 # }}}
 
-# {{{ history-substring-search
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-# }}}
-
-# {{{ tmux-powerline
-function mute_powerline_left {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh left
-}
-
-function mute_powerline_right {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh right
-}
-
-zle -N mute_powerline_left
-zle -N mute_powerline_right
-bindkey '^[' mute_powerline_left
-bindkey '^]' mute_powerline_right
-# }}}
-
-# {{{ Z + Fuzzy finder
-type fzf >/dev/null 2>&1 && j() {
-  local recentd
-  z -l | tail -r | awk '{ print $2 }' | fzf | read recentd && cd $recentd
-}
-# }}}
-
 # {{{ Load local zshrc
-# emacs
-function estart() {
-  if ! emacsclient -e 0 > /dev/null 2>&1; then
-    cd > /dev/null 2>&1
-    emacs --daemon
-    cd - > /dev/null 2>&1
-  fi
-}
-
-# load local zshrc
 test -f ~/.zshrc.local && source ~/.zshrc.local
 # }}}
