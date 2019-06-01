@@ -12,14 +12,32 @@ autoload -Uz _zplugin
 # }}}
 
 # {{{ Zplugin: plugin configurations
+unset BTYPE ARCH
+
+case $OSTYPE in
+  darwin*)
+    BTYPE=darwin
+    ARCH=amd
+    ;;
+  linux*)
+    BTYPE="linux"
+    case arch in
+      i686)
+        ARCH="386"
+        ;;
+    esac
+    ;;
+esac
+
 zplugin load zdharma/history-search-multi-word
 
-zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
+zplugin ice from"gh-r" as"program" bpick"*{BTYPE}*"
+zplugin load junegunn/fzf-bin
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin_amd*" mv"*darwin*/ghq -> ${ZPFX}/bin/ghq"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${BTYPE}*${ARCH}*" mv"*${BTYPE}*/ghq -> ${ZPFX}/bin/ghq"
 zplugin light motemen/ghq
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin*" mv"*darwin*/bin/hub -> ${ZPFX}/bin/hub"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${BTYPE}*${ARCH}*" mv"*${BTYPE}*/bin/hub -> ${ZPFX}/bin/hub"
 zplugin light github/hub
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
