@@ -28,9 +28,16 @@ case $OSTYPE in
     zplugin ice wait"!1"; zplugin light changyuheng/fz
     ;;
   linux*)
-      zplugin ice lucid from"gh-r" as"program" bpick"*linux*"
+    if [[ `arch` == "i686" ]]; then
+      zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*" mv"*linux*386*/bin/hub -> ${ZPFX}/bin/hub"
+      zplugin light github/hub
+
+      zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*"
       zplugin light junegunn/fzf-bin
 
+      zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*" mv"*linux*386*/ghq -> ${ZPFX}/bin/ghq"
+      zplugin light motemen/ghq
+    fi
 esac
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
