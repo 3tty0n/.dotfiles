@@ -27,6 +27,10 @@ case $OSTYPE in
 
     zplugin ice wait"!1"; zplugin light changyuheng/fz
     ;;
+  linux*)
+      zplugin ice lucid from"gh-r" as"program" bpick"*linux*"
+      zplugin light junegunn/fzf-bin
+
 esac
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
