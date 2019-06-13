@@ -5,7 +5,6 @@ DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 declare -a dotfiles=()
 declare -a dotfiles=(
     .vimrc
-    .vimrc.local.vim
     .tmux.conf
     .gitconfig
     .gitignore_global
@@ -21,6 +20,7 @@ declare -a dotfiles=(
     .spacemacs
     .utoprc
     .SpaceVim.d
+    .ocamlinit
 )
 
 declare -a vimfiles=()
