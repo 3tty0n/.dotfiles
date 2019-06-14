@@ -198,6 +198,10 @@ if executable('ocaml-language-server')
         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocaml-language-server --stdio']},
         \ 'whitelist': ['reason', 'ocaml'],
         \ })
+else
+  " merlin
+  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
 " }}}
 
