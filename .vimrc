@@ -21,7 +21,7 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('w0rp/ale')
 
-  call dein#add('sjl/badwolf')
+  call dein#add('flazz/vim-colorschemes')
   call dein#add('vim-airline/vim-airline')
 
   " skk
@@ -104,7 +104,7 @@ syntax enable
 
 " {{{ # color
 syntax on
-colorscheme badwolf
+colorscheme molokai
 highlight Normal ctermbg=none
 let g:badwolf_darkgutter = 1
 " }}}
