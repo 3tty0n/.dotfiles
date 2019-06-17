@@ -47,6 +47,10 @@ install_ricty () {
             cp -f /usr/local/share/fonts/Ricty*.ttf ~/Library/Fonts
             fc-cache -vf
             ;;
+        linux* )
+            sudo apt install fonts-ricty-diminished  
+            fc-cache -fv
+            ;;
     esac
 }
 
