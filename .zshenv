@@ -75,8 +75,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-export PATH="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home/bin:$PATH"
-export JAVA_HOME="$HOME/share/graalvm-ce-1.0.0-rc8/Contents/Home"
+export PATH="$HOME/share/graalvm-ce-19.0.2/Contents/Home/bin:$PATH"
+export PATH="$HOME/share/graalvm-ce-19.0.2/Contents/Home/jre/languages/js/bin:$PATH"
+export JAVA_HOME="$HOME/share/graalvm-ce-29.0.2/Contents/Home"
 
 # less
 if [[ "`which src-highlight-lesspipe.sh`" ]]; then
