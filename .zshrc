@@ -12,49 +12,32 @@ autoload -Uz _zplugin
 # }}}
 
 # {{{ Zplugin: plugin configurations
+architect=""
+case `uname -m` in
+  i386|i686) architect="386";;
+  x86_64) architect="amd";;
+esac
+ostype=""
+case $OSTYPE in
+  darwin*) ostype="darwin";;
+  linux*) ostype="linux";;
+esac
+
 zplugin load zdharma/history-search-multi-word
 
-case $OSTYPE in
-  darwin*)
-    zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin*amd*" mv"*darwin*/bin/hub -> ${ZPFX}/bin/hub"
-    zplugin light github/hub
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${ostype}*${archtect}*" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
+zplugin light github/hub
 
-    zplugin ice from"gh-r" as"program" bpick"*darwin*amd"
-    zplugin load junegunn/fzf-bin
+zplugin ice from"gh-r" as"program" bpick"*${ostype}*${architect}"
+zplugin load junegunn/fzf-bin
 
-    zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*darwin*amd*" mv"*darwin*/ghq -> ${ZPFX}/bin/ghq"
-    zplugin light motemen/ghq
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${ostype}*${architect}*" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
+zplugin light motemen/ghq
 
-    zplugin ice wait"!1"; zplugin light changyuheng/fz
-    ;;
-  linux*)
-    case `arch` in
-      i686)
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*" mv"*linux*386*/bin/hub -> ${ZPFX}/bin/hub"
-        zplugin light github/hub
+zplugin ice lucid from"gh-r" as"program" bpick"*${ostype}*${architect}*" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
+zplugin light b4b4r07/gist
 
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*"
-        zplugin light junegunn/fzf-bin
-
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*386*" mv"*linux*386*/ghq -> ${ZPFX}/bin/ghq"
-        zplugin light motemen/ghq
-
-        zplugin ice wait"!1"; zplugin light changyuheng/fz
-        ;;
-      x86_64)
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*amd*" mv"*linux*xamd*/bin/hub -> ${ZPFX}/bin/hub"
-        zplugin light github/hub
-
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*amd*"
-        zplugin light junegunn/fzf-bin
-
-        zplugin ice lucid from"gh-r" as"program" bpick"*linux*amd*" mv"*linux*amd*/ghq -> ${ZPFX}/bin/ghq"
-        zplugin light motemen/ghq
-
-        zplugin ice wait"!1"; zplugin light changyuheng/fz
-        ;;
-    esac
-esac
+zplugin ice wait"!1"; zplugin light changyuheng/fz
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
 
@@ -112,6 +95,7 @@ alias rm='rm -ri'
 alias l='ls -1a'
 alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
+alias emacsnw='emacs -nw'
 alias g='git'
 alias t='tig'
 alias ta='tig --all'
