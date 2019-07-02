@@ -30,11 +30,10 @@ spinner() {
 }
 
 install () {
-  { if [ ! -d ~/.dotfiles ];then
-      git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
-    fi
-    git checkout $BRANCH && ./setup.sh -a
-  }  &>/dev/null
+  if [ ! -d ~/.dotfiles ];then
+    git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
+  fi
+  cd ~/.dotfiles/ && ./setup.sh -s
 }
 
 trap 'echo ' {1,2,3,15}
@@ -44,14 +43,6 @@ for OPT in "$@"; do
     '-h'| '--help' )
       usage
       exit 1
-      ;;
-    '-m' | '--master' )
-      BRANCH=master
-      shift 1
-      ;;
-    '-d' | '--develop' )
-      BRANCH=develop
-      shift 1
       ;;
     '--'|'-' )
       shift 1
