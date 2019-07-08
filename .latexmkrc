@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 if ($^O eq 'MSWin32') {
-  $latex = 'uplatex %O -kanji=utf8 -no-guess-input-enc -synctex=1 -interaction=nonstopmode %S';
+  $latex = 'platex %O -kanji=utf8 -no-guess-input-enc -synctex=1 -interaction=nonstopmode %S';
   $pdflatex = 'pdflatex %O -synctex=1 -interaction=nonstopmode %S';
   $lualatex = 'lualatex -cmdx %O -synctex=1 -interaction=nonstopmode %S';
   $xelatex = 'xelatex %O -synctex=1 -interaction=nonstopmode %S';
@@ -19,12 +19,12 @@ if ($^O eq 'MSWin32') {
     $pdf_previewer = 'texworks';
   }
 } else {
-  $latex = 'uplatex %O -shell-escape -synctex=1 -interaction=nonstopmode %S';
+  $latex = 'platex %O -kanji=utf8 -shell-escape -synctex=1 -interaction=nonstopmode %S';
   $pdflatex = 'pdflatex %O -shell-escape -synctex=1 -interaction=nonstopmode %S';
   $lualatex = 'lualatex %O -shell-escape -synctex=1 -interaction=nonstopmode %S';
   $xelatex = 'xelatex %O -shell-escape -synctex=1 -interaction=nonstopmode %S';
   $biber = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B';
-  $bibtex = 'upbibtex %O %B';
+  $bibtex = 'pbibtex %O %B';
   $makeindex = 'upmendex %O -o %D %S';
   $dvipdf = 'dvipdfmx %O -o %D %S';
   $dvips = 'dvips %O -z -f %S | convbkmk -u > %D';
