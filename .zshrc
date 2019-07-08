@@ -109,7 +109,8 @@ alias en='emacs -nw'
 alias kb='kubectl'
 
 # use 'hightlihgt' in place of 'cat'
-alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+[[ -x "`which highlight`" ]] && \
+  alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
 
 case "${OSTYPE}" in
   darwin* )
