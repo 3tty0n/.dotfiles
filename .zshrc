@@ -22,22 +22,23 @@ case $OSTYPE in
   darwin*) ostype="darwin";;
   linux*) ostype="linux";;
 esac
+binary="*${ostype}*${architect}*"
 
 zplugin load zdharma/history-search-multi-word
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${ostype}*${archtect}*" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
 zplugin light github/hub
 
-zplugin ice lucid from"gh-r" as"program" bpick"*${ostype}*${architect}*"
+zplugin ice lucid from"gh-r" as"program" bpick"${binary}"
 zplugin load junegunn/fzf-bin
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"*${ostype}*${architect}*" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
+zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
 zplugin light motemen/ghq
 
-zplugin ice lucid from"gh-r" as"program" bpick"*${ostype}*${architect}*" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
+zplugin ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
 zplugin light b4b4r07/gist
 
-zplugin ice wait"!1"; zplugin light changyuheng/fz
+zplugin ice wait"!0"; zplugin light changyuheng/fz
 
 zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
 

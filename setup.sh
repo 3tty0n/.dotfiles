@@ -68,14 +68,16 @@ setup_emacs () {
 }
 
 brew_bundle () {
-  if [ ! -x "$(which brew)" ]; then
+  [ `uname` != "Darwin" ] && exit 0
+
+  [ ! -x "$(which brew)" ] && \
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
+
   pushd brew
   printf "tapping brew bundle...\n"
-  (brew tap Homebrew/bundle)>/dev/null
+  brew tap Homebrew/bundle
   printf "installing brew packages...\n"
-  (brew bundle)>/dev/null
+  brew bundle
   popd
 }
 

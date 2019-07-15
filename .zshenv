@@ -94,3 +94,6 @@ case "${OSTYPE}" in
     export PATH="$JAVA_HOME:$PATH"
     ;;
 esac
+
+# cabal
+export PATH="$HOME/.cabal/bin:$PATH"
