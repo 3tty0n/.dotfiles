@@ -82,21 +82,6 @@ type fzy >/dev/null 2>&1 && j() {
   z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
 }
 
-# {{{ tmux-powerline
-function mute_powerline_left {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh left
-}
-
-function mute_powerline_right {
-  bash ~/.tmux/tmux-powerline/mute_powerline.sh right
-}
-
-zle -N mute_powerline_left
-zle -N mute_powerline_right
-bindkey '^[' mute_powerline_left
-bindkey '^]' mute_powerline_right
-# }}}
-
 # {{{ history-substring-search
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
