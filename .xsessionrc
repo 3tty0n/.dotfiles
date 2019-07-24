@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ibus-daemon &
+
+if [ -f ~/.Xmodmap ]; then
+  xmodmap ~/.Xmodmap
+fi
+
+feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png &
