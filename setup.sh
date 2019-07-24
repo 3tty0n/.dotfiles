@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -eu
+
 DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
 declare -a dotfiles=()
@@ -40,6 +42,7 @@ usage () {
   echo "  -z  --zsh          setup zsh plugins managed by zplug"
   echo "  -v  --vim          setup the environment for vim"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
+  echo "  -x                 setup for X window system and XMonad"
   echo "  -a  --all          execute all instructions"
   exit 0
 }
@@ -81,16 +84,10 @@ brew_bundle () {
   popd
 }
 
-EMACS_FLG=false
-BREW_FLG=false
-ZSH_FLG=false
-DOTFILES_FLG=false
-
-make_all_flgs_true () {
-  EMACS_FLG=true
-  BREW_FLG=true
-  ZSH_FLG=true
-  DOTFILES_FLG=true
+function setup_x {
+  for f in .xmonad .Xmodmap .xmobarrc .xsessionrc; do
+    ln -sf ~/.dotfiles/$f ~/
+  done
 }
 
 for OPT in "$@"
@@ -101,21 +98,23 @@ do
       exit 1
       ;;
     '-s' | '--dotfiles' )
-      DOTFILES_FLG=true
+      create_symlink
       shift 1
       ;;
     '-b' | '--brew' )
-      BREW_FLG=true
+      setup_brew
       shift 1
       ;;
     '-v' | '--vim' )
-      VIM_FLG=true
+      setup_vim
+      shift 1
       ;;
     '-e' | '--emacs' )
-      EMACS_FLG=true
+      setup_emacs
+      shift 1
       ;;
-    '-a' | '--all' )
-      make_all_flgs_true
+    '-x' )
+      setup_x
       shift 1
       ;;
     -*)
@@ -131,9 +130,3 @@ do
       ;;
   esac
 done
-
-$EMACS_FLG && setup_emacs
-$VIM_FLG && setup_vim
-$BREW_FLG && setup_brew
-$ZSH_FLG && setup_zplug
-$DOTFILES_FLG && create_symlink
