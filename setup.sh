@@ -4,33 +4,6 @@ set -eu
 
 DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
-declare -a dotfiles=()
-declare -a dotfiles=(
-    .vimrc
-    .tmux.conf
-    .gitconfig
-    .gitignore_global
-    .irbrc
-    .latexmkrc
-    .gemrc
-    .zshenv
-    .zshrc
-    .zprofile
-    .zsh
-    .tigrc
-    .sbtrc
-    .spacemacs
-    .utoprc
-    .SpaceVim.d
-    .ocamlinit
-)
-
-declare -a vimfiles=()
-declare -a vimfiles=(ftplugin snippets)
-
-declare -a configfiles=()
-declare -a configfiles=(fish powerline)
-
 usage () {
   echo "Usage:" `basename $0` "[OPTIONS]"
   echo " This script is the set up tool for 3tty0n's environment."
@@ -47,14 +20,11 @@ usage () {
   exit 0
 }
 
-create_symlink () {
+function create_symlink {
   printf "makeing symbolik links...\n"
-  for f in ${dotfiles[@]}; do
-    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
-  done
 
-  for c in ${configfiles[@]}; do
-    ln -sfnv "$DOTFILES_ROOT/.config/$c" "$HOME/.config/$c"
+  for f in $(find . -maxdepth 1 -type f -name ".*"); do
+    ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done
 }
 
