@@ -3,20 +3,23 @@ import XMonad
 import XMonad.Layout
 import XMonad.Layout.Circle
 import XMonad.Layout.Column
+import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.MultiColumns
-import XMonad.Layout.Magnifier
-import XMonad.Layout.NoBorders
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
+myMod = mod4Mask
+
+myTerminal = "gnome-terminal"
+
 -- Layout management
--- defaultLayoutHook = avoidStruts $ layoutHook defaultConfig 
 myLayoutHook =
-  avoidStruts $ (tall ||| threeCol ||| Full)
+  spacing 5 $ gaps [(L, 10), (R, 10)] $
+    avoidStruts $ (tall ||| threeCol ||| Full)
   where
     master = 1
     ratioInc = (3/100)
@@ -28,17 +31,18 @@ myLayoutHook =
 main = do
     xmproc <- spawnPipe "xmobar"
 
-    xmonad $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig
-        , layoutHook = myLayoutHook
-        , handleEventHook = handleEventHook defaultConfig <+> docksEventHook
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "green" "" . shorten 50
-                        }
-        , modMask = mod4Mask     -- Rebind Mod to the Windows key
-        } `additionalKeys`
-        [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
-        , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-        , ((0, xK_Print), spawn "scrot")
-        ]
+    xmonad $ def
+      { manageHook = manageDocks <+> manageHook def
+      , layoutHook = myLayoutHook
+      , handleEventHook = handleEventHook def <+> docksEventHook
+      , logHook = dynamicLogWithPP xmobarPP
+                  { ppOutput = hPutStrLn xmproc
+                  , ppTitle = xmobarColor "green" "" . shorten 50
+                  }
+      , modMask = myMod
+      , terminal = myTerminal
+      } `additionalKeys`
+      [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
+      , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
+      , ((0, xK_Print), spawn "scrot")
+      ]
