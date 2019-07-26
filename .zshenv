@@ -97,3 +97,6 @@ esac
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
+
+# stack
+export PATH="$HOME/.stack/bin:$PATH"
