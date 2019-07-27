@@ -23,6 +23,10 @@ usage () {
 function create_symlink {
   printf "makeing symbolik links...\n"
 
+  for f in .zsh .xmonad; do
+    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+  done
+
   for f in $(find . -maxdepth 1 -type f -name ".*"); do
     ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done

@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# input method
 ibus-daemon &
+
+# screensaver
+xscreensaver -nosplash &
 
 if [ -f ~/.Xmodmap ]; then
   xmodmap ~/.Xmodmap
