@@ -106,7 +106,7 @@ alias be='bundle exec'
 alias ob='ocamlbuild -use-ocamlfind'
 alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 case "${OSTYPE}" in
-  darwin* ) alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl';;
+  darwin* )
 esac
 alias en='emacs -nw'
 alias kb='kubectl'
@@ -120,6 +120,7 @@ case "${OSTYPE}" in
     alias ls="ls -G"
     alias ll="ls -lG"
     alias la="ls -laG"
+    alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
   ;;
   linux* )
     alias ls='ls --color'
@@ -141,6 +142,7 @@ if [[ $EMACS = t ]]; then
 fi
 # }}}
 
-# {{{ Load local zshrc
+# {{{ Load local configuration files
 test -f ~/.zshrc.local && source ~/.zshrc.local
+test -f ~/.profile && source ~/.profile
 # }}}
