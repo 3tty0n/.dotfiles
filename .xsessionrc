@@ -6,6 +6,11 @@ ibus-daemon &
 # screensaver
 xscreensaver -nosplash &
 
+# googledrive
+if [ "which google-drive-ocamlfuse" ]; then
+  google-drive-ocamlfuse googledrive &
+fi
+
 if [ -f ~/.Xmodmap ]; then
   xmodmap ~/.Xmodmap
 fi
