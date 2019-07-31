@@ -4,7 +4,7 @@ set -eu
 
 DOTFILES_ROOT=$(cd $(dirname $0) && pwd)
 
-usage () {
+function usage {
   echo "Usage:" `basename $0` "[OPTIONS]"
   echo " This script is the set up tool for 3tty0n's environment."
   echo
@@ -30,21 +30,25 @@ function create_symlink {
   for f in $(find . -maxdepth 1 -type f -name ".*"); do
     ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done
+
+  for f in $(find .local/bin -type f); do
+    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+  done
 }
 
-setup_vim () {
+function setup_vim {
   if [ ! -e ~/.cache/dein ]; then
     curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
   fi
 }
 
-setup_emacs () {
+function setup_emacs {
   if [ ! -e ~/.emacs.d ]; then
     git clone https://github.com/3tty0n/.emacs.d.git ~/.emacs.d
   fi
 }
 
-brew_bundle () {
+function brew_bundle {
   [ `uname` != "Darwin" ] && exit 0
 
   [ ! -x "$(which brew)" ] && \

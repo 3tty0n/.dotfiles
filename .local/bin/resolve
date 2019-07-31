@@ -1,0 +1,31 @@
+#!/bin/bash
+
+MODE=$1
+
+usage () {
+  echo "resolve [mode]"
+  echo "  mode:"
+  echo "    - laptop"
+  echo "    - laptop-full"
+  echo "    - lab"
+  echo "    - clamshell"
+}
+
+wallpaper () {
+  feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png&
+}
+
+case $MODE in
+  "laptop" )
+    xrandr --output eDP --mode 1920x1200;;
+  "laptop-full" )
+    xrandr --output eDP --mode 2880x1800;;
+  "lab" )
+    xrandr --output HDMI-0 --mode 1920x1200;;
+  "clamshell")
+    xrandr --output HDMI-0 --mode 3840x2160 --auto --output eDP --off;;
+  "-h" | "--help" | * )
+    usage; xrandr; exit 0;;
+esac
+
+wallpaper
