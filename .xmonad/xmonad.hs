@@ -21,7 +21,7 @@ myTerminal = "gnome-terminal"
 -- Layout management
 myLayoutHook =
   spacing 10 $ gaps [(L, 10), (R, 10)] $
-    avoidStruts $ (tall ||| cTall ||| Grid ||| cGrid ||| Circle ||| threeCol ||| Full)
+    avoidStruts $ (tall ||| Grid ||| Circle ||| threeCol ||| Full)
   where
     master = 1
     ratioInc = (3/100)
