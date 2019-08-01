@@ -3,7 +3,9 @@ import XMonad
 import XMonad.Layout
 import XMonad.Layout.Circle
 import XMonad.Layout.Column
+import XMonad.Layout.CenteredMaster
 import XMonad.Layout.Gaps
+import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Hooks.DynamicLog
@@ -18,15 +20,18 @@ myTerminal = "gnome-terminal"
 
 -- Layout management
 myLayoutHook =
-  spacing 5 $ gaps [(L, 10), (R, 10)] $
-    avoidStruts $ (tall ||| threeCol ||| Full)
+  spacing 10 $ gaps [(L, 10), (R, 10)] $
+    avoidStruts $ (tall ||| cTall ||| threeCol ||| Grid ||| cGrid ||| Circle ||| Full)
   where
     master = 1
     ratioInc = (3/100)
     ratio = (1/2)
 
     tall = Tall master ratioInc ratio
+    cTall = centerMaster tall
     threeCol = ThreeColMid master ratioInc ratio
+
+    cGrid = centerMaster Grid
 
 main = do
     xmproc <- spawnPipe "xmobar"
