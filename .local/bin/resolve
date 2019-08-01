@@ -21,9 +21,10 @@ case $MODE in
   "laptop-full" )
     xrandr --output eDP --mode 2880x1800;;
   "lab" )
-    xrandr --output HDMI-0 --mode 1920x1200;;
+    xrandr --output Displayport-0 --same-as eDP;;
   "clamshell")
     xrandr --output HDMI-0 --mode 3840x2160 --auto --output eDP --off;;
+  "wallpaper")  wallpaper; exit 0 ;;
   "-h" | "--help" | * )
     usage; xrandr; exit 0;;
 esac

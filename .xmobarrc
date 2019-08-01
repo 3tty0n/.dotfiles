@@ -28,5 +28,5 @@ Config
     ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% | %cpu% | %memory% * %swap% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% | %RJTT% "
+  , template = "%StdinReader% | %cpu% | %wlp4s0% | %memory% * %swap% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% | %RJTT% "
   }
