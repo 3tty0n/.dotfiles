@@ -44,6 +44,7 @@ main = do
       } `additionalKeys`
       [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
       , ((mod4Mask .|. shiftMask, xK_s), spawn "slock")
+      , ((mod4Mask .|. shiftMask, xK_a), spawn "arandr")
       , ((mod4Mask .|. shiftMask, xK_f), spawn "firefox")
       , ((mod4Mask .|. shiftMask, xK_e), spawn "emacs")
       , ((controlMask, xK_Print       ), spawn "sleep 0.2; scrot -s")
