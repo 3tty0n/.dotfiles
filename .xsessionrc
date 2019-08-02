@@ -8,7 +8,7 @@ xscreensaver -nosplash &
 
 # googledrive
 if [ "which google-drive-ocamlfuse" ]; then
-  google-drive-ocamlfuse googledrive &
+  google-drive-ocamlfuse $HOME/googledrive &
 fi
 
 if [ -f ~/.Xmodmap ]; then
