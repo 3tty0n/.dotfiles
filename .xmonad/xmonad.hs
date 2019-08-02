@@ -27,7 +27,7 @@ myTerminal = "gnome-terminal"
 -- Layout management
 myLayoutHook =
   spacing 10 $ gaps [(L, 10), (R, 10)] $
-  avoidStruts $ magnifiercz magRatio $ (tall ||| Grid ||| threeCol ||| magCircle ||| Full)
+  avoidStruts $ (tall ||| Grid ||| threeCol ||| magnifiercz magRatio Circle ||| Full)
   where
     master = 1
     ratioInc = (3/100)
@@ -36,8 +36,6 @@ myLayoutHook =
 
     tall = Tall master ratioInc ratio
     threeCol = ThreeColMid master ratioInc ratio
-
-    magCircle = Circle
     cGrid = centerMaster Grid
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -59,7 +57,7 @@ main = do
                   }
       , modMask = myMod
       , terminal = myTerminal
-      , mouseBindings = myMouseBindings
+      -- , mouseBindings = myMouseBindings
       } `additionalKeys`
       [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
       , ((mod4Mask .|. shiftMask, xK_s), spawn "slock")
