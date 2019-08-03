@@ -100,3 +100,6 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 # stack
 export PATH="$HOME/.stack/bin:$PATH"
+
+# arandr
+export PATH="$HOME/.screenlayout:$PATH"
