@@ -27,4 +27,4 @@ if [ -x "`which opam`" ]; then
   eval $(opam config env)
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

@@ -64,7 +64,7 @@ main = do
       , ((mod4Mask .|. shiftMask, xK_s), spawn "slock")
       , ((mod4Mask .|. shiftMask, xK_a), spawn "arandr")
       , ((mod4Mask .|. shiftMask, xK_e), spawn "emacs")
-      , ((mod4Mask .|. shiftMask, xK_c), spawn "chromium")
+      , ((mod4Mask .|. shiftMask, xK_b), spawn "chromium")
       , ((mod4Mask .|. shiftMask, xK_l), spawn "~/.screenlayout/laptop.sh")
       , ((mod4Mask .|. shiftMask, xK_f), spawn "~/.screenlayout/laptop-full.sh")
       , ((mod4Mask .|. shiftMask, xK_q), spawn "xscreensaver-command -lock; xset dpms force off")
