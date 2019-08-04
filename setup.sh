@@ -38,7 +38,8 @@ function create_symlink {
 
 function setup_vim {
   if [ ! -e ~/.cache/dein ]; then
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | \
+      bash -s ~/.cache/dein
   fi
 }
 
@@ -52,7 +53,8 @@ function brew_bundle {
   [ `uname` != "Darwin" ] && exit 0
 
   [ ! -x "$(which brew)" ] && \
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /usr/bin/ruby \
+      -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
   pushd brew
   printf "tapping brew bundle...\n"
