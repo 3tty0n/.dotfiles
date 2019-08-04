@@ -21,12 +21,14 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 myMod = mod4Mask
-
 myTerminal = "tilda"
+myBorderWidth = 3
+myNormalBorderColor = "#dddddd"
+myFocusedBorderColor = "#3399ff"
+
 
 -- Layout management
 myLayoutHook =
-  spacing 10 $ gaps [(L, 10), (R, 10)] $
   avoidStruts $ (tall ||| Grid ||| threeCol ||| magnifiercz magRatio Circle ||| Full)
   where
     master = 1
@@ -37,6 +39,7 @@ myLayoutHook =
     tall = Tall master ratioInc ratio
     threeCol = ThreeColMid master ratioInc ratio
     cGrid = centerMaster Grid
+    doSpacing x = spacing 5 $ gaps [(L,5), (R,5)] $ x
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask, button1), (\w -> focus w >> mouseMoveWindow w))
@@ -57,6 +60,8 @@ main = do
                   }
       , modMask = myMod
       , terminal = myTerminal
+      , borderWidth = myBorderWidth
+      , focusedBorderColor = myFocusedBorderColor
       -- , mouseBindings = myMouseBindings
       } `additionalKeys`
       [ ((mod4Mask, xK_p), spawn "rofi -show run")
