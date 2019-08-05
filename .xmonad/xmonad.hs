@@ -21,7 +21,7 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 myMod = mod4Mask
-myTerminal = "termite"
+myTerminal = "tilda"
 myBorderWidth = 3
 myNormalBorderColor = "#dddddd"
 myFocusedBorderColor = "#3399ff"
