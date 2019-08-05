@@ -8,8 +8,8 @@ import XMonad.Layout.CenteredMaster
 import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
-import XMonad.Layout.Maximize
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Maximize
 import XMonad.Layout.Magnifier
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -21,7 +21,7 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 myMod = mod4Mask
-myTerminal = "tilda"
+myTerminal = "termite"
 myBorderWidth = 3
 myNormalBorderColor = "#dddddd"
 myFocusedBorderColor = "#3399ff"
@@ -29,7 +29,7 @@ myFocusedBorderColor = "#3399ff"
 
 -- Layout management
 myLayoutHook =
-  avoidStruts $ (tall ||| Grid ||| threeCol ||| magnifiercz magRatio Circle ||| Full)
+  doSpacing $ avoidStruts $ (tall ||| Grid ||| threeCol ||| Full)
   where
     master = 1
     ratioInc = (3/100)
@@ -39,7 +39,9 @@ myLayoutHook =
     tall = Tall master ratioInc ratio
     threeCol = ThreeColMid master ratioInc ratio
     cGrid = centerMaster Grid
+    column = Column (16/10)
     doSpacing x = spacing 5 $ gaps [(L,5), (R,5)] $ x
+    magnify = (\x -> magnifiercz magRatio x)
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask, button1), (\w -> focus w >> mouseMoveWindow w))
@@ -69,7 +71,7 @@ main = do
       , ((mod4Mask .|. shiftMask, xK_s), spawn "slock")
       , ((mod4Mask .|. shiftMask, xK_a), spawn "arandr")
       , ((mod4Mask .|. shiftMask, xK_e), spawn "emacs")
-      , ((mod4Mask .|. shiftMask, xK_b), spawn "google-chrome")
+      , ((mod4Mask .|. shiftMask, xK_b), spawn "google-chrome-stable")
       , ((mod4Mask .|. shiftMask, xK_l), spawn "~/.screenlayout/laptop.sh")
       , ((mod4Mask .|. shiftMask, xK_f), spawn "~/.screenlayout/laptop-full.sh")
       , ((mod4Mask .|. shiftMask, xK_q), spawn "xscreensaver-command -lock; xset dpms force off")
