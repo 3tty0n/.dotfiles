@@ -1,6 +1,6 @@
 -- -*- mode: haskell -*-
 Config {
-    font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
+    font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
   , borderColor = "black"
   , border = TopB
   , bgColor = "black"
@@ -23,8 +23,9 @@ Config {
         "-l", "red"
         ] 10
     , Run StdinReader
+    , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa" ] 36000
     ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% | %cpu% | %memory% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% "
+  , template = "%StdinReader% | %cpu% | %memory% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% | %RJTT% "
   }
