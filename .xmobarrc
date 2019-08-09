@@ -1,6 +1,6 @@
 -- -*- mode: haskell -*-
 Config {
-    font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+    font = "xft:Bitstream Vera Sans Mono:size=8:antialias=true"
   , borderColor = "black"
   , border = TopB
   , bgColor = "black"

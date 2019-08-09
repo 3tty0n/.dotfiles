@@ -16,7 +16,7 @@ function usage {
   echo "  -v  --vim          setup the environment for vim"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
   echo "  -x                 setup for X window system and XMonad"
-  echo "  -a  --all          execute all instructions"
+  echo "  -t  --tmux         clone tmux-powerline to your local directory"
   exit 0
 }
 
@@ -70,6 +70,13 @@ function setup_x {
   done
 }
 
+function setup_tmux {
+  if [ ! -d $HOME/.tmux ]; then
+    mkdir $HOME/.tmux
+  fi
+  git clone git@github.com:erikw/tmux-powerline.git $HOME/.tmux/tmux-powerline
+}
+
 for OPT in "$@"
 do
   case $OPT in
@@ -96,6 +103,9 @@ do
     '-x' )
       setup_x
       shift 1
+      ;;
+    '-t' | '--tmux' )
+      setup_tmux
       ;;
     -*)
       echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2

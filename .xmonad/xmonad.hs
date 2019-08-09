@@ -1,6 +1,7 @@
 -- minimal Ubuntu config file: ~/.xmonad/xmonad.hs
 import XMonad
 import XMonad.Actions.SinkAll
+import XMonad.Config.Kde
 import XMonad.Layout
 import XMonad.Layout.Circle
 import XMonad.Layout.Cross

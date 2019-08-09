@@ -103,3 +103,9 @@ export PATH="$HOME/.stack/bin:$PATH"
 
 # arandr
 export PATH="$HOME/.screenlayout:$PATH"
+
+if [ "$(which ibus-skk)" ]; then
+  export GTK_IM_MODULE=ibus
+  export XMODIFIERS=@im=ibus
+  export QT_IM_MODULE=ibus
+fi
