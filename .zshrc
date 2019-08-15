@@ -110,9 +110,6 @@ alias ta='tig --all'
 alias be='bundle exec'
 alias ob='ocamlbuild -use-ocamlfind'
 alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
-case "${OSTYPE}" in
-  darwin* )
-esac
 alias en='emacs -nw'
 alias kb='kubectl'
 
