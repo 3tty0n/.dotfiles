@@ -39,3 +39,5 @@ cask "emacs"
 cask "google-chrome"
 cask "iterm2"
 cask "karabiner-elements"
+
+# vim: set syntax=ruby:
