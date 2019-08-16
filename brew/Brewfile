@@ -7,22 +7,16 @@ cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "xquartz"
 brew 'bash'
 brew 'bash-completion'
-brew 'ocaml', args: ['with-x11']
-brew 'emacs', args: ['with-cocoa', 'with-gnutls']
-brew 'cask'
+brew 'emacs'
 brew 'coreutils'
 brew 'darcs'
 brew 'fd'
-brew 'fzy'
 brew 'git'
 brew 'go'
 brew 'hub'
-brew "ispell"
-brew 'imagemagick@6'
+brew 'ispell'
 brew 'lua'
-brew 'mercurial'
 brew 'nkf'
-brew 'ocaml'
 brew 'opam'
 brew 'pandoc'
 brew 'reattach-to-user-namespace'
@@ -41,11 +35,7 @@ cask "1password"
 cask "aquaskk"
 cask "alfred"
 cask "amethyst"
-cask "dropbox"
 cask "emacs"
 cask "google-chrome"
 cask "iterm2"
 cask "karabiner-elements"
-cask "mactex"
-cask "skim"
-cask "slack"
