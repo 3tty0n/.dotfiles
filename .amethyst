@@ -1,11 +1,17 @@
 {
-  "mod1" : [
-    "command",
-    "control"
-  ],
-  "mod2" : [
-    "command",
-    "control",
-    "shift"
-  ]
+    "mod1" : [
+        "command",
+        "control"
+    ],
+    "mod2" : [
+        "command",
+        "control",
+        "shift"
+    ],
+    "layout": [
+        "floating",
+        "tall",
+        "fulscreen",
+        "column"
+    ]
 }
