@@ -83,5 +83,4 @@ main = do
       , terminal = myTerminal
       , borderWidth = myBorderWidth
       , focusedBorderColor = myFocusedBorderColor
-      -- , mouseBindings = myMouseBindings
       } `additionalKeys` myKeys

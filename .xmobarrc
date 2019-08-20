@@ -1,6 +1,6 @@
 -- -*- mode: haskell -*-
 Config {
-    font = "xft:Bitstream Vera Sans Mono:size=8:antialias=true"
+    font = "xft:Bitstream Vera Sans Mono:size=12:antialias=true"
   , borderColor = "black"
   , border = TopB
   , bgColor = "black"
@@ -27,5 +27,5 @@ Config {
     ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% | %cpu% | %memory% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% | %RJTT% "
+  , template = "%StdinReader% | %cpu% | %memory% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% "
   }
