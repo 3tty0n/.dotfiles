@@ -8,6 +8,10 @@ if [ -x "`which rbenv`" ]; then
   eval "$(rbenv init - --no-rehash)"
 fi
 
+if [ "$(which ruby)" ]; then
+  PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+fi
+
 # scalaenv
 if [ -x "`which scalaenv`" ]; then
   eval "$(scalaenv init - --no-rehash)"
@@ -23,6 +27,7 @@ if [ -x "`which hub`" ]; then
   eval "$(hub alias -s)"
 fi
 
+# opam
 if [ -x "`which opam`" ]; then
   eval $(opam config env)
 fi
