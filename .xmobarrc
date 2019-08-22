@@ -1,31 +1,57 @@
 -- -*- mode: haskell -*-
 Config {
-    font = "xft:Bitstream Vera Sans Mono:size=12:antialias=true"
+    font = "xft:Bitstream Vera Sans Mono:size=10:antialias=true"
   , borderColor = "black"
   , border = TopB
   , bgColor = "black"
   , fgColor = "grey"
   , position = TopW L 100
-  , commands =
-    [ Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-    , Run Network "eth1" ["-L","0","-H","32","--normal","green","--high","red"] 10
-    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-    , Run Memory ["-t","Mem: <usedratio>%"] 10
-    , Run Com "/usr/bin/ibus" ["engine"] "MyIME" 10
-    , Run Com "uname" ["-s","-r"] "" 36000
-    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-    , Run Battery [
-        "-t", "<acstatus>: <left>% - <timeleft>",
-        "--",
-        "-O", "AC",
-        "-o", "Bat",
-        "-h", "green",
-        "-l", "red"
-        ] 10
-    , Run StdinReader
-    , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa" ] 36000
-    ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% | %cpu% | %memory% | %battery% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% "
+  , template = "%StdinReader% | %multicpu% | %memory% | %battery% | %dynnetwork% }{ %MyIME% | <fc=#ee9a00>%date%</fc> | %uname% | %RJTT% "
+  , commands =
+    [ Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+                         , "--Low"      , "1000"       -- units: B/s
+                         , "--High"     , "5000"       -- units: B/s
+                         , "--low"      , "darkgreen"
+                         , "--normal"   , "darkorange"
+                         , "--high"     , "darkred"
+                         ] 10
+    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+    , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
+                         , "--Low"      , "50"         -- units: %
+                         , "--High"     , "85"         -- units: %
+                         , "--low"      , "darkgreen"
+                         , "--normal"   , "darkorange"
+                         , "--high"     , "darkred"
+                         ] 10
+    , Run Battery        [ "--template" , "Batt: <acstatus>"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkgreen"
+
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o"	, "<left>% (<timeleft>)"
+                                       -- AC "on" status
+                                       , "-O"	, "<fc=#dAA520>Charging</fc>"
+                                       -- charged status
+                                       , "-i"	, "<fc=#006000>Charged</fc>"
+                             ] 50
+    , Run Memory         [ "--template" ,"Mem: <usedratio>%"
+                         , "--Low"      , "20"        -- units: %
+                         , "--High"     , "90"        -- units: %
+                         , "--low"      , "darkgreen"
+                         , "--normal"   , "darkorange"
+                         , "--high"     , "darkred"
+                         ] 10
+    , Run Com "/usr/bin/ibus" ["engine"] "MyIME" 10
+    , Run Com "uname" ["-s","-r"] "" 36000
+    , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+    , Run StdinReader
+    , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
+                         ] 36000
+    ]
   }
