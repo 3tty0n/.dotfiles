@@ -15,7 +15,6 @@ function usage {
   echo "  -z  --zsh          setup zsh plugins managed by zplug"
   echo "  -v  --vim          setup the environment for vim"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
-  echo "  -x                 setup for X window system and XMonad"
   echo "  -t  --tmux         clone tmux-powerline to your local directory"
   exit 0
 }
@@ -64,12 +63,6 @@ function brew_bundle {
   popd
 }
 
-function setup_x {
-  for f in .xmonad .Xmodmap .xmobarrc .xsessionrc; do
-    ln -sf ~/.dotfiles/$f ~/
-  done
-}
-
 function setup_tmux {
   if [ ! -d $HOME/.tmux ]; then
     mkdir $HOME/.tmux
@@ -98,10 +91,6 @@ do
       ;;
     '-e' | '--emacs' )
       setup_emacs
-      shift 1
-      ;;
-    '-x' )
-      setup_x
       shift 1
       ;;
     '-t' | '--tmux' )
