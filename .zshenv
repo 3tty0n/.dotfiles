@@ -13,7 +13,7 @@ export LC_CTYPE="${LANGUAGE}"
 
 export TERM="xterm-256color"
 
-export EDITOR='emacs -nw'
+export EDITOR='emacs'
 
 # less
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
@@ -103,9 +103,3 @@ export PATH="$HOME/.stack/bin:$PATH"
 
 # arandr
 export PATH="$HOME/.screenlayout:$PATH"
-
-if [ "$(which ibus-skk)" ]; then
-  export GTK_IM_MODULE=ibus
-  export XMODIFIERS=@im=ibus
-  export QT_IM_MODULE=ibus
-fi
