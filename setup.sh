@@ -15,23 +15,28 @@ function usage {
   echo "  -z  --zsh          setup zsh plugins managed by zplug"
   echo "  -v  --vim          setup the environment for vim"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
-  echo "  -t  --tmux         clone tmux-powerline to your local directory"
   exit 0
 }
 
 function create_symlink {
   printf "makeing symbolik links...\n"
 
-  for f in .zsh .xmonad; do
-    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
-  done
-
   for f in $(find . -maxdepth 1 -type f -name ".*"); do
     ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done
 
-  for f in $(find .local/bin -type f); do
-    ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+  echo "Do you want to install .local/bin programs?"
+  select yn in "Yes" "No"; do
+    case $yn in
+      Yes ) 
+        for f in $(find .local/bin -type f); do
+          ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+        done
+        break
+        ;;
+      No ) 
+        exit ;;
+    esac
   done
 }
 
@@ -48,7 +53,7 @@ function setup_emacs {
   fi
 }
 
-function brew_bundle {
+function setup_brew {
   [ `uname` != "Darwin" ] && exit 0
 
   [ ! -x "$(which brew)" ] && \
@@ -61,13 +66,6 @@ function brew_bundle {
   printf "installing brew packages...\n"
   brew bundle
   popd
-}
-
-function setup_tmux {
-  if [ ! -d $HOME/.tmux ]; then
-    mkdir $HOME/.tmux
-  fi
-  git clone git@github.com:erikw/tmux-powerline.git $HOME/.tmux/tmux-powerline
 }
 
 for OPT in "$@"
@@ -92,9 +90,6 @@ do
     '-e' | '--emacs' )
       setup_emacs
       shift 1
-      ;;
-    '-t' | '--tmux' )
-      setup_tmux
       ;;
     -*)
       echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
