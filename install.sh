@@ -1,17 +1,10 @@
 #!/bin/zsh
 set -eu
 autoload -Uz colors; colors
-BRANCH=master
 
 usage () {
   echo "Usage:" `basename $0` "[OPTIONS]"
   echo " This script is the installer for 3tty0n's environment."
-  echo
-
-  echo "  -h, --help"
-  echo "  -m, --master"
-  echo "  -d, --develop"
-  echo
   exit 1
 }
 
@@ -33,7 +26,7 @@ install () {
   if [ ! -d ~/.dotfiles ];then
     git clone git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
   fi
-  cd ~/.dotfiles/ && ./setup.sh -s
+  cd ~/.dotfiles/ && ./setup.sh -s || exit
 }
 
 trap 'echo ' {1,2,3,15}
