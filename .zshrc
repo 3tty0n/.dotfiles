@@ -54,12 +54,12 @@ zplugin light hlissner/zsh-autopair
 
 zplugin ice src"z.sh"; zplugin light rupa/z
 
-zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
+# zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
-zplugin ice pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
-# zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+#zplugin ice pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
+zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 
 zplugin creinstall -q $HOME/.zsh/completion
 
