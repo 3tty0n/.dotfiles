@@ -52,9 +52,9 @@ zplugin light zsh-users/zsh-completions
 
 zplugin light hlissner/zsh-autopair
 
-zplugin ice src"z.sh"; zplugin light rupa/z
+#zplugin ice src"z.sh"; zplugin light rupa/z
 
-# zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
+#zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
@@ -132,9 +132,17 @@ case "${OSTYPE}" in
 esac
 # }}}
 
-# {{{  OPAM
+# {{{  Package Managers
+# OPAM
 test -r "${HOME}"/.opam/opam-init/init.zsh && \
   . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 # }}}
 
 # {{{ Shell integration
