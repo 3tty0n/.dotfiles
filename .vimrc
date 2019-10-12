@@ -1,10 +1,23 @@
 " {{{ # dein
 
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+endif
+
 if &compatible
   set nocompatible
 endif
+
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+let dein_exists=expand('~/.cache/dein')
+
+if !isdirectory(dein_exists)
+  echo "Installing dein.vim..."
+  echo ""
+  silent !\curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
+endif
 
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
@@ -42,6 +55,10 @@ if dein#load_state('~/.cache/dein')
 
   call dein#end()
   call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
 endif
 
 filetype plugin indent on
