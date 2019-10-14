@@ -117,6 +117,11 @@ au FileType sh let g:sh_fold_enabled=5
 au FileType sh let g:is_bash=1
 au FileType sh set foldmethod=syntax
 syntax enable
+
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 " }}}
 
 " {{{ # color
