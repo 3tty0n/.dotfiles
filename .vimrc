@@ -24,6 +24,8 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
+  call dein#add('farmergreg/vim-lastplace')
+
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
 
@@ -118,10 +120,22 @@ au FileType sh let g:is_bash=1
 au FileType sh set foldmethod=syntax
 syntax enable
 
-" reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+" VimFiler
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_ignore_pattern = '^\%(.git\|.DS_Store\)$'
+
+noremap <C-X><C-T> :VimFiler -split -simple -winwidth=30 -toggle -no-quit<ENTER>
+autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
+" Automatically open vimfiler on start
+" autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
+" If no files are specified, open vimfiler
+autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
+
+" vim-lastplace
+let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
+let g:lastplace_ignore_buftype = "quickfix,nofile,help"
+let g:lastplace_open_folds = 0
+
 " }}}
 
 " {{{ # color
@@ -132,15 +146,6 @@ let g:badwolf_darkgutter = 1
 " }}}
 
 " {{{ # VimFiler
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '^\%(.git\|.DS_Store\)$'
-
-noremap <C-X><C-T> :VimFiler -split -simple -winwidth=30 -toggle -no-quit<ENTER>
-autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
-" Automatically open vimfiler on start
-" autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
-" If no files are specified, open vimfiler
-autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
 
 " }}}
 
