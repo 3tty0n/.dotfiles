@@ -66,12 +66,6 @@ zplugin creinstall -q $HOME/.zsh/completion
 zplugin ice src"util.zsh"; zplugin light $HOME/.zsh/util
 # }}}
 
-# {{{ Terminal settings for emacs
-if [ "$EMACS" ]; then
-  export TERM=xterm-256color
-fi
-# }}}
-
 # {{{ Options
 setopt auto_menu
 setopt auto_cd
@@ -130,6 +124,9 @@ case "${OSTYPE}" in
     alias la='ls -la --color'
   ;;
 esac
+
+# keybind
+bindkey -e
 # }}}
 
 # {{{  Package Managers

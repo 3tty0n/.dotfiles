@@ -13,7 +13,7 @@ export LC_CTYPE="${LANGUAGE}"
 
 export TERM="xterm-256color"
 
-export EDITOR='emacs'
+export EDITOR='vim'
 
 # less
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
@@ -86,14 +86,6 @@ if [[ "`which src-highlight-lesspipe.sh`" ]]; then
 else
   export LESS='-R'
 fi
-
-# java
-case "${OSTYPE}" in
-  darwin* )
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-    export PATH="$JAVA_HOME:$PATH"
-    ;;
-esac
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
