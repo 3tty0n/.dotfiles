@@ -141,15 +141,13 @@ let g:lastplace_open_folds = 0
 
 " }}}
 
-" {{{ # color
+" {{{ # Color scheme
 syntax on
-colorscheme molokai
-highlight Normal ctermbg=none
-let g:badwolf_darkgutter = 1
-" }}}
-
-" {{{ # VimFiler
-
+colorscheme solarized
+set t_Co=256
+set background=dark
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 " }}}
 
 " {{{ # Syntax checking
@@ -159,7 +157,7 @@ let g:ale_completion_enabled = 1
 " }}}
 
 " {{{ # Auto completion
- 
+
 " asyncomplete
 let g:asyncomplete_remove_duplicates = 1
 
