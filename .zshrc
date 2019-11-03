@@ -52,14 +52,15 @@ zplugin light zsh-users/zsh-completions
 
 zplugin light hlissner/zsh-autopair
 
-#zplugin ice src"z.sh"; zplugin light rupa/z
+zplugin load rupa/z
 
 #zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
 #zplugin ice pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+#zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+zplugin ice pick"powerlevel9k.zsh-theme"; zplugin light bhilburn/powerlevel9k
 
 zplugin creinstall -q $HOME/.zsh/completion
 
@@ -131,8 +132,11 @@ bindkey -e
 
 # {{{  Package Managers
 # OPAM
-test -r "${HOME}"/.opam/opam-init/init.zsh && \
-  . "${HOME}"/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+if command -v opam 1>/dev/null 2>&1; then
+  if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
+    . "${HOME}"/.opam/opam-init/init.zsh 2> /dev/null
+  fi
+fi
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -140,13 +144,17 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# Rbenv
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
 # }}}
 
 # {{{ Shell integration
-if [[ $EMACS = t ]]; then
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && \
-    source "${HOME}/.iterm2_shell_integration.zsh"
-fi
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # }}}
 
 # {{{ Load local configuration files
