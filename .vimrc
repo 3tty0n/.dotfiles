@@ -120,6 +120,9 @@ au FileType sh let g:is_bash=1
 au FileType sh set foldmethod=syntax
 syntax enable
 
+" remove unused whitespaces automatically
+autocmd BufWritePre * %s/\s\+$//e
+
 " VimFiler
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_ignore_pattern = '^\%(.git\|.DS_Store\)$'
