@@ -143,7 +143,7 @@ let g:lastplace_open_folds = 0
 
 " {{{ # Color scheme
 syntax on
-colorscheme solarized
+colorscheme badwolf
 set t_Co=256
 set background=dark
 highlight Normal ctermbg=NONE

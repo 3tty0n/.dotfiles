@@ -40,6 +40,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # rbenv
 export RBENV_ROOT=$HOME/.rbenv
 export PATH="$RBENV_ROOT/bin:$PATH"
+export PATH="$RBENV_ROOT/shims:$PATH"
 
 # scalaenv
 export PATH="${HOME}/.scalaenv/bin:${PATH}"

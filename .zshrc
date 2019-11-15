@@ -12,6 +12,8 @@ autoload -Uz _zplugin
 # }}}
 
 # {{{ Zplugin: plugin configurations
+# keybind
+bindkey -e
 architect=""
 case `uname -m` in
   i386|i686) architect="386";;
@@ -58,9 +60,9 @@ zplugin load rupa/z
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
 
-#zplugin ice pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
+zplugin ice pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
 #zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
-zplugin ice pick"powerlevel9k.zsh-theme"; zplugin light bhilburn/powerlevel9k
+#zplugin ice pick"powerlevel9k.zsh-theme"; zplugin light bhilburn/powerlevel9k
 
 zplugin creinstall -q $HOME/.zsh/completion
 
@@ -126,8 +128,6 @@ case "${OSTYPE}" in
   ;;
 esac
 
-# keybind
-bindkey -e
 # }}}
 
 # {{{  Package Managers
