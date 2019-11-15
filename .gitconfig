@@ -72,3 +72,5 @@
 	ff = false
 [inlucde]
   path = ~/.gitconfig_secret
+[credential]
+	helper = store
