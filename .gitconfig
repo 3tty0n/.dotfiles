@@ -69,7 +69,7 @@
 [pgp]
 	program = gpg2
 [merge]
-	ff = false
+  ff = false
 [inlucde]
   path = ~/.gitconfig_secret
 [credential]
