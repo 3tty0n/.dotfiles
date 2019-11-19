@@ -17,7 +17,7 @@ export EDITOR='vim'
 
 # less
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
-export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
+# export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 
 # grep
 # export GREP_OPTIONS='--color=always'
@@ -98,13 +98,15 @@ export PATH="$HOME/.stack/bin:$PATH"
 export PATH="$HOME/.screenlayout:$PATH"
 
 # powerlevel9k
-POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE='nerdfont-fontconfig'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm node_version)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+
+export PYTHONPATH=$HOME/src/github.com/pypy/pypy

@@ -127,7 +127,6 @@ case "${OSTYPE}" in
     alias la='ls -la --color'
   ;;
 esac
-
 # }}}
 
 # {{{  Package Managers
