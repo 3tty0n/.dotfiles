@@ -31,7 +31,7 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold --color=bw'
 
 # Add ~/usr/local/bin to PATH
-export PATH=~/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
@@ -100,8 +100,8 @@ export PATH="$HOME/.screenlayout:$PATH"
 # powerlevel9k
 POWERLEVEL9K_MODE='nerdfont-fontconfig'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs newline status)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
@@ -109,4 +109,7 @@ POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 
+# For PyPy and RPython
 export PYTHONPATH=$HOME/src/github.com/pypy/pypy
+
+export XDG_CONFIG_HOME=$HOME/.config/xdg
