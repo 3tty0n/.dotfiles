@@ -25,16 +25,18 @@ function create_symlink {
     ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done
 
+  ln -sfnv "$DOTFILES_ROOT/.zsh" "$HOME/.zsh"
+
   echo "Do you want to install .local/bin programs?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) 
+      Yes )
         for f in $(find .local/bin -type f); do
           ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
         done
         break
         ;;
-      No ) 
+      No )
         exit ;;
     esac
   done
