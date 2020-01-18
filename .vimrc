@@ -134,7 +134,7 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 " Automatically open vimfiler on start
 " autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
 " If no files are specified, open vimfiler
-autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
+" autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
 
 " vim-lastplace
 let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
