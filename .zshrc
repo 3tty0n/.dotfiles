@@ -26,48 +26,48 @@ case $OSTYPE in
 esac
 binary="*${ostype}*${architect}*"
 
-zplugin load zdharma/history-search-multi-word
+zinit load zdharma/history-search-multi-word
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
-zplugin light github/hub
+zinit ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
+zinit light github/hub
 
-zplugin ice lucid from"gh-r" as"program" bpick"${binary}"
-zplugin load junegunn/fzf-bin
+zinit ice lucid from"gh-r" as"program" bpick"${binary}"
+zinit load junegunn/fzf-bin
 
-zplugin ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
-zplugin light motemen/ghq
+zinit ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
+zinit light motemen/ghq
 
-zplugin ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
-zplugin light b4b4r07/gist
+zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
+zinit light b4b4r07/gist
 
-zplugin ice wait"!0"; zplugin light changyuheng/fz
+zinit ice wait"!0"; zinit light changyuheng/fz
 
-zplugin ice atclone"make" as"program" pick"fzy"; zplugin load jhawthorn/fzy
+zinit ice atclone"make" as"program" pick"fzy"; zinit load jhawthorn/fzy
 
-zplugin light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-autosuggestions
 
-zplugin light zdharma/fast-syntax-highlighting
+zinit light zdharma/fast-syntax-highlighting
 
-zplugin light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search
 
-zplugin light zsh-users/zsh-completions
+zinit light zsh-users/zsh-completions
 
-zplugin light hlissner/zsh-autopair
+zinit light hlissner/zsh-autopair
 
-zplugin load rupa/z
+zinit load rupa/z
 
-#zplugin ice src"auto-notify.plugin.zsh"; zplugin light MichaelAquilina/zsh-auto-notify
+#zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
-zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zplugin light tj/git-extras
+zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
-#zplugin ice depth=1 pick"spaceship.zsh"; zplugin light denysdovhan/spaceship-prompt
-#zplugin ice depth=1 pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
-#zplugin ice depth=1 pick"powerlevel9k.zsh-theme"; zplugin light bhilburn/powerlevel9k
-zplugin ice depth=1; zplugin light romkatv/powerlevel10k
+#zinit ice depth=1 pick"spaceship.zsh"; zinit light denysdovhan/spaceship-prompt
+#zinit ice depth=1 pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
+#zinit ice depth=1 pick"powerlevel9k.zsh-theme"; zinit light bhilburn/powerlevel9k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-zplugin creinstall -q $HOME/.zsh/completion
+zinit creinstall -q $HOME/.zsh/completion
 
-zplugin ice src"util.zsh"; zplugin light $HOME/.zsh/util
+zinit ice src"util.zsh"; zinit light $HOME/.zsh/util
 # }}}
 
 # {{{ Options
