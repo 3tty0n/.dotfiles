@@ -1,12 +1,12 @@
 # {{{ Zplugin: setup
-if [ ! -d $HOME/.zplugin ]; then
+if [ ! -d $HOME/.zinit ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
 
 ### Added by Zplugin's installer
-source $HOME/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source $HOME/.zinit/bin/zplugin.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zplugin's installer chunk
 
 # }}}
@@ -34,8 +34,8 @@ zinit light github/hub
 zinit ice lucid from"gh-r" as"program" bpick"${binary}"
 zinit load junegunn/fzf-bin
 
-zinit ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
-zinit light motemen/ghq
+zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
+zinit light x-motemen/ghq
 
 zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
 zinit light b4b4r07/gist
@@ -162,3 +162,4 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 test -f ~/.profile && source ~/.profile
 test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
+### End of Zinit's installer chunk
