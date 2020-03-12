@@ -3,11 +3,20 @@ if [ ! -d $HOME/.zinit ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 fi
 
-### Added by Zplugin's installer
-source $HOME/.zinit/bin/zplugin.zsh
+ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-$HOME}/.zinit}}"
+ZINIT_BIN_DIR="${${ZINIT_BIN_DIR_NAME:-$ZPLG_BIN_DIR_NAME}:-bin}"
+### Added by Zinit's installer
+if [[ ! -f $ZINIT_HOME/$ZINIT_BIN_DIR/zinit.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+  command mkdir -p $ZINIT_HOME
+  command git clone https://github.com/zdharma/zinit $ZINIT_HOME/$ZINIT_BIN_DIR_NAME && \\
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \\
+    print -P "%F{160}▓▒░ The clone has failed.%f"
+fi
+source "$ZINIT_HOME/$ZINIT_BIN_DIR/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zplugin's installer chunk
+### End of Zinit installer's chunk
 
 # }}}
 
@@ -162,4 +171,3 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 test -f ~/.profile && source ~/.profile
 test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
-### End of Zinit's installer chunk
