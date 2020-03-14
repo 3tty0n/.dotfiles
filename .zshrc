@@ -49,7 +49,9 @@ zinit light x-motemen/ghq
 zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
 zinit light b4b4r07/gist
 
-zinit ice wait"!0"; zinit light changyuheng/fz
+zinit light changyuheng/fz
+
+zinit light rupa/z
 
 zinit ice atclone"make" as"program" pick"fzy"; zinit load jhawthorn/fzy
 
@@ -62,8 +64,6 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
-
-zinit load rupa/z
 
 #zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
