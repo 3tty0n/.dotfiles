@@ -1,9 +1,0 @@
-#!/bin/sh
-
-LEVEL=$1
-
-if [ $LEVEL = 0 ]; then
-  exit 1
-fi
-
-xrandr --output eDP --brightness $LEVEL

@@ -31,6 +31,9 @@ function create_symlink {
   select yn in "Yes" "No"; do
     case $yn in
       Yes )
+        if [ ! -d ~/.local/bin ]; then
+          mkdir -p ~/.local/bin
+        fi
         for f in $(find .local/bin -type f); do
           ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
         done
@@ -40,13 +43,6 @@ function create_symlink {
         exit ;;
     esac
   done
-}
-
-function setup_vim {
-  if [ ! -e ~/.cache/dein ]; then
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | \
-      bash -s ~/.cache/dein
-  fi
 }
 
 function setup_emacs {
@@ -83,10 +79,6 @@ do
       ;;
     '-b' | '--brew' )
       setup_brew
-      shift 1
-      ;;
-    '-v' | '--vim' )
-      setup_vim
       shift 1
       ;;
     '-e' | '--emacs' )
