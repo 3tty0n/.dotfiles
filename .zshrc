@@ -107,30 +107,31 @@ setopt list_packed
 alias dc=cd
 alias md='mkdir'
 alias rm='rm -ri'
-alias l='ls -1a'
-alias e='emacsclient -nw -a ""'
-alias ekill='emacsclient -e "(kill-emacs)"'
-alias emacsnw='emacs -nw'
 alias g='git'
-alias t='tig'
-alias ta='tig --all'
-alias be='bundle exec'
-alias ob='ocamlbuild -use-ocamlfind'
-alias en='emacs -nw'
-alias kb='kubectl'
 
-# use 'hightlihgt' in place of 'cat'
-[[ -x "`which highlight`" ]] && \
-  alias catc="highlight $1 --out-format xterm256 --line-numbers --quiet --force --style solarized-dark"
+if [ -x "$(command -v emacs)" ]; then
+  alias e='emacsclient'
+fi
+
+if [ -x "$(command -v tig)" ]; then
+  alias t='tig'
+  alias ta='tig --all'
+fi
+
+if [ -x "$(command -v bundle)" ]; then
+  alias be='bundle exec'
+fi
 
 case "${OSTYPE}" in
   darwin* )
+    alias l='ls -1a -G'
     alias ls="ls -G"
     alias ll="ls -lG"
     alias la="ls -laG"
     alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
   ;;
   linux* )
+    alias l='ls -1a --color'
     alias ls='ls --color'
     alias ll='ls -l --color'
     alias la='ls -la --color'
