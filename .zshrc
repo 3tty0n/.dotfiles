@@ -37,7 +37,7 @@ binary="*${ostype}*${architect}*"
 
 zinit load zdharma/history-search-multi-word
 
-zinit ice lucid from"gh-r" wait"!0" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
+zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
 zinit light github/hub
 
 zinit ice lucid from"gh-r" as"program" bpick"${binary}"
