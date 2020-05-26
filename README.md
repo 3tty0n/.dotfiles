@@ -1,14 +1,8 @@
 # .dotfiles
 
-## bluetooth
+Installation:
 
-```
-$ bluetoothctl
-# scan on
-# devices
-# pair MAC_ADDRESS
-# trust MAC_ADDRESS (if not paired)
-# connect MAC_ADDRESS
-# info
-# exit 
+```shell
+$ git clone --recursive git@github.com:3tty0n/.dotfiles.git ~/.dotfiles
+$ ./setup.sh -s
 ```

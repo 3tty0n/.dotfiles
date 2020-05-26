@@ -115,5 +115,5 @@ POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 export PYTHONPATH=$HOME/src/github.com/pypy/pypy
 
 # XDG settings
-export XDG_CONFIG_HOME=$HOME/.config/xdg
+export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share

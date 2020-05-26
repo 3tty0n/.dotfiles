@@ -56,6 +56,9 @@ if dein#load_state('~/.cache/dein')
   " latex
   call dein#add('lervag/vimtex')
 
+  " org-mode
+  call dein#add('jceb/vim-orgmode')
+
   " toml
   call dein#add('cespare/vim-toml')
 
