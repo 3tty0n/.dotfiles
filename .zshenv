@@ -78,9 +78,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-#export PATH="$HOME/share/graalvm-ce-19.0.2/Contents/Home/bin:$PATH"
-#export PATH="$HOME/share/graalvm-ce-19.0.2/Contents/Home/jre/languages/js/bin:$PATH"
-#export JAVA_HOME="$HOME/share/graalvm-ce-19.0.2/Contents/Home"
+GRAAL_DIR="${HOME}/Libraries/graalvm-ce-java8-20.1.0"
+if [ -d "${GRAAL_DIR}" ]; then
+  export PATH="${GRAAL_DIR}/bin:$PATH"
+  export JAVA_HOME="${GRAAL_DIR}"
+fi
 
 # less
 if [[ "`which src-highlight-lesspipe.sh`" ]]; then
@@ -95,6 +97,9 @@ export PATH="$HOME/.cabal/bin:$PATH"
 
 # stack
 export PATH="$HOME/.stack/bin:$PATH"
+
+# luarocks
+export PATH="$HOME/.luarocks/bin:$PATH"
 
 # arandr
 export PATH="$HOME/.screenlayout:$PATH"

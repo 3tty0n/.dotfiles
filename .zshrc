@@ -39,6 +39,7 @@ zinit load zdharma/history-search-multi-word
 
 zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
 zinit light github/hub
+eval "$(hub alias -s)"
 
 zinit ice lucid from"gh-r" as"program" bpick"${binary}"
 zinit load junegunn/fzf-bin

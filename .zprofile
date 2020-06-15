@@ -23,9 +23,9 @@ if [ -x "`which direnv`" ]; then
 fi
 
 # hub
-if [ -x "`which hub`" ]; then
-  eval "$(hub alias -s)"
-fi
+# if [ -x "`which hub`" ]; then
+#   eval "$(hub alias -s)"
+# fi
 
 # opam
 if [ -x "`which opam`" ]; then

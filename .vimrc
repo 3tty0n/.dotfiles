@@ -36,9 +36,11 @@ if dein#load_state('~/.cache/dein')
 
   call dein#add('w0rp/ale')
 
+  " color scheme
   call dein#add('flazz/vim-colorschemes')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('colepeters/spacemacs-theme.vim')
+  " call dein#add('colepeters/spacemacs-theme.vim')
+  call dein#add('morhetz/gruvbox')
 
 
   " skk
@@ -159,7 +161,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme spacemacs-theme
+colorscheme gruvbox " badwolf
 set background=dark
 " }}}
 
