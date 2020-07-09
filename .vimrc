@@ -39,9 +39,11 @@ if dein#load_state('~/.cache/dein')
   " color scheme
   call dein#add('flazz/vim-colorschemes')
   call dein#add('vim-airline/vim-airline')
-  " call dein#add('colepeters/spacemacs-theme.vim')
-  call dein#add('morhetz/gruvbox')
+  call dein#add('colepeters/spacemacs-theme.vim')
+  " call dein#add('morhetz/gruvbox')
 
+  call dein#add('frazrepo/vim-rainbow')
+  call dein#add('airblade/vim-gitgutter')
 
   " skk
   call dein#add('tyru/eskk.vim')
@@ -122,8 +124,10 @@ set history=5000 " 保存するコマンド履歴の数
 " au FileType vim setlocal foldmethod=marker
 set nocompatible
 filetype plugin indent on
+
 set foldenable
-set foldmethod=marker
+set foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*'.&commentstring[0]
+
 au FileType sh let g:sh_fold_enabled=5
 au FileType sh let g:is_bash=1
 au FileType sh set foldmethod=syntax
@@ -148,6 +152,8 @@ let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 let g:lastplace_open_folds = 0
 
+set textwidth=80
+
 " }}}
 
 " {{{ # Keybindings
@@ -155,14 +161,12 @@ let g:lastplace_open_folds = 0
 
 " {{{ # Color scheme
 syntax on
-"colorscheme badwolf
-"set t_Co=256
 if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme gruvbox " badwolf
-set background=dark
+colorscheme spacemacs-theme
+" colorscheme badwolf
 " }}}
 
 " {{{ # Syntax checking
