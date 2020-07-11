@@ -172,3 +172,4 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 test -f ~/.profile && source ~/.profile
 test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
+### End of Zinit's installer chunk

@@ -15,9 +15,9 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
-HISTSIZE=10000                   # The maximum number of events to save in the internal history.
-SAVEHIST=10000                   # The maximum number of events to save in the history file.
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"       # The path to the history file.
+HISTSIZE=100000                   # The maximum number of events to save in the internal history.
+SAVEHIST=100000                   # The maximum number of events to save in the history file.
 
 #
 # Options

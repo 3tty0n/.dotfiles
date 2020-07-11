@@ -51,12 +51,6 @@ export PATH="${HOME}/.scalaenv/bin:${PATH}"
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
-# Add diff-highligh to PATH
-export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-
-# zplug
-export ZPLUG_HOME=${HOME}/.zplug
-
 # local settings
 export DOT_ZSH_ROOT=${HOME}/.zsh
 
@@ -117,8 +111,11 @@ POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 
 # For PyPy and RPython
-export PYTHONPATH=$HOME/src/github.com/pypy/pypy
+export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy
 
 # XDG settings
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
+
+# xconfig scripts
+export PATH="$HOME/.xconfig/bin:$PATH"
