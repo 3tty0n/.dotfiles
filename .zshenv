@@ -34,6 +34,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold'
 
 # Add ~/usr/local/bin to PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
@@ -72,7 +73,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-GRAAL_DIR="${HOME}/Libraries/graalvm-ce-java8-20.1.0"
+GRAAL_DIR="${HOME}/Libraries/graalvm-ce-java11-20.1.0"
 if [ -d "${GRAAL_DIR}" ]; then
   export PATH="${GRAAL_DIR}/bin:$PATH"
   export JAVA_HOME="${GRAAL_DIR}"

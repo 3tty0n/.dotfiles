@@ -121,12 +121,12 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 " folding comments
-" au FileType vim setlocal foldmethod=marker
+au FileType vim setlocal foldmethod=marker
 set nocompatible
 filetype plugin indent on
 
-set foldenable
-set foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*'.&commentstring[0]
+" set foldenable
+" set foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*'.&commentstring[0]
 
 au FileType sh let g:sh_fold_enabled=5
 au FileType sh let g:is_bash=1

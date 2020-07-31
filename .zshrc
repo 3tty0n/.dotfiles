@@ -37,24 +37,28 @@ binary="*${ostype}*${architect}*"
 
 zinit load zdharma/history-search-multi-word
 
-zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub"
+# Enable `hub'
+zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub" atload"eval '$(hub alias -s)'"
 zinit light github/hub
-eval "$(hub alias -s)"
 
-zinit ice lucid from"gh-r" as"program" bpick"${binary}"
+# Directory listings for zsh with git features
+zinit light supercrabtree/k
+
+zinit ice from"gh-r" as"program" bpick"${binary}"
 zinit load junegunn/fzf-bin
 
-zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
+zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
 zinit light x-motemen/ghq
 
-zinit ice lucid from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/gist -> ${ZPFX}/bin/gist"
-zinit light b4b4r07/gist
+zinit ice atclone"make" as"program" pick"fzy"
+zinit light jhawthorn/fzy
+
+zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/peco -> ${ZPFX}/bin/peco"
+zinit light peco/peco
 
 zinit light changyuheng/fz
 
 zinit light rupa/z
-
-zinit ice atclone"make" as"program" pick"fzy"; zinit load jhawthorn/fzy
 
 zinit light zsh-users/zsh-autosuggestions
 
