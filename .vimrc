@@ -234,6 +234,7 @@ let g:vimtex_compiler_latexmk = {
 
 let g:vimtex_view_general_viewer = 'xdg-open'
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
+let g:tex_flavor = 'latex'
 " }}}
 
 " {{{ # Configurations for programming language
