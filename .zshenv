@@ -69,7 +69,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-GRAAL_DIR="${HOME}/.local/share/graalvm-ce-java11-20.1.0"
+GRAAL_DIR="${HOME}/.local/share/graalvm-ce-java11-20.2.0"
 if [ -d "${GRAAL_DIR}" ]; then
   export PATH="${GRAAL_DIR}/bin:$PATH"
   export JAVA_HOME="${GRAAL_DIR}"
