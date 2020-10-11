@@ -114,6 +114,8 @@ alias md='mkdir'
 alias rm='rm -ri'
 alias g='git'
 
+alias vi='vim'
+
 if [ -x "$(command -v emacs)" ]; then
   alias e='emacsclient'
 fi
@@ -142,6 +144,8 @@ case "${OSTYPE}" in
     alias la='ls -la --color'
   ;;
 esac
+
+alias mutt=neomutt
 # }}}
 
 # {{{  Package Managers
