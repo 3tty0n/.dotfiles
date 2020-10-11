@@ -40,7 +40,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('flazz/vim-colorschemes')
   call dein#add('vim-airline/vim-airline')
   call dein#add('colepeters/spacemacs-theme.vim')
-  " call dein#add('morhetz/gruvbox')
+  call dein#add('jacoborus/tender.vim')
+  call dein#add('morhetz/gruvbox')
 
   call dein#add('frazrepo/vim-rainbow')
   call dein#add('airblade/vim-gitgutter')
@@ -121,16 +122,16 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 " folding comments
-au FileType vim setlocal foldmethod=marker
-set nocompatible
-filetype plugin indent on
+" au FileType vim setlocal foldmethod=marker
+" set nocompatible
+" filetype plugin indent on
 
 " set foldenable
 " set foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*'.&commentstring[0]
 
-au FileType sh let g:sh_fold_enabled=5
-au FileType sh let g:is_bash=1
-au FileType sh set foldmethod=syntax
+" au FileType sh let g:sh_fold_enabled=5
+" au FileType sh let g:is_bash=1
+" au FileType sh set foldmethod=syntax
 syntax enable
 
 " remove unused whitespaces automatically
@@ -152,21 +153,21 @@ let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 let g:lastplace_open_folds = 0
 
-set textwidth=80
-
 " }}}
 
 " {{{ # Keybindings
 " }}}
 
 " {{{ # Color scheme
+
 syntax on
 if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme spacemacs-theme
-" colorscheme badwolf
+colorscheme tender "spacemacs dark badwolf tender
+let g:airline_theme = 'tender'
+
 " }}}
 
 " {{{ # Syntax checking
