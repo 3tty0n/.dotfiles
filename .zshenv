@@ -75,6 +75,11 @@ if [ -d "${GRAAL_DIR}" ]; then
   export JAVA_HOME="${GRAAL_DIR}"
 fi
 
+# antlr
+export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+
 # less
 if [[ "`which src-highlight-lesspipe.sh`" ]]; then
   export LESS='-RMi'

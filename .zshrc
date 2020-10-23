@@ -66,6 +66,7 @@ zinit light zdharma/fast-syntax-highlighting
 
 zinit light zsh-users/zsh-history-substring-search
 
+zinit ice blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
@@ -77,7 +78,12 @@ zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/g
 #zinit ice depth=1 pick"spaceship.zsh"; zinit light denysdovhan/spaceship-prompt
 #zinit ice depth=1 pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 #zinit ice depth=1 pick"powerlevel9k.zsh-theme"; zinit light bhilburn/powerlevel9k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+if [ -x "$(command -v starship)" ]; then
+  eval "$(starship init zsh)"
+else
+  zinit ice depth=1; zinit light romkatv/powerlevel10k
+fi
 
 zinit creinstall -q $HOME/.zsh/completion
 

@@ -159,14 +159,12 @@ let g:lastplace_open_folds = 0
 " }}}
 
 " {{{ # Color scheme
-
 syntax on
 if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
 colorscheme tender "spacemacs dark badwolf tender
-let g:airline_theme = 'tender'
 
 " }}}
 
