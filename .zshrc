@@ -148,10 +148,12 @@ case "${OSTYPE}" in
     alias ls='ls --color'
     alias ll='ls -l --color'
     alias la='ls -la --color'
+
+    alias blank='sleep 0.2; xset dpms force off'
+    alias mutt=neomutt
   ;;
 esac
 
-alias mutt=neomutt
 # }}}
 
 # {{{  Package Managers
