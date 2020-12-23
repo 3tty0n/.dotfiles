@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # {{{ Zplugin: setup
 if [ ! -d $HOME/.zinit ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
@@ -38,8 +45,8 @@ binary="*${ostype}*${architect}*"
 zinit load zdharma/history-search-multi-word
 
 # Enable `hub'
-zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub" atload"eval '$(hub alias -s)'"
-zinit light github/hub
+# zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub" atload"eval '$(hub alias -s)'"
+# zinit light github/hub
 
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
@@ -76,14 +83,10 @@ zinit light hlissner/zsh-autopair
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
 #zinit ice depth=1 pick"spaceship.zsh"; zinit light denysdovhan/spaceship-prompt
-#zinit ice depth=1 pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
-#zinit ice depth=1 pick"powerlevel9k.zsh-theme"; zinit light bhilburn/powerlevel9k
+#zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-if [ -x "$(command -v starship)" ]; then
-  eval "$(starship init zsh)"
-else
-  zinit ice depth=1; zinit light romkatv/powerlevel10k
-fi
+[ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
+
 
 zinit creinstall -q $HOME/.zsh/completion
 
@@ -189,3 +192,6 @@ test -f ~/.profile && source ~/.profile
 test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
 ### End of Zinit's installer chunk
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
+[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
