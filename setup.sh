@@ -21,7 +21,7 @@ function usage {
 function create_symlink {
   printf "makeing symbolik links...\n"
 
-  for f in $(find . -maxdepth 1 -type f -name ".*"); do
+  for f in $(find . -maxdepth 1 -type f -name ".*" -not -name ".gitignore"); do
     ln -sfnv "$DOTFILES_ROOT/$(basename $f)" "$HOME/$(basename $f)"
   done
 
@@ -47,7 +47,7 @@ function create_symlink {
 
 function setup_emacs {
   if [ ! -e ~/.emacs.d ]; then
-    git clone https://github.com/3tty0n/.emacs.d.git ~/.emacs.d
+    git clone git@github.com:3tty0n/.emacs.d.git ~/.emacs.d
   fi
 }
 
@@ -66,8 +66,7 @@ function setup_brew {
   popd
 }
 
-for OPT in "$@"
-do
+for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' )
       usage
