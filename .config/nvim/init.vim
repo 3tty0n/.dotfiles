@@ -1,1 +1,0 @@
-/Users/izawa/.dotfiles/.vimrc
