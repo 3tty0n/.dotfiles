@@ -29,7 +29,7 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold --color=bw'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold'
 
 # Add ~/usr/local/bin to PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -69,11 +69,23 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-GRAAL_DIR="${HOME}/.local/share/graalvm-ce-java11-20.2.0"
+GRAAL_DIR="${HOME}/.local/share/graalvm-ce-java11-20.3.0"
 if [ -d "${GRAAL_DIR}" ]; then
   export PATH="${GRAAL_DIR}/bin:$PATH"
   export JAVA_HOME="${GRAAL_DIR}"
+
+  export PATH="${GRAAL_DIR}/languages/js/bin/staticrypt:${PATH}"
+
 fi
+
+# mx
+export PATH="~/.local/share/mx:$PATH"
+
+# jdk
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
+# aspectj
+export PATH="/opt/aspectj/bin:$PATH"
 
 # antlr
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
@@ -111,6 +123,8 @@ POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # For PyPy and RPython
 export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy
