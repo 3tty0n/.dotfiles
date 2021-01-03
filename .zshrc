@@ -34,6 +34,7 @@ architect=""
 case `uname -m` in
   i386|i686) architect="386";;
   x86_64) architect="amd";;
+  arm64) architect="arm64";;
 esac
 ostype=""
 case $OSTYPE in
@@ -44,24 +45,11 @@ binary="*${ostype}*${architect}*"
 
 zinit load zdharma/history-search-multi-word
 
-# Enable `hub'
-# zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/bin/hub -> ${ZPFX}/bin/hub" atload"eval '$(hub alias -s)'"
-# zinit light github/hub
-
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
 
-zinit ice from"gh-r" as"program" bpick"${binary}"
-zinit load junegunn/fzf-bin
-
-zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/ghq -> ${ZPFX}/bin/ghq"
-zinit light x-motemen/ghq
-
 zinit ice atclone"make" as"program" pick"fzy"
 zinit light jhawthorn/fzy
-
-zinit ice from"gh-r" as"program" bpick"${binary}" mv"*${ostype}*/peco -> ${ZPFX}/bin/peco"
-zinit light peco/peco
 
 zinit light changyuheng/fz
 
@@ -78,13 +66,12 @@ zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
 
-#zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
+zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
 #zinit ice depth=1 pick"spaceship.zsh"; zinit light denysdovhan/spaceship-prompt
 #zinit ice depth=1; zinit light romkatv/powerlevel10k
-
 [ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
 
 
