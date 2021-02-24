@@ -39,7 +39,7 @@ if dein#load_state('~/.cache/dein')
   " color scheme
   call dein#add('flazz/vim-colorschemes')
   call dein#add('vim-airline/vim-airline')
-  call dein#add('colepeters/spacemacs-theme.vim')
+  call dein#add('liuchengxu/space-vim-dark')
   call dein#add('jacoborus/tender.vim')
   call dein#add('morhetz/gruvbox')
 
@@ -164,7 +164,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme tender "spacemacs dark badwolf tender
+colorscheme space-vim-dark "space-vim-dark badwolf tender
 
 " }}}
 

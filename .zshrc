@@ -70,7 +70,6 @@ zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-noti
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
-#zinit ice depth=1 pick"spaceship.zsh"; zinit light denysdovhan/spaceship-prompt
 #zinit ice depth=1; zinit light romkatv/powerlevel10k
 [ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
 
@@ -165,7 +164,7 @@ fi
 export RBENV_ROOT="$HOME/.rbenv"
 export PATH="$RBENV_ROOT/bin:$PATH"
 if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
+ eval "$(rbenv init -)"
 fi
 # }}}
 
@@ -178,7 +177,6 @@ test -f ~/.zshrc.local && source ~/.zshrc.local
 test -f ~/.profile && source ~/.profile
 test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
-### End of Zinit's installer chunk
 
 # To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh

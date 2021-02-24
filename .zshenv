@@ -127,7 +127,14 @@ POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # For PyPy and RPython
-export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy
+if [[ -d  $HOME/src/foss.heptapod.net/pypy/pypy ]]; then
+  export PATH=$HOME/src/foss.heptapod.net/pypy/pypy/rpython/bin:$PATH
+  export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy:$PYTHONPATH
+fi
+
+if [[ -d $HOME/src/github.com/alex/rply ]]; then
+  export PYTHONPATH=$HOME/src/github.com/alex/rply:$PYTHONPATH
+fi
 
 # XDG settings
 export XDG_CONFIG_HOME=$HOME/.config
