@@ -70,9 +70,11 @@ zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-noti
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
-#zinit ice depth=1; zinit light romkatv/powerlevel10k
-[ -x "$(command -v starship)" ] && eval "$(starship init zsh)"
-
+if [ -x "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+else
+    zinit ice depth=1; zinit light romkatv/powerlevel10k
+fi
 
 zinit creinstall -q $HOME/.zsh/completion
 
@@ -164,7 +166,7 @@ fi
 export RBENV_ROOT="$HOME/.rbenv"
 export PATH="$RBENV_ROOT/bin:$PATH"
 if command -v rbenv 1>/dev/null 2>&1; then
- eval "$(rbenv init -)"
+  eval "$(rbenv init -)"
 fi
 # }}}
 
