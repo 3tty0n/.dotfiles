@@ -172,6 +172,8 @@ colorscheme space-vim-dark "space-vim-dark badwolf tender
 " Enable completion where available.
 " This setting must be set before ALE is loaded.
 let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_autoimport = 1
 " }}}
 
 " {{{ # Auto completion
