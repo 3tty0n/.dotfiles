@@ -37,15 +37,15 @@ function setup_emacs {
 function setup_xconfig {
   if [ "$(uname)" = "Linux" ] && [ ! -e ~/.xconfig ]; then
     printf "cloning xconfig dir...\n"
-    git clone git@github.com:3tty0n/xconfig.git ~/.xconfig 2>/dev/null
+    git clone git@github.com:3tty0n/.xconfig.git ~/.xconfig 2>/dev/null
     printf "done.\n"
   fi
 }
 
 function setup_email {
   if [ ! -e ~/.xmail ]; then
-    printf "cloning xconfig dir...\n"
-    git clone git@github.com:3tty0n/xmail.git ~/.xmail 2>/dev/null
+    printf "cloning xmail dir...\n"
+    git clone git@github.com:3tty0n/.xmail.git ~/.xmail 2>/dev/null
     printf "done.\n"
   fi
 }
@@ -56,7 +56,7 @@ for OPT in "$@"; do
     '-d' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
     '-e' | '--emacs' ) setup_emacs; shift 1 ;;
     '-m' | '--mail' ) setup_email; shift 1 ;;
-    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_email; exit ;;
+    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; exit ;;
     '-D' ) set -x; shift 1 ;;
     -*) echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2; exit 1 ;;
     *)
