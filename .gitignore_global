@@ -36,6 +36,9 @@ Icon?
 *.synctex.gz
 *.xdv
 *.sta
+*.snm
+*.nav
+*.vrb
 
 # python
 __pycache__/
