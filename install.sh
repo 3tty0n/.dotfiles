@@ -23,6 +23,7 @@ function setup_dotfiles {
   find . -maxdepth 1 -type f -name ".*" -not -name ".gitignore" \
        -exec ln -sfv "$DOTFILES_ROOT/$(basename {})" "$HOME/$(basename {})" ';'
 
+  find .config -type f -exec ln -sfnv $DOTFILES_ROOT/{} $HOME/{} ';'
   ln -sfnv "$DOTFILES_ROOT/.zsh" "$HOME/.zsh"
 }
 
