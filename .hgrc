@@ -1,0 +1,19 @@
+[ui]
+username = Yusuke Izawa <yuizalp@gmail.com>
+verbose = True
+
+[alias]
+la = log --graph --template {oneline}
+ll = log -l 20 --graph --template {oneline}
+
+[templatealias]
+oneline = '{hash}{myBranch}{myBookmarks}{myTags} {name} {commitMsg}\n'
+hash = "{label(ifeq(phase, 'secret', 'yellow', ifeq(phase, 'draft', 'blue', 'red')), node|short)}"
+myBranch = "{ifeq(branch, 'default', '', label('green', ' ({branch})'))}"
+myBookmarks = "{bookmarks % ' {bookmark}{ifeq(bookmark, active, '*')}{bookmark}'}"
+myTags = "{label('yellow', tags % ' {tag}')}"
+name = '{label('blue', author|person)}'
+commitMsg = '{desc|firstline|strip}'
+
+[experimental]
+graphshorten = true
