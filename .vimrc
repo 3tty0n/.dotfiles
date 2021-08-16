@@ -41,6 +41,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-airline/vim-airline')
   call dein#add('liuchengxu/space-vim-dark')
   call dein#add('jacoborus/tender.vim')
+  call dein#add('agreco/vim-citylights')
   call dein#add('morhetz/gruvbox')
 
   call dein#add('frazrepo/vim-rainbow')
@@ -50,16 +51,20 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tyru/eskk.vim')
 
   " lsp
-  call dein#add('prabirshrestha/async.vim')
   call dein#add('prabirshrestha/vim-lsp')
   call dein#add('mattn/vim-lsp-settings')
 
-  call dein#add('prabirshrestha/asyncomplete.vim')
-  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-  call dein#add('yami-beta/asyncomplete-omni.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+let g:deoplete#enable_at_startup = 1
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
 
   " latex
-  call dein#add('lervag/vimtex')
+  " call dein#add('lervag/vimtex')
+  call dein#add('vim-latex/vim-latex')
 
   " org-mode
   call dein#add('jceb/vim-orgmode')
@@ -122,16 +127,14 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 " folding comments
-" au FileType vim setlocal foldmethod=marker
-" set nocompatible
-" filetype plugin indent on
+au FileType vim setlocal foldmethod=marker foldlevel=0 foldcolumn=3
 
-" set foldenable
-" set foldmethod=expr foldexpr=getline(v:lnum)=~'^\\s*'.&commentstring[0]
+set nocompatible
+filetype plugin indent on
 
-" au FileType sh let g:sh_fold_enabled=5
-" au FileType sh let g:is_bash=1
-" au FileType sh set foldmethod=syntax
+au FileType sh let g:sh_fold_enabled=5
+au FileType sh let g:is_bash=1
+au FileType sh set foldmethod=syntax
 syntax enable
 
 " remove unused whitespaces automatically
@@ -164,7 +167,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme space-vim-dark "space-vim-dark badwolf tender
+colorscheme space-vim-dark  "space-vim-dark badwolf tender citylights
 
 " }}}
 
@@ -176,28 +179,7 @@ set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_autoimport = 1
 " }}}
 
-" {{{ # Auto completion
-
-" asyncomplete
-let g:asyncomplete_remove_duplicates = 1
-
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_auto_popup = 1
-
-set completeopt+=preview
-
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" omni completion
-call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-\ 'name': 'omni',
-\ 'whitelist': ['*'],
-\ 'blacklist': ['c', 'cpp', 'html'],
-\ 'completor': function('asyncomplete#sources#omni#completor')
-\  }))
-" }}}
-
-" {{{ # Snippet
+" {{{ # Snippets
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -219,7 +201,10 @@ if has('conceal')
 endif
 " }}}
 
-" {{{ # Latex
+" {{{ # Configurations for programming language
+
+
+" LaTeX
 let g:vimtex_compiler_latexmk = {
       \ 'background': 1,
       \ 'build_dir': '',
@@ -238,20 +223,22 @@ let g:vimtex_view_general_options = '-r @line @pdf @tex'
 let g:tex_flavor = 'latex'
 " }}}
 
-" {{{ # Configurations for programming language
-" OCaml
-" lsp
+" {{{ # LSP
+
+" OCaml-lsp
 if executable('ocaml-language-server')
   au User lsp_setup call lsp#register_server({
         \ 'name': 'ocaml-language-server',
         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocaml-language-server --stdio']},
-        \ 'whitelist': ['reason', 'ocaml'],
+        \ 'allowlist': ['reason', 'ocaml'],
         \ })
 else
   " merlin
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
+
+"
 " }}}
 
 " {{{ # Input/Output method
@@ -261,4 +248,8 @@ let g:eskk#large_dictionary = {
 \	'sorted': 1,
 \	'encoding': 'euc-jp',
 \}
+" }}}
+
+" {{{ # Magic comments
+" vim: filetype=vim foldmethod=marker
 " }}}
