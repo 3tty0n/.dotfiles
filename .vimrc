@@ -43,9 +43,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('jacoborus/tender.vim')
   call dein#add('agreco/vim-citylights')
   call dein#add('morhetz/gruvbox')
+  call dein#add('embark-theme/vim')
 
   call dein#add('frazrepo/vim-rainbow')
-  call dein#add('airblade/vim-gitgutter')
+  call dein#add('mhinz/vim-signify')
 
   " skk
   call dein#add('tyru/eskk.vim')
@@ -59,7 +60,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
-let g:deoplete#enable_at_startup = 1
+
+  let g:deoplete#enable_at_startup = 1
   call dein#add('lighttiger2505/deoplete-vim-lsp')
 
   " latex
@@ -156,6 +158,8 @@ let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 let g:lastplace_open_folds = 0
 
+" vim-signify
+set updatetime=100
 " }}}
 
 " {{{ # Keybindings
@@ -167,7 +171,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme space-vim-dark  "space-vim-dark badwolf tender citylights
+colorscheme embark " space-vim-dark badwolf tender citylights
 
 " }}}
 
