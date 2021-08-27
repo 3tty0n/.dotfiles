@@ -69,13 +69,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # graal
-GRAAL_DIR="${HOME}/.local/share/graalvm-ce-java11-20.3.0"
-if [ -d "${GRAAL_DIR}" ]; then
-  export PATH="${GRAAL_DIR}/bin:$PATH"
-  export JAVA_HOME="${GRAAL_DIR}"
-
-  export PATH="${GRAAL_DIR}/languages/js/bin/staticrypt:${PATH}"
-
+GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java11-21.2.0
+if [ -d "${GRAALVM_HOME}" ]; then
+  export GRAALVM_HOME
+  export PATH="${GRAALVM_HOME}/bin:$PATH"
+  export JAVA_HOME="${GRAALVMHOME}"
 fi
 
 # mx
@@ -91,6 +89,9 @@ export PATH="/opt/aspectj/bin:$PATH"
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+
+# pyls-ms
+export PATH="$HOME/.local/share/pyls-ms:$PATH"
 
 # less
 if [[ "`which src-highlight-lesspipe.sh`" ]]; then
@@ -112,33 +113,21 @@ export PATH="$HOME/.luarocks/bin:$PATH"
 # arandr
 export PATH="$HOME/.screenlayout:$PATH"
 
-# powerlevel9k
-POWERLEVEL9K_MODE='nerdfont-fontconfig'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs newline status)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-
-# For PyPy and RPython
-if [[ -d  $HOME/src/foss.heptapod.net/pypy/pypy ]]; then
-  export PATH=$HOME/src/foss.heptapod.net/pypy/pypy/rpython/bin:$PATH
-  export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy:$PYTHONPATH
-fi
-
-if [[ -d $HOME/src/github.com/alex/rply ]]; then
-  export PYTHONPATH=$HOME/src/github.com/alex/rply:$PYTHONPATH
-fi
-
 # XDG settings
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 
 # xconfig scripts
 export PATH="$HOME/.xconfig/bin:$PATH"
+
+# For PyPy and RPython
+if [[ -d  $HOME/src/foss.heptapod.net/pypy/pypy ]]; then
+  export PATH=$HOME/src/foss.heptapod.net/pypy/pypy/rpython/bin:$PATH
+  export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy:$PYTHONPATH
+  #export PYTHONPATH=$HOME/src/github.com/3tty0n/pypy:$PYTHONPATH
+  #export PATH=$HOME/src/github.com/3tty0n/pypy/rpython/bin:$PATH
+
+  if [[ -d $HOME/src/github.com/alex/rply ]]; then
+    export PYTHONPATH=$HOME/src/github.com/alex/rply:$PYTHONPATH
+  fi
+fi

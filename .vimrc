@@ -44,6 +44,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('agreco/vim-citylights')
   call dein#add('morhetz/gruvbox')
   call dein#add('embark-theme/vim')
+  call dein#add('saltdotac/citylights.vim')
 
   call dein#add('frazrepo/vim-rainbow')
   call dein#add('mhinz/vim-signify')
@@ -101,8 +102,8 @@ set visualbell " visualize bell
 " Tab configuration
 set list listchars=tab:\▸\-
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set smartindent
 
 " search configuration
@@ -171,7 +172,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme embark " space-vim-dark badwolf tender citylights
+colorscheme embark  " citylights embark space-vim-dark badwolf tender citylights
 
 " }}}
 

@@ -1,6 +1,7 @@
 [ui]
-username = Yusuke Izawa <yuizalp@gmail.com>
+username = Yusuke Izawa <me@yizawa.com>
 verbose = True
+interface = curses
 
 [alias]
 la = log --graph --template {oneline}
@@ -23,3 +24,5 @@ graphshorten = true
 rebase =
 histedit =
 shelve =
+evolve =
+topic =

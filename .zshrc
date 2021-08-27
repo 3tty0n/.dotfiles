@@ -77,14 +77,16 @@ zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
 
-zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
+#zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
-if [ -x "$(command -v starship)" ]; then
+if [[ -x "$(command -v starship)" ]]; then
     eval "$(starship init zsh)"
 else
     zinit ice depth=1; zinit light romkatv/powerlevel10k
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fi
 
 zinit creinstall -q $HOME/.zsh/completion
@@ -121,6 +123,7 @@ alias dc=cd
 alias md='mkdir'
 alias rm='rm -ri'
 alias g='git'
+alias h='hg'
 
 alias vi='vim'
 
@@ -158,7 +161,8 @@ esac
 
 # }}}
 
-# {{{  Package Managers
+# {{{
+
 # OPAM
 if command -v opam 1>/dev/null 2>&1; then
   if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
@@ -166,18 +170,10 @@ if command -v opam 1>/dev/null 2>&1; then
   fi
 fi
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 # Rbenv
-export RBENV_ROOT="$HOME/.rbenv"
-export PATH="$RBENV_ROOT/bin:$PATH"
 if command -v rbenv 1>/dev/null 2>&1; then
-  eval "$(rbenv init -)"
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
 fi
 # }}}
 
@@ -201,9 +197,4 @@ vterm_printf(){
 
 # {{{ Load local configuration files
 test -f ~/.zshrc.local && source ~/.zshrc.local
-test -f ~/.profile && source ~/.profile
-test -f ~/.p10k.zsh && source ~/.p10k.zsh
 # }}}
-
-# To customize prompt, run `p10k configure` or edit ~/.dotfiles/.p10k.zsh.
-[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh

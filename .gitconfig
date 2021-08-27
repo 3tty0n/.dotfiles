@@ -2,7 +2,7 @@
   path = ~/.gitconfig_secret
 [user]
   name	= Yusuke Izawa
-  email = yuizalp@gmail.com
+  email = me@yizawa.com
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
