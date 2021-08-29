@@ -7,6 +7,7 @@ interface = curses
 la = log --graph --template {oneline}
 ll = log -l 20 --graph --template {oneline}
 l = log --branch . --graph --template {oneline}
+diff = !HGPLAIN=1 $HG diff --pager=on --config pager.pager=diff-so-fancy
 
 [templatealias]
 oneline = '{rev}: {hash}{myBranch}{myBookmarks}{myTags} {name} {commitMsg}\n'

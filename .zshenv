@@ -120,14 +120,20 @@ export XDG_DATA_HOME=$HOME/.local/share
 # xconfig scripts
 export PATH="$HOME/.xconfig/bin:$PATH"
 
-# For PyPy and RPython
-if [[ -d  $HOME/src/foss.heptapod.net/pypy/pypy ]]; then
-  export PATH=$HOME/src/foss.heptapod.net/pypy/pypy/rpython/bin:$PATH
-  export PYTHONPATH=$HOME/src/foss.heptapod.net/pypy/pypy:$PYTHONPATH
-  #export PYTHONPATH=$HOME/src/github.com/3tty0n/pypy:$PYTHONPATH
-  #export PATH=$HOME/src/github.com/3tty0n/pypy/rpython/bin:$PATH
+_export_pythonpath() {
+    project=$1
+    if [[ -d $project ]]; then
+        export PYTHONPATH="${project}":"${PYTHONPATH}"
+    fi
+}
 
-  if [[ -d $HOME/src/github.com/alex/rply ]]; then
-    export PYTHONPATH=$HOME/src/github.com/alex/rply:$PYTHONPATH
-  fi
+# For PyPy and RPython
+PYPY=$HOME/src/foss.heptapod.net/pypy/pypy
+RPLY=$HOME/src/github.com/alex/rply
+VMPROF=$HOME/src/github.com/vmprof/vmprof-python
+if [[ -d $PYPY ]]; then
+    for proj in $PYPY $RPLY $VMPROF; do
+        _export_pythonpath $proj
+    done
+    export PATH=$PYPY/rpython/bin:$PATH
 fi
