@@ -139,6 +139,10 @@ if [ -x "$(command -v tig)" ]; then
   alias ta='tig --all'
 fi
 
+if [ -x "$(command -v verco)" ] && [ -x "$(command -v hg)" ]; then
+    alias gh='verco'
+fi
+
 if [ -x "$(command -v bundle)" ]; then
   alias be='bundle exec'
 fi
