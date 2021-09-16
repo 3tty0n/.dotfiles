@@ -1,89 +1,60 @@
 " {{{ # dein
+let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-if has('vim_starting')
-  set nocompatible               " Be iMproved
+call plug#begin('~/.vim/plugged')
+
+Plug 'farmergreg/vim-lastplace'
+
+Plug  'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler'
+
+Plug 'w0rp/ale'
+
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'jacoborus/tender.vim'
+Plug 'agreco/vim-citylights'
+Plug 'morhetz/gruvbox'
+Plug 'embark-theme/vim'
+Plug 'saltdotac/citylights.vim'
+
+Plug 'frazrepo/vim-rainbow'
+Plug 'mhinz/vim-signify'
+
+" skk
+Plug 'tyru/eskk.vim'
+
+" lsp
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
+let g:deoplete#enable_at_startup = 1
 
-if &compatible
-  set nocompatible
-endif
+" latex
+" Plug 'lervag/vimtex'
+Plug 'vim-latex/vim-latex'
 
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+" org-mode
+Plug 'jceb/vim-orgmode'
 
-let dein_exists=expand('~/.cache/dein')
+" toml
+Plug 'cespare/vim-toml'
 
-if !isdirectory(dein_exists)
-  echo "Installing dein.vim..."
-  echo ""
-  silent !\curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s ~/.cache/dein
-endif
+call plug#end()
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  call dein#add('farmergreg/vim-lastplace')
-
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-
-  call dein#add('jiangmiao/auto-pairs')
-
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/vimfiler')
-
-  call dein#add('w0rp/ale')
-
-  " color scheme
-  call dein#add('flazz/vim-colorschemes')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('liuchengxu/space-vim-dark')
-  call dein#add('jacoborus/tender.vim')
-  call dein#add('agreco/vim-citylights')
-  call dein#add('morhetz/gruvbox')
-  call dein#add('embark-theme/vim')
-  call dein#add('saltdotac/citylights.vim')
-
-  call dein#add('frazrepo/vim-rainbow')
-  call dein#add('mhinz/vim-signify')
-
-  " skk
-  call dein#add('tyru/eskk.vim')
-
-  " lsp
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings')
-
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  let g:deoplete#enable_at_startup = 1
-  call dein#add('lighttiger2505/deoplete-vim-lsp')
-
-  " latex
-  " call dein#add('lervag/vimtex')
-  call dein#add('vim-latex/vim-latex')
-
-  " org-mode
-  call dein#add('jceb/vim-orgmode')
-
-  " toml
-  call dein#add('cespare/vim-toml')
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-if dein#check_install()
-  call dein#install()
-endif
-
-filetype plugin indent on
 " }}}
 
 " {{{ # Editor
