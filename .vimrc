@@ -1,4 +1,4 @@
-" {{{ # dein
+" {{{ # Vim Plug
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
 call plug#begin('~/.vim/plugged')
@@ -25,7 +25,6 @@ Plug 'embark-theme/vim'
 Plug 'saltdotac/citylights.vim'
 
 Plug 'frazrepo/vim-rainbow'
-Plug 'mhinz/vim-signify'
 
 " skk
 Plug 'tyru/eskk.vim'
@@ -34,18 +33,9 @@ Plug 'tyru/eskk.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-
 " latex
-" Plug 'lervag/vimtex'
-Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
+" Plug 'vim-latex/vim-latex'
 
 " org-mode
 Plug 'jceb/vim-orgmode'
@@ -101,15 +91,11 @@ set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
 " folding comments
-au FileType vim setlocal foldmethod=marker foldlevel=0 foldcolumn=3
+" au FileType vim setlocal foldmethod=marker foldlevel=0 foldcolumn=3
 
 set nocompatible
 filetype plugin indent on
 
-au FileType sh let g:sh_fold_enabled=5
-au FileType sh let g:is_bash=1
-au FileType sh set foldmethod=syntax
-syntax enable
 
 " remove unused whitespaces automatically
 autocmd BufWritePre * %s/\s\+$//e
@@ -143,16 +129,26 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme embark  " citylights embark space-vim-dark badwolf tender citylights
+colorscheme tender  " citylights embark space-vim-dark badwolf tender citylights
 
 " }}}
 
-" {{{ # Syntax checking
+" {{{ # Syntax checking and Completion
 " Enable completion where available.
 " This setting must be set before ALE is loaded.
 let g:ale_completion_enabled = 1
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_autoimport = 1
+
+set omnifunc=syntaxcomplete#Complete
+
+set completeopt=menuone,noinsert
+
+" 補完表示時のEnterで改行をしない
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+
 " }}}
 
 " {{{ # Snippets

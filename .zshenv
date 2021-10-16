@@ -17,8 +17,8 @@ export TERM="xterm-256color"
 export EDITOR='vim'
 
 # less
-export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
-# export LESSSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
+export LESS='-R -gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
+export LESSSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
 
 # grep
 # export GREP_OPTIONS='--color=always'
@@ -68,19 +68,16 @@ export PATH="$HOME/.local/bin:$PATH"
 # emacs cask
 export PATH="$HOME/.cask/bin:$PATH"
 
+# jdk
+# export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
 # graal
-GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java11-21.2.0
-if [ -d "${GRAALVM_HOME}" ]; then
-  export GRAALVM_HOME
-  export PATH="${GRAALVM_HOME}/bin:$PATH"
-  export JAVA_HOME="${GRAALVMHOME}"
-fi
+export GRAALVM_HOME=$HOME/.local/share/graalvm-ee-java11-21.2.0.1
+export PATH="${GRAALVM_HOME}/bin:$PATH"
+export JAVA_HOME=$HOME/.local/share/graalvm-ee-java11-21.2.0.1
 
 # mx
 export PATH="~/.local/share/mx:$PATH"
-
-# jdk
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 # aspectj
 export PATH="/opt/aspectj/bin:$PATH"
@@ -131,8 +128,9 @@ _export_pythonpath() {
 PYPY=$HOME/src/foss.heptapod.net/pypy/pypy
 RPLY=$HOME/src/github.com/alex/rply
 VMPROF=$HOME/src/github.com/vmprof/vmprof-python
+JITVIEWER=$HOME/src/foss.heptapod.net/pypy/jitviewer
 if [[ -d $PYPY ]]; then
-    for proj in $PYPY $RPLY $VMPROF; do
+    for proj in $PYPY $RPLY $JITVIEWER; do
         _export_pythonpath $proj
     done
     export PATH=$PYPY/rpython/bin:$PATH

@@ -182,6 +182,10 @@ if command -v rbenv 1>/dev/null 2>&1; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
+
+# Pyenv
+eval "$(pyenv init -)"
+
 # }}}
 
 # {{{ Shell integration
