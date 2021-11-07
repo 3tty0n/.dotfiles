@@ -1,60 +1,12 @@
 # {{{
-# Change shell behavior when opening the terminal view in dolphin. MYPROMPT set by konsole profile
-if ! [[ $MYPROMPT = dolphin ]]; then
-    isdolphin=false
-    # Use chpwd_recent_dirs to start new sessions from last working dir
-    # Populate dirstack with chpwd history
-    autoload -Uz chpwd_recent_dirs add-zsh-hook
-    add-zsh-hook chpwd chpwd_recent_dirs
-    zstyle ':chpwd:*' recent-dirs-file "${TMPDIR:-/tmp}/chpwd-recent-dirs"
-    dirstack=($(awk -F"'" '{print $2}' ${$(zstyle -L ':chpwd:*' recent-dirs-file)[4]} 2>/dev/null))
-    [[ ${PWD} = ${HOME}  || ${PWD} = "." ]] && (){
-        local dir
-        for dir ($dirstack){
-            [[ -d "${dir}" ]] && { cd -q "${dir}"; break }
-        }
-    } 2>/dev/null
-else
-    isdolphin=true
-fi
-
-# Enable Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-ZINIT_HOME="${ZINIT_HOME:-${ZPLG_HOME:-${ZDOTDIR:-${HOME}}/.zinit}}"
-ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-${ZPLG_BIN_DIR_NAME}}:-bin}"
-### Added by Zinit's installer
-if [[ ! -f "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh" ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-    command mkdir -p "${ZINIT_HOME}" && command chmod g-rwX "${ZINIT_HOME}"
-    command git clone https://github.com/zdharma/zinit "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f"
-fi
-source "${ZINIT_HOME}/${ZINIT_BIN_DIR_NAME}/zinit.zsh"
+source ~/.zinit/bin/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # }}}
 
 # {{{ Zplugin: plugin configurations
 # keybind
-bindkey -e
-architect=""
-case `uname -m` in
-  i386|i686) architect="386";;
-  x86_64) architect="amd";;
-  arm64) architect="arm64";;
-esac
-ostype=""
-case $OSTYPE in
-  darwin*) ostype="darwin";;
-  linux*) ostype="linux";;
-esac
-binary="*${ostype}*${architect}*"
-
-zinit load zdharma/history-search-multi-word
+zinit load zdharma-continuum/history-search-multi-word
 
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
@@ -68,7 +20,7 @@ zinit light rupa/z
 
 zinit light zsh-users/zsh-autosuggestions
 
-zinit light zdharma/fast-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit light zsh-users/zsh-history-substring-search
 
@@ -76,9 +28,6 @@ zinit ice blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
-
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
 
 #zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
