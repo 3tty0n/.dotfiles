@@ -4,8 +4,12 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # }}}
 
-# {{{ Zplugin: plugin configurations
+# {{{
 # keybind
+bindkey -e
+# }}}
+
+# {{{ Zplugin: plugin configurations
 zinit load zdharma-continuum/history-search-multi-word
 
 # Directory listings for zsh with git features
@@ -118,7 +122,6 @@ esac
 # }}}
 
 # {{{
-
 # OPAM
 if command -v opam 1>/dev/null 2>&1; then
   if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
@@ -133,8 +136,9 @@ if command -v rbenv 1>/dev/null 2>&1; then
 fi
 
 # Pyenv
-eval "$(pyenv init -)"
-
+if [ -d ~/.pyenv ]; then
+    eval "$(pyenv init -)"
+fi
 # }}}
 
 # {{{ Shell integration
