@@ -118,6 +118,14 @@ case "${OSTYPE}" in
         ;;
 esac
 
+PYPY3HACK=~/src/foss.heptapod.net/pypy/pypy-3.7-hack/pypy/goal/pypy3-c
+[ -f $PYPY3HACK ] && alias pypy3-hack=$PYPY3HACK
+
+PYPY37=~/src/foss.heptapod.net/pypy/pypy-3.7/pypy/gloal/pypy3-c
+[ -f $PYPY37 ] && alias pypy37=$PYPY3
+
+alias jitviewer=~/src/github.com/prg-titech/jitviewer/bin/jitviewer.py
+
 # OPAM
 if command -v opam 1>/dev/null 2>&1; then
   if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
@@ -138,4 +146,8 @@ fi
 
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
+fi
+
+if [ -f ~/.profile ]; then
+    source ~/.profile
 fi

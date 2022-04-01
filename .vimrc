@@ -27,7 +27,7 @@ Plug 'saltdotac/citylights.vim'
 Plug 'frazrepo/vim-rainbow'
 
 " skk
-Plug 'tyru/eskk.vim'
+" Plug 'tyru/eskk.vim'
 
 " lsp
 Plug 'prabirshrestha/vim-lsp'
@@ -129,7 +129,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme tender  " citylights embark space-vim-dark badwolf tender citylights
+colorscheme embark  " citylights embark space-vim-dark badwolf tender citylights
 
 " }}}
 

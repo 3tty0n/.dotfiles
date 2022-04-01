@@ -69,12 +69,12 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # jdk
-# export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+# export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # graal
-export GRAALVM_HOME=$HOME/.local/share/graalvm-ee-java11-21.2.0.1
+export GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java17-22.0.0.2
 export PATH="${GRAALVM_HOME}/bin:$PATH"
-export JAVA_HOME=$HOME/.local/share/graalvm-ee-java11-21.2.0.1
+export JAVA_HOME=$HOME/.local/share/graalvm-ce-java17-22.0.0.2
 
 # mx
 export PATH="~/.local/share/mx:$PATH"

@@ -39,6 +39,7 @@ Icon?
 *.snm
 *.nav
 *.vrb
+minted-*/
 
 # python
 __pycache__/
@@ -68,3 +69,6 @@ project/plugins/project/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Emacs specification
+auto/

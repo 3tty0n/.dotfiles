@@ -16,8 +16,11 @@ if [ -x "`which opam`" ]; then
 fi
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+
+if [ -d ${PYENV_ROOT} ]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
+fi
 
 # xwindow
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
