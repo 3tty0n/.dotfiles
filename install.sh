@@ -11,7 +11,7 @@ function usage {
   echo
   echo "Options:"
   echo "  -h  --help         show help"
-  echo "  -d  --dotfiles     plase configuration files as a symbolik link"
+  echo "  -s -d  --dotfiles  plase configuration files as a symbolik link"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
   echo "  -X                 clone 3tty0n/xconfig repository"
   echo "  -D                 execute as a debug mode"
@@ -54,7 +54,7 @@ function setup_email {
 for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' ) usage; exit 1 ;;
-    '-d' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
+    '-d' | '-s' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
     '-e' | '--emacs' ) setup_emacs; shift 1 ;;
     '-m' | '--mail' ) setup_email; shift 1 ;;
     '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; exit ;;

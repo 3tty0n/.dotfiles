@@ -1,6 +1,6 @@
 typeset -gx -U path
 fpath=(${HOME}/.zsh/completion ${fpath})
-# autoload -Uz compinit && compinit -i
+autoload -Uz compinit && compinit -i
 
 # autoload
 autoload -Uz colors && colors
@@ -33,11 +33,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold'
 
 # Add ~/usr/local/bin to PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-
-# pyenv
-export PYENV_ROOT=$HOME/.pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH=$HOME/usr/local/bin:$PATH
 
 # rbenv
 export RBENV_ROOT=$HOME/.rbenv

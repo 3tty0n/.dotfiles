@@ -12,6 +12,19 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 bindkey -e
+architect=""
+case `uname -m` in
+  i386|i686) architect="386";;
+  arm64) architect="arm64";;
+  x86_64) architect="amd";;
+  arm64) architect="arm64";;
+esac
+ostype=""
+case $OSTYPE in
+  darwin*) ostype="darwin";;
+  linux*) ostype="linux";;
+esac
+binary="*${ostype}*${architect}*"
 
 zinit load zdharma-continuum/history-search-multi-word
 
@@ -139,11 +152,6 @@ if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
-# Pyenv
-if [ -d ~/.pyenv ]; then
-    eval "$(pyenv init -)"
-fi
-
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
@@ -151,3 +159,26 @@ fi
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
+# }}}
+
+# {{{ Shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# }}}
+
+# {{{ vterm for emacs
+vterm_printf(){
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+# }}}
+
+# {{{ Load local configuration files
+test -f ~/.zshrc.local && source ~/.zshrc.local
+# }}}
