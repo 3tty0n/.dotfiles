@@ -49,7 +49,7 @@ zinit light zsh-users/zsh-completions
 
 zinit light hlissner/zsh-autopair
 
-zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
+#zinit ice src"auto-notify.plugin.zsh"; zinit light MichaelAquilina/zsh-auto-notify
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
@@ -141,9 +141,9 @@ alias jitviewer=~/src/github.com/prg-titech/jitviewer/bin/jitviewer.py
 
 # OPAM
 if command -v opam 1>/dev/null 2>&1; then
-  if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
-    . "${HOME}"/.opam/opam-init/init.zsh 2> /dev/null
-  fi
+    if [[ -r "${HOME}"/.opam/opam-init/init.zsh ]]; then
+        . "${HOME}"/.opam/opam-init/init.zsh 2> /dev/null
+    fi
 fi
 
 # Rbenv
