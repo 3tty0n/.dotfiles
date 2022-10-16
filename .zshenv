@@ -68,9 +68,9 @@ export PATH="$HOME/.cask/bin:$PATH"
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # graal
-export GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java17-22.0.0.2
+export GRAALVM_HOME=$HOME/libs/graalvm-ee-java11-21.2.0.1
 export PATH="${GRAALVM_HOME}/bin:$PATH"
-export JAVA_HOME=$HOME/.local/share/graalvm-ce-java17-22.0.0.2
+export JAVA_HOME="${GRAALVM_HOME}"
 
 # mx
 export PATH="~/.local/share/mx:$PATH"
@@ -87,12 +87,8 @@ alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPAT
 export PATH="$HOME/.local/share/pyls-ms:$PATH"
 
 # less
-if [[ "`which src-highlight-lesspipe.sh`" ]]; then
-  export LESS='-RMi'
-  export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
-else
-  export LESS='-R'
-fi
+export LESSOPEN='|/usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+export LESS='-RMi'
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
@@ -122,7 +118,7 @@ _export_pythonpath() {
 
 # For PyPy and RPython
 PYPY=$HOME/src/foss.heptapod.net/pypy/pypy
-RPLY=$HOME/src/github.com/alex/rply
+RPLY=$HOME/src/foss.heptapod.net/rply
 VMPROF=$HOME/src/github.com/vmprof/vmprof-python
 JITVIEWER=$HOME/src/foss.heptapod.net/pypy/jitviewer
 if [[ -d $PYPY ]]; then

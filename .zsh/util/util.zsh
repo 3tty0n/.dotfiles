@@ -45,7 +45,7 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 
 __ghq() {
   command -v ghq >/dev/null 2>&1 || { echo >&2 "ghq not found."; exit 1 }
-  command -v fzf >/dev/null 2>&1 || { echo >&2 "fzf not found."; exit 1 }
+  command -v peco >/dev/null 2>&1 || { echo >&2 "peco not found."; exit 1 }
 
   local selected_dir=$(ghq list | fzf)
 
@@ -66,21 +66,6 @@ function cdu() {
       cd $1
   fi
 }
-
-# emacs
-function estart() {
-  if ! emacsclient -e 0 > /dev/null 2>&1; then
-    cd > /dev/null 2>&1
-    emacs --daemon
-    cd - > /dev/null 2>&1
-  fi
-}
-
-# z + fuzzy finder
-# type fzy >/dev/null 2>&1 && j() {
-#  local recentd
-#  z -l | tail -r | awk '{ print $2 }' | fzy | read recentd && cd $recentd
-# }
 
 # {{{ history-substring-search
 bindkey -M emacs '^P' history-substring-search-up

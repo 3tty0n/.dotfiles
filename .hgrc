@@ -23,5 +23,8 @@ graphshorten = true
 
 [extensions]
 rebase =
+# histedit =
 shelve =
-record =
+prompt = ~/libs/hg-prompt/prompt.py
+#evolve =
+#topic =

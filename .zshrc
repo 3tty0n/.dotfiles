@@ -18,6 +18,9 @@ zinit load zdharma-continuum/history-search-multi-word
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
 
+zinit ice from"gh-r" as"program" pick"*/ghq"
+zinit light "x-motemen/ghq"
+
 zinit ice atclone"make" as"program" pick"fzy"
 zinit light jhawthorn/fzy
 
@@ -102,6 +105,12 @@ case "${OSTYPE}" in
         ;;
 esac
 
+if [ -d ~/.pyenv/bin ]; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
@@ -109,3 +118,5 @@ fi
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
+
+

@@ -61,7 +61,7 @@ set wildmode=list:longest
 set visualbell " visualize bell
 
 " Tab configuration
-set list listchars=tab:\▸\-
+" set list listchars=tab:\▸\-
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -96,6 +96,9 @@ set history=5000 " 保存するコマンド履歴の数
 set nocompatible
 filetype plugin indent on
 
+" au FileType sh let g:sh_fold_enabled=5
+" au FileType sh let g:is_bash=1
+" au FileType sh set foldmethod=syntax
 
 " remove unused whitespaces automatically
 autocmd BufWritePre * %s/\s\+$//e
