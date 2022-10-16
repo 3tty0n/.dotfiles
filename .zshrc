@@ -85,6 +85,7 @@ alias h='hg'
 
 alias vi='vim'
 alias t='tig'
+alias ta='tig --all'
 
 case "${OSTYPE}" in
     darwin* )
