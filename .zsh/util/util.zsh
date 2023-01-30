@@ -47,7 +47,7 @@ __ghq() {
   command -v ghq >/dev/null 2>&1 || { echo >&2 "ghq not found."; exit 1 }
   command -v peco >/dev/null 2>&1 || { echo >&2 "peco not found."; exit 1 }
 
-  local selected_dir=$(ghq list | fzf)
+  local selected_dir=$(ghq list | peco)
 
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"
