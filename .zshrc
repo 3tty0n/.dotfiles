@@ -21,8 +21,17 @@ zinit light supercrabtree/k
 zinit ice from"gh-r" as"program" pick"*/ghq"
 zinit light "x-motemen/ghq"
 
-zinit ice atclone"make" as"program" pick"fzy"
-zinit light jhawthorn/fzy
+zinit for \
+    as"command" \
+    from"gh-r" \
+    load \
+    @junegunn/fzf-bin
+
+zinit for \
+    as"command" \
+    from"gh-r" \
+    load \
+    @peco/peco
 
 zinit light changyuheng/fz
 
@@ -46,9 +55,8 @@ zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/g
 if [[ -x "$(command -v starship)" ]]; then
     eval "$(starship init zsh)"
 else
-    zinit ice depth=1; zinit light romkatv/powerlevel10k
-    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+    zinit light sindresorhus/pure
 fi
 
 zinit creinstall -q $HOME/.zsh/completion
@@ -120,4 +128,6 @@ if [ -f ~/.profile ]; then
     source ~/.profile
 fi
 
-
+if [ -f ~/.cargo/env ]; then
+    source ~/.cargo/env
+fi
