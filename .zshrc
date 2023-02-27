@@ -30,6 +30,7 @@ zinit for \
 zinit for \
     as"command" \
     from"gh-r" \
+    pick"*/peco" \
     load \
     @peco/peco
 
