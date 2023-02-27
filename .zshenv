@@ -127,3 +127,7 @@ if [[ -d $PYPY ]]; then
     done
     export PATH=$PYPY/rpython/bin:$PATH
 fi
+
+if [ -f $HOME/.cargo/env ]; then
+    . "$HOME/.cargo/env"
+fi

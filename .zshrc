@@ -127,7 +127,3 @@ fi
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
-
-if [ -f ~/.cargo/env ]; then
-    source ~/.cargo/env
-fi
