@@ -21,18 +21,7 @@ zinit light supercrabtree/k
 zinit ice from"gh-r" as"program" pick"*/ghq"
 zinit light "x-motemen/ghq"
 
-zinit for \
-    as"command" \
-    from"gh-r" \
-    load \
-    @junegunn/fzf-bin
-
-zinit for \
-    as"command" \
-    from"gh-r" \
-    pick"*/peco" \
-    load \
-    @peco/peco
+zinit pack for fzf
 
 zinit light changyuheng/fz
 
@@ -128,3 +117,6 @@ fi
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
+
+# opam configuration
+[[ ! -r /Users/yusukeizawa/.opam/opam-init/init.zsh ]] || source /Users/yusukeizawa/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
