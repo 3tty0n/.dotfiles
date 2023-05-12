@@ -104,7 +104,7 @@ case "${OSTYPE}" in
         ;;
 esac
 
-if [ -d ~/.pyenv/bin ]; then
+if [ -d ~/.pyenv ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
@@ -120,3 +120,7 @@ fi
 
 # opam configuration
 [[ ! -r /Users/yusukeizawa/.opam/opam-init/init.zsh ]] || source /Users/yusukeizawa/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

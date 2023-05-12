@@ -1,12 +1,12 @@
 {
     "mod1" : [
-        "command",
-        "control"
+        "option",
+        "shift"
     ],
     "mod2" : [
-        "command",
-        "control",
-        "shift"
+        "option",
+        "shift",
+        "control"
     ],
     "layout": [
         "floating",
