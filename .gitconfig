@@ -72,7 +72,7 @@
 	ff = only
 [pgp]
 	program = gpg2
-[merge]
-  ff = false
+#[merge]
+#  ff = false
 [credential]
 	helper = store

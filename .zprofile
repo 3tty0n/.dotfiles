@@ -5,11 +5,6 @@ if [ -x "`which direnv`" ]; then
     eval "$(direnv hook zsh)"
 fi
 
-# opam
-if [ -x "`which opam`" ]; then
-    eval $(opam config env)
-fi
-
 # xwindow
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx

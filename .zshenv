@@ -16,10 +16,6 @@ export TERM="xterm-256color"
 
 export EDITOR='vim'
 
-# less
-export LESS='-R -gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
-export LESSSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
-
 # grep
 # export GREP_OPTIONS='--color=always'
 # export GREP_COLOR='1;35;40'
@@ -68,9 +64,9 @@ export PATH="$HOME/.cask/bin:$PATH"
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # graal
-export GRAALVM_HOME=$HOME/libs/graalvm-ee-java11-21.2.0.1
+export GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java11-20.3.6
 export PATH="${GRAALVM_HOME}/bin:$PATH"
-export JAVA_HOME="${GRAALVM_HOME}"
+export JAVA_HOME=$HOME/.local/share/graalvm-ce-java11-22.0.0.2
 
 # mx
 export PATH="~/.local/share/mx:$PATH"
@@ -87,8 +83,12 @@ alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPAT
 export PATH="$HOME/.local/share/pyls-ms:$PATH"
 
 # less
-export LESSOPEN='|/usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-export LESS='-RMi'
+if [[ "`which src-hilight-lesspipe.sh`" ]]; then
+  export LESS='-RMi'
+  export LESSOPEN='| /usr/bin/src-hilight-lesspipe.sh %s'
+else
+  export LESS='-R'
+fi
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
@@ -119,12 +119,13 @@ _export_pythonpath() {
 }
 
 # For PyPy and RPython
-PYPY=$HOME/src/foss.heptapod.net/pypy/pypy
-RPLY=$HOME/src/foss.heptapod.net/rply
+PYPY_DIR=$HOME/src/foss.heptapod.net/pypy/pypy
+RPYTHON=$PYPY_DIR/rpython/bin/rpython
+RPLY=$HOME/src/github.com/alex/rply
 VMPROF=$HOME/src/github.com/vmprof/vmprof-python
 JITVIEWER=$HOME/src/foss.heptapod.net/pypy/jitviewer
-if [[ -d $PYPY ]]; then
-    for proj in $PYPY $RPLY $JITVIEWER; do
+if [[ -d $PYPY_DIR ]]; then
+    for proj in $PYPY_DIR $RPLY $JITVIEWER; do
         _export_pythonpath $proj
     done
     export PATH=$PYPY/rpython/bin:$PATH

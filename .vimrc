@@ -1,6 +1,5 @@
 " {{{ # Vim Plug
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'farmergreg/vim-lastplace'
@@ -18,6 +17,7 @@ Plug 'w0rp/ale'
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'liuchengxu/space-vim-dark'
+Plug 'colepeters/spacemacs-theme.vim'
 Plug 'jacoborus/tender.vim'
 Plug 'agreco/vim-citylights'
 Plug 'morhetz/gruvbox'
@@ -132,7 +132,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set background=dark
-colorscheme embark  " citylights embark space-vim-dark badwolf tender citylights
+colorscheme badwolf  " citylights embark space-vim-dark badwolf tender
 
 " }}}
 

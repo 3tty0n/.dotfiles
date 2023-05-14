@@ -42,12 +42,15 @@ zinit light hlissner/zsh-autopair
 
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"; zinit light tj/git-extras
 
-if [[ -x "$(command -v starship)" ]]; then
-    eval "$(starship init zsh)"
-else
-    zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-    zinit light sindresorhus/pure
-fi
+# Load starship theme
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
+zinit light starship/starship
+
+# zinit ice depth=1; zinit light romkatv/powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zinit creinstall -q $HOME/.zsh/completion
 
@@ -107,7 +110,10 @@ esac
 if [ -d ~/.pyenv ]; then
     export PATH="$HOME/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+fi
+
+if [ -x `which opam` ]; then
+    eval `opam env`
 fi
 
 if [ -f ~/.zshrc.local ]; then
@@ -117,10 +123,3 @@ fi
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
-
-# opam configuration
-[[ ! -r /Users/yusukeizawa/.opam/opam-init/init.zsh ]] || source /Users/yusukeizawa/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
