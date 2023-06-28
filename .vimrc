@@ -34,7 +34,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 " latex
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 " Plug 'vim-latex/vim-latex'
 
 " org-mode

@@ -112,14 +112,10 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
-if [ -x `which opam` ]; then
+if [ -x "`which opam`" ]; then
     eval `opam env`
 fi
 
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
-fi
-
-if [ -f ~/.profile ]; then
-    source ~/.profile
 fi

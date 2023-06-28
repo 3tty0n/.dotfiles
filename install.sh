@@ -27,6 +27,18 @@ function setup_dotfiles {
   ln -sfnv "$DOTFILES_ROOT/.zsh" "$HOME/.zsh"
 }
 
+function setup_essential {
+	for f in .zshrc .zshenv .zprofile .zsh .gitconfig .gitignore_global .tigrc; do
+		ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
+	done
+}
+
+function setup_vim {
+	ln -sfnv "$DOTFILES_ROOT/.vimrc" "$HOME/.vimrc"
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+
 function setup_emacs {
   if [ ! -e ~/.emacs.d ]; then
     printf "cloning .emacs.d dir...\n"
@@ -54,7 +66,9 @@ function setup_email {
 for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' ) usage; exit 1 ;;
-    '-d' | '-s' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
+    '-s' | '-N' ) setup_essential; shift 1 ;;
+    '-v' | '--vim' ) setup_vim; shift 1 ;;
+    '-d' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
     '-e' | '--emacs' ) setup_emacs; shift 1 ;;
     '-m' | '--mail' ) setup_email; shift 1 ;;
     '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; exit ;;
