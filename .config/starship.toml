@@ -18,3 +18,4 @@ truncation_symbol = "…/"
 
 [hg_branch]
 disabled = false
+format = 'on [🌱 $branch](bold purple) '
