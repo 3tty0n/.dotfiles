@@ -109,8 +109,6 @@ export XDG_DATA_HOME=$HOME/.local/share
 # xconfig scripts
 export PATH="$HOME/.xconfig/bin:$PATH"
 
-export DISPLAY=:0
-
 _export_pythonpath() {
     project=$1
     if [[ -d $project ]]; then
