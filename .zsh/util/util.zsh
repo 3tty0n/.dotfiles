@@ -45,9 +45,9 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 
 __ghq() {
   command -v ghq >/dev/null 2>&1 || { echo >&2 "ghq not found."; exit 1 }
-  command -v peco >/dev/null 2>&1 || { echo >&2 "peco not found."; exit 1 }
+  command -v fzf >/dev/null 2>&1 || { echo >&2 "fzf not found."; exit 1 }
 
-  local selected_dir=$(ghq list | peco)
+  local selected_dir=$(ghq list | fzf)
 
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"
