@@ -64,9 +64,15 @@ export PATH="$HOME/.cask/bin:$PATH"
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # graal
+<<<<<<< HEAD
 export GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java11-20.3.6
 export PATH="${GRAALVM_HOME}/bin:$PATH"
 export JAVA_HOME=$HOME/.local/share/graalvm-ce-java11-22.0.0.2
+=======
+# export GRAALVM_HOME=$HOME/libs/graalvm-ee-java11-21.2.0.1
+# export PATH="${GRAALVM_HOME}/bin:$PATH"
+# export JAVA_HOME="${GRAALVM_HOME}"
+>>>>>>> 649e758 (Updated zsh settings)
 
 # mx
 export PATH="~/.local/share/mx:$PATH"

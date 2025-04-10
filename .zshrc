@@ -18,10 +18,15 @@ zinit load zdharma-continuum/history-search-multi-word
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
 
-zinit ice from"gh-r" as"program" pick"*/ghq"
+zinit ice from"gh-r" as"program" pick"*/ghq" bpick"*darwin*arm*"
 zinit light "x-motemen/ghq"
 
 zinit pack for fzf
+zinit ice from"gh-r" as"program" pick"bin/fzf" bpick"*darwin*arm*"
+zinit light "junegunn/fzf"
+
+zinit ice from"gh-r" as"program" pick"*/peco" bpick"*darwin*arm*"
+zinit light "peco/peco"
 
 zinit light changyuheng/fz
 
@@ -116,6 +121,21 @@ if [ -x "`which opam`" ]; then
     eval `opam env`
 fi
 
+if [ -x "$(which rbenv)" ]; then
+    eval "$(rbenv init -)"
+fi
+
+if [ -x "$(which direnv)" ]; then
+    eval "$(direnv hook zsh)"
+fi
+
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
+
+if [ -f ~/.profile ]; then
+    source ~/.profile
+fi
+
+# opam configuration
+[[ ! -r /Users/yusuke/.opam/opam-init/init.zsh ]] || source /Users/yusuke/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
