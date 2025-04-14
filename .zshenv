@@ -1,4 +1,4 @@
-htypeset -gx -U path
+typeset -gx -U path
 fpath=(${HOME}/.zsh/completion ${fpath})
 autoload -Uz compinit && compinit -i
 
