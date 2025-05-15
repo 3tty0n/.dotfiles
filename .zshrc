@@ -13,19 +13,26 @@ autoload -Uz _zinit
 
 bindkey -e
 
+BPICK=""
+if [[ $ARCH == arm64 ]]; then
+    BPICK="*darwin*arm64*"
+elif [[ $ARCH == x86_64 ]]; then
+    BPICK="*linux*amd*"
+fi
+
 zinit load zdharma-continuum/history-search-multi-word
 
 # Directory listings for zsh with git features
 zinit light supercrabtree/k
 
-zinit ice from"gh-r" as"program" pick"*/ghq" bpick"*darwin*arm*"
+zinit ice from"gh-r" as"program" pick"*/ghq" bpick"${BPICK}"
 zinit light "x-motemen/ghq"
 
 zinit pack for fzf
-zinit ice from"gh-r" as"program" pick"bin/fzf" bpick"*darwin*arm*"
+zinit ice from"gh-r" as"program" pick"bin/fzf" bpick"${BPICK}"
 zinit light "junegunn/fzf"
 
-zinit ice from"gh-r" as"program" pick"*/peco" bpick"*darwin*arm*"
+zinit ice from"gh-r" as"program" pick"*/peco" bpick"${BPICK}"
 zinit light "peco/peco"
 
 zinit light changyuheng/fz
