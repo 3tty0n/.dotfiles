@@ -13,6 +13,8 @@ function usage {
   echo "  -h  --help         show help"
   echo "  -s -d  --dotfiles  plase configuration files as a symbolik link"
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
+  echo "  -m  --mail         clone 3tty0n/.xmail repository"
+  echo "  -t  --tmu          setup tmux setting files"
   echo "  -X                 clone 3tty0n/xconfig repository"
   echo "  -D                 execute as a debug mode"
   echo "  -a --all           set up all "
@@ -65,6 +67,13 @@ function setup_email {
   fi
 }
 
+function setup_tmux {
+    ln -sf "$(pwd)"/.tmux.conf ${HOME}
+    if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
+}
+
 for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' ) usage; exit 1 ;;
@@ -73,7 +82,8 @@ for OPT in "$@"; do
     '-d' | '--dotfiles' ) setup_dotfiles; shift 1 ;;
     '-e' | '--emacs' ) setup_emacs; shift 1 ;;
     '-m' | '--mail' ) setup_email; shift 1 ;;
-    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; exit ;;
+    '-t' | '--tmu' ) setup_tmux; shift 1;;
+    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; exit ;;
     '-D' ) set -x; shift 1 ;;
     -*) echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2; exit 1 ;;
     *)
