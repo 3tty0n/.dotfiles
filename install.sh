@@ -32,7 +32,7 @@ function setup_dotfiles {
 }
 
 function setup_essential {
-	for f in .zshrc .zshenv .zprofile .zsh .gitconfig .gitignore_global .tigrc; do
+	for f in .zshrc .zshenv .zprofile .zsh .gitconfig .gitignore_global .tigrc .hgrc .latexmkrc; do
 		ln -sfnv "$DOTFILES_ROOT/$f" "$HOME/$f"
 	done
 }

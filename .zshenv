@@ -61,12 +61,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # jdk
-# export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export JAVA_HOME=/usr/lib/jvm/default
 
 # graal
-export GRAALVM_HOME=$HOME/.local/share/graalvm-ce-java11-20.3.6
-export PATH="${GRAALVM_HOME}/bin:$PATH"
-export JAVA_HOME=$HOME/.local/share/graalvm-ce-java11-22.0.0.2
 # export GRAALVM_HOME=$HOME/libs/graalvm-ee-java11-21.2.0.1
 # export PATH="${GRAALVM_HOME}/bin:$PATH"
 # export JAVA_HOME="${GRAALVM_HOME}"
@@ -88,7 +85,7 @@ export PATH="$HOME/.local/share/pyls-ms:$PATH"
 # less
 if [[ "`which src-hilight-lesspipe.sh`" ]]; then
   export LESS='-RMi'
-  export LESSOPEN='| /usr/bin/src-hilight-lesspipe.sh %s'
+  export LESSOPEN='|  /usr/bin/src-hilite-lesspipe.sh %s'
 else
   export LESS='-R'
 fi
@@ -125,12 +122,7 @@ RPYTHON=$PYPY_DIR/rpython/bin/rpython
 RPLY=$HOME/src/github.com/alex/rply
 VMPROF=$HOME/src/github.com/vmprof/vmprof-python
 JITVIEWER=$HOME/src/foss.heptapod.net/pypy/jitviewer
-if [[ -d $PYPY_DIR ]]; then
-    for proj in $PYPY_DIR $RPLY $JITVIEWER; do
-        _export_pythonpath $proj
-    done
-    export PATH=$PYPY/rpython/bin:$PATH
-fi
+CPUSET=$HOME/src/github.com/SUSE/cpuset
 
 if [ -f $HOME/.cargo/env ]; then
     . "$HOME/.cargo/env"

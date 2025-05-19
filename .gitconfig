@@ -70,9 +70,12 @@
   # diff  = diff-highlight | less
 [pull]
 	ff = only
+	ff = only
 [pgp]
 	program = gpg2
-#[merge]
-#  ff = false
 [credential]
 	helper = store
+[merge]
+	ff = false
+[init]
+	defaultBranch = main

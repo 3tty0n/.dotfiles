@@ -30,8 +30,8 @@ Plug 'frazrepo/vim-rainbow'
 " Plug 'tyru/eskk.vim'
 
 " lsp
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 
 " latex
 " Plug 'lervag/vimtex'

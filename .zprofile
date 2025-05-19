@@ -1,11 +1,3 @@
-ARCH=$(uname -m)
-
-if [[ $ARCH == arm64 ]]; then
-    eval $(/opt/homebrew/bin/brew shellenv)
-elif [[ $ARCH == x86_64 ]]; then
-    eval $(/usr/local/bin/brew shellenv)
-fi
-
 # xwindow
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
@@ -22,3 +14,5 @@ elif [ -d "~/.linuxbrew" ]; then
 elif [ -d "/home/linuxbrew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+export QSYS_ROOTDIR="/home/yusuke/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/24.1/quartus/sopc_builder/bin"
