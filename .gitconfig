@@ -12,6 +12,7 @@
 [core]
   excludesfile  = ~/.gitignore_global
   editor        = vim
+  pager = delta
   # pager = diff-so-fancy | less -FXRi
 [color]
   status      = auto
@@ -75,7 +76,28 @@
 	program = gpg2
 [credential]
 	helper = store
-[merge]
-	ff = false
 [init]
 	defaultBranch = main
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    features = decorations
+    navigate = true
+    light = false
+    minus-style                   = bold red
+    minus-non-emph-style          = bold red
+    minus-emph-style              = bold reverse red
+    minus-empty-line-marker-style = normal "#3f0001"
+    plus-style                    = bold green
+    plus-non-emph-style           = bold green
+    plus-emph-style               = bold reverse green
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = cyan box ul
+[merge]
+    conflictstyle = zdiff3
+	ff = false

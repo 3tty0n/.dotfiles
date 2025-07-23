@@ -4,13 +4,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'farmergreg/vim-lastplace'
 
-Plug  'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler'
+Plug 'ap/vim-buftabline'
 
 Plug 'w0rp/ale'
 
@@ -35,7 +36,7 @@ Plug 'frazrepo/vim-rainbow'
 
 " latex
 " Plug 'lervag/vimtex'
-" Plug 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex'
 
 " org-mode
 Plug 'jceb/vim-orgmode'
@@ -113,6 +114,11 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 " autocmd VimEnter * VimFiler -split -simple -winwidth=25 -toggle -no-quit
 " If no files are specified, open vimfiler
 " autocmd VimEnter * if !argc() | VimFiler -split -simple -winwidth=25 -toggle -no-quit | endif
+
+" vim bufftabline
+set hidden
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 
 " vim-lastplace
 let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
