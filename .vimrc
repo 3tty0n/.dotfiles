@@ -117,11 +117,8 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 
 " vim bufftabline
 set hidden
-nnoremap <C-N> :tabnext<CR>
-nnoremap <C-P> :tabprevious<CR>
-
-nnoremap <C-[> :tabnew<CR>
-nnoremap <C-]> :tabclose<CR>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 
 " vim-lastplace
 let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
