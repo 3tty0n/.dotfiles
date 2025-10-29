@@ -64,9 +64,9 @@ export PATH="$HOME/.cask/bin:$PATH"
 export JAVA_HOME=/usr/lib/jvm/default
 
 # graal
-# export GRAALVM_HOME=$HOME/libs/graalvm-ee-java11-21.2.0.1
-# export PATH="${GRAALVM_HOME}/bin:$PATH"
-# export JAVA_HOME="${GRAALVM_HOME}"
+export GRAALVM_HOME=$HOME/.local/share/graalvm-jdk-25.0.1-8.1
+export PATH="${GRAALVM_HOME}/bin:$PATH"
+export JAVA_HOME="${GRAALVM_HOME}"
 
 # mx
 export PATH="~/.local/share/mx:$PATH"

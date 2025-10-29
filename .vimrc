@@ -31,8 +31,8 @@ Plug 'frazrepo/vim-rainbow'
 " Plug 'tyru/eskk.vim'
 
 " lsp
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 " latex
 " Plug 'lervag/vimtex'
@@ -117,8 +117,11 @@ autocmd FileType vimfiler nmap <buffer> <CR> <Plug>(vimfiler_expand_or_edit)
 
 " vim bufftabline
 set hidden
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
+nnoremap <C-N> :tabnext<CR>
+nnoremap <C-P> :tabprevious<CR>
+
+nnoremap <C-[> :tabnew<CR>
+nnoremap <C-]> :tabclose<CR>
 
 " vim-lastplace
 let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"

@@ -76,6 +76,8 @@
 	program = gpg2
 [credential]
 	helper = store
+[merge]
+    #ff = false
 [init]
 	defaultBranch = main
 [interactive]
