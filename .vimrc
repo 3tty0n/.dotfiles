@@ -2,6 +2,8 @@
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 call plug#begin('~/.vim/plugged')
 
+" Editor
+
 Plug 'farmergreg/vim-lastplace'
 
 Plug 'Shougo/neosnippet.vim'
@@ -10,11 +12,14 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimfiler'
 Plug 'ap/vim-buftabline'
+
+Plug 'lambdalisue/vim-fern'
+Plug 'yuki-yano/fern-preview.vim'
 
 Plug 'w0rp/ale'
 
+" Color scheme
 Plug 'flazz/vim-colorschemes'
 Plug 'vim-airline/vim-airline'
 Plug 'liuchengxu/space-vim-dark'
@@ -28,7 +33,7 @@ Plug 'saltdotac/citylights.vim'
 Plug 'frazrepo/vim-rainbow'
 
 " skk
-" Plug 'tyru/eskk.vim'
+Plug 'tyru/eskk.vim'
 
 " lsp
 Plug 'prabirshrestha/vim-lsp'
@@ -127,6 +132,27 @@ let g:lastplace_open_folds = 0
 
 " vim-signify
 set updatetime=100
+
+" vim-fern
+let g:fern#default_hidden=1
+" let g:fern#renderer = 'nerdfont'
+let g:fern#renderer#nerdfont#indent_markers = 1
+nnoremap <silent> <ESC>n :Fern . -drawer -toggle -reveal=%<CR>
+
+
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
+"
 " }}}
 
 " {{{ # Keybindings
