@@ -43,11 +43,14 @@ setopt HIST_BEEP                 # Beep when accessing non-existent history.
 # Lists the ten most used commands.
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
+SELECTOR=fzf
+
 __ghq() {
   command -v ghq >/dev/null 2>&1 || { echo >&2 "ghq not found."; exit 1 }
   command -v fzf >/dev/null 2>&1 || { echo >&2 "fzf not found."; exit 1 }
+  command -v $SELECTOR >/dev/null 2>&1 || { echo >&2 "$SELECTOR not found."; exit 1 }
 
-  local selected_dir=$(ghq list | fzf)
+  local selected_dir=$(ghq list | $SELECTOR)
 
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"

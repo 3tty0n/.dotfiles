@@ -122,8 +122,12 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
-if [ -x "`which opam`" ]; then
-    eval `opam env`
+if [ -x "$(which opam)" ]; then
+    eval "$(opam env)"
+fi
+
+if [ -x "$(which direnv)" ]; then
+    eval "$(direnv hook zsh)"
 fi
 
 if [ -x "$(which rbenv)" ]; then
@@ -142,5 +146,11 @@ if [ -f ~/.profile ]; then
     source ~/.profile
 fi
 
-# opam configuration
-[[ ! -r /Users/yusuke/.opam/opam-init/init.zsh ]] || source /Users/yusuke/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/yusuke/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<

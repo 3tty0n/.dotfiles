@@ -67,9 +67,12 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GRAALVM_HOME=$HOME/.local/share/graalvm-jdk-25.0.1-8.1
 export PATH="${GRAALVM_HOME}/bin:$PATH"
 export JAVA_HOME="${GRAALVM_HOME}"
+#export GRAALVM_HOME="$HOME/.local/share/graalvm-community-openjdk-23.0.2"
+#export PATH="${GRAALVM_HOME}/bin:$PATH"
+#export JAVA_HOME=$GRAALVM_HOME
 
 # mx
-export PATH="~/.local/share/mx:$PATH"
+export PATH=~/src/github.com/graalvm/mx:$PATH
 
 # aspectj
 export PATH="/opt/aspectj/bin:$PATH"
@@ -89,6 +92,12 @@ if [[ "`which src-hilight-lesspipe.sh`" ]]; then
 else
   export LESS='-R'
 fi
+#if [[ "`which src-hilite-lesspipe.sh`" ]]; then
+#  export LESS='-RMi'
+#  export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
+#else
+#  export LESS='-R'
+#fi
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
