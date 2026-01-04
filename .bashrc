@@ -44,12 +44,33 @@ fz() {
         exit 1
     fi
     dir=$(z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "$*" | awk '{ print $2 }')
-
     if [ -n "$dir" ]; then
         cd "$dir"
+        set_bash_prompt
+        READLINE_LINE="$READLINE_LINE"
+        READLINE_POINT="$READLINE_POINT"
     fi
+
 }
-bind -x '"\C-g": fz'
+
+bind '"\C-g": "\C-e\C-u fz\n"'
+
+_z_fzf_complete() {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+
+    local selection=$(z -l 2>&1 | fzf --height 40% --reverse --query "$cur" --select-1 --exit-0 --tac --nth 2..)
+
+    if [ -n "$selection" ]; then
+        local dir=$(echo "$selection" | awk '{print $2}')
+
+        COMPREPLY=( "$dir" )
+        return 0
+    fi
+
+    COMPREPLY=()
+}
+
+complete -F _z_fzf_complete z
 
 alias g='git'
 alias ls='ls --color'
