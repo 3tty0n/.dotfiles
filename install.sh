@@ -74,6 +74,23 @@ function setup_tmux {
     fi
 }
 
+function setup_bash_conf {
+    local url=$1
+    local file="${2:-$(basename "$url")}"
+    local target="$HOME/.bash/$file"
+
+    mkdir -p "$HOME/.bash"
+    echo "Installing $file..."
+
+    if curl -LSs "$url" -o "$target"; then
+        echo "Success: $target"
+        # [ -f "$target" ] && . "$target"
+    else
+        echo "Error: Failed to download $url" >&2
+        return 1
+    fi
+}
+
 for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' ) usage; exit 1 ;;
@@ -83,7 +100,8 @@ for OPT in "$@"; do
     '-e' | '--emacs' ) setup_emacs; shift 1 ;;
     '-m' | '--mail' ) setup_email; shift 1 ;;
     '-t' | '--tmu' ) setup_tmux; shift 1;;
-    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; exit ;;
+    '-b' | '--bash' ) setup_bash; shift 1;;
+    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; setup_bash_conf; exit ;;
     '-D' ) set -x; shift 1 ;;
     -*) echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2; exit 1 ;;
     *)
