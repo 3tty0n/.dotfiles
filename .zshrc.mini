@@ -64,10 +64,27 @@ zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+ZSH_DIR="$HOME/.zsh"
+mkdir -p "$ZSH_DIR"
+
+ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
+mkdir -p "$ZSH_PLUGIN_DIR"
+
+[[ -f "$ZSH_DIR/z.sh" ]] || \
+  curl -fsSL https://raw.githubusercontent.com/rupa/z/master/z.sh \
+    -o "$ZSH_DIR/z.sh"
+
+[[ -d "$ZSH_PLUGIN_DIR/zsh-completions" ]] || \
+  git clone --depth=1 https://github.com/zsh-users/zsh-completions \
+    "$ZSH_PLUGIN_DIR/zsh-completions"
 ZSH_COMPLETIONS="$HOME/.zsh/plugins/zsh-completions"
 if [[ -d "$ZSH_COMPLETIONS" ]]; then
   fpath=("$ZSH_COMPLETIONS/src" $fpath)
 fi
+
+[[ -d "$ZSH_PLUGIN_DIR/zsh-autosuggestions" ]] || \
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
+    "$ZSH_PLUGIN_DIR/zsh-autosuggestions"
 
 ZSH_AUTOSUGGEST="$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$ZSH_AUTOSUGGEST" ]]; then
