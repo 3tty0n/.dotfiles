@@ -1,0 +1,116 @@
+[[ -o interactive ]] || return
+
+alias ls='ls --color'
+alias l='ls -a'
+alias ll='ls -la'
+alias g='git'
+alias t='tig'
+alias ta='tig --all'
+
+if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
+  export IS_SSH=1
+else
+  export IS_SSH=0
+fi
+
+setopt NO_BEEP
+setopt AUTO_CD
+setopt INTERACTIVE_COMMENTS
+setopt NO_FLOW_CONTROL
+setopt HIST_IGNORE_DUPS
+setopt SHARE_HISTORY
+
+typeset -U path
+path=(
+  $HOME/bin
+  /usr/local/bin
+  /usr/bin
+  /bin
+)
+
+if [[ "$TERM" == xterm* || "$TERM" == screen* || "$TERM" == tmux* ]]; then
+  export TERM=xterm-256color
+fi
+
+zmodload zsh/complist 2>/dev/null || true
+zmodload zsh/zpty     2>/dev/null || true
+
+autoload -Uz colors && colors
+
+git_branch_fast() {
+  local head
+  [[ -d .git ]] || return
+  head=$(<.git/HEAD 2>/dev/null) || return
+  [[ $head == ref:* ]] && print -r -- ${head##*/} && return
+  command git rev-parse --abbrev-ref HEAD 2>/dev/null
+}
+
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f$(b=$(git_branch_fast); [[ -n $b ]] && print " %F{magenta}(%F{green}$b%F{magenta})%f") %# '
+
+autoload -Uz compinit
+
+ZSH_CACHE_DIR="$HOME/.zsh/cache"
+mkdir -p "$ZSH_CACHE_DIR"
+
+if (( IS_SSH )); then
+  compinit -C -d "$ZSH_CACHE_DIR/zcompdump"
+else
+  compinit -d "$ZSH_CACHE_DIR/zcompdump"
+fi
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$ZSH_CACHE_DIR"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+ZSH_COMPLETIONS="$HOME/.zsh/plugins/zsh-completions"
+if [[ -d "$ZSH_COMPLETIONS" ]]; then
+  fpath=("$ZSH_COMPLETIONS/src" $fpath)
+fi
+
+ZSH_AUTOSUGGEST="$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -f "$ZSH_AUTOSUGGEST" ]]; then
+  ZSH_AUTOSUGGEST_USE_ASYNC=0
+  ZSH_AUTOSUGGEST_STRATEGY=(history)
+  source "$ZSH_AUTOSUGGEST"
+fi
+
+Z="$HOME/.zsh/plugins/z.sh"
+if [[ -f "$Z" ]]; then
+    source $Z
+fi
+
+autoload -Uz add-zsh-hook
+
+load_late() {
+  bindkey -e
+}
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+pyenv_late_init() {
+  [[ -n "$PYENV_LATE_DONE" ]] && return
+  export PYENV_LATE_DONE=1
+
+  [[ -d "$PYENV_ROOT/bin" ]] || return
+  typeset -U path
+  path=("$PYENV_ROOT/bin" $path)
+  eval "$(pyenv init - --no-rehash)"
+}
+
+pyenv() { pyenv_late_init; command pyenv "$@"; }
+
+autoload -Uz add-zsh-hook
+
+pyenv_hook_once() {
+  add-zsh-hook -d precmd pyenv_hook_once 2>/dev/null || true
+  add-zsh-hook -d chpwd  pyenv_hook_once 2>/dev/null || true
+  pyenv_late_init
+}
+add-zsh-hook precmd pyenv_hook_once
+add-zsh-hook chpwd  pyenv_hook_once
+
+load_late() { bindkey -e }
+add-zsh-hook precmd load_late
