@@ -1,21 +1,42 @@
-# Don't print a new line at the start of the prompt
-add_newline = false
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$character"""
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character]                            # The name of the module we are configuring is "character"
-#success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-success_symbol = "[➜](bold green) "
-error_symbol = "[✗](bold red) "
+right_format = ""
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+[username]
+show_always = false # SSH接続時のみ表示
+style_user = "bold white"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true # SSH接続時のみ表示
+format = "@[$hostname]($style) "
+style = "bold yellow"
 
 [directory]
-truncation_length = 2
-truncate_to_repo = false
-truncation_symbol = "…/"
+truncation_length = 3
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1 # パスを短縮表示 (e.g. /u/s/bin)
+style = "bold cyan"
 
-[hg_branch]
-disabled = false
-format = 'on [🌱 $branch](bold purple) '
+[git_branch]
+symbol = " "
+style = "bold purple"
+truncation_length = 20
+
+[character]
+success_symbol = "[λ](bold green)" # 任意のシンボルに変更可
+error_symbol = "[λ](bold red)"
+
+[package]
+disabled = true
+[nodejs]
+disabled = true
+[rust]
+disabled = true
+[python]
+disabled = true
