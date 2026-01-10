@@ -86,9 +86,9 @@ alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPAT
 export PATH="$HOME/.local/share/pyls-ms:$PATH"
 
 # less
-if [[ "`which src-hilight-lesspipe.sh`" ]]; then
+if [[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]]; then
   export LESS='-RMi'
-  export LESSOPEN='|  /usr/bin/src-hilite-lesspipe.sh %s'
+  export LESSOPEN='|  /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 else
   export LESS='-R'
 fi
