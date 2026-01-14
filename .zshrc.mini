@@ -96,11 +96,13 @@ if [[ -f "$Z" ]]; then
 fi
 
 [[ -d "$ZSH_PLUGIN_DIR/zsh-substring-search" ]] || \
-    git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git \
-      "$ZSH_PLUGIN_DIR/zsh-substring-search" && \
-      source "$ZSH_PLUGIN_DIR/zsh-substring-search/zsh-history-substring-search.zsh"
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+    git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search \
+      "$ZSH_PLUGIN_DIR/zsh-substring-search"
+if [[ -f "$ZSH_PLUGIN_DIR/zsh-substring-search/zsh-history-substring-search.zsh" ]]; then
+    source "$ZSH_PLUGIN_DIR/zsh-substring-search/zsh-history-substring-search.zsh"
+    bindkey -M emacs '^P' history-substring-search-up
+    bindkey -M emacs '^N' history-substring-search-down
+fi
 
 autoload -Uz add-zsh-hook
 
