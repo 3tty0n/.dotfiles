@@ -40,8 +40,8 @@ autoload -Uz colors && colors
 git_branch_fast() {
   local head
   [[ -d .git ]] || return
-  head=$(<.git/HEAD 2>/dev/null) || return
-  [[ $head == ref:* ]] && print -r -- ${head##*/} && return
+  head=$(< .git/HEAD)
+  [[ $head == ref:\ refs/heads/* ]] && print -r -- ${head#ref: refs/heads/} && return
   command git rev-parse --abbrev-ref HEAD 2>/dev/null
 }
 
@@ -105,29 +105,17 @@ load_late() {
 }
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+if [[ -d "$PYENV_ROOT" ]]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init - --no-rehash)"
+fi
 
-pyenv_late_init() {
-  [[ -n "$PYENV_LATE_DONE" ]] && return
-  export PYENV_LATE_DONE=1
-
-  [[ -d "$PYENV_ROOT/bin" ]] || return
-  typeset -U path
-  path=("$PYENV_ROOT/bin" $path)
-  eval "$(pyenv init - --no-rehash)"
-}
-
-pyenv() { pyenv_late_init; command pyenv "$@"; }
+export JULIAUP_ROOT="$HOME/.juliaup"
+if [[ -d "${JULIAUP_ROOT}" ]]; then
+    export PATH="${JULIAUP_ROOT}/bin:${PATH}"
+fi
 
 autoload -Uz add-zsh-hook
-
-pyenv_hook_once() {
-  add-zsh-hook -d precmd pyenv_hook_once 2>/dev/null || true
-  add-zsh-hook -d chpwd  pyenv_hook_once 2>/dev/null || true
-  pyenv_late_init
-}
-add-zsh-hook precmd pyenv_hook_once
-add-zsh-hook chpwd  pyenv_hook_once
-
-load_late() { bindkey -e }
 add-zsh-hook precmd load_late
+
+export PYTHONHASHSEED=0

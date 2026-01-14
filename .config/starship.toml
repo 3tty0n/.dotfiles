@@ -6,6 +6,7 @@ $git_branch\
 $character"""
 
 right_format = ""
+add_newline = false
 
 [username]
 show_always = false # SSH接続時のみ表示

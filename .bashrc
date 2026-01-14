@@ -1,6 +1,8 @@
 #
 # ~/.bashrc
 #
+
+# {{{ plugins
 if [ -f ~/.bash/git-completion.bash ]; then
     . ~/.bash/git-completion.bash
 fi
@@ -72,14 +74,25 @@ _z_fzf_complete() {
 
 complete -F _z_fzf_complete z
 
+# }}}
+
+
+# {{{ Alias
+
 alias g='git'
 alias ls='ls --color'
 alias l='ls --color -1a'
 alias ll='ls --color -la'
+alias t='tig'
 
-# >>> juliaup initialize >>>
+# }}}
+#
+# {{{ Version managers
 
-# !! Contents within this block are managed by juliaup !!
+if [ -d ~/.pyenv ]; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
 
 case ":$PATH:" in
     *:/home/yusuke/.juliaup/bin:*)
@@ -90,4 +103,4 @@ case ":$PATH:" in
         ;;
 esac
 
-# <<< juliaup initialize <<<
+# }}}

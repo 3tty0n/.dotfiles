@@ -124,7 +124,7 @@ bindkey '^g' ghq-fzf
 
 # {{{ # Version manager
 # Pyenv
-eval "$(pyenv init -)"
+[ -d ~/.pyenv ] && eval "$(pyenv init -)"
 
 # Julia
 path=('/home/yusuke/.juliaup/bin' $path)
