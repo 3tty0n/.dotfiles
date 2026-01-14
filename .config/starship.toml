@@ -27,7 +27,7 @@ style = "bold cyan"
 [git_branch]
 symbol = " "
 style = "bold purple"
-truncation_length = 20
+truncation_length = 40
 
 [character]
 success_symbol = "[λ](bold green)" # 任意のシンボルに変更可
