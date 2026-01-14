@@ -25,7 +25,7 @@ export LSCOLORS=exfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --ansi --no-bold'
+export FZF_DEFAULT_OPTS="--height 40% --style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
 
 # Add ~/usr/local/bin to PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -92,12 +92,6 @@ if [[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]]; then
 else
   export LESS='-R'
 fi
-#if [[ "`which src-hilite-lesspipe.sh`" ]]; then
-#  export LESS='-RMi'
-#  export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
-#else
-#  export LESS='-R'
-#fi
 
 # cabal
 export PATH="$HOME/.cabal/bin:$PATH"
