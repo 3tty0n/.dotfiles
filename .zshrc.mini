@@ -85,18 +85,21 @@ fi
 [[ -d "$ZSH_PLUGIN_DIR/zsh-autosuggestions" ]] || \
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
     "$ZSH_PLUGIN_DIR/zsh-autosuggestions"
-
-ZSH_AUTOSUGGEST="$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if [[ -f "$ZSH_AUTOSUGGEST" ]]; then
-  ZSH_AUTOSUGGEST_USE_ASYNC=0
-  ZSH_AUTOSUGGEST_STRATEGY=(history)
-  source "$ZSH_AUTOSUGGEST"
-fi
+export ZSH_AUTOSUGGEST_USE_ASYNC=0
+export ZSH_AUTOSUGGEST_STRATEGY=(history)
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+source "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 Z="$HOME/.zsh/plugins/z.sh"
 if [[ -f "$Z" ]]; then
     source $Z
 fi
+
+[[ -d "$ZSH_PLUGIN_DIR/zsh-substring-search" ]] || \
+    git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git \
+      "$ZSH_PLUGIN_DIR/zsh-substring-search" && \
+      source "$ZSH_PLUGIN_DIR/zsh-substring-search/zsh-history-substring-search.zsh"
+
 
 autoload -Uz add-zsh-hook
 
