@@ -29,6 +29,7 @@ Plug 'agreco/vim-citylights'
 Plug 'morhetz/gruvbox'
 Plug 'embark-theme/vim'
 Plug 'saltdotac/citylights.vim'
+Plug 'girishji/vimcomplete'
 
 Plug 'frazrepo/vim-rainbow'
 
