@@ -46,7 +46,19 @@ git_branch_fast() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f$(b=$(git_branch_fast); [[ -n $b ]] && print " %F{magenta}(%F{green}$b%F{magenta})%f") %# '
+
+shorten_dir() {
+  local full_path="${(%):-%~}"
+  if [[ "$full_path" == "/" || "$full_path" == "~" ]]; then
+    echo "$full_path"
+    return
+  fi
+  local short=$(echo "$full_path" | sed -E 's|/([^/])[^/]+|/\1|g')
+  echo "${short%/*}/${full_path##*/}"
+}
+
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%n@%m%f:%F{yellow}$(shorten_dir)%f$(b=$(git_branch_fast); [[ -n $b ]] && print " %F{magenta}(%F{green}$b%F{magenta})%f") %# '
 
 autoload -Uz compinit
 
@@ -70,9 +82,9 @@ mkdir -p "$ZSH_DIR"
 ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
 mkdir -p "$ZSH_PLUGIN_DIR"
 
-[[ -f "$ZSH_DIR/z.sh" ]] || \
+[[ -f "$ZSH_DIR/plugins/z.sh" ]] || \
   curl -fsSL https://raw.githubusercontent.com/rupa/z/master/z.sh \
-    -o "$ZSH_DIR/z.sh"
+    -o "$ZSH_DIR/plugins/z.sh"
 
 [[ -d "$ZSH_PLUGIN_DIR/zsh-completions" ]] || \
   git clone --depth=1 https://github.com/zsh-users/zsh-completions \
