@@ -10,7 +10,8 @@
     ],
     "layout": [
         "floating",
-        "tall",
+        "tall right",
+        "two pane",
         "fulscreen",
         "column"
     ]
