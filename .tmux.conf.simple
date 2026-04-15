@@ -24,20 +24,20 @@ set   -g message-style                fg=colour2,bold,bg=default
 # *** Window Status Colors
 setw  -g window-status-style          default # default for all window statuses
 setw  -g window-status-last-style     fg=default,bg=colour235
-setw  -g window-status-current-style  fg=white,bold,bg=colour63
+setw  -g window-status-current-style  fg=colour252,bold,bg=colour236
 setw  -g window-status-bell-style     default
 setw  -g window-status-activity-style fg=white,none,bg=colour196
 # setw  -g window-status-content-style  fg=black,none,bg=green # incompatible with tmux 2.0+
 
-# *** Pane Colors
+# *** Pane Colors (dark theme: active session stays dark, not washed-out)
 setw  -g pane-active-border-style     fg=colour62,bg=default
 setw  -g pane-border-style            fg=colour235,bg=default
-#setw  -g window-active-style          'bg=#330000' # bg color of active pane
-#setw  -g window-style                 'bg=black'   # bg color of inactive pane(s)
+setw  -g window-active-style          'bg=#0a0a0a'
+setw  -g window-style                 'bg=#000000'
 
 # *** Mode Info Colors
 # Color of display shown on top-right in copy-mode, highlighting
-setw  -g mode-style                   fg=black,bg=colour244
+setw  -g mode-style                   fg=colour231,bg=colour238
 
 # *** Status Bar Color# ** Message Colors
 set   -g message-style                fg=colour2,bold,bg=default
@@ -45,12 +45,9 @@ set   -g message-style                fg=colour2,bold,bg=default
 # ** Window Status Colors
 # *** set inactive/active window styles
 
-#or if you a brighter active border, uncomment the following line:
-#set -g pane-active-border-bg colour51
-
 # ** Mode Info Colors
 # Color of display shown on top-right in copy-mode, highlighting
-setw  -g mode-style                   fg=black,bg=colour244
+setw  -g mode-style                   fg=colour231,bg=colour238
 
 # * Activity
 # Notify when a window has activity
@@ -73,11 +70,32 @@ bind C-x command-prompt # default command-prompt binding "PREFIX :" also works
 set -g default-terminal "xterm-256color"
 set -ag terminal-overrides ",xterm-256color:RGB"
 
+# Scrollback: large buffer so mouse wheel history is useful
+set -g history-limit 100000
+
 # * Mouse
 set -g mouse on
-bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+# Clipboard + X11 PRIMARY (middle-click paste), like most Linux terminal emulators
+set -s copy-command "sh -c 'xclip -in -selection clipboard -f | xclip -in -selection primary'"
+# Wheel: copy-mode -e exits when you scroll back to the live bottom, so the pane keeps updating.
+# Without -e, copy mode would freeze the visible view until q / Escape (looked like refresh had stopped).
+bind -n WheelUpPane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send-keys -M" "copy-mode -e; send-keys -M"
 bind -n WheelDownPane select-pane -t= \; send-keys -M
-bind -n C-WheelUpPane select-pane -t= \; copy-mode -e \; send-keys -M
+bind -n C-WheelUpPane copy-mode -e \; send-keys -M
+
+# Word / line select with mouse (same as default tmux, but keep highlight after copy)
+bind -T root DoubleClick1Pane select-pane -t= \; if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send-keys -M" "copy-mode -H ; send-keys -X select-word ; run-shell -d 0.3 ; send-keys -X copy-pipe-no-clear"
+bind -T root TripleClick1Pane select-pane -t= \; if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send-keys -M" "copy-mode -H ; send-keys -X select-line ; run-shell -d 0.3 ; send-keys -X copy-pipe-no-clear"
+bind -T copy-mode DoubleClick1Pane set-option -p @tmux_skip_1up 1 \; select-pane \; send-keys -X select-word \; run-shell -d 0.3 \; send-keys -X copy-pipe-no-clear
+bind -T copy-mode TripleClick1Pane set-option -p @tmux_skip_1up 1 \; select-pane \; send-keys -X select-line \; run-shell -d 0.3 \; send-keys -X copy-pipe-no-clear
+
+# Right-click menus: -O keeps the menu open after button release (default closes on MouseUp if no item hit)
+bind -T root MouseDown3Pane         if-shell -F -t = "#{||:#{mouse_any_flag},#{&&:#{pane_in_mode},#{?#{m/r:(copy|view)-mode,#{pane_mode}},0,1}}}" { select-pane -t = ; send-keys -M } { display-menu -O -T "#[align=centre]#{pane_index} (#{pane_id})" -t = -x M -y M "#{?#{m/r:(copy|view)-mode,#{pane_mode}},Go To Top,}" < { send-keys -X history-top } "#{?#{m/r:(copy|view)-mode,#{pane_mode}},Go To Bottom,}" > { send-keys -X history-bottom } '' "#{?mouse_word,Search For #[underscore]#{=/9/...:mouse_word},}" C-r { if-shell -F "#{?#{m/r:(copy|view)-mode,#{pane_mode}},0,1}" "copy-mode -t=" ; send-keys -X -t = search-backward "#{q:mouse_word}" } "#{?mouse_word,Type #[underscore]#{=/9/...:mouse_word},}" C-y { copy-mode -q ; send-keys -l "#{q:mouse_word}" } "#{?mouse_word,Copy #[underscore]#{=/9/...:mouse_word},}" c { copy-mode -q ; set-buffer "#{q:mouse_word}" } "#{?mouse_line,Copy Line,}" l { copy-mode -q ; set-buffer "#{q:mouse_line}" } '' "#{?mouse_hyperlink,Type #[underscore]#{=/9/...:mouse_hyperlink},}" C-h { copy-mode -q ; send-keys -l "#{q:mouse_hyperlink}" } "#{?mouse_hyperlink,Copy #[underscore]#{=/9/...:mouse_hyperlink},}" h { copy-mode -q ; set-buffer "#{q:mouse_hyperlink}" } '' "Horizontal Split" h { split-window -h } "Vertical Split" v { split-window -v } '' "#{?#{>:#{window_panes},1},,-}Swap Up" u { swap-pane -U } "#{?#{>:#{window_panes},1},,-}Swap Down" d { swap-pane -D } "#{?pane_marked_set,,-}Swap Marked" s { swap-pane } '' Kill X { kill-pane } Respawn R { respawn-pane -k } "#{?pane_marked,Unmark,Mark}" m { select-pane -m } "#{?#{>:#{window_panes},1},,-}#{?window_zoomed_flag,Unzoom,Zoom}" z { resize-pane -Z } }
+bind -T root M-MouseDown3Pane       display-menu -O -T "#[align=centre]#{pane_index} (#{pane_id})" -t = -x M -y M "#{?#{m/r:(copy|view)-mode,#{pane_mode}},Go To Top,}" < { send-keys -X history-top } "#{?#{m/r:(copy|view)-mode,#{pane_mode}},Go To Bottom,}" > { send-keys -X history-bottom } '' "#{?mouse_word,Search For #[underscore]#{=/9/...:mouse_word},}" C-r { if-shell -F "#{?#{m/r:(copy|view)-mode,#{pane_mode}},0,1}" "copy-mode -t=" ; send-keys -X -t = search-backward "#{q:mouse_word}" } "#{?mouse_word,Type #[underscore]#{=/9/...:mouse_word},}" C-y { copy-mode -q ; send-keys -l "#{q:mouse_word}" } "#{?mouse_word,Copy #[underscore]#{=/9/...:mouse_word},}" c { copy-mode -q ; set-buffer "#{q:mouse_word}" } "#{?mouse_line,Copy Line,}" l { copy-mode -q ; set-buffer "#{q:mouse_line}" } '' "#{?mouse_hyperlink,Type #[underscore]#{=/9/...:mouse_hyperlink},}" C-h { copy-mode -q ; send-keys -l "#{q:mouse_hyperlink}" } "#{?mouse_hyperlink,Copy #[underscore]#{=/9/...:mouse_hyperlink},}" h { copy-mode -q ; set-buffer "#{q:mouse_hyperlink}" } '' "Horizontal Split" h { split-window -h } "Vertical Split" v { split-window -v } '' "#{?#{>:#{window_panes},1},,-}Swap Up" u { swap-pane -U } "#{?#{>:#{window_panes},1},,-}Swap Down" d { swap-pane -D } "#{?pane_marked_set,,-}Swap Marked" s { swap-pane } '' Kill X { kill-pane } Respawn R { respawn-pane -k } "#{?pane_marked,Unmark,Mark}" m { select-pane -m } "#{?#{>:#{window_panes},1},,-}#{?window_zoomed_flag,Unzoom,Zoom}" z { resize-pane -Z }
+bind -T root MouseDown3Status       display-menu -O -T "#[align=centre]#{window_index}:#{window_name}" -t = -x W -y W "#{?#{>:#{session_windows},1},,-}Swap Left" l { swap-window -t :-1 } "#{?#{>:#{session_windows},1},,-}Swap Right" r { swap-window -t :+1 } "#{?pane_marked_set,,-}Swap Marked" s { swap-window } '' Kill X { kill-window } Respawn R { respawn-window -k } "#{?pane_marked,Unmark,Mark}" m { select-pane -m } Rename n { command-prompt -F -I "#W" { rename-window -t "#{window_id}" "%%" } } '' "New After" w { new-window -a } "New At End" W { new-window }
+bind -T root MouseDown3StatusLeft   display-menu -O -T "#[align=centre]#{session_name}" -t = -x M -y W Next n { switch-client -n } Previous p { switch-client -p } '' Renumber N { move-window -r } Rename n { command-prompt -I "#S" { rename-session "%%" } } '' "New Session" s { new-session } "New Window" w { new-window }
+bind -T root M-MouseDown3Status     display-menu -O -T "#[align=centre]#{window_index}:#{window_name}" -t = -x W -y W "#{?#{>:#{session_windows},1},,-}Swap Left" l { swap-window -t :-1 } "#{?#{>:#{session_windows},1},,-}Swap Right" r { swap-window -t :+1 } "#{?pane_marked_set,,-}Swap Marked" s { swap-window } '' Kill X { kill-window } Respawn R { respawn-window -k } "#{?pane_marked,Unmark,Mark}" m { select-pane -m } Rename n { command-prompt -F -I "#W" { rename-window -t "#{window_id}" "%%" } } '' "New After" w { new-window -a } "New At End" W { new-window }
+bind -T root M-MouseDown3StatusLeft display-menu -O -T "#[align=centre]#{session_name}" -t = -x M -y W Next n { switch-client -n } Previous p { switch-client -p } '' Renumber N { move-window -r } Rename n { command-prompt -I "#S" { rename-session "%%" } } '' "New Session" s { new-session } "New Window" w { new-window }
 
 # * Keybindngs
 # ** Pane & Window
@@ -93,6 +111,10 @@ bind    C-K  kill-window
 bind    C-t  next-window
 bind    c    new-window
 
+# Swap window position with previous/next in the session (-r: repeat without prefix)
+bind -r < swap-window -d -t -1
+bind -r > swap-window -d -t +1
+
 setw -g mode-keys         emacs # Use emacs keybindings in copy mode
 setw -g status-keys       emacs
 
@@ -104,15 +126,15 @@ setw -g status-keys       emacs
 # client is actively looking at it.
 setw -g aggressive-resize on
 
-# ** Copy and Paste
-# *** Emacs style
+# ** Copy and Paste (Emacs copy-mode + clipboard)
 # https://nekochango5.hateblo.jp/entry/linux/tmux/memo#HOMEtmuxconf-%E3%81%AE%E8%A8%AD%E5%AE%9A%E5%86%85%E5%AE%B9-tmux-26-%E4%BB%A5%E4%B8%8A%E3%81%AE%E5%A0%B4%E5%90%88
-# bind-key -n -T copy-mode M-w send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-# bind-key -n -T copy-mode C-w send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-# bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
-
-# *** Vim sytle
-setw -g mode-keys vi
-bind -T copy-mode-vi v send-keys -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+# Drag to select; on release copy to clipboard/PRIMARY but keep highlight (like many terminals). Escape exits copy mode.
+# Left-click dismiss: after a real selection, a plain click exits copy mode (@tmux_skip_1up skips the MouseUp that follows a drag release).
+bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-no-clear \; set-option -p @tmux_skip_1up 1
+bind -T copy-mode MouseUp1Pane run-shell "sk=\$(tmux display -p '#{?#{@tmux_skip_1up},1,0}'); if [ \"\$sk\" = 1 ]; then tmux set -pu @tmux_skip_1up; elif [ \"\$(tmux display -p '#{selection_present}')\" = 1 ]; then tmux send-keys -X cancel; fi"
+# Keyboard: copy region to clipboard (uses copy-command / xclip)
+bind -T copy-mode M-w send-keys -X copy-pipe-and-cancel
+bind -T copy-mode C-w send-keys -X copy-pipe-and-cancel
+# Emacs-style yank: paste from clipboard (after prefix, i.e. C-q C-y)
+bind C-y run-shell "xclip -o -selection clipboard | tmux load-buffer - && tmux paste-buffer"
 
