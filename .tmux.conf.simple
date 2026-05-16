@@ -13,41 +13,39 @@ bind -T root MouseDrag1Border resize-pane -M # default
 # * Look & Feel
 # ** Colors
 
-# *** Status Bar Colors
-set   -g status-style                 fg=colour246,bg=colour233 # default for whole status line
-set   -g status-left-style            fg=white,bold,bg=colour233
-set   -g status-right-style           fg=colour75,none,bg=colour233
+# *** Status Bar Colors (bg=default: terminal transparency shows through)
+set   -g status-style                 fg=colour246,bg=default
+set   -g status-left-style            fg=white,bold,bg=default
+set   -g status-right-style           fg=colour75,none,bg=default
+set   -g status-left-length           32
+set   -g status-left                  '#[fg=colour75,bold]#H#[fg=colour246,none] | '
 
 # *** Message Colors
 set   -g message-style                fg=colour2,bold,bg=default
 
 # *** Window Status Colors
 setw  -g window-status-style          default # default for all window statuses
-setw  -g window-status-last-style     fg=default,bg=colour235
-setw  -g window-status-current-style  fg=colour252,bold,bg=colour236
+setw  -g window-status-last-style     fg=default,bg=default
+setw  -g window-status-current-style  fg=colour252,bold,bg=default
 setw  -g window-status-bell-style     default
-setw  -g window-status-activity-style fg=white,none,bg=colour196
+setw  -g window-status-activity-style fg=colour196,none,bg=default
 # setw  -g window-status-content-style  fg=black,none,bg=green # incompatible with tmux 2.0+
 
 # *** Pane Colors (dark theme: active session stays dark, not washed-out)
 setw  -g pane-active-border-style     fg=colour62,bg=default
 setw  -g pane-border-style            fg=colour235,bg=default
-setw  -g window-active-style          'bg=#0a0a0a'
-setw  -g window-style                 'bg=#000000'
+setw  -g window-active-style          'bg=default'
+setw  -g window-style                 'bg=default'
 
 # *** Mode Info Colors
 # Color of display shown on top-right in copy-mode, highlighting
-setw  -g mode-style                   fg=colour231,bg=colour238
+setw  -g mode-style                   fg=colour231,bg=default
 
 # *** Status Bar Color# ** Message Colors
 set   -g message-style                fg=colour2,bold,bg=default
 
 # ** Window Status Colors
 # *** set inactive/active window styles
-
-# ** Mode Info Colors
-# Color of display shown on top-right in copy-mode, highlighting
-setw  -g mode-style                   fg=colour231,bg=colour238
 
 # * Activity
 # Notify when a window has activity
@@ -110,6 +108,7 @@ bind    i    display-panes
 bind    C-K  kill-window
 bind    C-t  next-window
 bind    c    new-window
+bind    r    source-file ~/.tmux.conf \; display-message 'tmux.conf reloaded'
 
 # Swap window position with previous/next in the session (-r: repeat without prefix)
 bind -r < swap-window -d -t -1
