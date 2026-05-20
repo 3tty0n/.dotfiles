@@ -71,8 +71,13 @@ _prompt_git() {
   print -rn -- " %F{#bb9af7}${b}%f"
 }
 
-# ~/s/dir [branch]  ❯  (green on success, red on error)
-PROMPT='%F{#7aa2f7}$(_shorten_dir)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
+_prompt_ssh() {
+  (( IS_SSH )) || return
+  print -rn -- "%F{#e0af68}@${(%):-%m}%f "
+}
+
+# @host ~/s/dir [branch]  ❯  (green on success, red on error)
+PROMPT='$(_prompt_ssh)%F{#7aa2f7}$(_shorten_dir)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
 
 # ── Plugins ───────────────────────────────────────────────────────────────────
 source "$HOME/.zsh/plugin.zsh"
