@@ -2,15 +2,12 @@
 
 setopt NO_BEEP AUTO_CD INTERACTIVE_COMMENTS NO_FLOW_CONTROL PROMPT_SUBST
 setopt EXTENDED_GLOB
-setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY
+setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY
 setopt SHARE_HISTORY EXTENDED_HISTORY
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=5000000
 SAVEHIST=5000000
-setopt append_history
-setopt share_history
-setopt hist_ignore_all_dups
 
 if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
   export IS_SSH=1
@@ -30,12 +27,8 @@ path=(
 [[ -d /opt/homebrew ]] && export PATH="/opt/homebrew/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
-if [[ -d "$PYENV_ROOT/bin" ]]; then
-  path=("$PYENV_ROOT/bin" $path)
-  eval "$(pyenv init - --no-rehash)"
-else
-  eval "$(pyenv init - --no-rehash)"
-fi
+[[ -d "$PYENV_ROOT/bin" ]] && path=("$PYENV_ROOT/bin" $path)
+command -v pyenv &>/dev/null && eval "$(pyenv init - --no-rehash)"
 
 [[ -d "$HOME/.juliaup" ]] && path=("$HOME/.juliaup/bin" $path)
 
@@ -115,20 +108,19 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
 plugin zsh-users/zsh-autosuggestions
 
 plugin zsh-users/zsh-history-substring-search
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-
-bindkey "^R" history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
 
 plugin rupa/z
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
 bindkey -e
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey "^R" history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
 bindkey '^[[H'  beginning-of-line   # Home
 bindkey '^[[F'  end-of-line         # End
 bindkey '^[[3~' delete-char         # Delete
 zmodload zsh/complist 2>/dev/null
 zmodload zsh/zpty     2>/dev/null
 
-[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
+[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local || true
