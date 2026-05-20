@@ -151,17 +151,12 @@ alt - e : yabai -m window --toggle split
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
-# three column
-alt + shift - t : yabai -m window --toggle split; \
-    yabai -m space --balance; \
-    yabai -m config auto_balance on
-
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
 
 # toggle sticky, float and resize to picture-in-picture size
-alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --grid 5:5:4:0:1:1
+# alt - p : yabai -m window --toggle sticky;\
+#           yabai -m window --grid 5:5:4:0:1:1
 
 # change layout of desktop
 ctrl + alt - a : yabai -m space --layout bsp

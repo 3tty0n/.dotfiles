@@ -33,16 +33,20 @@ Plug 'girishji/vimcomplete'
 
 Plug 'frazrepo/vim-rainbow'
 
+" snippets
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+
 " skk
-Plug 'tyru/eskk.vim'
+Plug 'vim-skk/eskk.vim'
+Plug 'vim-skk/skkdict.vim'
 
 " lsp
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 
 " latex
 " Plug 'lervag/vimtex'
-Plug 'vim-latex/vim-latex'
 
 " org-mode
 Plug 'jceb/vim-orgmode'
@@ -246,7 +250,41 @@ else
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
 endif
 
-"
+" Python
+let g:lsp_settings = {
+    \ 'pylsp': {
+        \ 'pylsp': {
+            \ 'plugins': {
+                \ 'pycodestyle': {
+                    \ 'enabled': v:true,
+                    \ 'ignore': ['E501', 'W292'],
+                \ },
+                \ 'flake8': {
+                    \ 'enabled': v:true,
+                    \ 'ignore': ['E501', 'W292'],
+                \ },
+            \ },
+        \ },
+    \ },
+\ }
+
+let g:lsp_settings = {
+\   'pylsp-all': {
+\     'workspace_config': {
+\       'pylsp': {
+\         'plugins': {
+\           'pycodestyle': {
+\             'ignore': ["E221", "E501"]
+\           }
+\         }
+\       }
+\     }
+\   },
+\}
+" }}}
+
+" {{{ latex
+let g:vimtex_view_method = 'general'
 " }}}
 
 " {{{ # Input/Output method
@@ -259,5 +297,3 @@ let g:eskk#large_dictionary = {
 " }}}
 
 " {{{ # Magic comments
-" vim: filetype=vim foldmethod=marker
-" }}}

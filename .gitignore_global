@@ -72,3 +72,6 @@ Temporary Items
 
 # Emacs specification
 auto/
+
+.claude/
+.codex

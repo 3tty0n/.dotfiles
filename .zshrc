@@ -146,11 +146,12 @@ if [ -f ~/.profile ]; then
     source ~/.profile
 fi
 
-# >>> juliaup initialize >>>
+if [ -d ~/.juliaup ]; then
+    path=("$HOME/.juliaup/bin" $path)
+    export PATH
+fi
 
-# !! Contents within this block are managed by juliaup !!
-
-path=('/home/yusuke/.juliaup/bin' $path)
-export PATH
-
-# <<< juliaup initialize <<<
+# opam configuration
+[[ ! -r /Users/yizawa/.opam/opam-init/init.zsh ]] || source /Users/yizawa/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

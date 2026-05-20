@@ -1,24 +1,23 @@
 [[ -o interactive ]] || return
 
-# ── Options ───────────────────────────────────────────────────────────────────
 setopt NO_BEEP AUTO_CD INTERACTIVE_COMMENTS NO_FLOW_CONTROL PROMPT_SUBST
 setopt EXTENDED_GLOB
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY
 setopt SHARE_HISTORY EXTENDED_HISTORY
 
-# ── History ───────────────────────────────────────────────────────────────────
-HISTFILE="$HOME/.zsh/history"
-HISTSIZE=50000
-SAVEHIST=50000
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=5000000
+SAVEHIST=5000000
+setopt append_history
+setopt share_history
+setopt hist_ignore_all_dups
 
-# ── SSH detection ─────────────────────────────────────────────────────────────
 if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
   export IS_SSH=1
 else
   export IS_SSH=0
 fi
 
-# ── PATH ──────────────────────────────────────────────────────────────────────
 typeset -U path
 path=(
   $HOME/.local/bin
@@ -28,9 +27,13 @@ path=(
   /bin
 )
 
+[[ -d /opt/homebrew ]] && export PATH="/opt/homebrew/bin:$PATH"
+
 export PYENV_ROOT="$HOME/.pyenv"
-if [[ -d "$PYENV_ROOT" ]]; then
+if [[ -d "$PYENV_ROOT/bin" ]]; then
   path=("$PYENV_ROOT/bin" $path)
+  eval "$(pyenv init - --no-rehash)"
+else
   eval "$(pyenv init - --no-rehash)"
 fi
 
@@ -87,6 +90,8 @@ mkdir -p "$ZSH_CACHE_DIR"
 # fpath plugins must be registered before compinit
 plugin --fpath zsh-users/zsh-completions src
 
+plugin zdharma-continuum/fast-syntax-highlighting
+
 autoload -Uz compinit
 # Rebuild compdump at most once per day
 if [[ ! -f "$ZSH_CACHE_DIR/zcompdump" ||
@@ -113,22 +118,17 @@ plugin zsh-users/zsh-history-substring-search
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 
-if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
-else
-  plugin rupa/z
-fi
+bindkey "^R" history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+
+plugin rupa/z
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
 bindkey -e
 bindkey '^[[H'  beginning-of-line   # Home
 bindkey '^[[F'  end-of-line         # End
 bindkey '^[[3~' delete-char         # Delete
-
 zmodload zsh/complist 2>/dev/null
 zmodload zsh/zpty     2>/dev/null
-
-# ── Misc ──────────────────────────────────────────────────────────────────────
-export PYTHONHASHSEED=0
 
 [[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local

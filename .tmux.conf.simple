@@ -3,7 +3,6 @@ set -g  prefix 'C-q'
 bind    'C-q'  send-prefix
 unbind  C-b
 
-<<<<<<< Updated upstream
 # * General
 set -sg escape-time 10               # faster key sequences
 set -g  focus-events on              # pass focus events to apps inside tmux
@@ -14,19 +13,11 @@ set -g  base-index 1                 # start windows at 1, not 0
 setw -g pane-base-index 1
 set -g  renumber-windows on          # close the gap when a window is killed
 setw -g aggressive-resize on
-||||||| Stash base
 # ** Drag pane border to resize
 # set   -g mouse-resize-pane off # incompatible in tmux 2.1+
 bind -T root MouseDrag1Border resize-pane -M # default
 # unbind -T root MouseDrag1Border # disable drag pane border to resize
-=======
 set -g focus-events on
-
-# ** Drag pane border to resize
-# set   -g mouse-resize-pane off # incompatible in tmux 2.1+
-bind -T root MouseDrag1Border resize-pane -M # default
-# unbind -T root MouseDrag1Border # disable drag pane border to resize
->>>>>>> Stashed changes
 
 # * Terminal / True Color
 set -g  default-terminal "tmux-256color"
