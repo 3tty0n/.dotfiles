@@ -78,20 +78,14 @@ _prompt_git() {
 # ~/s/dir [branch]  ❯  (green on success, red on error)
 PROMPT='%F{#7aa2f7}$(_shorten_dir)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
 
-# ── Completion ────────────────────────────────────────────────────────────────
+# ── Plugins ───────────────────────────────────────────────────────────────────
+source "$HOME/.zsh/plugin.zsh"
+
 ZSH_CACHE_DIR="$HOME/.zsh/cache"
-ZSH_PLUGIN_DIR="$HOME/.zsh/plugins"
-mkdir -p "$ZSH_CACHE_DIR" "$ZSH_PLUGIN_DIR"
+mkdir -p "$ZSH_CACHE_DIR"
 
-_ensure_plugin() {
-  [[ -d "$ZSH_PLUGIN_DIR/$1" ]] ||
-    git clone --depth=1 "$2" "$ZSH_PLUGIN_DIR/$1" 2>/dev/null
-}
-
-# zsh-completions must be in fpath before compinit
-_ensure_plugin zsh-completions https://github.com/zsh-users/zsh-completions
-[[ -d "$ZSH_PLUGIN_DIR/zsh-completions" ]] &&
-  fpath=("$ZSH_PLUGIN_DIR/zsh-completions/src" $fpath)
+# fpath plugins must be registered before compinit
+plugin --fpath zsh-users/zsh-completions src
 
 autoload -Uz compinit
 # Rebuild compdump at most once per day
@@ -111,32 +105,18 @@ zstyle ':completion:*:descriptions' format '%F{yellow}── %d ──%f'
 zstyle ':completion:*:warnings'     format '%F{red}no matches: %d%f'
 zstyle ':completion:*' list-colors  "${(s.:.)LS_COLORS}"
 
-# ── Plugins ───────────────────────────────────────────────────────────────────
-# zsh-autosuggestions
-_ensure_plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
-if [[ -f "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
-  source "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
-fi
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
+plugin zsh-users/zsh-autosuggestions
 
-# zsh-history-substring-search
-_ensure_plugin zsh-history-substring-search https://github.com/zsh-users/zsh-history-substring-search
-if [[ -f "$ZSH_PLUGIN_DIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ]]; then
-  source "$ZSH_PLUGIN_DIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
-  bindkey -M emacs '^P' history-substring-search-up
-  bindkey -M emacs '^N' history-substring-search-down
-fi
+plugin zsh-users/zsh-history-substring-search
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 
-# zoxide (modern z) with fallback to z.sh
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
 else
-  _z_sh="$ZSH_PLUGIN_DIR/z.sh"
-  [[ -f "$_z_sh" ]] ||
-    curl -fsSL https://raw.githubusercontent.com/rupa/z/master/z.sh -o "$_z_sh" 2>/dev/null
-  [[ -f "$_z_sh" ]] && source "$_z_sh"
-  unset _z_sh
+  plugin rupa/z
 fi
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
