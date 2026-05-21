@@ -83,3 +83,6 @@ transfer() {
 
 alias transfer=transfer
 #  }}}
+
+# fzf extensions (ghq + z tab/** completion)
+[[ -f "${DOT_ZSH_ROOT}/fzf-extensions/init.zsh" ]] && source "${DOT_ZSH_ROOT}/fzf-extensions/init.zsh"

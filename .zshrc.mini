@@ -128,4 +128,8 @@ bindkey '^[[3~' delete-char         # Delete
 zmodload zsh/complist 2>/dev/null
 zmodload zsh/zpty     2>/dev/null
 
+# ghq + z fuzzy completion (Tab/**<Tab> → cd, Ctrl+G → cd); load after bindkey setup
+[[ -f ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh ]] &&
+  source ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh
+
 [[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local || true
