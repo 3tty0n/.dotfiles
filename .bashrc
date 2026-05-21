@@ -7,8 +7,8 @@ if [ -f ~/.bash/git-completion.bash ]; then
     . ~/.bash/git-completion.bash
 fi
 
-if [ -f ~/.bash/git-prompt.sh ]; then
-    . ~/.bash/git-prompt.sh
+if [ -f ~/.bash/git-prompt.bash ]; then
+    . ~/.bash/git-prompt.bash
     export GIT_PS1_SHOWDIRTYSTATE=true
     export GIT_PS1_SHOWUNTRACKEDFILES=true
     export GIT_PS1_SHOWUPSTREAM="auto"
@@ -32,7 +32,7 @@ function set_bash_prompt() {
     PS1="${STATUS_COLOR}[\u@\h ${B}\w${STATUS_COLOR}]${C}$(__git_ps1 ' (git:%s)')${RS}\n\$ "
 }
 
-PROMPT_COMMAND=set_bash_prompt
+#PROMPT_COMMAND=set_bash_prompt
 
 if [ -f ~/.bash/z.sh ]; then
     . ~/.bash/z.sh
