@@ -3,6 +3,7 @@
 
 .zsh/external/
 .zsh/plugins/
+.zsh/cache/
 
 .xmonad/*
 !.xmonad/xmonad.hs
