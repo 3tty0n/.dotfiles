@@ -75,6 +75,7 @@ _dotfiles_fzf_extensions_init() {
   [[ -o interactive ]] || return 0
 
   local extdir="${DOT_ZSH_ROOT:-${HOME}/.zsh}/fzf-extensions"
+  source "${extdir}/ghq-preview.zsh"
   source "${extdir}/ghq.zsh"
   source "${extdir}/z.zsh"
 

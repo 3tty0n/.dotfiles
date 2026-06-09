@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+# Preview ghq repo directories for fzf (runs in fzf's preview subshell).
+
+repo="$1"
+[[ -z "$repo" ]] && exit 0
+
+root="$(ghq root 2>/dev/null)" || exit 0
+
+if command -v eza >/dev/null 2>&1; then
+  eza -l -g -a --icons "${root}/${repo}" 2>/dev/null
+else
+  ls -la "${root}/${repo}" 2>/dev/null
+fi
