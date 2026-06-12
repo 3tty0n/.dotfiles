@@ -4,6 +4,19 @@
 
 : "${FZF_GHQ_GITHUB_ONLY:=1}"
 
+_dotfiles_fzf_ghq_preview_cmd() {
+  if [[ -n ${FZF_GHQ_PREVIEW_CMD:-} ]]; then
+    print -r -- "$FZF_GHQ_PREVIEW_CMD"
+    return 0
+  fi
+  local script="${${(%):-%x}:A:h}/fzf-ghq-preview.sh"
+  if [[ -x $script ]]; then
+    print -r -- "$script {}"
+    return 0
+  fi
+  print -r -- 'ls -la "$(ghq root)/{}"'
+}
+
 _fzf_ghq_list() {
   if (( FZF_GHQ_GITHUB_ONLY )); then
     ghq list 2>/dev/null | awk '/^github\.com\//'
@@ -12,24 +25,12 @@ _fzf_ghq_list() {
   fi
 }
 
-_fzf_ghq_preview() {
-  local repo="$1"
-  [[ -z "$repo" ]] && return
-  local root
-  root="$(ghq root 2>/dev/null)" || return
-  if command -v eza >/dev/null 2>&1; then
-    eza -l -g -a --icons "${root}/${repo}" 2>/dev/null
-  else
-    ls -la "${root}/${repo}" 2>/dev/null
-  fi
-}
-
 _fzf_complete_ghq() {
   _fzf_complete \
     --reverse --tac \
     --prompt='ghq> ' \
     --header='GitHub repositories (ghq list)' \
-    --preview='_fzf_ghq_preview {}' \
+    --preview="$(_dotfiles_fzf_ghq_preview_cmd)" \
     --bind='focus:transform-header:ghq {}/{}' \
     -- "$@" < <(_fzf_ghq_list)
 }
@@ -57,7 +58,7 @@ _dotfiles_ghq_fzf_pick() {
   fzf_args=(
     --prompt='ghq> '
     --header='GitHub repositories (ghq list)'
-    --preview='_fzf_ghq_preview {}'
+    --preview="$(_dotfiles_fzf_ghq_preview_cmd)"
     --bind='focus:transform-header:ghq {}/{}'
   )
   [[ -n "$query" ]] && fzf_args+=(-q "$query")
