@@ -4,6 +4,7 @@ _dotfiles_fzf_dir() {
   local -a candidates
   candidates=(
     "${FZF_DIR:-}"
+    "${HOME}/.zsh/plugins/fzf"
     "${HOME}/.local/share/zinit/plugins/fzf"
     "${HOME}/.local/share/zinit/plugins/junegunn---fzf"
   )

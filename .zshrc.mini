@@ -47,6 +47,7 @@ command -v bat &>/dev/null && alias cat='bat --style=plain'
 alias g='git'
 alias t='tig'
 alias ta='tig --all'
+alias rm='rm -i'
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
 autoload -Uz colors && colors
@@ -80,7 +81,19 @@ _prompt_ssh() {
 PROMPT='$(_prompt_ssh)%F{#7aa2f7}$(_shorten_dir)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
 
 # ── Plugins ───────────────────────────────────────────────────────────────────
+# plugin <user/repo>                  source a git plugin (auto-install)
+# plugin --fpath <user/repo> [subdir] add plugin dir to fpath only
+# plugin --binary <user/repo> [pick] [bpick]
+#                                     install a GitHub release binary
+# plugin update [name ...]            update all or named plugins
+# plugin delete <name ...>            remove installed plugins
+# plugin cleanup [--dry-run]          remove plugins not listed below
 source "$HOME/.zsh/plugin.zsh"
+
+# GitHub release binaries (OS/arch detected automatically)
+plugin --binary x-motemen/ghq '*/ghq'
+plugin --binary junegunn/fzf
+export FZF_DIR="${ZSH_PLUGIN_DIR:-$HOME/.zsh/plugins}/fzf"
 
 ZSH_CACHE_DIR="$HOME/.zsh/cache"
 mkdir -p "$ZSH_CACHE_DIR"
