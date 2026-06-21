@@ -17,6 +17,7 @@ fi
 
 typeset -U path
 path=(
+  $HOME/.cargo/bin
   $HOME/.local/bin
   $HOME/bin
   /usr/local/bin
@@ -52,7 +53,7 @@ alias rm='rm -i'
 # ── Prompt ────────────────────────────────────────────────────────────────────
 autoload -Uz colors && colors
 
-_git_branch() {
+_prompt_git_branch() {
   local ref
   ref=$(git symbolic-ref --short HEAD 2>/dev/null) ||
   ref=$(git rev-parse --short HEAD 2>/dev/null) || return
@@ -68,7 +69,7 @@ _shorten_dir() {
 
 _prompt_git() {
   local b
-  b=$(_git_branch) || return
+  b=$(_prompt_git_branch) || return
   print -rn -- " %F{#bb9af7}${b}%f"
 }
 
