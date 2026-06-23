@@ -146,12 +146,17 @@ if [ -f ~/.profile ]; then
     source ~/.profile
 fi
 
-if [ -d ~/.juliaup ]; then
-    path=("$HOME/.juliaup/bin" $path)
-    export PATH
+if [ -d ~/.cargo ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # opam configuration
 [[ ! -r /Users/yizawa/.opam/opam-init/init.zsh ]] || source /Users/yizawa/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/yusuke/.juliaup/bin' $path)
+export PATH
+
+export QSYS_ROOTDIR="/home/yusuke/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/25.1/quartus/sopc_builder/bin"
