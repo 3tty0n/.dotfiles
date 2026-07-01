@@ -4,6 +4,7 @@
 .zsh/external/
 .zsh/plugins/
 .zsh/cache/
+!.zsh/plugins/fzf-extensions
 
 .xmonad/*
 !.xmonad/xmonad.hs
