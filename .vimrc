@@ -100,6 +100,7 @@ let maplocalleader = "\\"
 " Persistent undo / no clutter in cwd
 set noswapfile
 set nobackup
+set nowritebackup
 set undofile
 if !isdirectory(expand('~/.vim/undo'))
   call mkdir(expand('~/.vim/undo'), 'p', 0700)
