@@ -3,8 +3,6 @@
 # based on the attached skhd sample
 # ============================================
 
-.shell "/bin/sh"
-
 # focus window
 alt - j : yabai -m window --focus prev || yabai -m window --focus last
 alt - k : yabai -m window --focus next || yabai -m window --focus first
