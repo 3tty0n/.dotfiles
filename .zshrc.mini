@@ -33,12 +33,14 @@ path=(
   $HOME/bin
   /opt/homebrew/bin(N)
   $HOME/.pyenv/bin(N)
+  $HOME/.rbenv/bin(N)
   $HOME/.juliaup/bin(N)
   /usr/local/bin
   /usr/bin
   /bin
 )
 command -v pyenv >/dev/null && eval "$(pyenv init - --no-rehash)"
+command -v rbenv >/dev/null && eval "$(rbenv init - --no-rehash)"
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
 if command -v eza >/dev/null; then
@@ -68,7 +70,6 @@ plugin --fpath zsh-users/zsh-completions src
 plugin zdharma-continuum/fast-syntax-highlighting
 plugin zsh-users/zsh-autosuggestions
 plugin zsh-users/zsh-history-substring-search
-plugin hlissner/zsh-autopair
 
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
@@ -168,6 +169,7 @@ prompt_theme() {
 prompt_theme auto
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
+# bindkey -e must run before autopair-init, or it clears the pair bindings
 bindkey -e
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
@@ -186,6 +188,13 @@ bindkey '^X^E' edit-command-line
 
 zmodload zsh/complist 2>/dev/null
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# Autopair after bindkey -e so pair widgets stay bound
+plugin hlissner/zsh-autopair
+# Ensure "" autopairs (and rebind in case it was unset)
+AUTOPAIR_PAIRS+=('"' '"')
+bindkey '"' autopair-insert
+bindkey -M isearch '"' self-insert
 
 # fzf: Ctrl-R / Ctrl-T / Alt-C
 [[ -f $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh ]] &&
