@@ -5,22 +5,25 @@ setopt NO_BEEP NO_LIST_BEEP INTERACTIVE_COMMENTS NO_FLOW_CONTROL
 setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
 setopt EXTENDED_GLOB COMPLETE_IN_WORD ALWAYS_TO_END
 setopt AUTO_PARAM_SLASH AUTO_MENU LIST_PACKED LIST_TYPES
-setopt PROMPT_SUBST TRANSIENT_RPROMPT
+setopt PROMPT_SUBST
 
 setopt EXTENDED_HISTORY SHARE_HISTORY INC_APPEND_HISTORY_TIME
 setopt HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_ALL_DUPS HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY HIST_FCNTL_LOCK
+setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_VERIFY
 setopt HIST_FIND_NO_DUPS HIST_SAVE_NO_DUPS
 
-HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=5000000
 SAVEHIST=5000000
 
-if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
-  export IS_SSH=1
-else
-  export IS_SSH=0
-fi
+# ── Environment ───────────────────────────────────────────────────────────────
+export EDITOR=vim
+export VISUAL=$EDITOR
+export PAGER=less
+export LESS=-RFi
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+[[ -n $SSH_CONNECTION || -n $SSH_TTY ]] && export IS_SSH=1 || export IS_SSH=0
 
 # ── PATH ──────────────────────────────────────────────────────────────────────
 typeset -U path
@@ -28,186 +31,153 @@ path=(
   $HOME/.cargo/bin
   $HOME/.local/bin
   $HOME/bin
+  /opt/homebrew/bin(N)
+  $HOME/.pyenv/bin(N)
+  $HOME/.juliaup/bin(N)
   /usr/local/bin
   /usr/bin
   /bin
 )
-
-[[ -d /opt/homebrew/bin ]] && path=(/opt/homebrew/bin $path)
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d "$PYENV_ROOT/bin" ]] && path=("$PYENV_ROOT/bin" $path)
-command -v pyenv &>/dev/null && eval "$(pyenv init - --no-rehash)"
-
-[[ -d "$HOME/.juliaup/bin" ]] && path=("$HOME/.juliaup/bin" $path)
-
-# ── Environment ───────────────────────────────────────────────────────────────
-export EDITOR="${EDITOR:-vim}"
-export VISUAL="${VISUAL:-$EDITOR}"
-export PAGER="${PAGER:-less}"
-export LESS='-RFi'
-
-# Prefer ripgrep for fuzzy finders when available
-if command -v rg &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git,node_modules,target}/*"'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:---height 40% --layout=reverse --border --info=inline --bind ctrl-/:toggle-preview}"
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {} 2>/dev/null || head -200 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} 2>/dev/null || ls -la {}'"
+command -v pyenv >/dev/null && eval "$(pyenv init - --no-rehash)"
 
 # ── Aliases ───────────────────────────────────────────────────────────────────
-if command -v eza &>/dev/null; then
+if command -v eza >/dev/null; then
   alias ls='eza --icons=auto --group-directories-first'
   alias l='eza -a --icons=auto --group-directories-first'
   alias ll='eza -la --icons=auto --git --group-directories-first'
   alias lt='eza --tree --icons=auto --level=2'
   alias la='eza -la --icons=auto --group-directories-first'
 else
-  alias ls='ls --color=auto'
-  alias l='ls -a'
-  alias ll='ls -la'
-  alias la='ls -la'
+  alias ls='ls --color=auto' l='ls -a' ll='ls -la' la='ls -la'
 fi
-command -v bat &>/dev/null && alias cat='bat --style=plain --paging=never'
-command -v bat &>/dev/null && alias preview='bat --color=always --style=numbers'
-command -v rg &>/dev/null && alias grep='rg'
+command -v bat >/dev/null && alias cat='bat --style=plain --paging=never'
+command -v rg >/dev/null && alias grep=rg
 
-alias g='git'
-alias t='tig'
-alias ta='tig --all'
-alias vi='vim'
-alias md='mkdir -p'
-alias rm='rm -i'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias -- -='cd -'
-alias d='dirs -v'
-
-# ── Prompt ────────────────────────────────────────────────────────────────────
-if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
-else
-  autoload -Uz colors && colors
-
-  _prompt_git_branch() {
-    local ref
-    ref=$(git symbolic-ref --short HEAD 2>/dev/null) ||
-    ref=$(git rev-parse --short HEAD 2>/dev/null) || return
-    print -r -- "$ref"
-  }
-
-  _shorten_dir() {
-    local p="${(%):-%~}"
-    [[ $p == '/' || $p == '~' || $p != */* ]] && { print -r -- $p; return }
-    local base="${p##*/}" dir="${p%/*}"
-    print -r -- "${dir:gs|/([^/])[^/]##|/\1|}/$base"
-  }
-
-  _prompt_git() {
-    local b
-    b=$(_prompt_git_branch) || return
-    print -rn -- " %F{#bb9af7}${b}%f"
-  }
-
-  _prompt_ssh() {
-    (( IS_SSH )) || return
-    print -rn -- "%F{#e0af68}@${(%):-%m}%f "
-  }
-
-  # @host ~/s/dir [branch]  ❯  (green on success, red on error)
-  PROMPT='$(_prompt_ssh)%F{#7aa2f7}$(_shorten_dir)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
-fi
+alias g=git t=tig ta='tig --all' vi=vim md='mkdir -p' rm='rm -i'
+alias ..='cd ..' ...='cd ../..' ....='cd ../../..'
+alias -- -='cd -' d='dirs -v'
 
 # ── Plugins ───────────────────────────────────────────────────────────────────
-# plugin <user/repo>                  source a git plugin (auto-install)
-# plugin --fpath <user/repo> [subdir] add plugin dir to fpath only
-# plugin --binary <user/repo> [pick] [bpick]
-#                                     install a GitHub release binary
-# plugin update [name ...]            update all or named plugins
-# plugin delete <name ...>            remove installed plugins
-# plugin cleanup [--dry-run]          remove plugins not listed below
-source "$HOME/.zsh/plugin.zsh"
+source $HOME/.zsh/plugin.zsh
 
-# GitHub release binaries (OS/arch detected automatically)
 plugin --binary x-motemen/ghq '*/ghq'
 plugin --binary junegunn/fzf
 plugin --binary ajeetdsouza/zoxide
-export FZF_DIR="${ZSH_PLUGIN_DIR:-$HOME/.zsh/plugins}/fzf"
-path=("${FZF_DIR}/bin" $path)
-[[ -d "${ZSH_PLUGIN_DIR:-$HOME/.zsh/plugins}/zoxide" ]] &&
-  path=("${ZSH_PLUGIN_DIR:-$HOME/.zsh/plugins}/zoxide" $path)
 
-ZSH_CACHE_DIR="$HOME/.zsh/cache"
-mkdir -p "$ZSH_CACHE_DIR"
-
-# fpath plugins must be registered before compinit
 plugin --fpath zsh-users/zsh-completions src
-
 plugin zdharma-continuum/fast-syntax-highlighting
-
-autoload -Uz compinit
-# Rebuild compdump at most once per day
-if [[ ! -f "$ZSH_CACHE_DIR/zcompdump" ||
-      -n "$ZSH_CACHE_DIR/zcompdump"(#qN.mh+24) ]]; then
-  compinit -d "$ZSH_CACHE_DIR/zcompdump"
-else
-  compinit -C -d "$ZSH_CACHE_DIR/zcompdump"
-fi
-
-zstyle ':completion:*' use-cache    on
-zstyle ':completion:*' cache-path   "$ZSH_CACHE_DIR"
-zstyle ':completion:*' menu         select
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' group-name   ''
-zstyle ':completion:*' verbose      yes
-zstyle ':completion:*:descriptions' format '%F{yellow}── %d ──%f'
-zstyle ':completion:*:warnings'     format '%F{red}no matches: %d%f'
-zstyle ':completion:*:messages'     format '%F{blue}%d%f'
-zstyle ':completion:*' list-colors  "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm -w -w'
-
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
 plugin zsh-users/zsh-autosuggestions
-
 plugin zsh-users/zsh-history-substring-search
 plugin hlissner/zsh-autopair
 
-# Smart cd: prefer zoxide, fall back to rupa/z
-if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+# ── Completion ────────────────────────────────────────────────────────────────
+ZSH_CACHE_DIR=$HOME/.zsh/cache
+mkdir -p $ZSH_CACHE_DIR
+
+autoload -Uz compinit
+if [[ ! -f $ZSH_CACHE_DIR/zcompdump || -n $ZSH_CACHE_DIR/zcompdump(#qN.mh+24) ]]; then
+  compinit -d $ZSH_CACHE_DIR/zcompdump
 else
-  plugin rupa/z
+  compinit -C -d $ZSH_CACHE_DIR/zcompdump
 fi
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format '%F{yellow}── %d ──%f'
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
+
+# ── Prompt ────────────────────────────────────────────────────────────────────
+# Local: starship. Remote (SSH): lightweight. Switch anytime with: prompt_theme
+autoload -Uz add-zsh-hook colors
+colors
+
+_git_branch() {
+  git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null
+}
+
+_short_pwd() {
+  local p=${(%):-%~}
+  [[ $p == / || $p == ~ || $p != */* ]] && { print -r -- $p; return }
+  print -r -- ${${p%/*}:gs|/([^/])[^/]##|/\1|}/${p##*/}
+}
+
+_prompt_git() {
+  local b=$(_git_branch) || return
+  print -rn -- " %F{#bb9af7}${b}%f"
+}
+
+_prompt_ssh() {
+  (( IS_SSH )) || return
+  print -rn -- "%F{#e0af68}@%m%f "
+}
+
+prompt_theme_light() {
+  add-zsh-hook -d precmd prompt_starship_precmd 2>/dev/null
+  add-zsh-hook -d preexec prompt_starship_preexec 2>/dev/null
+  unset STARSHIP_SHELL STARSHIP_SESSION_KEY
+  unsetopt TRANSIENT_RPROMPT 2>/dev/null
+  RPROMPT=
+  PROMPT2='%F{#565f89}%_❯%f '
+  # @host ~/s/dir [branch] ❯
+  PROMPT='$(_prompt_ssh)%F{#7aa2f7}$(_short_pwd)%f$(_prompt_git) %(?.%F{#9ece6a}.%F{#f7768e})❯%f '
+  typeset -g PROMPT_THEME=light
+}
+
+prompt_theme_starship() {
+  if ! command -v starship >/dev/null; then
+    print -u2 'prompt_theme: starship not found; using light'
+    prompt_theme_light
+    return 1
+  fi
+  eval "$(starship init zsh)"
+  typeset -g PROMPT_THEME=starship
+}
+
+# prompt_theme [auto|light|starship]
+#   auto     — light over SSH, starship locally (default)
+#   light    — minimal prompt (good for remote / slow links)
+#   starship — full starship prompt
+prompt_theme() {
+  case ${1:-auto} in
+    auto)
+      if (( IS_SSH )); then
+        prompt_theme_light
+      elif command -v starship >/dev/null; then
+        prompt_theme_starship
+      else
+        prompt_theme_light
+      fi
+      ;;
+    light|lite|minimal) prompt_theme_light ;;
+    starship|full)      prompt_theme_starship ;;
+    *)
+      print -u2 "usage: prompt_theme [auto|light|starship]  (current: ${PROMPT_THEME:-unset})"
+      return 1
+      ;;
+  esac
+}
+
+prompt_theme auto
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
 bindkey -e
-
-# History substring search (arrows + emacs C-p/C-n)
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-bindkey '^[[1;5A' history-substring-search-up    # Ctrl+Up
-bindkey '^[[1;5B' history-substring-search-down  # Ctrl+Down
-
-# Word / line movement for modern terminals
-bindkey '^[[H'  beginning-of-line   # Home
-bindkey '^[[F'  end-of-line         # End
-bindkey '^[[1~' beginning-of-line
-bindkey '^[[4~' end-of-line
-bindkey '^[[3~' delete-char         # Delete
-bindkey '^[[1;5C' forward-word      # Ctrl+Right
-bindkey '^[[1;5D' backward-word     # Ctrl+Left
-bindkey '^[[3;5~' kill-word         # Ctrl+Delete
-bindkey '^H'      backward-kill-word # Ctrl+Backspace
-
-# Autosuggest: accept with Ctrl+Space
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 bindkey '^ ' autosuggest-accept
 
 autoload -Uz edit-command-line
@@ -215,22 +185,17 @@ zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
 zmodload zsh/complist 2>/dev/null
-zmodload zsh/zpty     2>/dev/null
-bindkey -M menuselect '^[[Z' reverse-menu-complete  # Shift-Tab
+bindkey -M menuselect '^[[Z' reverse-menu-complete
 
-# Official fzf widgets: Ctrl-R history, Ctrl-T files, Alt-C cd
-if [[ -f "${FZF_DIR}/shell/key-bindings.zsh" ]]; then
-  source "${FZF_DIR}/shell/key-bindings.zsh"
-elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-  source /usr/share/fzf/key-bindings.zsh
-fi
+# fzf: Ctrl-R / Ctrl-T / Alt-C
+[[ -f $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh ]] &&
+  source $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh
 
-# ghq + z fuzzy completion (Tab/**<Tab> → cd, Ctrl+G → cd); load after bindkey setup
+# ghq + z fuzzy (Tab / Ctrl-G)
 [[ -f ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh ]] &&
   source ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh
 
-# Optional hooks
-command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
-command -v opam &>/dev/null && eval "$(opam env 2>/dev/null)"
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+command -v opam >/dev/null && eval "$(opam env 2>/dev/null)"
 
-[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local || true
+[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local

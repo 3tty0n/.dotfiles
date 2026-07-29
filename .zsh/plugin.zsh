@@ -81,6 +81,8 @@ _plugin_bpick_candidates() {
   for a in $arch_tokens; do
     candidates+=("*${os}_${a}*")
     candidates+=("*${os}*${a}*")
+    candidates+=("*${a}*${os}*")   # rust-style: x86_64-unknown-linux-musl
+    candidates+=("*${a}-${os}*")
   done
   print -lr ${(u)candidates}
 }
