@@ -163,7 +163,11 @@ nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 set showmatch
 set matchtime=1
 set updatetime=100
-set diffopt+=algorithm:histogram,indent-heuristic
+" Apple's Normal vim lacks internal xdiff; ignore if unsupported
+try
+  set diffopt+=internal,algorithm:histogram,indent-heuristic
+catch /^Vim\%((\a\+)\)\=:E474:/
+endtry
 
 set list
 set listchars=tab:»\ ,trail:·,extends:›,precedes:‹,nbsp:␣
