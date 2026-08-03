@@ -58,31 +58,9 @@ yabai -m config window_gap                   5
 
 # float system preferences
 yabai -m rule --add app='^System Settings$' manage=off
+yabai -m rule --add app='^Inkscape$' manage=off
 
-# update battery loop from wiki
-# https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks#updating-battery-icon-in-status-bar-based-on-battery-level
-function update_battery_loop() {
-	while true; do
-		# Get the current battery percentage.
-		battery=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
-
-		if [ $battery -gt 84 ]; then
-			yabai -m config status_bar_power_icon_strip battery-full plug
-		elif [ $battery -gt 60 ]; then
-			yabai -m config status_bar_power_icon_strip battery-three-quarters plug
-		elif [ $battery -gt 39 ]; then
-			yabai -m config status_bar_power_icon_strip battery-half plug
-		elif [ $battery -gt 14 ]; then
-			yabai -m config status_bar_power_icon_strip battery-quarter plug
-		else
-			yabai -m config status_bar_power_icon_strip battery-empty plug
-		fi
-
-		# wait 5 seconds
-		sleep 5
-	done
-}
-# run the function async
-update_battery_loop &
+yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --layout bsp'
+yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --layout bsp'
 
 echo "yabai configuration loaded.."
