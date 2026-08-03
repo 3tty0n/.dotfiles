@@ -131,7 +131,11 @@ set number
 set cursorline
 set laststatus=2
 set wildmenu
-set wildmode=noselect:lastused,full
+" noselect/lastused need a newer 9.1 than Debian's current package
+try
+  set wildmode=noselect:lastused,full
+catch /^Vim\%((\a\+)\)\=:E474:/
+endtry
 set wildoptions=pum,fuzzy
 set pumheight=12
 set visualbell
@@ -172,9 +176,11 @@ endtry
 set list
 set listchars=tab:»\ ,trail:·,extends:›,precedes:‹,nbsp:␣
 
-" Native insert-mode autocomplete (Vim 9.1+); o = omnifunc (LSP when attached)
-set autocomplete
-set complete=.^5,w^5,b^5,u^5,o^10
+" Native insert-mode autocomplete (newer Vim 9.1); o = omnifunc (LSP when attached)
+if exists('+autocomplete')
+  set autocomplete
+  set complete=.^5,w^5,b^5,u^5,o^10
+endif
 set completeopt=menuone,popup,noselect,noinsert
 set infercase
 
@@ -193,8 +199,10 @@ endfunction
 augroup dotfiles_editor
   autocmd!
   autocmd BufWritePre * call s:trim_trailing_whitespace()
-  " Command-line / search popup completion
-  autocmd CmdlineChanged [:\/\?] call wildtrigger()
+  " Command-line / search popup completion (wildtrigger is newer 9.1)
+  if exists('*wildtrigger')
+    autocmd CmdlineChanged [:\/\?] call wildtrigger()
+  endif
   autocmd CmdlineEnter [\/\?] set pumheight=8
   autocmd CmdlineLeave [\/\?] set pumheight=12
 augroup END
