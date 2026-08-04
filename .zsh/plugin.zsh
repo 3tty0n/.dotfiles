@@ -83,6 +83,7 @@ _plugin_bpick_candidates() {
     candidates+=("*${os}*${a}*")
     candidates+=("*${a}*${os}*")   # rust-style: x86_64-unknown-linux-musl
     candidates+=("*${a}-${os}*")
+    candidates+=("*${a}_${os}*")
   done
   print -lr ${(u)candidates}
 }
@@ -313,7 +314,7 @@ plugin() {
     register-paths) _plugin_register_binary_paths; return ;;
   esac
 
-  local fpath_only=0 binary_only=0 spec subdir name url dir
+  local fpath_only=0 binary_only=0 spec subdir name url dir local_dir=""
 
   [[ $1 == --fpath ]] && { fpath_only=1; shift }
   [[ $1 == --binary || $1 == --bin ]] && { binary_only=1; shift }
@@ -324,12 +325,16 @@ plugin() {
   if [[ $spec == *://* ]]; then
     url=$spec
     name=${${spec%.git}:t}
+  elif [[ $spec == (/*|~/*|./*|../*) ]]; then
+    # Local plugin directory (e.g. dotfiles-managed .zsh/<name>)
+    local_dir=${spec:a}
+    name=${local_dir:t}
   else
     url="https://github.com/${spec}.git"
     name=${spec:t}
   fi
 
-  dir="$(_plugin_dir)/$name"
+  dir="${local_dir:-$(_plugin_dir)/$name}"
   mkdir -p "$(_plugin_dir)"
 
   if (( binary_only )); then
@@ -338,6 +343,10 @@ plugin() {
   fi
 
   if [[ ! -d $dir ]]; then
+    if [[ -n $local_dir ]]; then
+      print -r "plugin: local plugin missing: ${name}" >&2
+      return 1
+    fi
     print -r "plugin: installing ${name}..." >&2
     git clone --depth=1 --quiet "$url" "$dir" \
       || { print -r "plugin: clone failed for ${name}" >&2; return 1 }
