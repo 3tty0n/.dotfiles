@@ -30,6 +30,7 @@ Plug 'Shougo/neosnippet-snippets'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rsi'
 
 Plug 'ap/vim-buftabline'
 
@@ -218,12 +219,9 @@ augroup END
 cnoremap <expr> <Up>   wildmenumode() ? "\<C-E>\<Up>"   : "\<Up>"
 cnoremap <expr> <Down> wildmenumode() ? "\<C-E>\<Down>" : "\<Down>"
 
-" Completion popup navigation
-inoremap <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" Completion popup navigation (Tab/S-Tab; C-n/C-p stay Emacs line motion)
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <C-n> pumvisible() ? "\<Down>" : "\<C-n>"
-inoremap <expr> <C-p> pumvisible() ? "\<Up>" : "\<C-p>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " }}}
 
 " {{{ # Buffers, files, and fuzzy find
@@ -274,12 +272,29 @@ let g:gitgutter_sign_modified = '~'
 let g:gitgutter_sign_removed = '_'
 " }}}
 
+" {{{ # Emacs / readline (insert + cmdline)
+" C-a/C-e/C-b/C-d and Meta word keys come from vim-rsi; these fill the rest.
+inoremap <C-f> <Right>
+cnoremap <C-f> <Right>
+inoremap <C-n> <Down>
+cnoremap <C-n> <Down>
+inoremap <C-p> <Up>
+cnoremap <C-p> <Up>
+inoremap <C-j> <CR>
+" Kill to end of line (at EOL in insert: join with next line)
+inoremap <expr> <C-k> col('.') == col('$') ? "\<C-o>gJ" : "\<C-o>D"
+cnoremap <C-k> <C-\>e strpart(getcmdline(), 0, getcmdpos() - 1)<CR>
+" }}}
+
 " {{{ # Snippets
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" Tab expands/jumps when a snippet is available; otherwise normal Tab / pum next.
+imap <expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+smap <expr> <Tab> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+xmap <Tab> <Plug>(neosnippet_expand_target)
 
 " Neosnippet uses conceal markers; keep LaTeX buffers on raw source (see below).
 if has('conceal')
