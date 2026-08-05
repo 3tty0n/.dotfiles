@@ -58,6 +58,9 @@ let g:ale_sign_warning = '⚠'
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0
 let g:lsp_diagnostics_float_cursor = 1
+" Don't open diagnostic floats while typing — mid-edit syntax errors (esp. Python)
+" would otherwise steal focus and interrupt insert mode.
+let g:lsp_diagnostics_float_insert_mode_enabled = 0
 let g:lsp_preview_float = 1
 let g:lsp_hover_ui = 'float'
 " Vim popup order: [top, right, bottom, left, topleft, topright, botright, botleft]
@@ -176,11 +179,15 @@ endtry
 set list
 set listchars=tab:»\ ,trail:·,extends:›,precedes:‹,nbsp:␣
 
-" Native insert-mode autocomplete (newer Vim 9.1); o = omnifunc (LSP when attached)
-if exists('+autocomplete')
-  set autocomplete
-  set complete=.^5,w^5,b^5,u^5,o^10
-endif
+" Native insert-mode autocomplete (Vim 9.1+); o = omnifunc (LSP when attached)
+set autocomplete
+set complete=.^5,w^5,b^5,u^5,o^10
+" Native insert-mode autocomplete (Vim 9.1+).
+" Do not include 'o' (omnifunc): vim-lsp's lsp#complete calls complete() via a
+" timer/wait, which hits E565 under autocomplete's textlock (common while a
+" Python file is mid-edit / syntactically invalid). Use <C-x><C-o> for LSP.
+set autocomplete
+set complete=.^5,w^5,b^5,u^5
 set completeopt=menuone,popup,noselect,noinsert
 set infercase
 
