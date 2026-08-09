@@ -180,15 +180,17 @@ endtry
 set list
 set listchars=tab:»\ ,trail:·,extends:›,precedes:‹,nbsp:␣
 
-" Native insert-mode autocomplete (Vim 9.1+); o = omnifunc (LSP when attached)
-set autocomplete
-set complete=.^5,w^5,b^5,u^5,o^10
-" Native insert-mode autocomplete (Vim 9.1+).
+" Native insert-mode autocomplete (newer Vim 9.1+).
 " Do not include 'o' (omnifunc): vim-lsp's lsp#complete calls complete() via a
 " timer/wait, which hits E565 under autocomplete's textlock (common while a
 " Python file is mid-edit / syntactically invalid). Use <C-x><C-o> for LSP.
-set autocomplete
-set complete=.^5,w^5,b^5,u^5
+" complete.^N match limits need a newer 9.1 than Debian's current package.
+if exists('+autocomplete')
+  set autocomplete
+  set complete=.^5,w^5,b^5,u^5
+else
+  set complete=.,w,b,u
+endif
 set completeopt=menuone,popup,noselect,noinsert
 set infercase
 
