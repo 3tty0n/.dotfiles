@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# CenterMaster for yabai: | left stack | MASTER | right stack |
+# Requires the space layout to be float (absolute frames).
+set -euo pipefail
+
+YABAI="${YABAI:-/opt/homebrew/bin/yabai}"
+PAD="${YLAYOUT_PAD:-8}"
+GAP="${YLAYOUT_GAP:-8}"
+RATIO="${YLAYOUT_MASTER_RATIO:-0.50}"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/yabai"
+MASTER_FILE="$STATE_DIR/center-master-id"
+
+mkdir -p "$STATE_DIR"
+
+space="$("$YABAI" -m query --spaces --space)"
+sid="$(jq -r '.index' <<<"$space")"
+did="$(jq -r '.display' <<<"$space")"
+disp="$("$YABAI" -m query --displays --display "$did")"
+
+read -r DX DY DW DH <<<"$(jq -r '.frame | "\(.x|floor) \(.y|floor) \(.w|floor) \(.h|floor)"' <<<"$disp")"
+
+ox=$((DX + PAD))
+oy=$((DY + PAD))
+uw=$((DW - 2 * PAD))
+uh=$((DH - 2 * PAD))
+
+wins="$("$YABAI" -m query --windows --space "$sid" | jq '[.[] | select(
+  ."is-minimized" == false and
+  ."is-hidden" == false and
+  ."is-visible" == true
+)]')"
+
+n="$(jq 'length' <<<"$wins")"
+[[ "$n" -eq 0 ]] && exit 0
+
+master_id="$(cat "$MASTER_FILE" 2>/dev/null || true)"
+if [[ -z "$master_id" ]] || ! jq -e --argjson id "$master_id" 'map(.id) | index($id) != null' <<<"$wins" >/dev/null 2>&1; then
+  master_id="$(jq -r '.[0].id' <<<"$wins")"
+fi
+printf '%s' "$master_id" >"$MASTER_FILE"
+
+ordered="$(jq --argjson m "$master_id" '
+  (map(select(.id == $m))[0]) as $master
+  | [$master] + [(.[] | select(.id != $m))]
+' <<<"$wins")"
+
+place() {
+  local id="$1" x="$2" y="$3" w="$4" h="$5"
+  "$YABAI" -m window "$id" --move "abs:${x}:${y}"
+  "$YABAI" -m window "$id" --resize "abs:${w}:${h}"
+}
+
+mid="$(jq -r '.[0].id' <<<"$ordered")"
+
+if [[ "$n" -eq 1 ]]; then
+  place "$mid" "$ox" "$oy" "$uw" "$uh"
+  exit 0
+fi
+
+mw="$(python3 -c "print(int($uw * float('$RATIO')))")"
+min_side=200
+max_m=$((uw - 2 * min_side - 2 * GAP))
+[[ "$max_m" -lt $((uw / 3)) ]] && max_m=$((uw / 3))
+[[ "$mw" -gt "$max_m" ]] && mw=$max_m
+[[ "$mw" -lt $((uw / 3)) ]] && mw=$((uw / 3))
+
+side=$(( (uw - mw - 2 * GAP) / 2 ))
+rw=$((uw - mw - 2 * GAP - side))
+mx=$((ox + side + GAP))
+lx=$ox
+rx=$((mx + mw + GAP))
+
+place "$mid" "$mx" "$oy" "$mw" "$uh"
+
+stack="$(jq -c '.[1:]' <<<"$ordered")"
+sn="$(jq 'length' <<<"$stack")"
+left="$(jq -c 'to_entries | map(select(.key % 2 == 0) | .value)' <<<"$stack")"
+right="$(jq -c 'to_entries | map(select(.key % 2 == 1) | .value)' <<<"$stack")"
+
+stack_col() {
+  local col_x="$1" col_w="$2" json="$3"
+  local count i id yh yy hh
+  count="$(jq 'length' <<<"$json")"
+  [[ "$count" -eq 0 ]] && return 0
+  i=0
+  while [[ "$i" -lt "$count" ]]; do
+    id="$(jq -r ".[$i].id" <<<"$json")"
+    yh=$(( (uh - (count - 1) * GAP) / count ))
+    yy=$((oy + i * (yh + GAP)))
+    if [[ "$i" -eq $((count - 1)) ]]; then
+      hh=$((oy + uh - yy))
+    else
+      hh=$yh
+    fi
+    place "$id" "$col_x" "$yy" "$col_w" "$hh"
+    i=$((i + 1))
+  done
+}
+
+if [[ "$sn" -eq 1 ]]; then
+  stack_col "$rx" "$rw" "$stack"
+else
+  stack_col "$lx" "$side" "$left"
+  stack_col "$rx" "$rw" "$right"
+fi

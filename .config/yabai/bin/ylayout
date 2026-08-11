@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+# Layout dispatcher: bsp | center (CenterMaster)
+set -euo pipefail
+
+export PATH="/opt/homebrew/bin:/usr/bin:/bin:$PATH"
+
+YABAI="${YABAI:-/opt/homebrew/bin/yabai}"
+BIN="$(cd "$(dirname "$0")" && pwd)"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/yabai"
+LAYOUTS="$STATE_DIR/layouts.json"
+MASTER_FILE="$STATE_DIR/center-master-id"
+
+mkdir -p "$STATE_DIR"
+[[ -f "$LAYOUTS" ]] || echo '{}' >"$LAYOUTS"
+
+space_id() {
+  "$YABAI" -m query --spaces --space | jq -r '.index'
+}
+
+# Normalize legacy "master" (ymsp) → bsp
+get_mode() {
+  local sid="${1:-$(space_id)}"
+  local mode
+  mode="$(jq -r --arg s "$sid" '.[$s] // "bsp"' "$LAYOUTS")"
+  case "$mode" in
+    center) echo center ;;
+    *) echo bsp ;;
+  esac
+}
+
+set_mode() {
+  local mode="$1"
+  case "$mode" in
+    center) ;;
+    master|bsp) mode=bsp ;;
+    *) mode=bsp ;;
+  esac
+  local sid tmp
+  sid="$(space_id)"
+  tmp="$(mktemp)"
+  jq --arg s "$sid" --arg m "$mode" '.[$s]=$m' "$LAYOUTS" >"$tmp"
+  mv "$tmp" "$LAYOUTS"
+}
+
+apply_center() {
+  "$YABAI" -m space --layout float
+  "$BIN/center-master"
+}
+
+apply_bsp() {
+  "$YABAI" -m space --layout bsp
+}
+
+apply_current() {
+  case "$(get_mode)" in
+    center) apply_center ;;
+    *) apply_bsp ;;
+  esac
+}
+
+promote() {
+  case "$(get_mode)" in
+    center)
+      "$YABAI" -m query --windows --window | jq -r '.id' >"$MASTER_FILE"
+      apply_center
+      ;;
+    *)
+      "$YABAI" -m window --swap first
+      ;;
+  esac
+}
+
+focus_down() {
+  "$YABAI" -m window --focus south || "$YABAI" -m window --focus next || "$YABAI" -m window --focus first
+}
+
+focus_up() {
+  "$YABAI" -m window --focus north || "$YABAI" -m window --focus prev || "$YABAI" -m window --focus last
+}
+
+on_event() {
+  case "$(get_mode)" in
+    center) apply_center ;;
+    *) ;;
+  esac
+}
+
+cycle() {
+  local next
+  case "$(get_mode)" in
+    center) next=bsp ;;
+    *) next=center ;;
+  esac
+  set_mode "$next"
+  apply_current
+  echo "$next"
+}
+
+cmd="${1:-}"
+case "$cmd" in
+  get) get_mode ;;
+  set)
+    set_mode "${2:?mode required: bsp|center}"
+    apply_current
+    ;;
+  cycle) cycle ;;
+  apply) apply_current ;;
+  event) on_event ;;
+  promote) promote ;;
+  focus-down) focus_down ;;
+  focus-up) focus_up ;;
+  *)
+    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-down|focus-up" >&2
+    exit 1
+    ;;
+esac
