@@ -8,11 +8,15 @@ YABAI="${YABAI:-/opt/homebrew/bin/yabai}"
 BIN="$(cd "$(dirname "$0")" && pwd)"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/yabai"
 LAYOUTS="$STATE_DIR/layouts.json"
+RATIOS="$STATE_DIR/ratios.json"
 MASTER_FILE="$STATE_DIR/center-master-id"
 APPLY_LOCK="$STATE_DIR/apply.lock"
+DEFAULT_RATIO="${YLAYOUT_MASTER_RATIO:-0.50}"
+RATIO_STEP="${YLAYOUT_RATIO_STEP:-0.05}"
 
 mkdir -p "$STATE_DIR"
 [[ -f "$LAYOUTS" ]] || echo '{}' >"$LAYOUTS"
+[[ -f "$RATIOS" ]] || echo '{}' >"$RATIOS"
 
 space_id() {
   "$YABAI" -m query --spaces --space | jq -r '.index'
@@ -259,6 +263,68 @@ cycle() {
   echo "$next"
 }
 
+get_ratio() {
+  local sid="${1:-$(space_id)}"
+  jq -r --arg s "$sid" --arg d "$DEFAULT_RATIO" '.[$s] // $d' "$RATIOS"
+}
+
+set_ratio() {
+  local ratio="$1" sid tmp
+  sid="$(space_id)"
+  tmp="$(mktemp)"
+  jq --arg s "$sid" --argjson r "$ratio" '.[$s]=$r' "$RATIOS" >"$tmp"
+  mv "$tmp" "$RATIOS"
+}
+
+# XMonad-style: Mod-h/l adjust master pane width (center) or yabai split (bsp).
+resize_horizontal() {
+  local dir="$1" # shrink|grow
+  case "$(get_mode)" in
+    center)
+      local delta r
+      case "$dir" in
+        shrink) delta="-$RATIO_STEP" ;;
+        *) delta="$RATIO_STEP" ;;
+      esac
+      r="$(python3 -c "print(round(max(0.25, min(0.70, float('$(get_ratio)') + float('$delta'))), 3))")"
+      set_ratio "$r"
+      apply_center
+      ;;
+    *)
+      case "$dir" in
+        shrink) "$YABAI" -m window --resize left:-60:0 || "$YABAI" -m window --resize right:-60:0 ;;
+        *) "$YABAI" -m window --resize left:60:0 || "$YABAI" -m window --resize right:60:0 ;;
+      esac
+      ;;
+  esac
+}
+
+resize_vertical() {
+  local dir="$1" # shrink|grow
+  case "$(get_mode)" in
+    center)
+      # Stack rows stay equal in CenterMaster; no per-window ratio yet.
+      return 0
+      ;;
+    *)
+      case "$dir" in
+        shrink) "$YABAI" -m window --resize top:0:-60 || "$YABAI" -m window --resize bottom:0:-60 ;;
+        *) "$YABAI" -m window --resize top:0:60 || "$YABAI" -m window --resize bottom:0:60 ;;
+      esac
+      ;;
+  esac
+}
+
+balance() {
+  case "$(get_mode)" in
+    center)
+      set_ratio "$DEFAULT_RATIO"
+      apply_center
+      ;;
+    *) "$YABAI" -m space --balance ;;
+  esac
+}
+
 cmd="${1:-}"
 case "$cmd" in
   get) get_mode ;;
@@ -280,8 +346,14 @@ case "$cmd" in
   swap-up) swap_up ;;
   swap-west) swap_west ;;
   swap-east) swap_east ;;
+  shrink) resize_horizontal shrink ;;
+  grow) resize_horizontal grow ;;
+  shrink-v) resize_vertical shrink ;;
+  grow-v) resize_vertical grow ;;
+  balance) balance ;;
+  ratio) get_ratio ;;
   *)
-    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*" >&2
+    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*|shrink|grow|shrink-v|grow-v|balance|ratio" >&2
     exit 1
     ;;
 esac

@@ -6,16 +6,20 @@ set -euo pipefail
 YABAI="${YABAI:-/opt/homebrew/bin/yabai}"
 PAD="${YLAYOUT_PAD:-8}"
 GAP="${YLAYOUT_GAP:-8}"
-RATIO="${YLAYOUT_MASTER_RATIO:-0.50}"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/yabai"
 MASTER_FILE="$STATE_DIR/center-master-id"
+RATIOS="$STATE_DIR/ratios.json"
+DEFAULT_RATIO="${YLAYOUT_MASTER_RATIO:-0.50}"
 
 mkdir -p "$STATE_DIR"
+[[ -f "$RATIOS" ]] || echo '{}' >"$RATIOS"
 
 space="$("$YABAI" -m query --spaces --space)"
 sid="$(jq -r '.index' <<<"$space")"
 did="$(jq -r '.display' <<<"$space")"
 disp="$("$YABAI" -m query --displays --display "$did")"
+
+RATIO="$(jq -r --arg s "$sid" --arg d "$DEFAULT_RATIO" '.[$s] // $d' "$RATIOS")"
 
 read -r DX DY DW DH <<<"$(jq -r '.frame | "\(.x|floor) \(.y|floor) \(.w|floor) \(.h|floor)"' <<<"$disp")"
 
@@ -57,12 +61,14 @@ if [[ "$n" -eq 1 ]]; then
   exit 0
 fi
 
+# Keep side stacks usable; clamp master width between ~25% and ~70% of usable width.
 mw="$(python3 -c "print(int($uw * float('$RATIO')))")"
 min_side=200
 max_m=$((uw - 2 * min_side - 2 * GAP))
-[[ "$max_m" -lt $((uw / 3)) ]] && max_m=$((uw / 3))
+[[ "$max_m" -lt $((uw / 4)) ]] && max_m=$((uw / 4))
+min_m=$((uw / 4))
 [[ "$mw" -gt "$max_m" ]] && mw=$max_m
-[[ "$mw" -lt $((uw / 3)) ]] && mw=$((uw / 3))
+[[ "$mw" -lt "$min_m" ]] && mw=$min_m
 
 side=$(( (uw - mw - 2 * GAP) / 2 ))
 rw=$((uw - mw - 2 * GAP - side))

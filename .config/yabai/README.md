@@ -18,7 +18,7 @@ Cycle with `Alt-Space`: `bsp` ↔ `center`.
 | `bin/ylayout` | Switch layout mode, dispatch focus/promote, re-apply center on window events |
 | `bin/center-master` | Apply CenterMaster geometry |
 
-Center master width (center mode): `YLAYOUT_MASTER_RATIO` (default `0.50`). Padding/gap: `YLAYOUT_PAD` / `YLAYOUT_GAP` (default `8`).
+Center master width (center mode): per-space ratio in `~/.local/state/yabai/ratios.json` (default `YLAYOUT_MASTER_RATIO`, `0.50`). Step: `YLAYOUT_RATIO_STEP` (default `0.05`). Padding/gap: `YLAYOUT_PAD` / `YLAYOUT_GAP` (default `8`).
 
 ## Keybinds
 
@@ -40,9 +40,9 @@ Center master width (center mode): `YLAYOUT_MASTER_RATIO` (default `0.50`). Padd
 
 | Key | Action |
 |-----|--------|
-| `Alt-h` / `Alt-l` | Shrink / grow (horizontal) |
-| `Alt-i` / `Alt-o` | Shrink / grow (vertical) |
-| `Alt-Shift-0` | Balance space |
+| `Alt-h` / `Alt-l` | Shrink / grow master (center ratio) or bsp split |
+| `Alt-i` / `Alt-o` | Shrink / grow vertical (bsp only; center keeps equal stacks) |
+| `Alt-Shift-0` | Reset master ratio `0.50` (center) or balance (bsp) |
 
 ### Spaces
 
