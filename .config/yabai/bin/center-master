@@ -25,9 +25,9 @@ uw=$((DW - 2 * PAD))
 uh=$((DH - 2 * PAD))
 
 wins="$("$YABAI" -m query --windows --space "$sid" | jq '[.[] | select(
+  ."has-ax-reference" == true and
   ."is-minimized" == false and
-  ."is-hidden" == false and
-  ."is-visible" == true
+  ."is-hidden" == false
 )]')"
 
 n="$(jq 'length' <<<"$wins")"

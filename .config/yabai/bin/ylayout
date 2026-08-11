@@ -9,6 +9,7 @@ BIN="$(cd "$(dirname "$0")" && pwd)"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/yabai"
 LAYOUTS="$STATE_DIR/layouts.json"
 MASTER_FILE="$STATE_DIR/center-master-id"
+APPLY_LOCK="$STATE_DIR/apply.lock"
 
 mkdir -p "$STATE_DIR"
 [[ -f "$LAYOUTS" ]] || echo '{}' >"$LAYOUTS"
@@ -42,12 +43,40 @@ set_mode() {
   mv "$tmp" "$LAYOUTS"
 }
 
+with_apply_lock() {
+  if [[ -f "$APPLY_LOCK" ]]; then
+    local pid
+    pid="$(cat "$APPLY_LOCK" 2>/dev/null || true)"
+    if [[ -n "${pid:-}" ]] && kill -0 "$pid" 2>/dev/null; then
+      return 0
+    fi
+    rm -f "$APPLY_LOCK"
+  fi
+  echo $$ >"$APPLY_LOCK"
+  "$@"
+  local st=$?
+  rm -f "$APPLY_LOCK"
+  return "$st"
+}
+
 apply_center() {
+  with_apply_lock _apply_center
+}
+
+_apply_center() {
+  # Large master sits under the cursor; autoraise would immediately steal
+  # keyboard focus back (especially to Safari).
+  "$YABAI" -m config focus_follows_mouse off
   "$YABAI" -m space --layout float
   "$BIN/center-master"
 }
 
 apply_bsp() {
+  with_apply_lock _apply_bsp
+}
+
+_apply_bsp() {
+  "$YABAI" -m config focus_follows_mouse autoraise
   "$YABAI" -m space --layout bsp
 }
 
@@ -70,12 +99,146 @@ promote() {
   esac
 }
 
+# AX windows on the focused space (float/center has no BSP tree).
+ax_windows_json() {
+  "$YABAI" -m query --windows --space | jq '[.[] | select(
+    ."has-ax-reference" == true and
+    ."is-minimized" == false and
+    ."is-hidden" == false
+  )]'
+}
+
+# sort_key: yx (focus up/down) | xy (focus left/right)
+ordered_ids() {
+  local sort_key="${1:-yx}"
+  case "$sort_key" in
+    xy) ax_windows_json | jq -r 'sort_by(.frame.x, .frame.y) | .[].id' ;;
+    *)  ax_windows_json | jq -r 'sort_by(.frame.y, .frame.x) | .[].id' ;;
+  esac
+}
+
+focus_offset() {
+  local offset="$1"
+  local sort_key="${2:-yx}"
+  local ids n cur idx target
+  ids="$(ordered_ids "$sort_key")"
+  n="$(grep -c . <<<"$ids" || true)"
+  [[ "$n" -le 1 ]] && return 0
+  cur="$("$YABAI" -m query --windows --window | jq -r '.id')"
+  idx="$(grep -n "^${cur}$" <<<"$ids" | head -1 | cut -d: -f1)"
+  idx="${idx:-1}"
+  idx=$(( (idx - 1 + offset) % n ))
+  [[ "$idx" -lt 0 ]] && idx=$((idx + n))
+  target="$(sed -n "$((idx + 1))p" <<<"$ids")"
+  "$YABAI" -m window --focus "$target"
+}
+
+swap_frames() {
+  local a="$1" b="$2"
+  local ja jb ax ay aw ah bx by bw bh
+  ja="$("$YABAI" -m query --windows --window "$a")"
+  jb="$("$YABAI" -m query --windows --window "$b")"
+  read -r ax ay aw ah <<<"$(jq -r '.frame | "\(.x) \(.y) \(.w) \(.h)"' <<<"$ja")"
+  read -r bx by bw bh <<<"$(jq -r '.frame | "\(.x) \(.y) \(.w) \(.h)"' <<<"$jb")"
+  "$YABAI" -m window "$a" --move "abs:${bx}:${by}"
+  "$YABAI" -m window "$a" --resize "abs:${bw}:${bh}"
+  "$YABAI" -m window "$b" --move "abs:${ax}:${ay}"
+  "$YABAI" -m window "$b" --resize "abs:${aw}:${ah}"
+}
+
+# Swap focused window with neighbor by exchanging absolute frames.
+swap_offset() {
+  local offset="$1"
+  local sort_key="${2:-yx}"
+  local ids n cur idx other master
+  ids="$(ordered_ids "$sort_key")"
+  n="$(grep -c . <<<"$ids" || true)"
+  [[ "$n" -le 1 ]] && return 0
+  cur="$("$YABAI" -m query --windows --window | jq -r '.id')"
+  idx="$(grep -n "^${cur}$" <<<"$ids" | head -1 | cut -d: -f1)"
+  idx="${idx:-1}"
+  idx=$(( (idx - 1 + offset) % n ))
+  [[ "$idx" -lt 0 ]] && idx=$((idx + n))
+  other="$(sed -n "$((idx + 1))p" <<<"$ids")"
+
+  master="$(cat "$MASTER_FILE" 2>/dev/null || true)"
+  if [[ "$master" == "$cur" ]]; then
+    printf '%s' "$other" >"$MASTER_FILE"
+  elif [[ "$master" == "$other" ]]; then
+    printf '%s' "$cur" >"$MASTER_FILE"
+  fi
+  swap_frames "$cur" "$other"
+  "$YABAI" -m window --focus "$cur"
+}
+
 focus_down() {
-  "$YABAI" -m window --focus south || "$YABAI" -m window --focus next || "$YABAI" -m window --focus first
+  case "$(get_mode)" in
+    center) focus_offset 1 yx ;;
+    *) "$YABAI" -m window --focus south || "$YABAI" -m window --focus next || "$YABAI" -m window --focus first ;;
+  esac
 }
 
 focus_up() {
-  "$YABAI" -m window --focus north || "$YABAI" -m window --focus prev || "$YABAI" -m window --focus last
+  case "$(get_mode)" in
+    center) focus_offset -1 yx ;;
+    *) "$YABAI" -m window --focus north || "$YABAI" -m window --focus prev || "$YABAI" -m window --focus last ;;
+  esac
+}
+
+focus_west() {
+  case "$(get_mode)" in
+    center) focus_offset -1 xy ;;
+    *) "$YABAI" -m window --focus west ;;
+  esac
+}
+
+focus_east() {
+  case "$(get_mode)" in
+    center) focus_offset 1 xy ;;
+    *) "$YABAI" -m window --focus east ;;
+  esac
+}
+
+focus_south() {
+  case "$(get_mode)" in
+    center) focus_offset 1 yx ;;
+    *) "$YABAI" -m window --focus south ;;
+  esac
+}
+
+focus_north() {
+  case "$(get_mode)" in
+    center) focus_offset -1 yx ;;
+    *) "$YABAI" -m window --focus north ;;
+  esac
+}
+
+swap_down() {
+  case "$(get_mode)" in
+    center) swap_offset 1 yx ;;
+    *) "$YABAI" -m window --swap south || "$YABAI" -m window --swap next || "$YABAI" -m window --swap first ;;
+  esac
+}
+
+swap_up() {
+  case "$(get_mode)" in
+    center) swap_offset -1 yx ;;
+    *) "$YABAI" -m window --swap north || "$YABAI" -m window --swap prev || "$YABAI" -m window --swap last ;;
+  esac
+}
+
+swap_west() {
+  case "$(get_mode)" in
+    center) swap_offset -1 xy ;;
+    *) "$YABAI" -m window --swap west ;;
+  esac
+}
+
+swap_east() {
+  case "$(get_mode)" in
+    center) swap_offset 1 xy ;;
+    *) "$YABAI" -m window --swap east ;;
+  esac
 }
 
 on_event() {
@@ -109,8 +272,16 @@ case "$cmd" in
   promote) promote ;;
   focus-down) focus_down ;;
   focus-up) focus_up ;;
+  focus-west) focus_west ;;
+  focus-east) focus_east ;;
+  focus-south) focus_south ;;
+  focus-north) focus_north ;;
+  swap-down) swap_down ;;
+  swap-up) swap_up ;;
+  swap-west) swap_west ;;
+  swap-east) swap_east ;;
   *)
-    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-down|focus-up" >&2
+    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*" >&2
     exit 1
     ;;
 esac
