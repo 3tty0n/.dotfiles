@@ -28,6 +28,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 # ── PATH ──────────────────────────────────────────────────────────────────────
 typeset -U path
 path=(
+  $HOME/.sdkman/bin
   $HOME/.cargo/bin
   $HOME/.local/bin
   $HOME/bin
@@ -100,7 +101,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#565f89'
 autoload -Uz add-zsh-hook colors
 colors
 
-_git_branch() {
+# Named to avoid clobbering git's completion helper `_git_branch`
+# (Homebrew wraps bash git-completion, which defines that name).
+_prompt_git_branch() {
   git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null
 }
 
@@ -111,7 +114,7 @@ _short_pwd() {
 }
 
 _prompt_git() {
-  local b=$(_git_branch) || return
+  local b=$(_prompt_git_branch) || return
   print -rn -- " %F{#bb9af7}${b}%f"
 }
 

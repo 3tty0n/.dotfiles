@@ -61,15 +61,19 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
 # jdk
-export JAVA_HOME=/usr/lib/jvm/default
+#export JAVA_HOME=/usr/lib/jvm/default
 
 # graal
-export GRAALVM_HOME=$HOME/.local/share/graalvm-jdk-25.0.1-8.1
-export PATH="${GRAALVM_HOME}/bin:$PATH"
-export JAVA_HOME="${GRAALVM_HOME}"
+#export GRAALVM_HOME=$HOME/.local/share/graalvm-jdk-25.0.1-8.1
+#export PATH="${GRAALVM_HOME}/bin:$PATH"
+#export JAVA_HOME="${GRAALVM_HOME}"
 #export GRAALVM_HOME="$HOME/.local/share/graalvm-community-openjdk-23.0.2"
 #export PATH="${GRAALVM_HOME}/bin:$PATH"
 #export JAVA_HOME=$GRAALVM_HOME
+
+# sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # mx
 export PATH=~/src/github.com/graalvm/mx:$PATH
