@@ -253,17 +253,24 @@ on_event() {
   esac
 }
 
-# Non-Ghostty tile ids + whether any Ghostty is on-screen (tabs share one slot).
+# Non-Ghostty tile ids + Ghostty presence (tabs share one slot; never a count).
+# Ghostty AX/visibility flaps on native-tab churn and right after yabai restart,
+# so "g" is advisory: we retile on 0→1, never on 1→0 alone.
 layout_fingerprint() {
   "$YABAI" -m query --windows --space | jq -c '
     [.[] | select(
-      ."has-ax-reference" == true and
       ."is-minimized" == false and
-      ."is-hidden" == false and
-      ."is-visible" == true
+      ."is-hidden" == false
     )]
     | {
-        o: [.[] | select(.app | test("ghostty"; "i") | not) | .id] | sort,
+        o: [.[]
+          | select(
+              (.app | test("ghostty"; "i") | not) and
+              ."has-ax-reference" == true and
+              ."is-visible" == true
+            )
+          | .id
+        ] | sort,
         g: (if any(.app | test("ghostty"; "i")) then 1 else 0 end)
       }
   '
@@ -294,25 +301,23 @@ schedule_center_apply() {
     return 0
   fi
 
-  # Others unchanged but Ghostty presence flipped: often a tab closing
-  # (transient g=0). Recheck once more before committing a retile.
-  if [[ "$now_o" == "$old_o" && "$now_g" != "$old_g" ]]; then
-    sleep 0.15
-    [[ "$(cat "$STATE_DIR/event.token" 2>/dev/null || true)" == "$token" ]] || return 0
-    now="$(layout_fingerprint)"
-    now_g="$(fp_field "$now" g)"
-    if [[ "$now_g" == "$old_g" ]]; then
+  # Non-Ghostty tiles unchanged: only Ghostty presence flipped.
+  if [[ "$now_o" == "$old_o" ]]; then
+    # 1→0 is almost always tab churn / AX flap (esp. after restart).
+    # Retiling here drops Ghostty from CenterMaster and leaves it floating.
+    if [[ "$now_g" == "0" ]]; then
       return 0
     fi
+    # 0→1: Ghostty (re)appeared — give it a slot.
+    apply_center
+    return 0
   fi
 
   apply_center
 }
 
 # Ghostty native tabs (= extra NSWindows).
-# center: ignore — retile during tab destroy races leaves Ghostty unplaced
-#         (looks "floating"). Fingerprint settle in schedule_center_apply
-#         already ignores tab churn when on-screen Ghostty presence is unchanged.
+# center: ignore — schedule_center_apply owns retile; tab signals are noisy.
 # bsp: upstream workaround — re-assert bsp.
 ghostty_tab() {
   case "$(get_mode)" in

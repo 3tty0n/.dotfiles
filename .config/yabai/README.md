@@ -27,7 +27,7 @@ macOS native tabs are separate windows in the WM API ([Ghostty docs](https://gho
 | Approach | Notes |
 |----------|--------|
 | **Prefer splits** (`Cmd-D` / `Cmd-Shift-D`) over tabs | Best: one NSWindow, no yabai noise |
-| **center mode** | Debounced fingerprint; Ghostty tab create/destroy is ignored so a transient “no Ghostty” frame does not un-tile it into a free float |
+| **center mode** | Ghostty windows collapse to **one tile** (same frame stamped on every tab). Fingerprint tracks non-Ghostty ids + presence bit — retile on Ghostty **appear**, never on transient **disappear** (tab churn / post-restart AX flap) |
 | **bsp mode** | `ghostty-tab` signal re-asserts `bsp` on Ghostty create/destroy (upstream workaround) |
 
 ## Keybinds
