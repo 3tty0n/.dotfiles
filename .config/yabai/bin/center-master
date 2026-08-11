@@ -31,7 +31,8 @@ uh=$((DH - 2 * PAD))
 wins="$("$YABAI" -m query --windows --space "$sid" | jq '[.[] | select(
   ."has-ax-reference" == true and
   ."is-minimized" == false and
-  ."is-hidden" == false
+  ."is-hidden" == false and
+  ."is-visible" == true
 )]')"
 
 n="$(jq 'length' <<<"$wins")"

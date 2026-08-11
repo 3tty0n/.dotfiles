@@ -20,6 +20,16 @@ Cycle with `Alt-Space`: `bsp` ↔ `center`.
 
 Center master width (center mode): per-space ratio in `~/.local/state/yabai/ratios.json` (default `YLAYOUT_MASTER_RATIO`, `0.50`). Step: `YLAYOUT_RATIO_STEP` (default `0.05`). Padding/gap: `YLAYOUT_PAD` / `YLAYOUT_GAP` (default `8`).
 
+### Ghostty tabs
+
+macOS native tabs are separate windows in the WM API ([Ghostty docs](https://ghostty.org/docs/help/macos-tiling-wms)); there is no perfect fix.
+
+| Approach | Notes |
+|----------|--------|
+| **Prefer splits** (`Cmd-D` / `Cmd-Shift-D`) over tabs | Best: one NSWindow, no yabai noise |
+| **center mode** | Debounced fingerprint; Ghostty tab create/destroy is ignored so a transient “no Ghostty” frame does not un-tile it into a free float |
+| **bsp mode** | `ghostty-tab` signal re-asserts `bsp` on Ghostty create/destroy (upstream workaround) |
+
 ## Keybinds
 
 ### Focus

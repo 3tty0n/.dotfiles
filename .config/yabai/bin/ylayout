@@ -73,6 +73,7 @@ _apply_center() {
   "$YABAI" -m config focus_follows_mouse off
   "$YABAI" -m space --layout float
   "$BIN/center-master"
+  layout_fingerprint >"$STATE_DIR/layout-fp"
 }
 
 apply_bsp() {
@@ -247,8 +248,76 @@ swap_east() {
 
 on_event() {
   case "$(get_mode)" in
-    center) apply_center ;;
+    center) schedule_center_apply ;;
     *) ;;
+  esac
+}
+
+# Non-Ghostty tile ids + whether any Ghostty is on-screen (tabs share one slot).
+layout_fingerprint() {
+  "$YABAI" -m query --windows --space | jq -c '
+    [.[] | select(
+      ."has-ax-reference" == true and
+      ."is-minimized" == false and
+      ."is-hidden" == false and
+      ."is-visible" == true
+    )]
+    | {
+        o: [.[] | select(.app | test("ghostty"; "i") | not) | .id] | sort,
+        g: (if any(.app | test("ghostty"; "i")) then 1 else 0 end)
+      }
+  '
+}
+
+fp_field() {
+  jq -r --arg k "$2" '.[$k] | if type == "array" then tostring else . end' <<<"$1"
+}
+
+schedule_center_apply() {
+  local token fp now old now_o old_o now_g old_g
+  token="$$.$RANDOM"
+  echo "$token" >"$STATE_DIR/event.token"
+  # Wait out native-tab destroy/create where Ghostty briefly loses AX/visibility.
+  sleep 0.2
+  [[ "$(cat "$STATE_DIR/event.token" 2>/dev/null || true)" == "$token" ]] || return 0
+
+  fp="$STATE_DIR/layout-fp"
+  now="$(layout_fingerprint)"
+  old="$(cat "$fp" 2>/dev/null || true)"
+  [[ -n "$old" ]] || old='{"o":[],"g":-1}'
+  now_o="$(fp_field "$now" o)"
+  now_g="$(fp_field "$now" g)"
+  old_o="$(fp_field "$old" o)"
+  old_g="$(fp_field "$old" g)"
+
+  if [[ "$now_o" == "$old_o" && "$now_g" == "$old_g" ]]; then
+    return 0
+  fi
+
+  # Others unchanged but Ghostty presence flipped: often a tab closing
+  # (transient g=0). Recheck once more before committing a retile.
+  if [[ "$now_o" == "$old_o" && "$now_g" != "$old_g" ]]; then
+    sleep 0.15
+    [[ "$(cat "$STATE_DIR/event.token" 2>/dev/null || true)" == "$token" ]] || return 0
+    now="$(layout_fingerprint)"
+    now_g="$(fp_field "$now" g)"
+    if [[ "$now_g" == "$old_g" ]]; then
+      return 0
+    fi
+  fi
+
+  apply_center
+}
+
+# Ghostty native tabs (= extra NSWindows).
+# center: ignore — retile during tab destroy races leaves Ghostty unplaced
+#         (looks "floating"). Fingerprint settle in schedule_center_apply
+#         already ignores tab churn when on-screen Ghostty presence is unchanged.
+# bsp: upstream workaround — re-assert bsp.
+ghostty_tab() {
+  case "$(get_mode)" in
+    center) return 0 ;;
+    *) "$YABAI" -m space --layout bsp ;;
   esac
 }
 
@@ -352,8 +421,9 @@ case "$cmd" in
   grow-v) resize_vertical grow ;;
   balance) balance ;;
   ratio) get_ratio ;;
+  ghostty-tab|ghostty-bsp) ghostty_tab ;;
   *)
-    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*|shrink|grow|shrink-v|grow-v|balance|ratio" >&2
+    echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*|shrink|grow|shrink-v|grow-v|balance|ratio|ghostty-tab" >&2
     exit 1
     ;;
 esac
