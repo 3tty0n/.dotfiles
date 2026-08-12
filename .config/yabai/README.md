@@ -24,11 +24,14 @@ Center master width (center mode): per-space ratio in `~/.local/state/yabai/rati
 
 macOS native tabs are separate windows in the WM API ([Ghostty docs](https://ghostty.org/docs/help/macos-tiling-wms)); there is no perfect fix.
 
+**What breaks:** tab close remaps CG window ids. yabai often keeps a zombie (`has-ax-reference: false`) while the real window is still on screen — looks unmanaged / floating. Space-switch recovery blinks, so we do not use it.
+
 | Approach | Notes |
 |----------|--------|
 | **Prefer splits** (`Cmd-D` / `Cmd-Shift-D`) over tabs | Best: one NSWindow, no yabai noise |
-| **center mode** | Ghostty windows collapse to **one tile** (same frame stamped on every tab). Fingerprint tracks non-Ghostty ids + presence bit — retile on Ghostty **appear**, never on transient **disappear** (tab churn / post-restart AX flap) |
-| **bsp mode** | `ghostty-tab` signal re-asserts `bsp` on Ghostty create/destroy (upstream workaround) |
+| **yabairc** | `manage=on`; create/destroy → unfloat (bsp) or restamp slot (center) |
+| **center mode** | One Ghostty tile. If yabai lost AX, System Events still moves the real window. Fingerprint retile on Ghostty **appear**, never on transient **disappear** |
+| **bsp mode** | Unfloat floating Ghostty windows. No space-switch, no full-space `--layout bsp` |
 
 ## Keybinds
 

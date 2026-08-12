@@ -83,6 +83,7 @@ apply_bsp() {
 _apply_bsp() {
   "$YABAI" -m config focus_follows_mouse autoraise
   "$YABAI" -m space --layout bsp
+  ghostty_unfloat
 }
 
 apply_current() {
@@ -316,13 +317,114 @@ schedule_center_apply() {
   apply_center
 }
 
-# Ghostty native tabs (= extra NSWindows).
-# center: ignore — schedule_center_apply owns retile; tab signals are noisy.
-# bsp: upstream workaround — re-assert bsp.
+# Ghostty native tabs (= extra NSWindows). yabai often keeps a zombie CG id
+# (has-ax-reference=false) while System Events still sees the real AXWindow.
+GHOSTTY_FRAME="$STATE_DIR/ghostty-frame"
+
+ghostty_standard_ax_ids() {
+  "$YABAI" -m query --windows --space 2>/dev/null | jq -r '
+    .[] | select(
+      (.app | test("ghostty"; "i")) and
+      ."has-ax-reference" == true and
+      .role == "AXWindow" and
+      (.subrole == "AXStandardWindow" or .subrole == "")
+    ) | .id
+  ' 2>/dev/null || true
+}
+
+ghostty_unfloat() {
+  local wids wid
+  wids="$("$YABAI" -m query --windows --space 2>/dev/null | jq -r '
+    .[] | select(
+      (.app | test("ghostty"; "i")) and
+      ."has-ax-reference" == true and
+      .role == "AXWindow" and
+      (.subrole == "AXStandardWindow" or .subrole == "") and
+      ."is-floating" == true
+    ) | .id
+  ' 2>/dev/null || true)"
+  [[ -z "$wids" ]] && return 0
+  while read -r wid; do
+    [[ -z "$wid" ]] && continue
+    "$YABAI" -m window --toggle float "$wid" 2>/dev/null || true
+  done <<<"$wids"
+}
+
+ghostty_unfloat_id() {
+  local wid="$1" json
+  [[ -z "$wid" ]] && return 0
+  json="$("$YABAI" -m query --windows --window "$wid" 2>/dev/null || true)"
+  [[ -z "$json" ]] && return 0
+  jq -e '
+    (.app | test("ghostty"; "i")) and
+    ."has-ax-reference" == true and
+    .role == "AXWindow" and
+    (.subrole == "AXStandardWindow" or .subrole == "") and
+    ."is-floating" == true
+  ' <<<"$json" >/dev/null 2>&1 || return 0
+  "$YABAI" -m window --toggle float "$wid" 2>/dev/null || true
+}
+
+# Stamp Ghostty into the CenterMaster slot. yabai first; System Events if AX is lost.
+ghostty_ax_place() {
+  local x y w h ids id placed
+  [[ -f "$GHOSTTY_FRAME" ]] || return 0
+  read -r x y w h <"$GHOSTTY_FRAME" || return 0
+  [[ -n "${x:-}" && -n "${y:-}" && -n "${w:-}" && -n "${h:-}" ]] || return 0
+  placed=0
+  ids="$(ghostty_standard_ax_ids)"
+  if [[ -n "$ids" ]]; then
+    while read -r id; do
+      [[ -z "$id" ]] && continue
+      if "$YABAI" -m window "$id" --move "abs:${x}:${y}" 2>/dev/null; then
+        "$YABAI" -m window "$id" --resize "abs:${w}:${h}" 2>/dev/null || true
+        placed=1
+      fi
+    done <<<"$ids"
+  fi
+  [[ "$placed" -eq 1 ]] && return 0
+  osascript - "$x" "$y" "$w" "$h" <<'APPLESCRIPT' >/dev/null 2>&1 || true
+on run argv
+  set x to (item 1 of argv) as integer
+  set y to (item 2 of argv) as integer
+  set w to (item 3 of argv) as integer
+  set h to (item 4 of argv) as integer
+  tell application "System Events"
+    if not (exists process "Ghostty") then return
+    tell process "Ghostty"
+      repeat with win in (get windows)
+        try
+          if (role of win is "AXWindow") and (subrole of win is "AXStandardWindow") then
+            set p to position of win
+            set s to size of win
+            set px to item 1 of p as integer
+            set py to item 2 of p as integer
+            set sw to item 1 of s as integer
+            set sh to item 2 of s as integer
+            -- 32px: menu bar clamps yabai's y=PAD to ~30; tighter would restamp every event (blink).
+            if (px > x + 32) or (px < x - 32) or (py > y + 32) or (py < y - 32) or (sw > w + 32) or (sw < w - 32) or (sh > h + 32) or (sh < h - 32) then
+              set position of win to {x, y}
+              set size of win to {w, h}
+            end if
+          end if
+        end try
+      end repeat
+    end tell
+  end tell
+end run
+APPLESCRIPT
+}
+
 ghostty_tab() {
+  local wid="${1:-}" token
+  ghostty_unfloat_id "$wid"
+  token="$$.$RANDOM"
+  echo "$token" >"$STATE_DIR/ghostty.token"
+  sleep 0.2
+  [[ "$(cat "$STATE_DIR/ghostty.token" 2>/dev/null || true)" == "$token" ]] || return 0
   case "$(get_mode)" in
-    center) return 0 ;;
-    *) "$YABAI" -m space --layout bsp ;;
+    center) ghostty_ax_place ;;
+    *) ghostty_unfloat ;;
   esac
 }
 
@@ -426,7 +528,8 @@ case "$cmd" in
   grow-v) resize_vertical grow ;;
   balance) balance ;;
   ratio) get_ratio ;;
-  ghostty-tab|ghostty-bsp) ghostty_tab ;;
+  ghostty-tab|ghostty-bsp) ghostty_tab "${2:-}" ;;
+  ghostty-ax-place) ghostty_ax_place ;;
   *)
     echo "usage: ylayout get|set <bsp|center>|cycle|apply|event|promote|focus-*|swap-*|shrink|grow|shrink-v|grow-v|balance|ratio|ghostty-tab" >&2
     exit 1

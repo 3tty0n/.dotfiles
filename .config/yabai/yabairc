@@ -36,6 +36,10 @@ yabai -m rule --add app='^System Settings$' manage=off
 yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add app='^Inkscape$' manage=off
 
+# Ghostty native tabs = extra NSWindows. Force manage; unfloat/restamp on
+# create/destroy (see ylayout). Do not recover AX by switching spaces (blinks).
+yabai -m rule --add app='^[Gg]hostty$' manage=on
+
 # CenterMaster maintenance (no-op while in bsp; debounced + fingerprint for tabs)
 yabai -m signal --add event=window_created action="$YLAYOUT event"
 yabai -m signal --add event=window_destroyed action="$YLAYOUT event"
@@ -46,9 +50,9 @@ yabai -m signal --add event=application_hidden action="$YLAYOUT event"
 yabai -m signal --add event=application_visible action="$YLAYOUT event"
 
 # Ghostty uses macOS native tabs (= extra NSWindows).
-# bsp: re-assert layout. center: no-op (see ylayout ghostty_tab).
-yabai -m signal --add app='^Ghostty$' event=window_created action="$YLAYOUT ghostty-tab"
-yabai -m signal --add app='^Ghostty$' event=window_destroyed action="$YLAYOUT ghostty-tab"
+# bsp: unfloat. center: restamp slot (yabai, else System Events).
+yabai -m signal --add app='^[Gg]hostty$' event=window_created action="$YLAYOUT ghostty-tab \$YABAI_WINDOW_ID"
+yabai -m signal --add app='^[Gg]hostty$' event=window_destroyed action="$YLAYOUT ghostty-tab \$YABAI_WINDOW_ID"
 
 "$YLAYOUT" apply
 
