@@ -31,7 +31,16 @@ macOS native tabs are separate windows in the WM API ([Ghostty docs](https://gho
 | **Prefer splits** (`Cmd-D` / `Cmd-Shift-D`) over tabs | Best: one NSWindow, no yabai noise |
 | **yabairc** | `manage=on`; create/destroy → unfloat (bsp) or restamp slot (center) |
 | **center mode** | One Ghostty tile. If yabai lost AX, System Events still moves the real window. Fingerprint retile on Ghostty **appear**, never on transient **disappear** |
-| **bsp mode** | Unfloat floating Ghostty windows. No space-switch, no full-space `--layout bsp` |
+| **bsp mode** | Re-apply `--layout bsp` after tab create/destroy to compact stale nodes while keeping Ghostty managed |
+
+### Emacs frames
+
+emacs-mac often creates a new NSWindow with the wrong AX role after the last frame is closed (`emacsclient`, dock click, `restart-emacs`), so yabai leaves it unmanaged.
+
+| Approach | Notes |
+|----------|--------|
+| **yabairc** | `manage=on` for titled frames + `AXTextField`/`AXStandardWindow`; create/show → unfloat (bsp) or retile (center) |
+| **empty title** | Left unmanaged (posframe / child frames) |
 
 ## Keybinds
 

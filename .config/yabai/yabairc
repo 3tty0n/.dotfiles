@@ -26,19 +26,24 @@ yabai -m config mouse_action2                resize
 yabai -m config mouse_drop_action            swap
 
 yabai -m config layout                       bsp
-yabai -m config top_padding                  8
-yabai -m config bottom_padding               8
-yabai -m config left_padding                 8
-yabai -m config right_padding                8
-yabai -m config window_gap                   8
+yabai -m config top_padding                  12
+yabai -m config bottom_padding               12
+yabai -m config left_padding                 12
+yabai -m config right_padding                12
+yabai -m config window_gap                   12
 
 yabai -m rule --add app='^System Settings$' manage=off
 yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add app='^Inkscape$' manage=off
 
-# Ghostty native tabs = extra NSWindows. Force manage; unfloat/restamp on
-# create/destroy (see ylayout). Do not recover AX by switching spaces (blinks).
-yabai -m rule --add app='^[Gg]hostty$' manage=on
+# Emacs (emacs-mac): closing the last frame and reopening often leaves the
+# new NSWindow unmanaged (wrong AX role, or floating). Force-manage real
+# frames; unfloat on create/show. Empty title = child frames (posframe).
+yabai -m rule --add app='^Emacs$' title!='^$' manage=on
+yabai -m rule --add app='^Emacs$' role='AXTextField' subrole='AXStandardWindow' manage=on
+yabai -m signal --add app='^Emacs$' event=window_created action="$YLAYOUT emacs-frame \$YABAI_WINDOW_ID"
+yabai -m signal --add app='^Emacs$' event=application_visible action="$YLAYOUT emacs-frame"
+yabai -m signal --add app='^Emacs$' event=application_launched action="$YLAYOUT emacs-frame"
 
 # CenterMaster maintenance (no-op while in bsp; debounced + fingerprint for tabs)
 yabai -m signal --add event=window_created action="$YLAYOUT event"
@@ -49,8 +54,11 @@ yabai -m signal --add event=application_launched action="$YLAYOUT event"
 yabai -m signal --add event=application_hidden action="$YLAYOUT event"
 yabai -m signal --add event=application_visible action="$YLAYOUT event"
 
-# Ghostty uses macOS native tabs (= extra NSWindows).
-# bsp: unfloat. center: restamp slot (yabai, else System Events).
+# Ghostty native tabs = extra NSWindows. Keep them managed. In bsp mode the
+# signal below re-applies the layout after tab churn; center mode restamps the
+# shared Ghostty slot without switching the whole space back to bsp.
+yabai -m rule --add app='^[Gg]hostty$' manage=on
+yabai -m rule --apply app='^[Gg]hostty$' manage=on
 yabai -m signal --add app='^[Gg]hostty$' event=window_created action="$YLAYOUT ghostty-tab \$YABAI_WINDOW_ID"
 yabai -m signal --add app='^[Gg]hostty$' event=window_destroyed action="$YLAYOUT ghostty-tab \$YABAI_WINDOW_ID"
 
