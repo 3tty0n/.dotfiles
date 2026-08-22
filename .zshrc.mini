@@ -1,4 +1,4 @@
-[[ -o interactive ]] || return
+[[ -o interactive ]] || return 0
 
 # ── Options ───────────────────────────────────────────────────────────────────
 setopt NO_BEEP NO_LIST_BEEP INTERACTIVE_COMMENTS NO_FLOW_CONTROL
@@ -39,6 +39,8 @@ path=(
   /usr/local/bin
   /usr/bin
   /bin
+  /usr/sbin
+  /sbin
 )
 command -v pyenv >/dev/null && eval "$(pyenv init - --no-rehash)"
 command -v rbenv >/dev/null && eval "$(rbenv init - --no-rehash)"
@@ -200,14 +202,22 @@ bindkey '"' autopair-insert
 bindkey -M isearch '"' self-insert
 
 # fzf: Ctrl-R / Ctrl-T / Alt-C
-[[ -f $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh ]] &&
+if [[ -f $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh ]]; then
   source $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh
+fi
 
 # ghq + z fuzzy (Tab / Ctrl-G)
-[[ -f ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh ]] &&
+if [[ -f ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh ]]; then
   source ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh
+fi
 
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-command -v opam >/dev/null && eval "$(opam env 2>/dev/null)"
+if command -v direnv >/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+if command -v opam >/dev/null; then
+  eval "$(opam env 2>/dev/null)"
+fi
 
-[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
+if [[ -f $HOME/.zshrc.local ]]; then
+  source $HOME/.zshrc.local
+fi
