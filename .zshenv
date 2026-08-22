@@ -134,3 +134,9 @@ CPUSET=$HOME/src/github.com/SUSE/cpuset
 if [ -f $HOME/.cargo/env ]; then
     . "$HOME/.cargo/env"
 fi
+
+# Machine-specific environment (not tracked in this repo)
+if [ -f ${ZDOTDIR:-$HOME}/.zshenv.local ]; then
+  source ${ZDOTDIR:-$HOME}/.zshenv.local
+fi
+

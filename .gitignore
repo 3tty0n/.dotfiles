@@ -1,5 +1,7 @@
 *.zwc
 .zsh/history
+.zshenv.local
+.zshrc.local
 .config/fish/fishd.*
 
 .zsh/external/
