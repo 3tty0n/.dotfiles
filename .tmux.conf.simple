@@ -19,6 +19,17 @@ bind -T root MouseDrag1Border resize-pane -M # default
 # unbind -T root MouseDrag1Border # disable drag pane border to resize
 set -g focus-events on
 
+# GUI apps (evince, xdg-open, …): copy display/session vars from the
+# attaching client. A server started over SSH otherwise keeps
+# DISPLAY=localhost:N (X11 forwarding) and GTK4 apps hang instead of
+# opening on the local VNC/XFCE session.
+set -g update-environment "DISPLAY WAYLAND_DISPLAY XAUTHORITY \
+    DBUS_SESSION_BUS_ADDRESS SESSION_MANAGER \
+    XDG_RUNTIME_DIR XDG_SESSION_TYPE XDG_SESSION_ID \
+    XDG_SESSION_CLASS XDG_SESSION_DESKTOP XDG_CURRENT_DESKTOP \
+    SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION \
+    KRB5CCNAME MSYSTEM WINDOWID"
+
 # * Terminal / True Color
 set -g  default-terminal "tmux-256color"
 set -ag terminal-overrides ",xterm-256color:RGB"

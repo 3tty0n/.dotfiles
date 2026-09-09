@@ -25,6 +25,33 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 [[ -n $SSH_CONNECTION || -n $SSH_TTY ]] && export IS_SSH=1 || export IS_SSH=0
 
+# tmux panes keep the env from when the server/pane started. A server
+# started over SSH has DISPLAY=localhost:N; GTK4 (evince) hangs there.
+# Re-read the attaching client, then fall back to the systemd user
+# graphical session (VNC/XFCE) if DISPLAY is still forwarded or empty.
+if [[ -n $TMUX ]]; then
+  _tmux_sync_gui_env() {
+    eval "$(tmux show-environment -s 2>/dev/null)" || return
+    case ${DISPLAY:-} in
+      ''|localhost:*|127.0.0.1:*)
+        command -v systemctl >/dev/null || return
+        local line
+        while IFS= read -r line; do
+          case $line in
+            DISPLAY=*|WAYLAND_DISPLAY=*|XAUTHORITY=*|XDG_SESSION_TYPE=*|XDG_CURRENT_DESKTOP=*|XDG_SESSION_DESKTOP=*)
+              export "$line"
+              ;;
+          esac
+        done < <(systemctl --user show-environment 2>/dev/null)
+        ;;
+    esac
+  }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook preexec _tmux_sync_gui_env
+  add-zsh-hook precmd _tmux_sync_gui_env
+  _tmux_sync_gui_env
+fi
+
 # ── PATH ──────────────────────────────────────────────────────────────────────
 typeset -U path
 path=(
