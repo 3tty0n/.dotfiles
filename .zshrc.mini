@@ -218,8 +218,14 @@ if command -v opam >/dev/null; then
   eval "$(opam env 2>/dev/null)"
 fi
 
-[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local || true
+
+# opencode
+export PATH=/home/yusuke/.opencode/bin:$PATH
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
