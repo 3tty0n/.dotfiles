@@ -113,6 +113,8 @@ bind    C-K  kill-window
 bind    C-t  next-window
 bind    c    new-window
 bind    C-x  command-prompt
+bind    k    kill-window
+bind    K    kill-server
 bind    r    source-file ~/.tmux.conf \; display-message 'Reloaded ~/.tmux.conf'
 
 bind -r < swap-window -d -t -1

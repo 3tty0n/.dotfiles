@@ -55,11 +55,12 @@ fi
 # ── PATH ──────────────────────────────────────────────────────────────────────
 typeset -U path
 path=(
+  /opt/homebrew/bin(N)
+  /opt/homebrew/sbin(N)
   $HOME/.sdkman/bin
   $HOME/.cargo/bin
   $HOME/.local/bin
   $HOME/bin
-  /opt/homebrew/bin(N)
   $HOME/.pyenv/bin(N)
   $HOME/.rbenv/bin(N)
   $HOME/.juliaup/bin(N)
