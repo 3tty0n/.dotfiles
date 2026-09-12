@@ -1,0 +1,15 @@
+font-family = "JetBrains Mono"
+font-family = "UDEV Gothic"
+font-size = 15
+
+font-thicken = true
+font-thicken-strength = 20
+
+font-feature = -calt
+font-feature = -liga
+
+theme = tokyo-night-default
+theme = ayu-mirage
+
+background-opacity = 0.9
+background-blur = 16
