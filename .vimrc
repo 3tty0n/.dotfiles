@@ -80,8 +80,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-skk/eskk.vim'
 Plug 'vim-skk/skkdict.vim'
 
-Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
 Plug 'jceb/vim-orgmode'
+
+" VimTeX: keep source as-is (no \textbf → bold glyph, no α for \alpha)
+let g:tex_flavor = 'latex'
+let g:tex_conceal = ''
+let g:vimtex_syntax_conceal_disable = 1
+let g:vimtex_view_method = 'general'
+let g:vimtex_view_general_viewer = 'evince'
 
 call plug#end()
 
@@ -305,10 +312,7 @@ endif
 " }}}
 
 " {{{ # LaTeX
-" Show command source literally instead of rendered math/symbols (α, ∑, etc.).
-let g:tex_flavor = 'latex'
-let g:tex_conceal = ''
-
+" Neosnippet sets global conceallevel=2; force raw source in TeX buffers.
 augroup dotfiles_tex
   autocmd!
   autocmd FileType tex,plaintex,bib setlocal conceallevel=0 concealcursor=
