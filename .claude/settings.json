@@ -7,7 +7,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -22,10 +22,13 @@
     ]
   },
   "alwaysThinkingEnabled": true,
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "medium"
+    }
+  },
   "tui": "fullscreen",
-  "editorMode": "normal",
-  "autoContinueAtUsageLimit": false,
   "remoteControlAtStartup": true,
   "skipAutoPermissionPrompt": true,
-  "awaySummaryEnabled": false
+  "agentPushNotifEnabled": true
 }
