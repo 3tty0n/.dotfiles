@@ -11,3 +11,10 @@
 
 .xmonad/*
 !.xmonad/xmonad.hs
+
+!.claude/
+.claude/*
+!.claude/settings.json
+!.claude/opencode-go.settings.json
+!.claude/opencode-go-usage.sh
+!.claude/commands/

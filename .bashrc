@@ -77,6 +77,15 @@ complete -F _z_fzf_complete z
 # }}}
 
 
+# {{{ claude-go (opencode-go)
+
+if [ -r "$HOME/.zsh/claude-go.sh" ]; then
+    . "$HOME/.zsh/claude-go.sh"
+fi
+
+# }}}
+
+
 # {{{ Alias
 
 alias g='git'

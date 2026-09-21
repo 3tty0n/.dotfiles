@@ -15,6 +15,7 @@ function usage {
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
   echo "  -m  --mail         clone 3tty0n/.xmail repository"
   echo "  -t  --tmu          setup tmux setting files"
+  echo "  -c  --claude       link ~/.claude setting files"
   echo "  -X                 clone 3tty0n/xconfig repository"
   echo "  -D                 execute as a debug mode"
   echo "  -a --all           set up all "
@@ -80,6 +81,15 @@ function setup_bash_conf {
     curl -o ~/.bash/z.sh https://raw.githubusercontent.com/rupa/z/refs/heads/master/z.sh
 }
 
+# ~/.claude は設定ファイルのみリンクする（sessions/ projects/ などの実行時状態はそのまま）
+function setup_claude {
+  mkdir -p "$HOME/.claude"
+  for f in settings.json opencode-go.settings.json opencode-go-usage.sh; do
+    ln -sfnv "$DOTFILES_ROOT/.claude/$f" "$HOME/.claude/$f"
+  done
+  ln -sfnv "$DOTFILES_ROOT/.claude/commands" "$HOME/.claude"
+}
+
 for OPT in "$@"; do
   case $OPT in
     '-h' | '--help' ) usage; exit 1 ;;
@@ -90,7 +100,8 @@ for OPT in "$@"; do
     '-m' | '--mail' ) setup_email; shift 1 ;;
     '-t' | '--tmu' ) setup_tmux; shift 1;;
     '-b' | '--bash' ) setup_bash_conf; shift 1;;
-    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; setup_bash_conf; exit ;;
+    '-c' | '--claude' ) setup_claude; shift 1;;
+    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; setup_bash_conf; setup_claude; exit ;;
     '-D' ) set -x; shift 1 ;;
     -*) echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2; exit 1 ;;
     *)

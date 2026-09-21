@@ -74,4 +74,8 @@ Temporary Items
 auto/
 
 .claude/
-.codex
+#!.claude/settings.json
+/.codex/
+
+CLAUDE.md
+AGENTS.md

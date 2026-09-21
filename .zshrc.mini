@@ -245,18 +245,7 @@ if command -v opam >/dev/null; then
   eval "$(opam env 2>/dev/null)"
 fi
 
-claude-go() {
-  OPENCODE_GO_MODEL="deepseek-v4.1-flash[1m]" \
-  ANTHROPIC_BASE_URL="https://opencode.ai/zen/go/" \
-  ANTHROPIC_API_KEY="${OPENCODE_API_KEY}" \
-  ANTHROPIC_AUTH_TOKEN="" \
-  ANTHROPIC_DEFAULT_FABLE_MODEL="kimi-k3" \
-  ANTHROPIC_DEFAULT_OPUS_MODEL="${OPENCODE_GO_MODEL}" \
-  ANTHROPIC_DEFAULT_SONNET_MODEL="${OPENCODE_GO_MODEL}" \
-  ANTHROPIC_DEFAULT_HAIKU_MODEL="${OPENCODE_GO_MODEL}" \
-  CLAUDE_CODE_SUBAGENT_MODEL="${OPENCODE_GO_MODEL}" \
-  claude "$@"
-}
+[[ -f ${DOT_ZSH_ROOT:-$HOME/.zsh}/claude-go.sh ]] && source ${DOT_ZSH_ROOT:-$HOME/.zsh}/claude-go.sh
 
 [[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
