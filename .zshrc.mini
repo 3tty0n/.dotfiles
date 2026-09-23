@@ -89,7 +89,7 @@ command -v rg >/dev/null && alias grep=rg
 alias g=git t=tig ta='tig --all' vi=vim md='mkdir -p' rm='rm -i'
 alias ..='cd ..' ...='cd ../..' ....='cd ../../..'
 alias -- -='cd -' d='dirs -v'
-alias claude-work='CLAUDE_CONFIG_DIR=$HOME/.claude-work claude'
+alias claude-work='CLAUDE_CONFIG_DIR=$HOME/.claude-work claude --model opus'
 
 # ── Plugins ───────────────────────────────────────────────────────────────────
 source $HOME/.zsh/plugin.zsh

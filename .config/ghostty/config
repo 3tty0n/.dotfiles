@@ -1,6 +1,7 @@
 font-family = "JetBrains Mono"
 font-family = "UDEV Gothic"
-font-size = 15
+font-family = "BIZ UDGothic"
+font-size = 14
 
 font-thicken = true
 font-thicken-strength = 20
