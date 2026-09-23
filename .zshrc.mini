@@ -229,4 +229,21 @@ zmodload zsh/complist 2>/dev/null
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # ── Extras (fuzzy finders, tool hooks, SDKs, local overrides) ──────────────────
-plugin ${DOT_ZSH_ROOT:-$HOME/.zsh}/shell-extras
+plugin ${DOT_ZSH_ROOT:-$HOME/.zsh}/shell-extension
+
+shell_extension_source $HOME/.zsh/plugins/fzf/shell/key-bindings.zsh
+shell_extension_source ${DOT_ZSH_ROOT:-$HOME/.zsh}/fzf-extensions/init.zsh
+
+shell_extension_eval direnv hook zsh
+shell_extension_eval opam env 2>/dev/null
+shell_extension_source $HOME/.opam/opam-init/init.zsh
+
+shell_extension_source $HOME/.skdman/bin/sdkman-init.sh
+
+shell_extension_source $HOME/.config/nvm/nvm.sh $HOME/.config/nvm/bash_completion
+
+[[ -d $HOME/.npm-global ]] && export PATH="$HOME/.npm-global/bin:$PATH"
+[[ -d $HOME/.opencode ]] && export PATH="$HOME/.opencode/bin:$PATH"
+
+shell_extension_source ${DOT_ZSH_ROOT:-$HOME/.zsh}/claude-go.sh
+shell_extension_source $HOME/.zshrc.local
