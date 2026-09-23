@@ -7,15 +7,16 @@ claude-go() {
     return 1
   fi
 
-  OPENCODE_GO_MODEL="deepseek-v4.1-flash[1m]" \
   ANTHROPIC_BASE_URL="https://opencode.ai/zen/go/" \
   ANTHROPIC_API_KEY="${OPENCODE_API_KEY}" \
   ANTHROPIC_AUTH_TOKEN="" \
-  ANTHROPIC_DEFAULT_FABLE_MODEL="kimi-k3" \
-  ANTHROPIC_DEFAULT_OPUS_MODEL="${OPENCODE_GO_MODEL}" \
-  ANTHROPIC_DEFAULT_SONNET_MODEL="${OPENCODE_GO_MODEL}" \
-  ANTHROPIC_DEFAULT_HAIKU_MODEL="${OPENCODE_GO_MODEL}" \
-  CLAUDE_CODE_SUBAGENT_MODEL="${OPENCODE_GO_MODEL}" \
+  ANTHROPIC_DEFAULT_FABLE_MODEL="glm-5.3" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4.1-flash[1m]" \
+  ANTHROPIC_DEFAULT_SONNET_MODEL="mimo-v2.6-flash" \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL="mimo-v2.6-flash" \
+  CLAUDE_CODE_SUBAGENT_MODEL="deepseek-v4.1-flash[1m]" \
   claude --permission-mode auto \
-    --settings "$HOME/.claude/opencode-go.settings.json" "$@"
+    --model sonnet \
+    --settings "$HOME/.claude/opencode-go.settings.json" \
+    "$@"
 }
