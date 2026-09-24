@@ -1,58 +1,77 @@
 #!/bin/sh
+# Claude Code statusLine — mirrors the zsh PROMPT style:
+#   shortened_dir [branch]  model  ctx%
+# Colors mirror the Tokyo Night palette used in the zsh PROMPT.
+
 input=$(cat)
-cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // "."')
-model=$(echo "$input" | jq -r '.model.display_name // ""')
-used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cwd=$(echo "$input" | jq -r '.cwd // .workspace.current_dir // empty')
+[ -z "$cwd" ] && cwd=$(pwd)
 
-# Shorten the directory path like zsh's _shorten_dir:
-# replace $HOME prefix with ~, then abbreviate intermediate segments to first char
-home="$HOME"
-short_cwd="${cwd#"$home"}"
-if [ "$short_cwd" != "$cwd" ]; then
-    short_cwd="~${short_cwd}"
-fi
+# Shorten directory: collapse intermediate components to first letter, keep last
+shorten_dir() {
+  home_dir="${HOME:-/root}"
+  p="$1"
+  # Replace $HOME prefix with ~
+  case "$p" in
+    "$home_dir"*) p="~${p#$home_dir}" ;;
+  esac
+  # If root, ~ or single component → return as-is
+  case "$p" in
+    / | "~" ) printf '%s' "$p"; return ;;
+  esac
+  base="${p##*/}"
+  dir="${p%/*}"
+  if [ "$dir" = "" ] || [ "$dir" = "~" ] || [ "$dir" = "$base" ]; then
+    printf '%s' "$p"
+    return
+  fi
+  # Shorten each intermediate path component to its first character
+  shortened=$(printf '%s' "$dir" | sed 's|/\([^/]\)[^/]*/|/\1/|g; s|/\([^/]\)[^/]*$|/\1|')
+  printf '%s/%s' "$shortened" "$base"
+}
 
-# Abbreviate intermediate path segments (all but last) to first character
-base="${short_cwd##*/}"
-dir="${short_cwd%/*}"
-if [ "$dir" != "$short_cwd" ] && [ -n "$dir" ] && [ "$dir" != "~" ] && [ "$dir" != "" ]; then
-    abbreviated=$(printf '%s' "$dir" | sed 's|/\([^/]\)[^/]*|/\1|g')
-    short_cwd="${abbreviated}/${base}"
-fi
+# Git branch (no optional lock to avoid contention)
+git_branch() {
+  git -C "$1" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null \
+    || git -C "$1" --no-optional-locks rev-parse --short HEAD 2>/dev/null
+}
 
-# Git branch from the workspace git worktree or via git command
-branch=$(echo "$input" | jq -r '.workspace.git_worktree // empty')
-if [ -z "$branch" ]; then
-    branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null || \
-             git -C "$cwd" --no-optional-locks rev-parse --short HEAD 2>/dev/null)
-fi
+# ANSI colors (Tokyo Night palette)
+BLUE='\033[38;2;122;162;247m'    # #7aa2f7  dir
+PURPLE='\033[38;2;187;154;247m'  # #bb9af7  branch
+CYAN='\033[38;2;125;207;255m'    # #7dcfff  model
+YELLOW='\033[38;2;224;175;104m'  # #e0af68  context
+DIM='\033[2m'
+RESET='\033[0m'
 
-# SSH indicator (orange #e0af68), matching zsh's _prompt_ssh
-if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_TTY" ]; then
-    ssh_part=$(printf '\033[38;2;224;175;104m@%s\033[0m ' "$(hostname -s)")
-else
-    ssh_part=""
-fi
+# --- dir + branch ---
+short_dir=$(shorten_dir "$cwd")
+branch=$(git_branch "$cwd" 2>/dev/null)
 
-# Tokyo Night colors: blue #7aa2f7, purple #bb9af7, green #9ece6a
-dir_part=$(printf '\033[38;2;122;162;247m%s\033[0m' "$short_cwd")
+output=$(printf "${BLUE}%s${RESET}" "$short_dir")
+[ -n "$branch" ] && output="${output}$(printf " ${PURPLE}%s${RESET}" "$branch")"
 
-if [ -n "$branch" ]; then
-    branch_part=$(printf ' \033[38;2;187;154;247m%s\033[0m' "$branch")
-else
-    branch_part=""
-fi
-
+# --- model (short name) ---
+model=$(echo "$input" | jq -r '.model.display_name // empty')
 if [ -n "$model" ]; then
-    model_part=$(printf ' \033[38;2;158;206;106m[%s]\033[0m' "$model")
-else
-    model_part=""
+  output="${output}$(printf "  ${DIM}${CYAN}%s${RESET}" "$model")"
 fi
 
-if [ -n "$used" ]; then
-    ctx_part=$(printf ' \033[38;2;158;206;106m[ctx:%.0f%%]\033[0m' "$used")
-else
-    ctx_part=""
+# --- context remaining % ---
+remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
+if [ -n "$remaining" ]; then
+  remaining_int=$(printf '%.0f' "$remaining")
+  output="${output}$(printf "  ${DIM}${YELLOW}ctx:%s%%%${RESET}" "$remaining_int")"
 fi
 
-printf '%s%s%s%s%s' "$ssh_part" "$dir_part" "$branch_part" "$model_part" "$ctx_part"
+# --- usage vs limit (5h / 7d windows, Pro/Max only) ---
+# Team plans have no seven_day window; each part is skipped when absent
+limits=$(echo "$input" | jq -r '
+  [(.rate_limits.five_hour.used_percentage? // empty | "5h:\(round)%"),
+   (.rate_limits.seven_day.used_percentage? // empty | "7d:\(round)%")]
+  | join(" ")' 2>/dev/null)
+if [ -n "$limits" ]; then
+  output="${output}$(printf "  ${DIM}${PURPLE}%s${RESET}" "$limits")"
+fi
+
+printf '%s' "$output"
