@@ -18,3 +18,4 @@
 !.claude/opencode-go.settings.json
 !.claude/opencode-go-usage.sh
 !.claude/commands/
+!.claude/statusline-command.sh
