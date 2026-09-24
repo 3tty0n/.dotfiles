@@ -205,7 +205,7 @@ prompt_theme() {
   esac
 }
 
-prompt_theme auto
+prompt_theme light
 
 # ── Keybindings ───────────────────────────────────────────────────────────────
 # bindkey -e must run before autopair-init, or it clears the pair bindings
