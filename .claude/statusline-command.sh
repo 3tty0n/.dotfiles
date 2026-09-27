@@ -53,16 +53,23 @@ output=$(printf "${BLUE}%s${RESET}" "$short_dir")
 
 # --- model (short name) ---
 model=$(echo "$input" | jq -r '.model.display_name // empty')
+effort=$(echo "$input" | jq -r '.effort.level')
 if [ -n "$model" ]; then
-  output="${output}$(printf "  ${DIM}${CYAN}%s${RESET}" "$model")"
+  output="${output}$(printf "  ${DIM}${CYAN}%s (%s)${RESET}" "$model" "$effort")"
+fi
+
+used=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+if [ -n "$used" ]; then
+  used_int=$(printf '%.0f' "$used")
+  output="${output}$(printf "  ${DIM}${YELLOW}%s%%%${RESET}" "$used_int") context"
 fi
 
 # --- context remaining % ---
-remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
-if [ -n "$remaining" ]; then
-  remaining_int=$(printf '%.0f' "$remaining")
-  output="${output}$(printf "  ${DIM}${YELLOW}ctx:%s%%%${RESET}" "$remaining_int")"
-fi
+#remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
+#if [ -n "$remaining" ]; then
+#  remaining_int=$(printf '%.0f' "$remaining")
+#  output="${output}$(printf "  ${DIM}${YELLOW}ctx:%s%%%${RESET}" "$remaining_int")"
+#fi
 
 # --- usage vs limit (5h / 7d windows, Pro/Max only) ---
 # Team plans have no seven_day window; each part is skipped when absent

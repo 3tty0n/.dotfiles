@@ -247,3 +247,6 @@ shell_extension_source $HOME/.config/nvm/nvm.sh $HOME/.config/nvm/bash_completio
 
 shell_extension_source ${DOT_ZSH_ROOT:-$HOME/.zsh}/claude-go.sh
 shell_extension_source $HOME/.zshrc.local
+
+# opencode
+export PATH=/Users/yizawa/.opencode/bin:$PATH

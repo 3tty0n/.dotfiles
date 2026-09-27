@@ -37,5 +37,5 @@ jq -r --argjson now "$(date +%s)" \
     epoch=$(( $(date +%s) + d ))
     t=$(date -d "@$epoch" '+%m-%d %H:%M' 2>/dev/null || date -r "$epoch" '+%m-%d %H:%M')
     if (( d >= 86400 )); then left="$((d / 86400))d$((d % 86400 / 3600))h"; else left="$((d / 3600))h$((d % 3600 / 60))m"; fi
-    printf '  %-7s %3d%%  %-3s  resets %s (%s 後)\n' "${w/rolling/5h}" "$p" "$s" "$t" "$left"
+    printf '  %-7s %3d%%  %-3s  resets %s (%s left)\n' "${w/rolling/5h}" "$p" "$s" "$t" "$left"
   done

@@ -81,10 +81,9 @@ function setup_bash_conf {
     curl -o ~/.bash/z.sh https://raw.githubusercontent.com/rupa/z/refs/heads/master/z.sh
 }
 
-# ~/.claude は設定ファイルのみリンクする（sessions/ projects/ などの実行時状態はそのまま）
 function setup_claude {
   mkdir -p "$HOME/.claude"
-  for f in settings.json opencode-go.settings.json opencode-go-usage.sh opencode-go-lang.sh; do
+  for f in settings.json opencode-go.settings.json opencode-go-usage.sh opencode-go-lang.sh statusline-command.sh; do
     ln -sfnv "$DOTFILES_ROOT/.claude/$f" "$HOME/.claude/$f"
   done
   ln -sfnv "$DOTFILES_ROOT/.claude/commands" "$HOME/.claude"
