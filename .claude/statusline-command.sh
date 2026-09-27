@@ -61,7 +61,7 @@ fi
 used=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 if [ -n "$used" ]; then
   used_int=$(printf '%.0f' "$used")
-  output="${output}$(printf "  ${DIM}${YELLOW}%s%%%${RESET}" "$used_int") context"
+  output="${output}$(printf "  ${DIM}${YELLOW}%s%%${RESET}" "$used_int") context"
 fi
 
 # --- context remaining % ---
@@ -72,13 +72,50 @@ fi
 #fi
 
 # --- usage vs limit (5h / 7d windows, Pro/Max only) ---
-# Team plans have no seven_day window; each part is skipped when absent
-limits=$(echo "$input" | jq -r '
-  [(.rate_limits.five_hour.used_percentage? // empty | "5h:\(round)%"),
-   (.rate_limits.seven_day.used_percentage? // empty | "7d:\(round)%")]
-  | join(" ")' 2>/dev/null)
-if [ -n "$limits" ]; then
-  output="${output}$(printf "  ${DIM}${PURPLE}%s${RESET}" "$limits")"
+# These fields are absent on plans/sessions where Claude Code does not expose rate limits.
+usage_5h=$(printf '%s' "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' 2>/dev/null)
+usage_7d=$(printf '%s' "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' 2>/dev/null)
+reset_5h=$(printf '%s' "$input" | jq -r '.rate_limits.five_hour.resets_at // empty' 2>/dev/null)
+reset_7d=$(printf '%s' "$input" | jq -r '.rate_limits.seven_day.resets_at // empty' 2>/dev/null)
+
+format_remaining() {
+  reset_at="$1"
+  [ -z "$reset_at" ] && return
+
+  case "$reset_at" in
+    *[!0-9.]*) reset_epoch=$(date -d "$reset_at" +%s 2>/dev/null) || return ;;
+    *) reset_epoch=${reset_at%.*} ;;
+  esac
+  now_epoch=$(date +%s)
+  diff=$((reset_epoch - now_epoch))
+  [ "$diff" -lt 0 ] && diff=0
+
+  days=$((diff / 86400))
+  hours=$(((diff % 86400) / 3600))
+  minutes=$(((diff % 3600) / 60))
+
+  if [ "$days" -gt 0 ]; then
+    printf '%dd%dh%02dm @%s' "$days" "$hours" "$minutes" "$(date -d "@$reset_epoch" '+%m/%d %H:%M')"
+  elif [ "$hours" -gt 0 ]; then
+    printf '%dh%02dm @%s' "$hours" "$minutes" "$(date -d "@$reset_epoch" '+%H:%M')"
+  else
+    printf '%dm @%s' "$minutes" "$(date -d "@$reset_epoch" '+%H:%M')"
+  fi
+}
+
+remaining_5h=$(format_remaining "$reset_5h")
+remaining_7d=$(format_remaining "$reset_7d")
+
+if [ -n "$usage_5h" ]; then
+  output="${output}$(printf "  ${DIM}${PURPLE}5h:%s%%%s${RESET}" \
+    "$(printf '%.0f' "$usage_5h")" \
+    "$([ -n "$remaining_5h" ] && printf ' (%s)' "$remaining_5h")")"
+fi
+
+if [ -n "$usage_7d" ]; then
+  output="${output}$(printf "  ${DIM}${PURPLE}7d:%s%%%s${RESET}" \
+    "$(printf '%.0f' "$usage_7d")" \
+    "$([ -n "$remaining_7d" ] && printf ' (%s)' "$remaining_7d")")"
 fi
 
 printf '%s' "$output"
