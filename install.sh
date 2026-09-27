@@ -15,7 +15,8 @@ function usage {
   echo "  -e  --emacs        clone 3tty0n/.emacs.d repository"
   echo "  -m  --mail         clone 3tty0n/.xmail repository"
   echo "  -t  --tmu          setup tmux setting files"
-  echo "  -c  --claude       link ~/.claude setting files"
+  echo "  -c  --claude       link ~/.claude setting files (personal)"
+  echo "  -w  --claude-work  link ~/.claude-work setting files (work)"
   echo "  -X                 clone 3tty0n/xconfig repository"
   echo "  -D                 execute as a debug mode"
   echo "  -a --all           set up all "
@@ -82,11 +83,16 @@ function setup_bash_conf {
 }
 
 function setup_claude {
-  mkdir -p "$HOME/.claude"
+  local target="${1:-$HOME/.claude}"
+  mkdir -p "$target"
   for f in settings.json opencode-go.settings.json opencode-go-usage.sh opencode-go-lang.sh statusline-command.sh; do
-    ln -sfnv "$DOTFILES_ROOT/.claude/$f" "$HOME/.claude/$f"
+    ln -sfnv "$DOTFILES_ROOT/.claude/$f" "$target/$f"
   done
-  ln -sfnv "$DOTFILES_ROOT/.claude/commands" "$HOME/.claude"
+  ln -sfnv "$DOTFILES_ROOT/.claude/commands" "$target"
+}
+
+function setup_claude_work {
+  setup_claude "$HOME/.claude-work"
 }
 
 for OPT in "$@"; do
@@ -100,7 +106,8 @@ for OPT in "$@"; do
     '-t' | '--tmu' ) setup_tmux; shift 1;;
     '-b' | '--bash' ) setup_bash_conf; shift 1;;
     '-c' | '--claude' ) setup_claude; shift 1;;
-    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; setup_bash_conf; setup_claude; exit ;;
+    '-w' | '--claude-work' ) setup_claude_work; shift 1;;
+    '-a' | '--all' ) setup_dotfiles; setup_emacs; setup_xconfig; setup_email; setup_tmux; setup_bash_conf; setup_claude; setup_claude_work; exit ;;
     '-D' ) set -x; shift 1 ;;
     -*) echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2; exit 1 ;;
     *)
