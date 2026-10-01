@@ -79,7 +79,8 @@ set  -g visual-activity  off
 # * Mouse
 set -g mouse on
 # OSC 52: writes to the LOCAL terminal's clipboard over SSH (no xclip needed on the remote)
-set -s copy-command 'bash -c "base64 -w0 | { IFS= read -r d; printf \"\\033]52;c;%s\\033\\\\\" \"\$d\" >/dev/tty; }"'
+# Also mirror into the local system clipboard when a display is available (Wayland / X11)
+set -s copy-command 'bash -c "d=\$(cat); if [ -n \"\$WAYLAND_DISPLAY\" ] && command -v wl-copy >/dev/null; then printf %s \"\$d\" | wl-copy; elif [ -n \"\$DISPLAY\" ] && command -v xclip >/dev/null; then printf %s \"\$d\" | xclip -i -sel c; fi; printf %s \"\$d\" | base64 -w0 | { IFS= read -r e; printf \"\\033]52;c;%s\\033\\\\\" \"\$e\" >/dev/tty; }"'
 
 bind -T root MouseDrag1Border resize-pane -M
 bind -n WheelUpPane   if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send-keys -M" "copy-mode -e; send-keys -M"
