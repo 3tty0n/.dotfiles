@@ -106,16 +106,21 @@ format_remaining() {
 remaining_5h=$(format_remaining "$reset_5h")
 remaining_7d=$(format_remaining "$reset_7d")
 
+limits=""
+sep=""
 if [ -n "$usage_5h" ]; then
-  output="${output}$(printf "  ${DIM}${PURPLE}5h:%s%%%s${RESET}" \
+  limits="${limits}${sep}$(printf "${DIM}${PURPLE}5h:%s%%%s${RESET}" \
     "$(printf '%.0f' "$usage_5h")" \
     "$([ -n "$remaining_5h" ] && printf ' (%s)' "$remaining_5h")")"
+  sep="  "
 fi
 
 if [ -n "$usage_7d" ]; then
-  output="${output}$(printf "  ${DIM}${PURPLE}7d:%s%%%s${RESET}" \
+  limits="${limits}${sep}$(printf "${DIM}${PURPLE}7d:%s%%%s${RESET}" \
     "$(printf '%.0f' "$usage_7d")" \
     "$([ -n "$remaining_7d" ] && printf ' (%s)' "$remaining_7d")")"
 fi
 
+# Line 1: dir/model/context, line 2: rate limits (omitted when unavailable)
 printf '%s' "$output"
+[ -n "$limits" ] && printf '\n%s' "$limits"
